@@ -368,12 +368,314 @@ tr:last-child td{border-bottom:none}
 .eig-chip:hover{border-color:var(--text3)}
 .eig-chip-del{background:none;border:none;cursor:pointer;color:var(--text3);padding:0;font-size:11px;line-height:1}
 .eig-chip-del:hover{color:var(--orange)}
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE  — alles onder 768px
+   ══════════════════════════════════════════════════════════════ */
+
+/* Hamburger knop — verborgen op desktop */
+.mob-header {
+  display: none;
+}
+.ham-btn {
+  background: none; border: none; cursor: pointer;
+  color: var(--text); padding: 4px 6px; border-radius: 7px;
+  font-size: 20px; line-height: 1;
+}
+.ham-btn:hover { background: var(--bg3); }
+
+/* Overlay achter open sidebar op mobiel */
+.sb-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 99;
+}
+.sb-overlay.open { display: block; }
+
+@media (max-width: 768px) {
+
+  /* ── Algemeen ── */
+  html, body { overflow-x: hidden; }
+
+  /* ── App layout: sidebar als drawer ── */
+  .app {
+    flex-direction: column;
+    height: 100dvh;
+  }
+
+  /* Mobiel header balk */
+  .mob-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-shrink: 0;
+  }
+  .mob-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .mob-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Sidebar wordt een slide-in drawer */
+  .sb {
+    position: fixed;
+    top: 0; left: 0;
+    height: 100dvh;
+    width: 240px;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    box-shadow: 4px 0 24px rgba(0,0,0,.3);
+  }
+  .sb.open {
+    transform: translateX(0);
+  }
+
+  /* Main content vult het hele scherm */
+  .main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 12px 80px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ── Typografie & spacing ── */
+  .ph { margin-bottom: 10px; }
+  .pt { font-size: 15px; }
+  .card { padding: 11px; margin-bottom: 8px; }
+  .dash-card { padding: 11px; }
+
+  /* ── Stat row: 2x2 grid op mobiel ── */
+  .stat-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .stat-box { padding: 8px 10px; }
+  .stat-num { font-size: 18px !important; }
+
+  /* ── Dashboard: 1 kolom ── */
+  .dash-wrap {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  /* ── Twee/drie koloms grids: 1 kolom ── */
+  .two {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .three {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .sg {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+  }
+
+  /* ── Financiën overview: 1 kolom ── */
+  .fin-overview {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .fin-ov-num { font-size: 18px !important; }
+
+  /* ── Tabbladen: scrollen horizontaal ── */
+  .tbar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+    gap: 0;
+    padding-bottom: 1px;
+  }
+  .tbar::-webkit-scrollbar { display: none; }
+  .tb {
+    white-space: nowrap;
+    padding: 7px 13px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  /* ── Knoppen: touch-vriendelijk ── */
+  .btn { min-height: 34px; padding: 6px 12px; }
+  .btn.sm { min-height: 28px; padding: 4px 9px; }
+  .tog { width: 34px; height: 20px; }
+  .del { min-height: 28px; min-width: 28px; }
+
+  /* ── Page header knoppen ── */
+  .ph .btn { font-size: 11.5px; padding: 5px 9px; }
+
+  /* ── Modals: volledig scherm op mobiel ── */
+  .modal-box {
+    width: calc(100vw - 24px);
+    max-width: 100%;
+    max-height: 85dvh;
+    margin: 0 12px;
+    border-radius: 16px 16px 8px 8px;
+    padding: 16px;
+  }
+  .modal-bg {
+    align-items: flex-end;
+    padding-bottom: 0;
+  }
+
+  /* ── Financiën rijen ── */
+  .fin-row { padding: 7px 0; }
+  .fin-row-name { gap: 5px; }
+  .fin-row-cat { font-size: 9.5px; padding: 1px 5px; }
+  .fin-row-amt { font-size: 12px; }
+
+  /* ── Financiën switch ── */
+  .fin-switch { margin-bottom: 8px; }
+  .fin-sw-btn { font-size: 11.5px; padding: 6px 8px; }
+
+  /* ── Supplement rijen ── */
+  .supp-item { padding: 7px 0; }
+  .supp-name { font-size: 12px; }
+  .supp-note { font-size: 10px; }
+  .supp-cost { font-size: 10.5px; }
+
+  /* ── Routine items ── */
+  .rout-item { padding: 8px 0; }
+  .rout-lbl { font-size: 13px; }
+  .rout-cb { width: 18px; height: 18px; }
+
+  /* ── Habit check items ── */
+  .hck { padding: 8px 0; }
+  .hck-lbl { font-size: 13px; }
+
+  /* ── Habit score buttons ── */
+  .hsb { width: 30px; height: 30px; font-size: 11px; }
+  .hab-score-row { gap: 4px; }
+
+  /* ── Goals ── */
+  .goal-card { padding: 10px; }
+
+  /* ── Task edit modal ── */
+  .task-edit-row { gap: 6px; }
+  .task-edit-label { min-width: 80px; font-size: 11px; }
+
+  /* ── Table overflow ── */
+  table { font-size: 11px; }
+  .card table { overflow-x: auto; display: block; }
+
+  /* ── Planner grid ── */
+  .week-grid { grid-template-columns: 1fr !important; }
+  .day-col { min-width: 0 !important; }
+
+  /* ── Calendar ── */
+  .cal-grid { grid-template-columns: repeat(7, 1fr) !important; }
+  .cal-day { padding: 4px 2px !important; font-size: 10px !important; }
+
+  /* ── Arc items ── */
+  .arc-item { padding: 9px 0; }
+
+  /* ── Bottom navigation hint ── */
+  .main::after {
+    content: '';
+    display: block;
+    height: 20px;
+  }
+}
+
+/* Kleine telefoons (iPhone SE etc.) */
+@media (max-width: 390px) {
+  .main { padding: 10px 10px 70px; }
+  .stat-num { font-size: 16px !important; }
+  .three { grid-template-columns: 1fr 1fr; }
+  .sg { grid-template-columns: 1fr 1fr; }
+  .tb { padding: 6px 10px; font-size: 11.5px; }
+  .fin-ov-num { font-size: 16px !important; }
+}
+
+
+@media (max-width: 768px) {
+  #sb-close-row { display: flex !important; }
+}
+
+/* ── Light theme ─────────────────────────────────────────────── */
+body[data-theme="light"] {
+  --bg: #f5f5f5;
+  --bg2: #ffffff;
+  --bg3: #efefef;
+  --border: #d8d8d8;
+  --text: #111111;
+  --text2: #444444;
+  --text3: #888888;
+}
+body[data-theme="light"] .sb {
+  box-shadow: 2px 0 12px rgba(0,0,0,.08);
+}
+body[data-theme="light"] .modal-box {
+  box-shadow: 0 24px 70px rgba(0,0,0,.15);
+}
+body[data-theme="light"] .card,
+body[data-theme="light"] .dash-card,
+body[data-theme="light"] .fin-ov-card {
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+
+/* ── Mobile layout fix ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  .app {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .main {
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Ensure sidebar sits above everything */
+  .sb {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
 </style>
 </head>
 <body>
+<!-- Mobile overlay -->
+<div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
+
+<!-- Mobile header -->
+<div class="mob-header" id="mob-header">
+  <button class="ham-btn" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+  <span class="mob-title" id="mob-title">Pimmies OS</span>
+  <div class="mob-header-actions">
+    <button class="btn sm theme-btn" onclick="toggleTheme()" style="font-size:13px;padding:5px 8px">🌙</button>
+  </div>
+</div>
+
 <div class="app">
 <!-- SIDEBAR -->
-<div class="sb">
+<div class="sb" id="main-sidebar">
+  <div style="display:flex;align-items:center;justify-content:flex-end;padding:8px 10px 0;display:none" id="sb-close-row">
+    <button class="ham-btn" onclick="closeSidebar()" aria-label="Sluiten" style="font-size:16px">✕</button>
+  </div>
   <div class="sb-top">
     <div class="sb-name">Pimmies OS</div>
     <div class="sb-date" id="sbd"></div>
@@ -411,6 +713,54 @@ tr:last-child td{border-bottom:none}
 </div>
 
 <script>
+// ── Mobile sidebar & theme ────────────────────────────────────
+function toggleSidebar() {
+  var sb = document.querySelector('.sb');
+  var ov = el('sb-overlay');
+  var cr = el('sb-close-row');
+  if (!sb) return;
+  var isOpen = sb.classList.contains('open');
+  if (isOpen) {
+    closeSidebar();
+  } else {
+    sb.classList.add('open');
+    if (ov) ov.classList.add('open');
+    if (cr) cr.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+}
+function closeSidebar() {
+  var sb = document.querySelector('.sb');
+  var ov = el('sb-overlay');
+  var cr = el('sb-close-row');
+  if (sb) sb.classList.remove('open');
+  if (ov) ov.classList.remove('open');
+  if (cr) cr.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function setMobTitle(title) {
+  var t = el('mob-title');
+  if (t) t.textContent = title || 'Pimmies OS';
+}
+function toggleTheme() {
+  var isDark = document.body.getAttribute('data-theme') !== 'light';
+  var newTheme = isDark ? 'light' : 'dark';
+  document.body.setAttribute('data-theme', newTheme);
+  // Update all theme buttons
+  document.querySelectorAll('.theme-btn').forEach(function(btn) {
+    btn.textContent = newTheme === 'light' ? '☀️' : '🌙';
+  });
+  try { localStorage.setItem('pimmies_theme', newTheme); } catch(e) {}
+}
+// Init theme from storage
+(function() {
+  try {
+    var t = localStorage.getItem('pimmies_theme') || 'dark';
+    document.body.setAttribute('data-theme', t);
+  } catch(e) {}
+})();
+
+
 // ─── CONSTANTS ───────────────────────────────────────────────────────────────
 const SK = 'pimmies_os';
 const HL = [
@@ -776,6 +1126,13 @@ const RENDERS = {
   shop:rShop, lees:rLees, ops:rOps, ctc:rCtc, qt:rQt, notes:rNotes, settings:rSettings
 };
 document.querySelectorAll('.ni').forEach(n => n.addEventListener('click', () => {
+  // Close sidebar on mobile after nav click
+  if (window.innerWidth <= 768) {
+    closeSidebar();
+    // Update mobile header title
+    var lbl = n.textContent.trim();
+    setMobTitle(lbl);
+  }
   qsa('.ni').forEach(x=>x.classList.remove('on')); n.classList.add('on');
   (RENDERS[n.dataset.s]||function(){})();
 }));
