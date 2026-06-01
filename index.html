@@ -38,12 +38,26 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;background:va
 .sn{font-size:20px;font-weight:700;color:var(--text)}
 .sl{font-size:10px;color:var(--text3);margin-top:1px}
 /* FORM ELEMENTS */
-input,select,textarea{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:7px;padding:6px 9px;font-size:12.5px;font-family:inherit;outline:none;transition:border-color .15s}
-input:focus,select:focus,textarea:focus{border-color:var(--green)}
+input:not([type=checkbox]):not([type=radio]),select,textarea{background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:7px;padding:6px 9px;font-size:12.5px;font-family:inherit;outline:none;transition:border-color .15s}
+input:not([type=checkbox]):not([type=radio]):focus,select:focus,textarea:focus{border-color:var(--green)}
 textarea{resize:vertical;line-height:1.55}
 .row{display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap}
 .row input,.row select{font-size:12px}
 .row input{flex:1;min-width:60px}
+
+/* ── Checkboxes & radios ─────────────────────────────────────── */
+input[type=checkbox], input[type=radio] {
+  width: 15px; height: 15px;
+  accent-color: var(--green);
+  cursor: pointer;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  min-width: unset;
+}
+input[type=checkbox]:focus, input[type=radio]:focus { outline: none; }
+
 /* BUTTONS */
 .btn{font-size:12px;padding:5px 10px;cursor:pointer;border:1px solid var(--border);border-radius:7px;background:var(--bg3);color:var(--text);white-space:nowrap;transition:all .1s}
 .btn:hover{background:var(--border)}
@@ -2773,7 +2787,6 @@ function rRout() {
   renderRoutTab(_routTab);
 }
 
-function togTask(i,v) { if(S.tasks[i])S.tasks[i].done=v;save(); }
 
 
 function rRefl() {
@@ -3614,7 +3627,7 @@ function rFS() {
   <div class="card"><div class="ct">🏠 Privé — €${mnd(prv).toFixed(2)}/mnd</div>${sRow(prv)||em('tag','Geen privé abonnementen')}</div>`;
 }
 function addSub() { const n=el('snn').value.trim();const b=parseFloat(el('sbb').value);if(!n||isNaN(b))return;if(!S.subs)S.subs=[];S.subs.push({id:'s'+Date.now(),n,b,freq:el('sff').value,cat:el('scc').value,on:true});el('snn').value='';el('sbb').value='';save();rFS(); }
-function togSub(id) { const s=S.subs.find(x=>x.id===id);if(s){s.on=!s.on;save();rFS();} }
+function togSub(id) { const s=S.subs.find(x=>x.id===id);if(s){s.on=!s.on;save();refreshFin();} }
 function rFV() {
   const e=el('sp-fvl'); if(!e)return;
   const vl=S.vasteL||[]; const tot=vl.reduce((t,v)=>t+parseFloat(v.b),0);
