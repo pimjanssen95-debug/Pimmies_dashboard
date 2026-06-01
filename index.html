@@ -655,6 +655,117 @@ body[data-theme="light"] .fin-ov-card {
     border-bottom: 1px solid var(--border);
   }
 }
+
+/* ── Planner responsive layout ────────────────────────────────── */
+.plan-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  gap: 0;
+}
+.plan-main {
+  flex: 1;
+  overflow-y: auto;
+}
+.plan-side {
+  width: 220px;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+@media (max-width: 768px) {
+  .plan-body {
+    flex-direction: column;
+    overflow: visible;
+  }
+  .plan-main {
+    overflow: visible;
+    min-height: 0;
+  }
+  .plan-side {
+    display: none !important;
+  }
+  .plan-mob-tasks {
+    display: block !important;
+    padding: 12px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+}
+
+/* ── Habit tracker rows ─────────────────────────────────────── */
+.hab-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  transition: opacity .15s;
+}
+.hab-row:last-child { border-bottom: none; }
+.hab-cb {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all .15s;
+  position: relative;
+}
+.hab-cb.on {
+  background: var(--green);
+  border-color: var(--green);
+}
+.hab-cb.on::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+.hab-row-lbl {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.3;
+  transition: all .15s;
+}
+.hab-row-lbl.done {
+  text-decoration: line-through;
+  color: var(--text3);
+}
+.hab-del {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text3);
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity .1s;
+}
+.hab-row:hover .hab-del { opacity: 1; }
+.tip-item {
+  font-size: 11.5px;
+  color: var(--text2);
+  padding: 6px 8px;
+  background: var(--bg3);
+  border-radius: 7px;
+  line-height: 1.3;
+}
+/* Mobile: show del button always */
+@media (max-width: 768px) {
+  .hab-del { opacity: 0.5; }
+  .hab-row-lbl { font-size: 13.5px; }
+  .hab-cb { width: 26px; height: 26px; }
+}
 </style>
 </head>
 <body>
@@ -1466,16 +1577,16 @@ function togDT(id,v) { const t=S.tasks.find(x=>x.id===id); if(t){t.done=v; save(
 function rPlan() {
   selDay = selDay || td();
   M.innerHTML=`
-  <div style="display:flex;flex-direction:column;height:calc(100vh - 90px)">
+  <div style="display:flex;flex-direction:column;height:100%">
     <div style="flex-shrink:0;padding-bottom:8px">
       <div class="ph" style="margin-bottom:8px">
         <div class="pt">Planner</div>
-        <div style="display:flex;align-items:center;gap:5px">
+        <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
           <button class="btn sm" onclick="plPrev()">←</button>
-          <span id="pllbl" style="font-size:12px;color:var(--text2);min-width:160px;text-align:center"></span>
+          <span id="pllbl" style="font-size:12px;color:var(--text2);min-width:100px;text-align:center"></span>
           <button class="btn sm" onclick="plNext()">→</button>
           <button class="btn sm" onclick="selDay=td();wkOff=0;selM=new Date();rPlBody()">Vandaag</button>
-          <button class="ai-btn" onclick="rAIModal()">✨ AI Weekplanner</button>
+          <button class="ai-btn" onclick="rAIModal()">✨ AI</button>
         </div>
       </div>
       <div class="tbar" id="pltb">
@@ -1484,37 +1595,39 @@ function rPlan() {
         <button class="tb" onclick="setPlTab(this,'week')">Week</button>
         <button class="tb" onclick="setPlTab(this,'maand')">Maand</button>
         <button class="tb" onclick="setPlTab(this,'jaar')">Jaar</button>
-        <button class="tb" onclick="setPlTab(this,'spec')">📅 Speciale dagen</button>
+        <button class="tb" onclick="setPlTab(this,'spec')">📅 Speciale</button>
       </div>
     </div>
-    <div style="display:flex;flex:1;overflow:hidden">
-      <div style="flex:1;overflow-y:auto" id="plcal"></div>
-      <div class="pl-right">
-        <div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px">Open taken</div>
-        <div id="ot-list"></div>
-        <div style="margin-top:11px;padding-top:11px;border-top:1px solid var(--border)">
-          <div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.6px">+ Nieuw event</div>
-          <input type="text" id="nev-t" placeholder="Titel event..." style="width:100%;margin-bottom:5px">
-          <div style="display:flex;gap:4px;margin-bottom:5px"><input type="time" id="nev-s" value="09:00" style="flex:1"><input type="time" id="nev-e" value="10:00" style="flex:1"></div>
-          <select id="nev-c" style="width:100%;margin-bottom:6px">${EVCOLS.map(c=>`<option value="${c.v}">${c.l}</option>`).join('')}</select>
-          <label style="font-size:11.5px;display:flex;align-items:center;gap:5px;margin-bottom:6px;color:var(--text2)">
-            <input type="checkbox" id="nev-r" style="width:13px;height:13px" onchange="el('nev-d').style.display=this.checked?'flex':'none'"> Wekelijks herhalen
-          </label>
-          <div id="nev-d" style="display:none;flex-wrap:wrap;gap:4px;margin-bottom:7px">
-            ${['Ma','Di','Wo','Do','Vr','Za','Zo'].map((d,i)=>{const dow=i===6?0:i+1;return`<label style="font-size:10.5px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--text2)"><input type="checkbox" class="ndy" value="${dow}" style="width:12px;height:12px">${d}</label>`;}).join('')}
+    <div class="plan-body">
+      <div class="plan-main" id="plcal"></div>
+      <div class="plan-side">
+        <div class="pl-right">
+          <div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px">Open taken</div>
+          <div id="ot-list"></div>
+          <div style="margin-top:11px;padding-top:11px;border-top:1px solid var(--border)">
+            <div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:7px;text-transform:uppercase;letter-spacing:.6px">+ Nieuw event</div>
+            <input type="text" id="nev-t" placeholder="Titel event..." style="width:100%;margin-bottom:5px">
+            <div style="display:flex;gap:4px;margin-bottom:5px"><input type="time" id="nev-s" value="09:00" style="flex:1"><input type="time" id="nev-e" value="10:00" style="flex:1"></div>
+            <select id="nev-c" style="width:100%;margin-bottom:6px">${EVCOLS.map(c=>`<option value="${c.v}">${c.l}</option>`).join('')}</select>
+            <label style="font-size:11.5px;display:flex;align-items:center;gap:5px;margin-bottom:6px;color:var(--text2)">
+              <input type="checkbox" id="nev-r" style="width:13px;height:13px" onchange="el('nev-d').style.display=this.checked?'flex':'none'"> Wekelijks herhalen
+            </label>
+            <div id="nev-d" style="display:none;flex-wrap:wrap;gap:4px;margin-bottom:7px">
+              ${['Ma','Di','Wo','Do','Vr','Za','Zo'].map((d,i)=>{const dow=i===6?0:i+1;return`<label style="font-size:10.5px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--text2)"><input type="checkbox" class="ndy" value="${dow}" style="width:12px;height:12px">${d}</label>`;}).join('')}
+            </div>
+            <button class="btn pri" onclick="addEvPanel()" style="width:100%">+ Toevoegen</button>
           </div>
-          <button class="btn pri" onclick="addEvPanel()" style="width:100%">+ Toevoegen</button>
         </div>
       </div>
+    </div>
+    <!-- Mobile: open taken UNDER calendar -->
+    <div class="plan-mob-tasks" id="plan-mob-tasks" style="display:none">
+      <div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px">Open taken</div>
+      <div id="ot-list-mob"></div>
     </div>
   </div>`;
   rPlBody(); rOTList();
 }
-
-function setPlTab(btn,tab) { plTab=tab; qsa('#pltb .tb').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); rPlBody(); }
-function plPrev() { if(plTab==='dag'){const d=new Date(selDay);d.setDate(d.getDate()-1);selDay=d.toISOString().split('T')[0];}else if(plTab==='week')wkOff--;else if(plTab==='maand'){selM.setMonth(selM.getMonth()-1);}else if(plTab==='jaar'){selM.setFullYear(selM.getFullYear()-1);}rPlBody(); }
-function plNext() { if(plTab==='dag'){const d=new Date(selDay);d.setDate(d.getDate()+1);selDay=d.toISOString().split('T')[0];}else if(plTab==='week')wkOff++;else if(plTab==='maand'){selM.setMonth(selM.getMonth()+1);}else if(plTab==='jaar'){selM.setFullYear(selM.getFullYear()+1);}rPlBody(); }
-
 function rPlBody() {
   const lbl=el('pllbl'); const cal=el('plcal'); if(!cal) return;
   if(plTab==='dag') { if(lbl)lbl.textContent=new Date(selDay).toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long'}); rDayView(cal); }
@@ -2364,93 +2477,107 @@ function togTask(i,v) { if(S.tasks[i])S.tasks[i].done=v;save(); }
 // ══════════════════════════════════════════════════════════════════════
 function rHab() {
   if(!S.habItems) S.habItems = DEF_HABS.map(function(h){return Object.assign({},h);});
-  var t=td();
-  var hdata=S.habits[t]||{};
-  var c=S.habItems.filter(function(h){return hdata[h.id];}).length;
-  var tot=S.habItems.length;
-  var pct2=tot?Math.round(c/tot*100):0;
-  var streak=calcStreak();
+  var t = td();
+  var hdata = S.habits[t] || {};
+  var c = S.habItems.filter(function(h){return hdata[h.id];}).length;
+  var tot = S.habItems.length;
+  var pct2 = tot ? Math.round(c/tot*100) : 0;
+  var streak = calcStreak();
+  var sc = S.habScore && S.habScore[t] ? S.habScore[t] : 0;
 
-  var itemsH=S.habItems.map(function(h){
-    var v=!!hdata[h.id];
-    return '<div class="hab-q">'
-      +'<div class="hab-q-lbl"><span>'+h.l+'</span>'
-      +'<button class="rout-del" onclick="delHabItem(\''+h.id+'\')">✕</button></div>'
-      +'<label style="display:flex;align-items:center;gap:9px;cursor:pointer">'
-      +'<input type="checkbox" class="rout-cb"'+(v?' checked':'')+' onchange="togHabItem(\''+h.id+'\',this.checked)">'
-      +'<span style="font-size:12.5px;color:'+(v?'var(--text3)':'var(--text)');+(v?'text-decoration:line-through;':'')+'">'+h.l+'</span>'
-      +'</label></div>';
-  }).join('');
-
-  // Weekly heatmap (7 days)
-  var heatH='';
-  for(var i=6;i>=0;i--){
-    var d=new Date(); d.setDate(d.getDate()-i);
-    var dk=d.toISOString().split('T')[0];
-    var hd=S.habits[dk]||{};
-    var dc=S.habItems.filter(function(h){return hd[h.id];}).length;
+  // Heatmap 7 days
+  var heatH = '';
+  var DNS2 = ['Zo','Ma','Di','Wo','Do','Vr','Za'];
+  for(var i=6; i>=0; i--){
+    var d2=new Date(); d2.setDate(d2.getDate()-i);
+    var dk=d2.toISOString().split('T')[0];
+    var hd2=S.habits[dk]||{};
+    var dc=S.habItems.filter(function(h){return hd2[h.id];}).length;
     var dp=tot?Math.round(dc/tot*100):0;
-    heatH+='<div title="'+dk+'" style="flex:1;height:28px;border-radius:4px;background:'+cpc(dp)+';opacity:'+(i===0?1:.7)+';display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px"><span style="font-size:8px;color:#fff;font-weight:700">'+(dp>0?dc:'')+'</span></div>';
+    var isT=i===0;
+    heatH+='<div style="flex:1;text-align:center">'
+      +'<div style="font-size:9px;color:var(--text3);margin-bottom:3px">'+DNS2[d2.getDay()]+'</div>'
+      +'<div style="height:32px;border-radius:6px;background:'+cpc(dp)+';'+(isT?'box-shadow:0 0 0 2px var(--text);':'')+'opacity:'+(i===0?1:.75)+';display:flex;align-items:center;justify-content:center">'
+      +'<span style="font-size:9px;color:#fff;font-weight:700">'+(dp>0?dc:'')+'</span>'
+      +'</div></div>';
   }
 
-  M.innerHTML='<div class="ph"><div class="pt">Habits</div>'
+  // Build habit items — clean horizontal toggle rows
+  var itemsH = S.habItems.map(function(h){
+    var v = !!hdata[h.id];
+    return '<div class="hab-row" id="habrow-'+h.id+'">'
+      +'<button class="hab-cb'+(v?' on':'')+'" data-hid="'+h.id+'" onclick="togHabBtn(this)"></button>'
+      +'<span class="hab-row-lbl'+(v?' done':'')+'">'+h.l+'</span>'
+      +'<button class="hab-del" data-hid="'+h.id+'" onclick="delHabBtn(this)">✕</button>'
+      +'</div>';
+  }).join('');
+
+  // Score buttons
+  var scoreH = [1,2,3,4,5,6,7,8,9,10].map(function(n){
+    return '<button class="hsb'+(sc===n?' on':'')+'" onclick="setHabScore('+n+')">'+n+'</button>';
+  }).join('');
+
+  M.innerHTML = '<div class="ph"><div class="pt">Habits</div>'
     +'<div style="display:flex;align-items:center;gap:8px">'
-    +'<span style="font-size:12px;color:var(--text3)">🔥 '+streak+' streak</span>'
+    +'<span style="font-size:12px;color:var(--text3)">🔥 '+streak+' dagen</span>'
     +'<button class="btn sm" onclick="addHabItem()">+ Habit</button>'
     +'</div></div>'
 
-    +'<div class="tbar"><button class="tb on" onclick="stb(this,\'hvd\')">Vandaag</button>'
+    +'<div class="tbar">'
+    +'<button class="tb on" onclick="stb(this,\'hvd\')">Vandaag</button>'
     +'<button class="tb" onclick="stb(this,\'hwk\');rHWk()">Week</button>'
     +'<button class="tb" onclick="stb(this,\'hmn\');rHMn()">Maand</button>'
-    +'<button class="tb" onclick="stb(this,\'harc\');rHArc()">Archief</button></div>'
+    +'<button class="tb" onclick="stb(this,\'harc\');rHArc()">Archief</button>'
+    +'</div>'
 
     +'<div class="sp on" id="sp-hvd">'
-    +'<div class="two">'
-    +'<div>'
 
-    // Score card
+    // Top stat bar
     +'<div class="card" style="margin-bottom:10px">'
     +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
-    +'<div><div style="font-size:22px;font-weight:700;color:var(--text)">'+c+'/'+tot+'</div>'
-    +'<div style="font-size:11px;color:'+cpc(pct2)+'">'+pct2+'% vandaag</div></div>'
-    +'<div style="text-align:right"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">7 dagen</div>'
-    +'<div style="display:flex;gap:2px;align-items:flex-end;height:30px">'+heatH+'</div>'
-    +'</div></div>'
+    +'<div>'
+    +'<span style="font-size:28px;font-weight:800;color:var(--text);line-height:1">'+c+'</span>'
+    +'<span style="font-size:14px;color:var(--text3);margin-left:2px">/'+tot+'</span>'
+    +'<div style="font-size:11px;color:'+cpc(pct2)+';margin-top:2px">'+pct2+'% afgevinkt</div>'
+    +'</div>'
+    +'<div style="flex:1;max-width:200px;margin:0 16px">'
+    +'<div style="display:flex;gap:3px;height:38px;align-items:flex-end">'+heatH+'</div>'
+    +'</div>'
+    +'<div style="text-align:right">'
+    +'<div style="font-size:10px;color:var(--text3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px">Dagscore</div>'
+    +'<div style="display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;max-width:130px" id="habsc-row">'+scoreH+'</div>'
+    +'</div>'
+    +'</div>'
     +'<div class="fin-saldo-bar"><div class="fin-saldo-fil" style="width:'+pct2+'%;background:'+cpc(pct2)+'"></div></div>'
     +'</div>'
 
-    // Habit items
-    +'<div class="card"><div class="ct">Afvinken (einde dag)</div>'
+    // Habit list
+    +'<div class="card">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
+    +'<div class="ct" style="margin-bottom:0">Habits vandaag</div>'
+    +'<span style="font-size:11px;color:var(--text3)">Einde dag invullen</span>'
+    +'</div>'
     +itemsH
-    +'</div></div>'
+    +'</div>'
 
-    // Dagscore side
-    +'<div>'
-    +'<div class="card"><div class="ct">Dagscore</div>'
-    +'<div style="font-size:12px;color:var(--text3);margin-bottom:10px;line-height:1.65">Geef je dag een eindcijfer na het invullen van je habits en reflectie.</div>'
-    +'<div class="hab-score-row" id="habsc-row">'
-    +[1,2,3,4,5,6,7,8,9,10].map(function(n){
-        var sc=S.habScore&&S.habScore[t]?S.habScore[t]:0;
-        return '<div class="hsb'+(sc===n?' on':'')+'" onclick="setHabScore('+n+')">'+n+'</div>';
-      }).join('')
-    +'</div></div>'
-
+    // Afsluit tips — compact
     +'<div class="card" style="margin-top:10px">'
-    +'<div class="ct">Afsluit routine tips</div>'
-    +'<div style="font-size:12px;color:var(--text2);line-height:1.75">'
-    +'<div style="padding:4px 0;border-bottom:1px solid var(--border)">1. Schrijf 3 wins van vandaag op</div>'
-    +'<div style="padding:4px 0;border-bottom:1px solid var(--border)">2. Vink je habits af (eerlijk!)</div>'
-    +'<div style="padding:4px 0;border-bottom:1px solid var(--border)">3. Vul je reflectie in</div>'
-    +'<div style="padding:4px 0;border-bottom:1px solid var(--border)">4. Plan top 3 voor morgen</div>'
-    +'<div style="padding:4px 0;border-bottom:1px solid var(--border)">5. Geef jezelf een eerlijk dagscore</div>'
-    +'<div style="padding:4px 0">6. Telefoon weg — offline tot morgen</div>'
+    +'<div class="ct" style="margin-bottom:8px">Avondroutine checklist</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">'
+    +'<div class="tip-item">✍️ 3 wins opschrijven</div>'
+    +'<div class="tip-item">✅ Habits afvinken</div>'
+    +'<div class="tip-item">📝 Reflectie invullen</div>'
+    +'<div class="tip-item">📋 Top 3 voor morgen</div>'
+    +'<div class="tip-item">⭐ Dagscore geven</div>'
+    +'<div class="tip-item">📵 Telefoon weg 21:00</div>'
     +'</div></div>'
 
-    +'</div></div></div>'
+    +'</div>'
     +'<div class="sp" id="sp-hwk"></div>'
     +'<div class="sp" id="sp-hmn"></div>'
     +'<div class="sp" id="sp-harc"></div>';
 }
+
 function calcStreak(){
   var streak=0; var d2=new Date(); var t2=td();
   while(true){
@@ -2463,6 +2590,17 @@ function calcStreak(){
   }
   return streak;
 }
+function delHabBtn(btn){delHabItem(btn.getAttribute('data-hid'));}
+
+function togHabBtn(btn) {
+  var id = btn.getAttribute('data-hid');
+  var v = !btn.classList.contains('on');
+  btn.classList.toggle('on', v);
+  var lbl = btn.nextElementSibling;
+  if (lbl) lbl.classList.toggle('done', v);
+  togHabItem(id, v);
+}
+
 function togHabItem(id,v){
   var t=td();
   if(!S.habits[t])S.habits[t]={};
@@ -3426,7 +3564,7 @@ function saveDefi(mo) { if(!S.defi)S.defi={};if(!S.defi[mo])S.defi[mo]={};DA.for
 function rShop() {
   M.innerHTML=`<div class="ph"><div class="pt">Shopping & Wishlist</div></div>
   <div class="card"><div class="row"><input type="text" id="shi" placeholder="Item toevoegen..."><select id="shc" style="width:100px"><option value="shop">Shopping</option><option value="wish">Wishlist</option></select><button class="btn" onclick="addShop()">+ Toevoegen</button></div>
-  <div class="tbar"><button class="tb on" onclick="stb(this,'ssh')">🛒 Shopping</button><button class="tb" onclick="stb(this,'swh')">❤️ Wishlist</button></div>
+  <div class="tbar"><button class="tb on" onclick="stb(this,\'ssh\')">🛒 Shopping</button><button class="tb" onclick="stb(this,\'swh\')">❤️ Wishlist</button></div>
   <div class="sp on" id="sp-ssh">${rShL('shop')}</div><div class="sp" id="sp-swh">${rShL('wish')}</div></div>`;
 }
 function rShL(cat) { const items=(S.shopping||[]).filter(x=>x.cat===cat);return items.map((x,i)=>`<div class="li"><div class="lim">${x.name}</div><button class="del" onclick="S.shopping=S.shopping.filter((_,j)=>j!==${S.shopping.indexOf(x)});save();rShop()">✕</button></div>`).join('')||em(cat==='shop'?'shopping-cart':'heart','Lijst leeg'); }
