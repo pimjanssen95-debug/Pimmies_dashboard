@@ -113,7 +113,7 @@ input[type=checkbox]:focus, input[type=radio]:focus { outline: none; }
 .pbdy.op{display:block}
 .ptk{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--border)}
 .ptk:last-child{border-bottom:none}
-.ptk input{width:14px;height:14px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
+.ptk input[type=checkbox]{width:15px;height:15px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
 .ptklb{flex:1;font-size:12.5px;color:var(--text);cursor:pointer}
 .ptk.dn .ptklb{text-decoration:line-through;color:var(--text3)}
 .ptkd{background:none;border:none;cursor:pointer;color:var(--text3);padding:2px;font-size:11px;opacity:0;transition:opacity .1s}
@@ -767,6 +767,18 @@ body[data-theme="light"] .fin-ov-card {
   .hab-del { opacity: 0.5; }
   .hab-row-lbl { font-size: 13.5px; }
   .hab-cb { width: 26px; height: 26px; }
+}
+
+/* ── iOS zoom prevention ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  input:not([type=checkbox]):not([type=radio]),
+  select, textarea {
+    font-size: 16px !important;
+  }
+  .padd { flex-direction: column; gap: 6px; }
+  .padd-in { font-size: 16px !important; }
+  .ptk { padding: 8px 0; }
+  .ptklb { font-size: 13px; }
 }
 </style>
 </head>
@@ -2319,23 +2331,55 @@ function rProj() {
           +'<button class="ptkd del" onclick="delPT(\''+t.id+'\')">✕</button>'
           +'</div>';
       }).join('')||`<div style="font-size:12px;color:var(--text3);padding:6px 0;font-style:italic">Nog geen taken — voeg er een toe</div>`}
-          <div class="padd" style="flex-wrap:wrap;gap:5px">
-          <input class="padd-in" id="PA${p.id}" placeholder="Taak toevoegen..." onkeydown="if(event.key==='Enter')addPT('${p.id}')" style="min-width:120px">
-          <select id="PP${p.id}" style="font-size:11px;padding:3px 6px;width:90px"><option value="normaal">Normaal</option><option value="hoog">Dringend</option><option value="laag">Laag</option></select>
-          <input type="date" id="PD${p.id}" style="font-size:11px;width:120px">
-          <button class="btn sm" onclick="addPT('${p.id}')">+ Taak</button>
+          <div class="padd">
+          <input class="padd-in" id="PA${p.id}" placeholder="+ Taak toevoegen..." onkeydown="if(event.key==='Enter')addPT('${p.id}')" style="font-size:16px">
+          <div style="display:flex;gap:4px;flex-wrap:wrap">
+            <select id="PP${p.id}" style="font-size:13px;padding:4px 6px"><option value="normaal">🟡 Normaal</option><option value="hoog">🔴 Dringend</option><option value="laag">🟢 Laag</option></select>
+            <input type="date" id="PD${p.id}" style="font-size:13px;padding:4px 6px">
+            <button class="btn sm" onclick="addPT('${p.id}')">+ Voeg toe</button>
+          </div>
           </div>
         </div>
       </div>`;
     });
   });
-  M.innerHTML=`<div class="ph"><div class="pt">Projecten</div></div>
-  <div class="card"><div class="row">
-    <input type="text" id="pni" placeholder="Naam project...">
-    <select id="pci"><option value="Zakelijk">Zakelijk</option><option value="Persoonlijk">Persoonlijk</option><option value="Studie">Studie</option><option value="Overig">Overig</option></select>
-    <select id="pco">${EVCOLS.map(c=>`<option value="${c.v}">${c.l}</option>`).join('')}</select>
-    <button class="btn" onclick="addProj()">+ Project</button>
-  </div>${html||em('folder','Nog geen projecten')}</div>`;
+  M.innerHTML=`<div class="ph">
+    <div class="pt">Projecten</div>
+    <button class="btn pri" onclick="openAddProjModal()">+ Project</button>
+  </div>
+  <div id="proj-list">${html||em('folder','Nog geen projecten')}</div>`;
+}
+
+function openAddProjModal() {
+  var colOpts = EVCOLS.map(function(c){return '<option value="'+c.v+'">'+c.l+'</option>';}).join('');
+  var body = '<div style="font-size:14px;font-weight:700;margin-bottom:14px">Nieuw project</div>'
+    +'<div class="task-edit-modal">'
+    +'<div class="task-edit-row"><div class="task-edit-label">Naam</div>'
+    +'<input type="text" id="pni-m" placeholder="Projectnaam..." style="width:100%;font-size:16px"></div>'
+    +'<div class="task-edit-row"><div class="task-edit-label">Categorie</div>'
+    +'<select id="pci-m" style="width:100%;font-size:16px"><option value="Zakelijk">Zakelijk</option><option value="Persoonlijk">Persoonlijk</option><option value="Studie">Studie</option><option value="Overig">Overig</option></select></div>'
+    +'<div class="task-edit-row"><div class="task-edit-label">Kleur</div>'
+    +'<select id="pco-m" style="width:100%;font-size:16px">'+colOpts+'</select></div>'
+    +'</div>'
+    +'<div style="display:flex;gap:6px;margin-top:14px">'
+    +'<button class="btn pri" onclick="saveNewProj()" style="flex:1">Toevoegen</button>'
+    +'<button class="btn" onclick="closeModal()">Annuleer</button></div>';
+  var modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = '<div class="modal-box">' + body + '</div>';
+  document.body.appendChild(modal);
+  modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+  // Focus input after modal opens
+  setTimeout(function(){ var inp=document.getElementById('pni-m'); if(inp) inp.focus(); }, 100);
+}
+
+function saveNewProj() {
+  var n = document.getElementById('pni-m');
+  var cat = document.getElementById('pci-m');
+  var col = document.getElementById('pco-m');
+  if (!n || !n.value.trim()) return;
+  S.projects.push({id:'p'+Date.now(), name:n.value.trim(), cat:cat?cat.value:'Overig', color:col?col.value:'#5DCAA5'});
+  save(); closeModal(); rProj();
 }
 function togP(pid) { if(oPs.has(pid))oPs.delete(pid);else oPs.add(pid);const b=el('PB'+pid);const c=el('PC'+pid);if(b)b.classList.toggle('op',oPs.has(pid));if(c)c.style.transform=oPs.has(pid)?'rotate(180deg)':''; }
 function addPT(pid) {
