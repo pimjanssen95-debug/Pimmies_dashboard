@@ -780,6 +780,26 @@ body[data-theme="light"] .fin-ov-card {
   .ptk { padding: 8px 0; }
   .ptklb { font-size: 13px; }
 }
+
+/* ── Undo button ─────────────────────────────────────────────── */
+.undo-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--text3);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 4px 9px;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.undo-btn:hover:not(:disabled) {
+  background: var(--bg3);
+  color: var(--text);
+}
+.undo-btn:disabled { cursor: default; }
 </style>
 </head>
 <body>
@@ -1232,10 +1252,39 @@ function wkDates(off) {
 // Storage - Safari file:// safe
 var _lsOk = (function(){try{localStorage.setItem('_t','1');localStorage.removeItem('_t');return true;}catch(e){return false;}})();
 var _mem = {};
+// Undo stack (max 20 states)
+var _undoStack = [];
+var _undoPtr = -1;
 function save() {
   var d = JSON.stringify(S);
+  // Push to undo stack
+  _undoStack.splice(_undoPtr + 1); // clear redo
+  _undoStack.push(d);
+  if (_undoStack.length > 20) _undoStack.shift();
+  _undoPtr = _undoStack.length - 1;
+  // Persist
   if (_lsOk) { try { localStorage.setItem(SK, d); return; } catch(e) {} }
   _mem[SK] = d;
+  // Update undo button state
+  updateUndoBtns();
+}
+function undo() {
+  if (_undoPtr <= 0) return;
+  _undoPtr--;
+  var d = _undoStack[_undoPtr];
+  try { Object.assign(S, JSON.parse(d)); } catch(e) { return; }
+  if (_lsOk) { try { localStorage.setItem(SK, d); } catch(e) {} }
+  _mem[SK] = d;
+  updateUndoBtns();
+  // Re-render current view
+  var active = document.querySelector('.ni.on');
+  if (active) { (RENDERS[active.dataset.s]||function(){})(); }
+}
+function updateUndoBtns() {
+  document.querySelectorAll('.undo-btn').forEach(function(b) {
+    b.disabled = _undoPtr <= 0;
+    b.style.opacity = _undoPtr <= 0 ? '0.35' : '1';
+  });
 }
 function load() {
   var r = null;
@@ -2310,13 +2359,16 @@ function rProj() {
         <div class="phd" onclick="togP('${p.id}')">
           <div class="pdot" style="background:${p.color}"></div>
           <div class="pnm">${p.name}</div>
-          <div style="display:flex;align-items:center;gap:7px">
-            ${tc?`<div style="display:flex;align-items:center;gap:5px"><div style="width:42px;height:4px;background:var(--bg3);border-radius:3px;overflow:hidden"><div style="background:${p.color};width:${pc}%;height:100%"></div></div><span style="font-size:11px;color:var(--text3)">${dc}/${tc}</span></div>`:`<span style="font-size:11px;color:var(--text3)">geen taken</span>`}
-            <button class="del" onclick="event.stopPropagation();S.projects.splice(${pi},1);save();rProj()">✕</button>
-            <span id="PC${p.id}" style="display:inline-block;transition:transform .2s;color:var(--text3);font-size:16px;transform:${op?'rotate(180deg)':''}">▾</span>
+          <div class="proj-prog-wrap" style="display:flex;align-items:center;gap:5px${tc?'':';display:none'}">
+            ${tc?`<div style="width:42px;height:4px;background:var(--bg3);border-radius:3px;overflow:hidden">
+              <div class="proj-bar-fill" style="background:${p.color};width:${pc}%;height:100%;transition:width .3s"></div>
+            </div><span class="proj-counter" style="font-size:11px;color:var(--text3)">${dc}/${tc}</span>`:
+            `<span style="font-size:11px;color:var(--text3)">geen taken</span>`}
           </div>
+          <span id="PC${p.id}" style="display:inline-block;transition:transform .2s;color:var(--text3);font-size:16px;transform:${op?'rotate(180deg)':''}">▾</span>
         </div>
         <div class="pbdy${op?' op':''}" id="PB${p.id}">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)"><button onclick="event.stopPropagation();if(confirm('Project verwijderen inclusief taken?')){S.projects.splice(${pi},1);S.tasks=S.tasks.filter(function(t){return t.proj!==p.id;});save();rProj();}" style="background:none;border:1px solid #c44;color:#c44;border-radius:6px;font-size:11px;padding:3px 10px;cursor:pointer">🗑 Verwijderen</button></div>
           ${pt.map(t=>{
         var pc=prioColor(t.prio||'normaal');
         var db=t.deadline?deadlineBadge(t.deadline):'';
@@ -2391,78 +2443,303 @@ function addPT(pid) {
   if(inp)inp.value='';if(dlEl)dlEl.value='';
   save();rProj();
 }
-function togPT(tid,v) { const t=S.tasks.find(x=>x.id===tid);if(!t)return;t.done=v;save();const r=el('PT'+tid);if(r)r.className='ptk'+(v?' dn':''); }
+function togPT(tid,v) {
+  const t=S.tasks.find(x=>x.id===tid); if(!t)return;
+  t.done=v; save();
+  // Update task row style
+  const r=el('PT'+tid); if(r)r.className='ptk'+(v?' dn':'');
+  // Live update the project progress bar + counter
+  const pid=t.proj;
+  const pt=S.tasks.filter(x=>x.proj===pid);
+  const dc=pt.filter(x=>x.done).length, tc=pt.length;
+  const pc=tc?Math.round(dc/tc*100):0;
+  const p=S.projects.find(x=>x.id===pid);
+  // Update progress bar
+  const pb=document.querySelector('#PR'+pid+' .proj-bar-fill');
+  if(pb){ pb.style.width=pc+'%'; }
+  // Update counter
+  const cnt=document.querySelector('#PR'+pid+' .proj-counter');
+  if(cnt){ cnt.textContent=dc+'/'+tc; }
+  // Update header color/progress
+  const progWrap=document.querySelector('#PR'+pid+' .proj-prog-wrap');
+  if(!tc && progWrap){ progWrap.style.display='none'; }
+  else if(progWrap){ progWrap.style.display='flex'; }
+}
 function delPT(tid) { const i=S.tasks.findIndex(t=>t.id===tid);if(i<0)return;S.tasks.splice(i,1);save();rProj(); }
 function addProj() { const n=el('pni').value.trim();if(!n)return;S.projects.push({id:'p'+Date.now(),name:n,cat:el('pci').value,color:el('pco').value});el('pni').value='';save();rProj(); }
 
 // ─── TAKEN ───────────────────────────────────────────────────────────────────
 function rTaken() {
-  var fil=(el('tkf')?el('tkf').value:'all')||'all';
-  var pfil=(el('tkpf')?el('tkpf').value:'')||'';
-  var pfilt=(el('tkpf2')?el('tkpf2').value:'')||'';
-  var t=S.tasks.slice();
-  if(fil==='open')t=t.filter(function(x){return !x.done;});
-  if(fil==='done')t=t.filter(function(x){return x.done;});
-  if(pfil)t=t.filter(function(x){return x.proj===pfil;});
-  if(pfilt==='hoog')t=t.filter(function(x){return x.prio==='hoog';});
-  else if(pfilt==='normaal')t=t.filter(function(x){return x.prio==='normaal';});
-  else if(pfilt==='laag')t=t.filter(function(x){return x.prio==='laag';});
-  else if(pfilt==='deadline')t=t.filter(function(x){return !!x.deadline;});
-  // Sort: hoog first, then by deadline
-  t.sort(function(a,b){
-    var po={hoog:0,normaal:1,laag:2};
-    var ap=po[a.prio||'normaal'],bp=po[b.prio||'normaal'];
-    if(ap!==bp)return ap-bp;
-    if(a.deadline&&b.deadline)return a.deadline.localeCompare(b.deadline);
-    if(a.deadline)return -1;if(b.deadline)return 1;
+  if (!window._takenTab) window._takenTab = 'los';
+  if (!window._takenSort) window._takenSort = 'prio';
+
+  var projOpts = S.projects.map(function(p){ return '<option value="'+p.id+'">'+p.name+'</option>'; }).join('');
+
+  M.innerHTML = '<div class="ph"><div class="pt">Taken</div>'
+    +'<div style="display:flex;align-items:center;gap:6px">'
+    +'<button class="undo-btn" onclick="undo()" title="Ongedaan maken">↩</button>'
+    +'<button class="btn pri" onclick="openAddTaskModal()">+ Taak</button>'
+    +'</div></div>'
+    +'<div class="tbar" id="taken-tbar">'
+    +'<button class="tb'+(window._takenTab==='los'?' on':'')+'" data-tab="los" onclick="setTakenTabEl(this)">🔗 Los</button>'
+    +'<button class="tb'+(window._takenTab==='alle'?' on':'')+'" data-tab="alle" onclick="setTakenTabEl(this)">📋 Alle</button>'
+    +'<button class="tb'+(window._takenTab==='projecten'?' on':'')+'" data-tab="projecten" onclick="setTakenTabEl(this)">📁 Projecten</button>'
+    +'<button class="tb'+(window._takenTab==='goals'?' on':'')+'" data-tab="goals" onclick="setTakenTabEl(this)">🎯 Goals</button>'
+    +'<button class="tb'+(window._takenTab==='open'?' on':'')+'" data-tab="open" onclick="setTakenTabEl(this)">⏳ Open</button>'
+    +'<button class="tb'+(window._takenTab==='gedaan'?' on':'')+'" data-tab="gedaan" onclick="setTakenTabEl(this)">✅ Gedaan</button>'
+    +'</div>'
+    +'<div id="taken-filters" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px"></div>'
+    +'<div id="taken-rows"></div>';
+
+  renderTakenTab(window._takenTab);
+}
+
+function setTakenTabEl(btn){setTakenTab(btn,btn.getAttribute('data-tab'));}
+
+function setTakenTab(btn, tab) {
+  window._takenTab = tab;
+  document.querySelectorAll('#taken-tbar .tb').forEach(function(b){ b.classList.remove('on'); });
+  if (btn) btn.classList.add('on');
+  renderTakenTab(tab);
+}
+
+function renderTakenTab(tab) {
+  var fEl = document.getElementById('taken-filters');
+  var rEl = document.getElementById('taken-rows');
+  if (!fEl || !rEl) return;
+
+  var sort = window._takenSort || 'prio';
+  var sortProj = window._takenSortProj || '';
+  var sortPrio = window._takenSortPrio || '';
+  var sortCat  = window._takenSortCat  || '';
+
+  // Build task list based on tab
+  var tasks = S.tasks.slice();
+
+  if (tab === 'los') {
+    // Collect goal-linked task IDs
+    var goalIds = [];
+    (S.goals||[]).forEach(function(g){
+      (g.items||[]).forEach(function(item){ if (item.taskId) goalIds.push(item.taskId); });
+    });
+    tasks = tasks.filter(function(t){ return !t.proj && !t.done && goalIds.indexOf(t.id) < 0; });
+  } else if (tab === 'projecten') {
+    tasks = tasks.filter(function(t){ return !!t.proj; });
+  } else if (tab === 'goals') {
+    // Goal tasks: tasks linked via goals subtasks
+    var goalTaskIds = [];
+    (S.goals||[]).forEach(function(g){
+      (g.items||[]).forEach(function(item){
+        if (item.taskId) goalTaskIds.push(item.taskId);
+      });
+    });
+    tasks = tasks.filter(function(t){ return goalTaskIds.indexOf(t.id) >= 0; });
+  } else if (tab === 'open') {
+    tasks = tasks.filter(function(t){ return !t.done; });
+  } else if (tab === 'gedaan') {
+    tasks = tasks.filter(function(t){ return t.done; });
+  }
+  // 'alle' = all tasks
+
+  // Apply filters
+  if (sortProj) tasks = tasks.filter(function(t){ return t.proj === sortProj; });
+  if (sortPrio) tasks = tasks.filter(function(t){ return (t.prio||'normaal') === sortPrio; });
+  if (sortCat === 'zakelijk') tasks = tasks.filter(function(t){ var p=S.projects.find(function(x){return x.id===t.proj;}); return p&&(p.cat||'').toLowerCase()==='zakelijk'; });
+  if (sortCat === 'persoonlijk') tasks = tasks.filter(function(t){ var p=S.projects.find(function(x){return x.id===t.proj;}); return !t.proj||(p&&(p.cat||'').toLowerCase()!=='zakelijk'); });
+
+  // Sort
+  tasks.sort(function(a,b){
+    if (sort === 'prio') {
+      var po={hoog:0,normaal:1,laag:2};
+      var d = (po[a.prio||'normaal']||1) - (po[b.prio||'normaal']||1);
+      if (d !== 0) return d;
+    }
+    if (sort === 'datum' || sort === 'prio') {
+      if (a.deadline && b.deadline) return a.deadline.localeCompare(b.deadline);
+      if (a.deadline) return -1;
+      if (b.deadline) return 1;
+    }
+    if (sort === 'project') {
+      var pa=S.projects.find(function(x){return x.id===a.proj;});
+      var pb=S.projects.find(function(x){return x.id===b.proj;});
+      return ((pa?pa.name:'zzz').localeCompare(pb?pb.name:'zzz'));
+    }
+    if (sort === 'naam') return a.title.localeCompare(b.title);
     return 0;
   });
-  var projOpts=S.projects.map(function(p){return '<option value="'+p.id+'">'+p.name+'</option>';}).join('');
-  var rows=t.map(function(x){
-    var ri=S.tasks.indexOf(x);
-    var p=proj(x);
-    var pc=prioColor(x.prio||'normaal');
-    var db=deadlineBadge(x.deadline);
-    var df=x.deadline?deadlineFull(x.deadline):'';
-    return '<div class="tk'+(x.done?' dn':'')+'" id="TKR'+x.id+'">'
-      +'<div style="width:8px;height:8px;border-radius:50%;background:'+pc+';flex-shrink:0;margin-top:4px"></div>'
-      +'<input type="checkbox"'+(x.done?' checked':'')+' onchange="togTask('+ri+',this.checked)">'
-      +'<div class="tkc">'
-      +'<div class="tkt">'+x.title+'</div>'
-      +'<div class="tk-meta">'
-      +(p?'<span style="font-size:10.5px;color:'+p.color+'">'+p.name+'</span>':'')
-      +(db?db:'')
-      +(x.done&&x.deadline?'':'')
-      +'</div>'
-      +'</div>'
-      +'<button class="btn sm" onclick="openTaskEdit(\''+x.id+'\')" style="font-size:11px;padding:2px 7px;color:var(--text3)">···</button>'
-      +'<button class="del" onclick="S.tasks.splice('+ri+',1);save();rTaken()">✕</button>'
-      +'</div>';
-  }).join('')||em('checkbox','Geen taken gevonden');
 
-  M.innerHTML='<div class="ph"><div class="pt">Taken</div></div>'
-    +'<div class="card">'
-    +'<div class="row" style="margin-bottom:6px">'
-    +'<input type="text" id="tki" placeholder="Nieuwe taak...">'
-    +'<select id="tkpr" style="width:115px"><option value="">Geen project</option>'+projOpts+'</select>'
-    +'<button class="btn" onclick="addTask()">+ Toevoegen</button>'
+  // ── FILTERS BAR ──
+  var projOpts = '<option value="">Alle projecten</option>' + S.projects.map(function(p){
+    return '<option value="'+p.id+'"'+(sortProj===p.id?' selected':'')+'>'+p.name+'</option>';
+  }).join('');
+
+  var filHtml = '';
+  // Sort buttons
+  filHtml += '<div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">'
+    +'<span style="font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.5px">Sorteren:</span>'
+    +'<button class="btn sm'+(sort==='prio'?' on':'')+'" data-sort="prio" onclick="setTakenSortEl(this)">🔴 Prioriteit</button>'
+    +'<button class="btn sm'+(sort==='datum'?' on':'')+'" data-sort="datum" onclick="setTakenSortEl(this)">📅 Datum</button>'
+    +'<button class="btn sm'+(sort==='project'?' on':'')+'" data-sort="project" onclick="setTakenSortEl(this)">📁 Project</button>'
+    +'<button class="btn sm'+(sort==='naam'?' on':'')+'" data-sort="naam" onclick="setTakenSortEl(this)">🔤 Naam</button>'
+    +'</div>';
+
+  // Filter dropdowns (hide project filter when on projecten tab)
+  filHtml += '<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px">';
+  if (tab !== 'goals') {
+    filHtml += '<select data-filter="proj" onchange="takenFilterEl(this)" style="font-size:12px">'+projOpts+'</select>';
+  }
+  filHtml += '<select data-filter="prio" onchange="takenFilterEl(this)" style="font-size:12px">'
+    +'<option value="">Alle prioriteiten</option>'
+    +'<option value="hoog"'+(sortPrio==='hoog'?' selected':'')+'>🔴 Dringend</option>'
+    +'<option value="normaal"'+(sortPrio==='normaal'?' selected':'')+'>🟡 Normaal</option>'
+    +'<option value="laag"'+(sortPrio==='laag'?' selected':'')+'>🟢 Laag</option>'
+    +'</select>';
+  filHtml += '<select data-filter="cat" onchange="takenFilterEl(this)" style="font-size:12px">'
+    +'<option value="">Alle categorieën</option>'
+    +'<option value="zakelijk"'+(sortCat==='zakelijk'?' selected':'')+'>💼 Zakelijk</option>'
+    +'<option value="persoonlijk"'+(sortCat==='persoonlijk'?' selected':'')+'>🏠 Persoonlijk</option>'
+    +'</select>';
+  filHtml += '</div>';
+
+  fEl.innerHTML = filHtml;
+
+  // ── TASK ROWS ──
+  var priIcons = {hoog:'🔴',normaal:'🟡',laag:'🟢'};
+
+  // For projecten tab: group by project
+  if (tab === 'projecten' && !sortProj) {
+    var byProj = {};
+    tasks.forEach(function(t){
+      if (!byProj[t.proj||'']) byProj[t.proj||''] = [];
+      byProj[t.proj||''].push(t);
+    });
+    var html = '';
+    Object.keys(byProj).forEach(function(pid){
+      var p = S.projects.find(function(x){return x.id===pid;});
+      var ts = byProj[pid];
+      var dc = ts.filter(function(t){return t.done;}).length;
+      html += '<div style="margin-bottom:14px">'
+        +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:'+(p?p.color:'var(--text3)')+';padding:6px 0;margin-bottom:4px;display:flex;align-items:center;gap:6px">'
+        +'<span style="width:8px;height:8px;border-radius:50%;background:'+(p?p.color:'#888')+';display:inline-block"></span>'
+        +(p?p.name:'Geen project')
+        +'<span style="font-weight:400;color:var(--text3)">'+dc+'/'+ts.length+'</span>'
+        +'</div>';
+      html += ts.map(function(t){ return taakRij(t); }).join('');
+      html += '</div>';
+    });
+    rEl.innerHTML = html || em('checkbox','Geen projecttaken gevonden');
+    return;
+  }
+
+  var rows = tasks.map(function(t){ return taakRij(t); }).join('');
+  rEl.innerHTML = rows || em('checkbox','Geen taken gevonden');
+}
+
+function taakRij(t) {
+  var p = proj(t);
+  var pc = prioColor(t.prio||'normaal');
+  var db = t.deadline ? deadlineBadge(t.deadline) : '';
+  var pi = '🟡';
+  if (t.prio==='hoog') pi='🔴'; else if (t.prio==='laag') pi='🟢';
+  return '<div class="tk'+(t.done?' dn':'')+'" id="TKR'+t.id+'">'
+    +'<span style="font-size:11px;flex-shrink:0">'+pi+'</span>'
+    +'<input type="checkbox"'+(t.done?' checked':'')+' data-tid="'+t.id+'" onchange="togTaakEl(this)">'
+    +'<div class="tkc">'
+    +'<div class="tkt">'+t.title+'</div>'
+    +'<div class="tk-meta">'
+    +(p?'<span style="font-size:10.5px;color:'+p.color+'">'+p.name+'</span>':'')
+    +(db?db:'')
     +'</div>'
-    +'<div class="row" style="align-items:center;margin-bottom:5px">'
-    +'<select id="tki-prio" style="width:100px">'
-    +'<option value="normaal">● Normaal</option>'
-    +'<option value="hoog">● Dringend</option>'
-    +'<option value="laag">● Laag</option>'
-    +'</select>'
-    +'<input type="date" id="tki-dl" placeholder="Deadline" style="width:135px;flex:none">'
     +'</div>'
-    +'<div style="display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap">'
-    +'<select id="tkf" onchange="rTaken()"><option value="all">Alle taken</option><option value="open">Open</option><option value="done">Afgerond</option></select>'
-    +'<select id="tkpf" onchange="rTaken()"><option value="">Alle projecten</option>'+projOpts+'</select>'
-    +'<select id="tkpf2" onchange="rTaken()"><option value="">Alle prioriteiten</option><option value="hoog">🔴 Dringend</option><option value="normaal">🟡 Normaal</option><option value="laag">🟢 Laag</option><option value="deadline">📅 Heeft deadline</option></select>'
-    +'</div>'
-    +rows
+    +'<button class="btn sm" data-tid="'+t.id+'" onclick="openTaskEditEl(this)" style="font-size:11px;padding:2px 7px;color:var(--text3)">···</button>'
+    +'<button class="del" data-tid="'+t.id+'" onclick="delTaakRowEl(this)">✕</button>'
     +'</div>';
 }
+
+function openTaskEditEl(btn){openTaskEdit(btn.getAttribute('data-tid'));}
+function delTaakRowEl(btn){delTaakRow(btn.getAttribute('data-tid'));}
+
+function togTaakEl(cb) {
+  var tid = cb.getAttribute('data-tid');
+  var t = S.tasks.find(function(x){return x.id===tid;});
+  if (!t) return;
+  t.done = cb.checked; save();
+  var row = document.getElementById('TKR'+tid);
+  if (row) row.className = 'tk'+(cb.checked?' dn':'');
+}
+
+function delTaakRow(tid) {
+  var i = S.tasks.findIndex(function(t){return t.id===tid;});
+  if (i<0) return;
+  S.tasks.splice(i,1); save();
+  var row = document.getElementById('TKR'+tid);
+  if (row) row.remove();
+}
+
+function setTakenSortEl(btn){setTakenSort(btn.getAttribute('data-sort'));}
+
+function takenFilterEl(sel){takenFilterChange(sel.getAttribute('data-filter'),sel.value);}
+
+function takenFilterChange(type,val){
+  if(type==='proj') window._takenSortProj=val;
+  else if(type==='prio') window._takenSortPrio=val;
+  else if(type==='cat') window._takenSortCat=val;
+  renderTakenTab(window._takenTab||'alle');
+}
+
+function setTakenSort(s) {
+  window._takenSort = s;
+  renderTakenTab(window._takenTab);
+}
+
+function openAddTaskModal() {
+  var projOpts = '<option value="">Geen project</option>' + S.projects.map(function(p){
+    return '<option value="'+p.id+'">'+p.name+'</option>';
+  }).join('');
+  var body = '<div style="font-size:14px;font-weight:700;margin-bottom:14px">Nieuwe taak</div>'
+    +'<div class="task-edit-modal">'
+    +'<div class="task-edit-row"><div class="task-edit-label">Taak</div>'
+    +'<input type="text" id="atm-t" placeholder="Taakomschrijving..." style="width:100%;font-size:16px"></div>'
+    +'<div class="task-edit-row"><div class="task-edit-label">Project</div>'
+    +'<select id="atm-p" style="width:100%;font-size:16px">'+projOpts+'</select></div>'
+    +'<div class="task-edit-row"><div class="task-edit-label">Prioriteit</div>'
+    +'<select id="atm-pr" style="width:100%;font-size:16px">'
+    +'<option value="normaal">🟡 Normaal</option>'
+    +'<option value="hoog">🔴 Dringend</option>'
+    +'<option value="laag">🟢 Laag</option>'
+    +'</select></div>'
+    +'<div class="task-edit-row"><div class="task-edit-label">Deadline</div>'
+    +'<input type="date" id="atm-d" style="width:100%;font-size:16px"></div>'
+    +'</div>'
+    +'<div style="display:flex;gap:6px;margin-top:14px">'
+    +'<button class="btn pri" onclick="saveAddTaskModal()" style="flex:1">Toevoegen</button>'
+    +'<button class="btn" onclick="closeModal()">Annuleer</button></div>';
+  var modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = '<div class="modal-box">'+body+'</div>';
+  document.body.appendChild(modal);
+  modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+  setTimeout(function(){ var i=document.getElementById('atm-t'); if(i) i.focus(); }, 100);
+}
+
+function saveAddTaskModal() {
+  var t = document.getElementById('atm-t');
+  var p = document.getElementById('atm-p');
+  var pr = document.getElementById('atm-pr');
+  var d = document.getElementById('atm-d');
+  if (!t || !t.value.trim()) return;
+  S.tasks.push({
+    id: 'tk'+Date.now(),
+    title: t.value.trim(),
+    proj: p ? p.value : '',
+    prio: pr ? pr.value : 'normaal',
+    deadline: d ? d.value : '',
+    done: false,
+    created: td()
+  });
+  save(); closeModal(); renderTakenTab(window._takenTab||'alle');
+}
+
 function addTask() {
   var v=(el('tki')?el('tki').value.trim():'');if(!v)return;
   var prio=(el('tki-prio')?el('tki-prio').value:'')||'normaal';
