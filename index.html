@@ -844,6 +844,67 @@ body[data-theme="light"] .fin-ov-card {
 
 .morg-slot { cursor:pointer; transition: background .1s; }
 .morg-slot:hover { background: var(--bg3); }
+
+/* ── Dashboard extra features ───────────────────────────────── */
+/* Intentie */
+.intentie-input {
+  width: 100%; font-size: 15px; font-weight: 500;
+  background: transparent; border: none; border-bottom: 2px solid var(--border);
+  color: var(--text); padding: 6px 2px; outline: none; transition: border-color .2s;
+}
+.intentie-input:focus { border-color: var(--green); }
+.intentie-input::placeholder { color: var(--text3); font-weight: 400; }
+
+/* Energie */
+.energie-btn {
+  font-size: 22px; background: none; border: 2px solid transparent;
+  border-radius: 10px; cursor: pointer; padding: 5px 8px; transition: all .15s;
+  line-height: 1;
+}
+.energie-btn.on { border-color: var(--green); background: var(--bg3); transform: scale(1.15); }
+.energie-btn:hover:not(.on) { background: var(--bg3); }
+
+/* Pomodoro */
+.pomo-display {
+  font-size: 36px; font-weight: 800; font-variant-numeric: tabular-nums;
+  color: var(--text); text-align: center; letter-spacing: 2px; line-height: 1;
+}
+.pomo-btn {
+  flex: 1; padding: 8px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  cursor: pointer; border: 1px solid var(--border); background: var(--bg3);
+  color: var(--text); transition: all .15s;
+}
+.pomo-btn.pri { background: var(--green); color: #fff; border-color: var(--green); }
+.pomo-btn.stop { background: var(--bg3); color: #e55; border-color: #e55; }
+.pomo-sessions { display: flex; gap: 4px; justify-content: center; margin-top: 8px; }
+.pomo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--bg3); border: 1.5px solid var(--border); }
+.pomo-dot.done { background: var(--green); border-color: var(--green); }
+
+/* Streak heatmap */
+.streak-grid { display: grid; grid-template-columns: repeat(30, 1fr); gap: 2px; margin-top: 8px; }
+.streak-cell { aspect-ratio: 1; border-radius: 2px; cursor: default; }
+
+/* Weer */
+.weer-temp { font-size: 32px; font-weight: 800; color: var(--text); line-height: 1; }
+.weer-desc { font-size: 12px; color: var(--text3); margin-top: 2px; }
+.weer-detail { font-size: 11.5px; color: var(--text2); display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
+
+/* Quote */
+.dag-quote {
+  font-size: 14px; font-style: italic; color: var(--text2);
+  line-height: 1.65; border-left: 3px solid var(--green);
+  padding: 8px 14px; background: var(--bg3); border-radius: 0 8px 8px 0;
+}
+.dag-quote-author { font-size: 11.5px; color: var(--text3); margin-top: 6px; font-style: normal; }
+
+/* Quick task */
+.quick-task-input {
+  flex: 1; font-size: 14px; background: transparent;
+  border: none; border-bottom: 2px solid var(--border);
+  color: var(--text); padding: 5px 2px; outline: none; transition: border-color .2s;
+}
+.quick-task-input:focus { border-color: var(--green); }
+.quick-task-input::placeholder { color: var(--text3); }
 </style>
 </head>
 <body>
@@ -1504,6 +1565,8 @@ function rDash() {
   // Stats
   var rouPct=pct(rouDone,rouTotal);
   var openCount=openT().length;
+  var dagQ = getDagQuote();
+
 
   
   // ── Opkomende activiteiten (today + next 4 days) ──
@@ -1557,6 +1620,28 @@ function rDash() {
     +'<div style="font-size:11.5px;color:var(--text3)">'+new Date().toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long'})+'</div></div>'
     +'<div class="stat-row">'+statBoxHTML+'</div>'
 
+    // ── INTENTIE + SNELLE TAAK + ENERGIE ──
+    +'<div class="dash-card" style="margin-bottom:10px">'
+    +'<div style="display:flex;gap:4px;align-items:center;margin-bottom:10px">'
+    +'<span style="font-size:16px">🎯</span>'
+    +'<span style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">Intentie van vandaag</span>'
+    +'</div>'
+    +'<input class="intentie-input" id="intentie-inp" placeholder="Vandaag ga ik..." onblur="saveIntentie()" onkeydown="if(event.keyCode===13)saveIntentie()">'
+    +'<div style="display:flex;gap:6px;margin-top:14px;padding-top:10px;border-top:1px solid var(--border);align-items:center">'
+    +'<span style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-right:4px">Energie</span>'
+    +ENERGIE_OPTS.map(function(e,i){ return '<button class="energie-btn" onclick="setEnergie('+i+')">'+e+'</button>'; }).join('')
+    +'</div>'
+    +'</div>'
+
+    // ── STREAK 30 DAGEN ──
+    +'<div class="dash-card" style="margin-bottom:10px">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">'
+    +'<span style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">🔥 Habit streak (30 dagen)</span>'
+    +'<span style="font-size:11.5px;font-weight:600;color:var(--text)">'+streak+' dagen</span>'
+    +'</div>'
+    +'<div class="streak-grid">'+buildStreakGrid()+'</div>'
+    +'</div>'
+
     // OPKOMENDE ACTIVITEITEN
     +'<div class="dash-card" style="margin-bottom:10px">'
     +'<div class="dash-acc-hd" data-acc="upcoming" onclick="toggleDashAccEl(this)">'
@@ -1605,7 +1690,26 @@ function rDash() {
     +'<div id="dacc-supps">'+buildDashSupp()+'</div>'
     +'</div>'
 
+    // ── FOCUS TIMER ──
+    +'<div class="dash-card" style="margin-bottom:10px">'
+    +'<div class="dash-acc-hd" onclick="toggleDashAccEl(this)" data-acc="pomo">'
+    +'<span class="dash-card-title">⏱ Focus timer</span>'
+    +'<span class="dash-acc-toggle" id="dacc-t-pomo">▾</span>'
+    +'</div>'
+    +'<div id="dacc-pomo">'
+    +'<div class="pomo-display" id="pomo-display">25:00</div>'
+    +'<div class="pomo-sessions">'
+    +[0,1,2,3].map(function(i){ return '<div class="pomo-dot'+((_pomoDone>i)?' done':'')+'"></div>'; }).join('')
+    +'</div>'
+    +'<div style="display:flex;gap:6px;margin-top:12px">'
+    +'<button class="pomo-btn pri" id="pomo-start-btn" onclick="pomoStart()">▶ Start focus</button>'
+    +'<button class="pomo-btn stop" id="pomo-stop-btn" style="display:none;max-width:48px" onclick="pomoStop()">■</button>'
+    +'</div>'
+    +'<div style="font-size:11px;color:var(--text3);text-align:center;margin-top:6px">Sessies vandaag: <strong>'+(S.focusLog&&S.focusLog[t]?S.focusLog[t]:0)+'</strong></div>'
+    +'</div></div>'
+
     +'</div>' // end LEFT
+
 
     // RIGHT col
     +'<div>'
@@ -1619,7 +1723,32 @@ function rDash() {
     +'<button class="dash-card-link" data-sec="taken" onclick="navToSecEl(this)">Alle taken →</button></div>'
     +taskHTML
     +'</div>'
+    // ── SNELLE TAAK ──
+    +'<div class="dash-card" style="margin-bottom:10px">'
+    +'<div style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px">⚡ Snelle taak</div>'
+    +'<div style="display:flex;gap:7px;align-items:center">'
+    +'<input class="quick-task-input" id="quick-task-inp" placeholder="Taak toevoegen..." onkeydown="if(event.keyCode===13)quickAddTask()">'
+    +'<button class="btn pri" onclick="quickAddTask()" style="padding:6px 12px;flex-shrink:0">+</button>'
+    +'</div></div>'
+
+    // ── WEER ──
+    +'<div class="dash-card" style="margin-bottom:10px">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">'
+    +'<span style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px">🌤 Amsterdam</span>'
+    +'<button class="btn sm" onclick="loadWeer()" style="font-size:10px;padding:2px 7px">↻</button>'
+    +'</div>'
+    +'<div id="weer-body"><div style="font-size:12px;color:var(--text3)">Laden...</div></div>'
+    +'</div>'
+
+    // ── DAG QUOTE ──
+    +(dagQ.text ? '<div class="dash-card">'
+    +'<div style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px">💬 Quote van de dag</div>'
+    +'<div class="dag-quote">'+dagQ.text+'</div>'
+    +(dagQ.author ? '<div class="dag-quote-author">— '+dagQ.author+'</div>' : '')
+    +'</div>' : '')
+
     +'</div>' // end RIGHT
+
 
     +'</div>'; // end dash-wrap
 
@@ -1629,6 +1758,11 @@ function rDash() {
     initDashAcc('habits', true);
     initDashAcc('routine', true);
     initDashAcc('supps', false);
+    initDashAcc('pomo', false);
+    loadIntentie();
+    loadEnergie();
+    loadWeer();
+    updatePomoDisplay();
   }, 10);
 
   document.addEventListener('click', function dashClose(e){
@@ -1654,15 +1788,11 @@ function buildDashSupp(){
     if(!items.length)return;
     var c=items.filter(function(s){return checks[s.id];}).length;
     html+='<div style="font-size:9.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px;margin-top:7px">'+(tab==='ochtend'?'Ochtend':tab==='middag'?'Middag':'Avond')+' ('+c+'/'+items.length+')</div>';
-    html+=items.slice(0,5).map(function(s){
+    html+=items.map(function(s){
       var v=!!checks[s.id];
       var cbId='dsupp-'+s.id;
-      return '<div class="hck'+(v?' done':'')+'">'
-        +'<input type="checkbox" id="'+cbId+'" data-sid="'+s.id+'" data-cb="'+cbId+'"'+(v?' checked':'')+' onchange="togDashSuppEl(this)">'+
-        +'<label class="hck-lbl" for="'+cbId+'">'+s.name+'</label>'
-        +'</div>';
+      return '<div class="hck'+(v?' done':'')+'"><input type="checkbox" id="'+cbId+'" data-sid="'+s.id+'" data-cb="'+cbId+'"'+(v?' checked':'')+' onchange="togDashSuppEl(this)"><label class="hck-lbl" for="'+cbId+'">'+s.name+'</label></div>';
     }).join('');
-    if(items.length>5)html+='<div style="font-size:11px;color:var(--text3);padding:3px 0">+' +(items.length-5)+' meer</div>';
   });
   return html||'<div style="font-size:12px;color:var(--text3)">Alle supplementen voor dit dagdeel afgevinkt!</div>';
 }
@@ -3687,6 +3817,223 @@ function saveFinItem() {
 }
 
 
+// ── Intentie ────────────────────────────────────────────────
+function saveIntentie() {
+  var inp = document.getElementById('intentie-inp');
+  if (!inp) return;
+  if (!S.intenties) S.intenties = {};
+  S.intenties[td()] = inp.value;
+  save();
+}
+function loadIntentie() {
+  var inp = document.getElementById('intentie-inp');
+  if (!inp) return;
+  if (S.intenties && S.intenties[td()]) inp.value = S.intenties[td()];
+}
+
+// ── Energie ─────────────────────────────────────────────────
+var ENERGIE_OPTS = ['😴','🙂','😊','💪','🔥'];
+function setEnergie(idx) {
+  if (!S.energyLog) S.energyLog = {};
+  S.energyLog[td()] = idx; save();
+  document.querySelectorAll('.energie-btn').forEach(function(b, i) {
+    b.classList.toggle('on', i === idx);
+  });
+}
+function loadEnergie() {
+  if (!S.energyLog) return;
+  var v = S.energyLog[td()];
+  if (v !== undefined) {
+    document.querySelectorAll('.energie-btn').forEach(function(b, i) {
+      b.classList.toggle('on', i === v);
+    });
+  }
+}
+
+// ── Pomodoro ─────────────────────────────────────────────────
+var _pomoTimer = null;
+var _pomoSecsLeft = 25 * 60;
+var _pomoRunning = false;
+var _pomoPaused = false;
+var _pomoDone = 0;
+var POMO_MINS = 25;
+
+function pomoTick() {
+  if (!_pomoRunning) return;
+  _pomoSecsLeft--;
+  updatePomoDisplay();
+  if (_pomoSecsLeft <= 0) {
+    pomoFinish();
+  }
+}
+function updatePomoDisplay() {
+  var m = Math.floor(_pomoSecsLeft / 60);
+  var s = _pomoSecsLeft % 60;
+  var disp = document.getElementById('pomo-display');
+  if (disp) disp.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  // Update dots
+  var dots = document.querySelectorAll('.pomo-dot');
+  dots.forEach(function(d, i) { d.classList.toggle('done', i < _pomoDone); });
+}
+function pomoStart() {
+  if (_pomoRunning) {
+    // Pause
+    _pomoRunning = false; _pomoPaused = true;
+    clearInterval(_pomoTimer); _pomoTimer = null;
+    var btn = document.getElementById('pomo-start-btn');
+    if (btn) { btn.textContent = '▶ Hervatten'; btn.className = 'pomo-btn pri'; }
+  } else {
+    if (!_pomoPaused) _pomoSecsLeft = POMO_MINS * 60;
+    _pomoRunning = true; _pomoPaused = false;
+    _pomoTimer = setInterval(pomoTick, 1000);
+    var btn = document.getElementById('pomo-start-btn');
+    if (btn) { btn.textContent = '⏸ Pauzeer'; btn.className = 'pomo-btn'; }
+    var stopBtn = document.getElementById('pomo-stop-btn');
+    if (stopBtn) stopBtn.style.display = 'flex';
+    updatePomoDisplay();
+  }
+}
+function pomoStop() {
+  clearInterval(_pomoTimer); _pomoTimer = null;
+  _pomoRunning = false; _pomoPaused = false;
+  _pomoSecsLeft = POMO_MINS * 60;
+  var btn = document.getElementById('pomo-start-btn');
+  if (btn) { btn.textContent = '▶ Start focus'; btn.className = 'pomo-btn pri'; }
+  var stopBtn = document.getElementById('pomo-stop-btn');
+  if (stopBtn) stopBtn.style.display = 'none';
+  updatePomoDisplay();
+}
+function pomoFinish() {
+  clearInterval(_pomoTimer); _pomoTimer = null;
+  _pomoRunning = false; _pomoPaused = false;
+  _pomoDone = Math.min(_pomoDone + 1, 4);
+  _pomoSecsLeft = 0;
+  // Save to focusLog
+  if (!S.focusLog) S.focusLog = {};
+  S.focusLog[td()] = (S.focusLog[td()] || 0) + 1; save();
+  updatePomoDisplay();
+  // Bell sound via Web Audio
+  try {
+    var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var osc = ctx.createOscillator(); var gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.value = 528; gain.gain.setValueAtTime(0.4, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 1.5);
+  } catch(e) {}
+  var btn = document.getElementById('pomo-start-btn');
+  if (btn) { btn.textContent = '▶ Volgende ronde'; btn.className = 'pomo-btn pri'; }
+  var stopBtn = document.getElementById('pomo-stop-btn');
+  if (stopBtn) stopBtn.style.display = 'none';
+  var disp = document.getElementById('pomo-display');
+  if (disp) disp.textContent = '✓ Gedaan!';
+}
+
+// ── Streak heatmap (30 days) ─────────────────────────────────
+function buildStreakGrid() {
+  var items = S.habItems || DEF_HABS;
+  var html = '';
+  for (var i = 29; i >= 0; i--) {
+    var d = new Date(); d.setDate(d.getDate() - i);
+    var dk = d.toISOString().split('T')[0];
+    var hd = S.habits[dk] || {};
+    var c = items.filter(function(h){ return hd[h.id]; }).length;
+    var p = items.length ? Math.round(c / items.length * 100) : 0;
+    var bg = i === 0 ? (p > 0 ? cpc(p) : 'var(--border)') : (p === 0 ? 'var(--bg3)' : cpc(p));
+    html += '<div class="streak-cell" style="background:' + bg + '" title="' + dk + ': ' + c + '/' + items.length + '"></div>';
+  }
+  return html;
+}
+
+// ── Weer ─────────────────────────────────────────────────────
+var _weerCache = null;
+var _weerTime = 0;
+function loadWeer() {
+  var e = document.getElementById('weer-body');
+  if (!e) return;
+  // Cache 30 min
+  if (_weerCache && Date.now() - _weerTime < 30 * 60 * 1000) {
+    e.innerHTML = _weerCache; return;
+  }
+  e.innerHTML = '<div style="font-size:12px;color:var(--text3)">Laden...</div>';
+  // Open-Meteo — Amsterdam (52.37, 4.90)
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=52.37&longitude=4.90&current=temperature_2m,weathercode,windspeed_10m,relativehumidity_2m&hourly=temperature_2m&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Europe/Amsterdam&forecast_days=1')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var cur = d.current;
+      var temp = Math.round(cur.temperature_2m);
+      var code = cur.weathercode;
+      var wind = Math.round(cur.windspeed_10m);
+      var hum  = cur.relativehumidity_2m;
+      var max  = Math.round(d.daily.temperature_2m_max[0]);
+      var min  = Math.round(d.daily.temperature_2m_min[0]);
+      var prec = d.daily.precipitation_sum[0];
+      var icon = weerIcon(code);
+      var desc = weerDesc(code);
+      var html = '<div style="display:flex;align-items:center;gap:12px">'
+        + '<span style="font-size:36px;line-height:1">' + icon + '</span>'
+        + '<div><div class="weer-temp">' + temp + '°C</div>'
+        + '<div class="weer-desc">' + desc + '</div></div>'
+        + '</div>'
+        + '<div class="weer-detail">'
+        + '<span>↑' + max + '° ↓' + min + '°</span>'
+        + '<span>💨 ' + wind + ' km/h</span>'
+        + '<span>💧 ' + hum + '%</span>'
+        + (prec > 0 ? '<span>🌧️ ' + prec + 'mm</span>' : '')
+        + '</div>';
+      _weerCache = html; _weerTime = Date.now();
+      e.innerHTML = html;
+    })
+    .catch(function(){
+      e.innerHTML = '<div style="font-size:12px;color:var(--text3)">Weer niet beschikbaar</div>';
+    });
+}
+function weerIcon(code) {
+  if (code === 0) return '☀️';
+  if (code <= 2) return '⛅';
+  if (code <= 3) return '☁️';
+  if (code <= 49) return '🌫️';
+  if (code <= 59) return '🌦️';
+  if (code <= 69) return '🌧️';
+  if (code <= 79) return '❄️';
+  if (code <= 82) return '🌦️';
+  if (code <= 99) return '⛈️';
+  return '🌤️';
+}
+function weerDesc(code) {
+  if (code === 0) return 'Helder';
+  if (code <= 2) return 'Gedeeltelijk bewolkt';
+  if (code <= 3) return 'Bewolkt';
+  if (code <= 49) return 'Mist';
+  if (code <= 59) return 'Motregen';
+  if (code <= 69) return 'Regen';
+  if (code <= 79) return 'Sneeuw';
+  if (code <= 82) return 'Buien';
+  if (code <= 99) return 'Onweer';
+  return 'Wisselvallig';
+}
+
+// ── Dag quote ────────────────────────────────────────────────
+function getDagQuote() {
+  var quotes = S.quotes || [];
+  if (!quotes.length) return { text: 'Voeg quotes toe via het Quotes menu.', author: '' };
+  // Deterministic by date
+  var d = new Date(); var seed = d.getFullYear() * 10000 + (d.getMonth()+1) * 100 + d.getDate();
+  var idx = seed % quotes.length;
+  return quotes[idx];
+}
+
+// ── Snelle taak ──────────────────────────────────────────────
+function quickAddTask() {
+  var inp = document.getElementById('quick-task-inp');
+  if (!inp || !inp.value.trim()) return;
+  S.tasks.push({id:'tk'+Date.now(), title:inp.value.trim(), proj:'', prio:'normaal', deadline:'', done:false, created:td()});
+  save(); inp.value = '';
+  // Flash confirmation
+  inp.placeholder = '✓ Toegevoegd!';
+  setTimeout(function(){ inp.placeholder = 'Taak toevoegen...'; }, 1500);
+}
+
 function refreshFin(){renderFinBody(window._finView||'alles');}
 
 function renderFinBody(view){
@@ -4458,13 +4805,21 @@ function init() {
     S.reflQuestions = DEF_REFL_QS.map(function(q){return Object.assign({},q);});
     S.reflVer = 2;
   }
-  if(!S.supps) {
-    S.supps=DEF_SUPPS.map(function(s){return Object.assign({},s);});
+  // Always sync supp names from DEF_SUPPS to fix any corrupted names
+  if(!S.supps || !S.suppVer || S.suppVer < 2) {
+    S.supps = DEF_SUPPS.map(function(s){return Object.assign({},s);});
+    S.suppVer = 2;
+  } else if(S.supps) {
   } else {
-    // Migrate: strip any ID-like prefix from supplement names
+    // Migrate: strip any ID-like prefix (NaNdsupp-sp13, etc.) from supplement names
     S.supps.forEach(function(s){
-      if(s.name && s.name.match(/^[A-Za-z]+supp-[^>]+>/)) {
-        s.name = s.name.replace(/^[A-Za-z]+supp-[^>]+>\s*/,'');
+      if(s.name) {
+        // Match patterns like "NaNdsupp-sp13>", "NaNdsupp-sp13", "sp13>", "sp 13 >" etc.
+        s.name = s.name
+          .replace(/^N[Aa][Nn]dsupp-[a-zA-Z0-9]+>?\s*/g, '')
+          .replace(/^[a-zA-Z]*supp-[a-zA-Z0-9]+>?\s*/g, '')
+          .replace(/^[a-zA-Z]{1,4}\d+>?\s*/g, '')
+          .trim();
       }
     });
   }
