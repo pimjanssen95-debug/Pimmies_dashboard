@@ -1991,6 +1991,27 @@ function rPlan() {
 
   <!-- Open taken below (mobile shows, desktop hides) -->
   <div class="plan-mobile-tasks">
+    <div class="card" style="margin-bottom:10px">
+      <div class="dash-acc-hd" onclick="toggleDashAccEl(this)" data-acc="mob-ev">
+        <div class="ct" style="margin-bottom:0">+ Nieuw event / afspraak</div>
+        <span class="dash-acc-toggle open" id="dacc-t-mob-ev">▾</span>
+      </div>
+      <div id="dacc-mob-ev">
+        <input type="text" id="nev-t-mob" placeholder="Titel (bijv. Afspraak tandarts)" style="width:100%;margin-bottom:8px;font-size:16px">
+        <div style="display:flex;gap:4px;margin-bottom:8px;align-items:center">
+          <span style="font-size:11px;color:var(--text3);min-width:32px">Van</span>
+          <input type="date" id="nev-d-mob" style="flex:1;font-size:16px">
+          <input type="time" id="nev-s-mob" value="09:00" style="width:90px;font-size:16px">
+        </div>
+        <div style="display:flex;gap:4px;margin-bottom:8px;align-items:center">
+          <span style="font-size:11px;color:var(--text3);min-width:32px">T/m</span>
+          <input type="date" id="nev-e-date-mob" style="flex:1;font-size:16px">
+          <input type="time" id="nev-e-mob" value="10:00" style="width:90px;font-size:16px">
+        </div>
+        <select id="nev-c-mob" style="width:100%;margin-bottom:10px;font-size:16px">${EVCOLS.map(c=>`<option value="${c.v}">${c.l}</option>`).join('')}</select>
+        <button class="btn pri" onclick="addEvPanelMob()" style="width:100%;font-size:15px">+ Toevoegen</button>
+      </div>
+    <!-- Open taken -->
     <div class="card">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
         <div class="ct" style="margin-bottom:0">Open taken</div>
@@ -2002,21 +2023,17 @@ function rPlan() {
       </div>
       <div id="ot-list-mob"></div>
     </div>
-    <div class="card" style="margin-top:8px">
-      <div class="ct" style="margin-bottom:8px">+ Nieuw event</div>
-      <input type="text" id="nev-t-mob" placeholder="Titel event..." style="width:100%;margin-bottom:5px">
-      <div style="display:flex;gap:4px;margin-bottom:5px">
-        <input type="time" id="nev-s-mob" value="09:00" style="flex:1">
-        <input type="time" id="nev-e-mob" value="10:00" style="flex:1">
-      </div>
-      <select id="nev-c-mob" style="width:100%;margin-bottom:8px">${EVCOLS.map(c=>`<option value="${c.v}">${c.l}</option>`).join('')}</select>
-      <button class="btn pri" onclick="addEvPanelMob()" style="width:100%">+ Toevoegen</button>
-    </div>
   </div>`;
 
   rPlBody();
   rOTList();
   updateOTSortBtns();
+  // Pre-fill date field with selected day
+  setTimeout(function(){
+    var df = el('nev-d-mob');
+    if (df && !df.value) df.value = selDay || td();
+    initDashAcc('mob-ev', true);
+  }, 20);
 }
 
 function setOTSort(s) {
@@ -2031,12 +2048,69 @@ function updateOTSortBtns() {
   });
 }
 function addEvPanelMob() {
-  var t = el('nev-t-mob'); var s = el('nev-s-mob'); var e = el('nev-e-mob'); var c = el('nev-c-mob');
-  if (!t || !t.value.trim()) return;
+  var titleEl = el('nev-t-mob');
+  var startDateEl = el('nev-d-mob');
+  var endDateEl = el('nev-e-date-mob');
+  var startTimeEl = el('nev-s-mob');
+  var endTimeEl = el('nev-e-mob');
+  var colorEl = el('nev-c-mob');
+
+  if (!titleEl || !titleEl.value.trim()) return;
+
+  var title = titleEl.value.trim();
+  var startDate = startDateEl && startDateEl.value ? startDateEl.value : (selDay || td());
+  var endDate = endDateEl && endDateEl.value ? endDateEl.value : startDate;
+  var startTime = startTimeEl ? startTimeEl.value : '09:00';
+  var endTime = endTimeEl ? endTimeEl.value : '10:00';
+  var color = colorEl ? colorEl.value : 'var(--blue)';
+
   if (!S.events) S.events = [];
-  S.events.push({ id: 'ev'+Date.now(), title: t.value.trim(), date: selDay, start: s?s.value:'09:00', end: e?e.value:'10:00', color: c?c.value:'blue', repeat: false, days: [] });
-  t.value = '';
-  save(); rPlBody();
+
+  // Single day or multi-day range
+  if (endDate && endDate > startDate) {
+    // Multi-day: add one event per day
+    var d = new Date(startDate);
+    var last = new Date(endDate);
+    while (d <= last) {
+      var dk = d.toISOString().split('T')[0];
+      S.events.push({
+        id: 'ev'+Date.now()+Math.random().toString(36).slice(2,6),
+        title: title,
+        date: dk,
+        start: startTime,
+        end: endTime,
+        color: color,
+        repeat: false,
+        days: [],
+        isMultiday: true
+      });
+      d.setDate(d.getDate() + 1);
+    }
+  } else {
+    S.events.push({
+      id: 'ev'+Date.now(),
+      title: title,
+      date: startDate,
+      start: startTime,
+      end: endTime,
+      color: color,
+      repeat: false,
+      days: [],
+      isMultiday: false
+    });
+  }
+
+  titleEl.value = '';
+  if (startDateEl) startDateEl.value = '';
+  if (endDateEl) endDateEl.value = '';
+
+  save();
+  rPlBody();
+  rOTList();
+
+  // Scroll to calendar
+  var cal = el('plcal');
+  if (cal) cal.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 function rPlBody() {
