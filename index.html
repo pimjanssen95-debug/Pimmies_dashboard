@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pimmies OS</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23E0a183%22/%3E%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%23D97757%22/%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23B8694C%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2215%22%20fill%3D%22url%28%23g%29%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2246%22%20font-family%3D%22Georgia%2C%27Times%20New%20Roman%27%2Cserif%22%20font-size%3D%2240%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EP%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -1439,6 +1440,27 @@ body[data-theme="light"] .fin-ov-card {
 .dash-card,.stat-ring-card,.dash-ql,.gedaan-card,.droute-tab,.card,.tk,.ptk{transition:border-color .15s,box-shadow .15s,transform .15s}
 /* quick-link en routine-tab hover behoudt hun lift, krijgt ook de glow */
 .dash-ql:hover{transform:translateY(-2px);background:var(--acc-softer)}
+
+/* ── Fitness trainingshistorie per datum ── */
+.fit-day{border-bottom:1px solid var(--border)}
+.fit-day:last-child{border-bottom:none}
+.fit-day-hd{display:flex;align-items:center;gap:9px;padding:10px 2px;cursor:pointer;transition:background .12s}
+.fit-day-hd:hover{background:var(--acc-softer)}
+.fit-day-chev{display:inline-flex;color:var(--text3);transition:transform .2s;flex-shrink:0}
+.fit-day-chev.open{transform:rotate(90deg);color:var(--acc)}
+.fit-day-date{font-size:13px;font-weight:600;color:var(--text);flex:1}
+.fit-day-meta{font-size:11px;color:var(--text3);flex-shrink:0}
+.fit-day-body{padding:4px 2px 12px 23px}
+.fit-ex-row{padding:7px 0;border-bottom:1px dashed var(--border)}
+.fit-ex-row:last-child{border-bottom:none}
+
+/* ── App logo / merkteken ── */
+.logo-mark{display:inline-flex;flex-shrink:0;line-height:0}
+.logo-mark svg{border-radius:16px;box-shadow:0 4px 12px -4px rgba(217,119,87,.55)}
+.sb-brand{display:flex;align-items:center;gap:10px}
+.sb-brand .sb-name{font-family:var(--font-display);font-weight:400;font-size:17px;letter-spacing:0}
+.logo-mark.mob{margin-right:8px;vertical-align:middle}
+.mob-header,.mob-bar{display:flex;align-items:center}
 </style>
 </head>
 <body>
@@ -1448,7 +1470,7 @@ body[data-theme="light"] .fin-ov-card {
 <!-- Mobile header -->
 <div class="mob-header" id="mob-header">
   <button class="ham-btn" onclick="toggleSidebar()" aria-label="Menu">☰</button>
-  <span class="mob-title" id="mob-title">Pimmies OS</span>
+  <span class="logo-mark mob"><svg viewBox="0 0 64 64" width="22" height="22"><defs><linearGradient id="lmgm" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E0a183"/><stop offset="55%" stop-color="#D97757"/><stop offset="100%" stop-color="#B8694C"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#lmgm)"/><text x="32" y="45" font-family="'DM Serif Display',Georgia,serif" font-size="38" fill="#fff" text-anchor="middle">P</text></svg></span><span class="mob-title" id="mob-title">Pimmies OS</span>
   <div class="mob-header-actions">
     <button class="btn sm theme-btn" onclick="toggleTheme()" style="font-size:13px;padding:5px 8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><path d="M12 3a9 9 0 1 0 9 9c0-.5 0-.9-.1-1.4A7 7 0 0 1 13 3.1c-.3 0-.7-.1-1-.1Z"/></svg></button>
   </div>
@@ -1461,8 +1483,8 @@ body[data-theme="light"] .fin-ov-card {
     <button class="ham-btn" onclick="closeSidebar()" aria-label="Sluiten" style="font-size:16px">✕</button>
   </div>
   <div class="sb-top">
-    <div class="sb-name">Pimmies OS</div>
-    <div class="sb-date" id="sbd"></div>
+    <div class="sb-brand"><span class="logo-mark"><svg viewBox="0 0 64 64" width="28" height="28"><defs><linearGradient id="lmg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E0a183"/><stop offset="55%" stop-color="#D97757"/><stop offset="100%" stop-color="#B8694C"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#lmg)"/><text x="32" y="45" font-family="'DM Serif Display',Georgia,serif" font-size="38" fill="#fff" text-anchor="middle">P</text></svg></span><div><div class="sb-name">Pimmies OS</div>
+    <div class="sb-date" id="sbd"></div></div></div>
   </div>
   <div class="gl">Hoofd</div>
   <div class="ni on" data-s="dash"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</div>
@@ -2569,6 +2591,16 @@ function rDash() {
     +'<button class="dash-ql" data-sec="goals" onclick="navToSecEl(this)">'+icon('target',18,'var(--acc)')+'<span>Goals</span></button>'
     +'<button class="dash-ql" data-sec="fin" onclick="navToSecEl(this)">'+icon('euro',18,'var(--acc)')+'<span>Financiën</span></button>'
     +'</div>'
+    // ── 11. GOALS VOORTGANG ──
+    +'<div class="dash-card">'
+    +'<div class="dash-acc-hd" data-acc="goals" onclick="toggleDashAccEl(this)">'
+    +'<span class="dash-card-title">'+icon('target',14,'var(--acc)')+'Goals voortgang</span>'
+    +'<div style="display:flex;align-items:center;gap:8px">'
+    +'<button class="dash-card-link" data-sec="goals" onclick="navToSecEl(this)">Alle'+icon('arrow',11)+'</button>'
+    +'<span class="dash-acc-toggle" id="dacc-t-goals">'+icon('arrow',12)+'</span>'
+    +'</div></div>'
+    +'<div id="dacc-goals">'+buildDashGoals()+'</div>'
+    +'</div>'
     // ── FOCUS (links) + SNELLE TAAK & STREAK (rechts, gestapeld) ──
     +'<div class="dash-focus-row">'
     // Focus timer links (altijd uitgeklapt)
@@ -2667,16 +2699,6 @@ function rDash() {
     +'<span style="font-size:12px;font-weight:600;color:var(--acc);font-family:var(--font-display)">'+streak+' dagen</span>'
     +'</div>'
     +'<div class="streak-grid">'+buildStreakGrid()+'</div>'
-    +'</div>'
-// ── 11. GOALS VOORTGANG ──
-    +'<div class="dash-card">'
-    +'<div class="dash-acc-hd" data-acc="goals" onclick="toggleDashAccEl(this)">'
-    +'<span class="dash-card-title">'+icon('target',14,'var(--acc)')+'Goals voortgang</span>'
-    +'<div style="display:flex;align-items:center;gap:8px">'
-    +'<button class="dash-card-link" data-sec="goals" onclick="navToSecEl(this)">Alle'+icon('arrow',11)+'</button>'
-    +'<span class="dash-acc-toggle" id="dacc-t-goals">'+icon('arrow',12)+'</span>'
-    +'</div></div>'
-    +'<div id="dacc-goals">'+buildDashGoals()+'</div>'
     +'</div>'
 
     // ── divider ──
@@ -5479,8 +5501,94 @@ function delSupp(id){
   save();renderSuppTab(_suppTab);
 }
 
+// ── Fitness analytics ──
+function fitSetPoints(s){ return (parseFloat(s.w)||0) * (parseInt(s.r)||0); }
+function fitLogPoints(l){ return (l.sets||[]).reduce(function(a,s){return a+fitSetPoints(s);},0); }
+// Punten per ISO-week over ALLE trainingen → [{week, label, points}]
+function fitWeeklyPoints(){
+  var byWeek={};
+  (S.fitLog||[]).forEach(function(l){
+    var wk=isoWeekKey(new Date(l.date));
+    byWeek[wk]=(byWeek[wk]||0)+fitLogPoints(l);
+  });
+  var weeks=Object.keys(byWeek).sort();
+  return weeks.map(function(wk){
+    var wnum=wk.split('-W')[1];
+    return {week:wk, label:'wk '+parseInt(wnum), points:Math.round(byWeek[wk])};
+  });
+}
+// Per-oefening verloop: zwaarste set-volume (of max kg) per datum
+function fitExerciseSeries(catId, exercise, metric){
+  metric=metric||'volume';
+  var byDate={};
+  (S.fitLog||[]).filter(function(l){return l.cat===catId && l.exercise===exercise;}).forEach(function(l){
+    var val;
+    if(metric==='maxkg') val=Math.max.apply(null,(l.sets||[]).map(function(s){return parseFloat(s.w)||0;}).concat([0]));
+    else val=fitLogPoints(l); // volume
+    byDate[l.date]=Math.max(byDate[l.date]||0, val);
+  });
+  var dates=Object.keys(byDate).sort();
+  return dates.map(function(d){return {date:d, val:Math.round(byDate[d])};});
+}
+// Generieke SVG lijn/staaf-grafiek voor een reeks {label, val}
+function fitLineChart(points, color, unit){
+  color=color||'var(--acc)'; unit=unit||'';
+  if(!points.length) return '<div style="font-size:12px;color:var(--text3);padding:14px 0;text-align:center">Nog geen data</div>';
+  if(points.length===1){
+    var p0=points[0];
+    return '<div style="font-size:13px;color:var(--text2);padding:10px 0;text-align:center">'+(p0.label||p0.date)+': <strong style="color:'+color+'">'+p0.val+unit+'</strong><div style="font-size:11px;color:var(--text3);margin-top:3px">Log meer trainingen voor een grafiek</div></div>';
+  }
+  var W=300, H=110, pad=8, padB=20, padL=4;
+  var vals=points.map(function(p){return p.val;});
+  var max=Math.max.apply(null,vals), min=Math.min.apply(null,vals);
+  if(max===min){ max=max+1; min=Math.max(0,min-1); }
+  var n=points.length;
+  var xstep=(W-padL*2)/(n-1);
+  var coords=points.map(function(p,i){
+    var x=padL+i*xstep;
+    var y=pad+(H-pad-padB)*(1-(p.val-min)/(max-min));
+    return {x:x,y:y,p:p};
+  });
+  var path=coords.map(function(c,i){return (i===0?'M':'L')+c.x.toFixed(1)+' '+c.y.toFixed(1);}).join(' ');
+  var area=path+' L'+coords[n-1].x.toFixed(1)+' '+(H-padB)+' L'+coords[0].x.toFixed(1)+' '+(H-padB)+' Z';
+  var dots=coords.map(function(c){return '<circle cx="'+c.x.toFixed(1)+'" cy="'+c.y.toFixed(1)+'" r="2.5" fill="'+color+'"/>';}).join('');
+  // alleen labels tonen bij eerste, laatste en evt midden om druk te voorkomen
+  var labels='';
+  coords.forEach(function(c,i){
+    if(i===0||i===n-1||(n>4&&i===Math.floor(n/2))){
+      labels+='<text x="'+c.x.toFixed(1)+'" y="'+(H-6)+'" font-size="8" fill="var(--text3)" text-anchor="middle">'+(c.p.label||'').replace('wk ','w')+'</text>';
+    }
+  });
+  return '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;display:block">'
+    +'<defs><linearGradient id="fitgrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+color+'" stop-opacity="0.25"/><stop offset="100%" stop-color="'+color+'" stop-opacity="0"/></linearGradient></defs>'
+    +'<path d="'+area+'" fill="url(#fitgrad)"/>'
+    +'<path d="'+path+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>'
+    +dots+labels
+    +'</svg>';
+}
+
 function rFit() {
+  var wp=fitWeeklyPoints();
+  var totalPts=wp.reduce(function(a,w){return a+w.points;},0);
+  var trend='';
+  if(wp.length>=2){
+    var last=wp[wp.length-1].points, prev=wp[wp.length-2].points;
+    var diff=last-prev;
+    var pct=prev>0?Math.round(diff/prev*100):0;
+    trend=diff>=0
+      ? '<span style="color:var(--acc);font-size:12px;font-weight:600">▲ +'+diff+' ('+pct+'%) t.o.v. vorige week</span>'
+      : '<span style="color:var(--text2);font-size:12px;font-weight:600">▼ '+diff+' ('+pct+'%) t.o.v. vorige week</span>';
+  }
+  var chartCard='<div class="card">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">'
+    +'<div class="ct" style="margin:0">Trainingspunten per week</div>'
+    +(wp.length?'<span style="font-size:11px;color:var(--text3)">gewicht × reps</span>':'')
+    +'</div>'
+    +(wp.length?'<div style="font-size:11px;color:var(--text3);margin-bottom:8px">Laatste week: <strong style="color:var(--acc);font-family:var(--font-display);font-size:15px">'+(wp[wp.length-1].points)+'</strong> punten &nbsp; '+trend+'</div>':'')
+    +fitLineChart(wp,'var(--acc)','')
+    +'</div>';
   M.innerHTML=`<div class="ph"><div class="pt">Fitness</div></div>
+  ${chartCard}
   <div class="tbar" style="flex-wrap:wrap">${FC.map((c,i)=>`<button class="tb${i===0?' on':''}" onclick="setFC(this,'${c.id}')">${c.l}</button>`).join('')}</div>
   <div id="fitbd"></div>`;
   rFitC('chest');
@@ -5501,8 +5609,80 @@ function rFitC(id) {
     <div style="display:flex;gap:5px;margin-top:7px"><button class="btn" onclick="addSet()">+ Set toevoegen</button><button class="btn pri" onclick="saveFit('${id}')" style="flex:1">✓ Training opslaan</button></div>
   </div>
   ${Object.keys(prs).length?`<div class="card"><div class="ct">Personal Records</div><div style="display:flex;flex-wrap:wrap;gap:7px">${Object.entries(prs).map(([ex,w])=>`<div style="background:${cat.c}18;border:1px solid ${cat.c}44;border-radius:8px;padding:6px 11px;font-size:12px"><strong style="color:${cat.c}">${w}kg</strong><div style="font-size:10.5px;color:var(--text2)">${ex}</div></div>`).join('')}</div></div>`:''}
-  <div class="card"><div class="ct">Trainingshistorie (${logs.length})</div>${logs.length?logs.slice(0,25).map(l=>`<div style="padding:7px 0;border-bottom:1px solid var(--border)"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;font-weight:600">${l.exercise}</span><div style="display:flex;align-items:center;gap:6px"><span style="font-size:11px;color:var(--text3)">${fD(l.date)}</span><button class="del" onclick="S.fitLog=S.fitLog.filter(x=>x.id!=='${l.id}');save();rFitC('${id}')">✕</button></div></div><div style="display:flex;flex-wrap:wrap;gap:4px">${(l.sets||[]).map((s,i)=>`<div style="background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-size:12px;font-weight:500">${i+1}: ${s.w}kg×${s.r}</div>`).join('')}</div></div>`).join(''):em('barbell','Log je eerste training!')}</div>`;
+  ${fitExerciseProgressCard(id, cat)}
+  ${fitHistoryByDateCard(id, cat, logs)}`;
 }
+// Per-oefening voortgangsgrafiek met keuze-dropdown
+function fitExerciseProgressCard(catId, cat){
+  var logs=(S.fitLog||[]).filter(function(l){return l.cat===catId;});
+  var exs=[];
+  logs.forEach(function(l){ if(exs.indexOf(l.exercise)<0) exs.push(l.exercise); });
+  if(!exs.length) return '';
+  if(!window._fitProgEx) window._fitProgEx={};
+  var sel=window._fitProgEx[catId];
+  if(!sel || exs.indexOf(sel)<0){ sel=exs[0]; window._fitProgEx[catId]=sel; }
+  if(!window._fitProgMetric) window._fitProgMetric={};
+  var metric=window._fitProgMetric[catId]||'volume';
+  var series=fitExerciseSeries(catId, sel, metric);
+  var unit=metric==='maxkg'?'kg':' pt';
+  return '<div class="card">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px">'
+    +'<div class="ct" style="margin:0">Voortgang per oefening</div>'
+    +'<div style="display:flex;gap:5px">'
+    +'<button class="btn sm'+(metric==='volume'?' pri':'')+'" onclick="setFitMetric(\''+catId+'\',\'volume\')" style="font-size:10px">Volume</button>'
+    +'<button class="btn sm'+(metric==='maxkg'?' pri':'')+'" onclick="setFitMetric(\''+catId+'\',\'maxkg\')" style="font-size:10px">Max kg</button>'
+    +'</div></div>'
+    +'<select id="fitProgSel" onchange="setFitProgEx(\''+catId+'\',this.value)" style="width:100%;margin-bottom:8px">'
+    +exs.map(function(ex){return '<option'+(ex===sel?' selected':'')+'>'+ex+'</option>';}).join('')
+    +'</select>'
+    +fitLineChart(series.map(function(d){return {label:fD(d.date).replace(/ \d{4}$/,''), val:d.val};}), cat.c, unit)
+    +'</div>';
+}
+function setFitProgEx(catId, ex){ if(!window._fitProgEx)window._fitProgEx={}; window._fitProgEx[catId]=ex; rFitC(catId); }
+function setFitMetric(catId, m){ if(!window._fitProgMetric)window._fitProgMetric={}; window._fitProgMetric[catId]=m; rFitC(catId); }
+
+// Trainingshistorie gegroepeerd per datum (uitklapbaar)
+function fitHistoryByDateCard(catId, cat, logs){
+  if(!logs.length) return '<div class="card"><div class="ct">Trainingshistorie</div>'+em('barbell','Log je eerste training!')+'</div>';
+  // groepeer op datum
+  var byDate={};
+  logs.forEach(function(l){ (byDate[l.date]=byDate[l.date]||[]).push(l); });
+  var dates=Object.keys(byDate).sort(function(a,b){return b.localeCompare(a);});
+  if(!window._fitDayOpen) window._fitDayOpen={};
+  var rows=dates.slice(0,40).map(function(d){
+    var dayLogs=byDate[d];
+    var dayPts=dayLogs.reduce(function(a,l){return a+fitLogPoints(l);},0);
+    var key=catId+'|'+d;
+    var open=!!window._fitDayOpen[key];
+    var head='<div class="fit-day-hd" onclick="togFitDay(\''+catId+'\',\''+d+'\')">'
+      +'<span class="fit-day-chev'+(open?' open':'')+'">'+icon('arrow',12)+'</span>'
+      +'<span class="fit-day-date">'+fD(d)+'</span>'
+      +'<span class="fit-day-meta">'+dayLogs.length+' oef. · '+Math.round(dayPts)+' pt</span>'
+      +'</div>';
+    var body='';
+    if(open){
+      body='<div class="fit-day-body">'+dayLogs.map(function(l){
+        return '<div class="fit-ex-row">'
+          +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">'
+          +'<span style="font-size:12.5px;font-weight:600">'+l.exercise+'</span>'
+          +'<button class="del" onclick="S.fitLog=S.fitLog.filter(function(x){return x.id!==\''+l.id+'\';});save();rFitC(\''+catId+'\')">✕</button>'
+          +'</div>'
+          +'<div style="display:flex;flex-wrap:wrap;gap:4px">'
+          +(l.sets||[]).map(function(s,i){return '<div style="background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-size:12px;font-weight:500">'+(i+1)+': '+s.w+'kg×'+s.r+'</div>';}).join('')
+          +'</div></div>';
+      }).join('')+'</div>';
+    }
+    return '<div class="fit-day'+(open?' open':'')+'">'+head+body+'</div>';
+  }).join('');
+  return '<div class="card"><div class="ct">Trainingshistorie ('+dates.length+' dagen)</div>'+rows+'</div>';
+}
+function togFitDay(catId, d){
+  if(!window._fitDayOpen) window._fitDayOpen={};
+  var key=catId+'|'+d;
+  window._fitDayOpen[key]=!window._fitDayOpen[key];
+  rFitC(catId);
+}
+
 function addSet() { const c=el('sets-c');if(!c||fSets>=8)return;const d=document.createElement('div');d.className='row';d.style.cssText='margin-bottom:5px;align-items:center';d.innerHTML='<input type="number" placeholder="kg" id="sw'+fSets+'" style="width:70px;flex:none"><input type="number" placeholder="reps" id="sr'+fSets+'" style="width:70px;flex:none"><span style="font-size:11px;color:var(--text3)">Set '+(fSets+1)+'</span>';c.appendChild(d);fSets++; }
 function saveFit(catId) { var ex=(el('fex')?el('fex').value:'');if(!ex||ex==='__c')return;var sets=[];for(var i=0;i<fSets;i++){var sw=document.getElementById('sw'+i),sr=document.getElementById('sr'+i);var w=sw?parseFloat(sw.value||0):0,r=sr?parseInt(sr.value||0):0;if(w>0||r>0)sets.push({w:w,r:r});}if(!sets.length)return;if(!S.fitLog)S.fitLog=[];var fdDate=el('fd')?el('fd').value:td();S.fitLog.push({id:'f'+Date.now(),cat:catId,exercise:ex,date:fdDate,sets:sets});fSets=1;save();rFitC(catId);}
 
