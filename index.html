@@ -1278,7 +1278,9 @@ body[data-theme="light"] .fin-ov-card {
 [style*="font-display"] { font-weight: 400 !important; }
 
 /* Routine slepen */
-.rout-drag{display:inline-flex;align-items:center;cursor:grab;touch-action:none;flex-shrink:0;padding:0 2px;opacity:.5;transition:opacity .15s}
+.rout-drag{display:inline-flex;align-items:center;justify-content:center;cursor:grab;touch-action:none;flex-shrink:0;padding:6px 8px;margin:-6px -4px;opacity:.5;transition:opacity .15s;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.rout-drag svg{pointer-events:none}
+.rout-drag:active{cursor:grabbing;opacity:1}
 .rout-drag:hover{opacity:1}
 .rout-drag:active{cursor:grabbing}
 .rout-item.rout-dragging{opacity:.7;background:var(--acc-soft);border-radius:10px}
@@ -5501,20 +5503,25 @@ function setRoutTab(tab) {
 // ── Routine items slepen om te herordenen (touch + muis) ──
 var _routDrag = null;
 function routDragStart(e, handle){
-  e.preventDefault();
+  if(e.button!==undefined && e.button!==0) return;
+  e.preventDefault(); e.stopPropagation();
   var item = handle.closest('.rout-item');
   if(!item) return;
   var tab = item.getAttribute('data-tab');
   var container = item.parentElement;
-  _routDrag = { item: item, tab: tab, container: container };
+  _routDrag = { item: item, tab: tab, container: container, handle: handle, moved:false, startY:e.clientY };
   item.classList.add('rout-dragging');
   try{ handle.setPointerCapture(e.pointerId); }catch(_){}
   handle.addEventListener('pointermove', routDragMove);
   handle.addEventListener('pointerup', routDragEnd);
   handle.addEventListener('pointercancel', routDragEnd);
 }
+
+
 function routDragMove(e){
   if(!_routDrag) return;
+  e.preventDefault();
+  if(Math.abs(e.clientY-_routDrag.startY)>4) _routDrag.moved=true;
   var container = _routDrag.container;
   var dragged = _routDrag.item;
   var siblings = Array.prototype.slice.call(container.querySelectorAll('.rout-item')).filter(function(s){return s!==dragged;});
@@ -5525,31 +5532,36 @@ function routDragMove(e){
   }
   if(after){ container.insertBefore(dragged, after); }
   else {
-    // plaats voor het toevoeg-blok als dat er is, anders aan het eind
     var addBlock = container.querySelector('.rout-add');
     if(addBlock) container.insertBefore(dragged, addBlock);
     else container.appendChild(dragged);
   }
+  // Auto-scroll wanneer je bij de rand van het scherm komt (handig op mobiel bij lange lijsten)
+  var vh = window.innerHeight || document.documentElement.clientHeight;
+  if(e.clientY < 80) window.scrollBy(0, -8);
+  else if(e.clientY > vh - 80) window.scrollBy(0, 8);
 }
+
+
 function routDragEnd(e){
   if(!_routDrag) return;
-  var handle = e.target;
+  var handle = _routDrag.handle || e.target;
   try{ handle.releasePointerCapture(e.pointerId); }catch(_){}
   handle.removeEventListener('pointermove', routDragMove);
   handle.removeEventListener('pointerup', routDragEnd);
   handle.removeEventListener('pointercancel', routDragEnd);
   var tab = _routDrag.tab;
   _routDrag.item.classList.remove('rout-dragging');
-  // Nieuwe volgorde uit de DOM lezen en opslaan
   var container = _routDrag.container;
   var ids = Array.prototype.slice.call(container.querySelectorAll('.rout-item')).map(function(el){return el.getAttribute('data-rid');});
   var arr = S.routineItems[tab] || [];
   arr.sort(function(a,b){ return ids.indexOf(a.id) - ids.indexOf(b.id); });
   S.routineItems[tab] = arr;
+  var moved = _routDrag.moved;
   _routDrag = null;
-  save();
-  renderRoutTab(tab);
+  if(moved){ save(); renderRoutTab(tab); }
 }
+
 
 // Routine reset-periode per tab-type: dagelijks=dag, wekelijks=ISO-week, maandelijks=maand, jaarlijks=jaar
 function isoWeekKey(d){
