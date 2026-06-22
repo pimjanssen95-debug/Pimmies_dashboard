@@ -1640,6 +1640,92 @@ body[data-theme="light"] .fin-ov-card {
 /* ── Weekthema banner ── */
 .day-theme-banner{display:flex;align-items:center;gap:7px;padding:8px 12px;background:var(--acc-softer);border:1px solid var(--acc-line);border-radius:10px;margin-bottom:10px;font-size:12px;color:var(--text2)}
 .day-theme-banner strong{color:var(--acc);font-weight:600}
+
+/* ── Top-3 Vandaag/Morgen tabs ── */
+.top3-daytabs{display:flex;gap:3px;margin-left:auto;background:var(--bg);border-radius:8px;padding:2px}
+.top3-daytab{background:none;border:none;color:var(--text3);font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:var(--font-ui);transition:all .12s}
+.top3-daytab.on{background:var(--acc);color:#fff}
+.top3-hd .top3-count{margin-left:8px}
+
+/* ── Project status selector ── */
+.proj-status-sel{display:flex;gap:4px}
+.proj-status-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text3);border-radius:6px;font-size:11px;padding:3px 9px;cursor:pointer;font-family:var(--font-ui);transition:all .12s}
+.proj-status-btn:hover{border-color:var(--acc-line);color:var(--text2)}
+.proj-status-btn.on{background:var(--acc-soft);border-color:var(--acc);color:var(--acc);font-weight:600}
+
+/* ── Projecten: categorie-secties (overzichtelijker) ── */
+.pcat-head{display:flex;align-items:center;gap:9px;padding:11px 12px;margin-top:10px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;cursor:pointer;user-select:none;transition:border-color .12s}
+.pcat-head:first-child{margin-top:0}
+.pcat-head:hover{border-color:var(--acc-line)}
+.pcat-chev{display:inline-flex;align-items:center;color:var(--text3);transition:transform .2s;flex-shrink:0}
+.pcat-chev.open{transform:rotate(90deg)}
+.pcat-name{font-size:13px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.5px}
+.pcat-count{font-size:11px;color:var(--text3);background:var(--bg3);border-radius:20px;padding:1px 9px;font-weight:600}
+.pcat-pct{margin-left:auto;font-size:12px;font-weight:600;color:var(--acc)}
+.pcat-body{padding:2px 4px 0;overflow:hidden}
+.pcat-body.closed{display:none}
+.pcat-body .prow:last-child{border-bottom:none}
+
+/* ══ GOALS V2 ══ */
+/* Horizon-ladder */
+
+
+
+
+
+
+
+
+
+.goal-ladder-cap{font-size:11px;color:var(--text3);text-align:center;margin-bottom:14px;font-style:italic}
+/* Horizon sectie-kop */
+.goal-hz-hd{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.goal-hz-titles{flex:1}
+.goal-hz-label{font-size:14px;font-weight:700;color:var(--text);font-family:var(--font-display)}
+.goal-hz-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.goal-hz-pct{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.goal-hz-body{margin-top:12px}
+.goal-empty{font-size:12px;color:var(--text3);font-style:italic;padding:4px 0 10px}
+/* Goal-kaart v2 */
+.goal-card-v2{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:9px}
+.goal-card-v2.done{opacity:.6}
+.goal-v2-hd{display:flex;align-items:center;gap:9px}
+.goal-v2-check{width:17px;height:17px;flex-shrink:0;accent-color:var(--acc);cursor:pointer}
+.goal-v2-title{flex:1;font-size:13px;font-weight:600;color:var(--text);cursor:text;border-radius:6px;padding:2px 4px;margin:-2px 0;transition:background .12s}
+.goal-v2-title:hover{background:var(--acc-softer)}
+.goal-card-v2.done .goal-v2-title{text-decoration:line-through;color:var(--text3)}
+.goal-v2-pct{font-size:11px;font-weight:600;flex-shrink:0;font-variant-numeric:tabular-nums}
+.goal-v2-bar{height:5px;background:var(--bg3);border-radius:20px;overflow:hidden;margin:9px 0}
+.goal-v2-fill{height:100%;border-radius:20px;transition:width .3s}
+/* De drie velden (waarom / actie / wanneer) */
+.goal-v2-why,.goal-v2-next,.goal-v2-when{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2);padding:6px 8px;border-radius:8px;cursor:text;margin-top:5px;transition:background .12s;min-height:30px}
+.goal-v2-why{background:var(--acc-softer)}
+.goal-v2-next{background:var(--bg2)}
+.goal-v2-when{background:var(--bg2)}
+.goal-v2-why:hover,.goal-v2-next:hover,.goal-v2-when:hover{background:var(--acc-soft)}
+.goal-v2-why span,.goal-v2-next span,.goal-v2-when span{flex:1;min-width:0}
+.goal-v2-why.empty span,.goal-v2-next.empty span,.goal-v2-when.empty span{color:var(--text3);font-style:italic}
+.goal-v2-why svg,.goal-v2-next svg,.goal-v2-when svg{flex-shrink:0}
+.goal-edit-inp{flex:1;background:var(--bg);border:1px solid var(--acc);border-radius:6px;color:var(--text);font-size:12px;padding:4px 8px;font-family:var(--font-ui);min-width:0;width:100%}
+.goal-add-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;background:var(--bg);border:1px dashed var(--acc-line);color:var(--acc);border-radius:10px;padding:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-ui);margin-top:4px}
+.goal-add-btn:hover{background:var(--acc-softer)}
+
+/* ── Voortgangscirkels (rij) ── */
+.pct-ring-row{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 12px;-webkit-overflow-scrolling:touch}
+.pct-ring-item{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;width:68px;cursor:pointer;padding:4px 2px;border-radius:10px;transition:background .12s}
+.pct-ring-item:hover{background:var(--acc-softer)}
+.pct-ring-item.active{background:var(--acc-soft)}
+.pct-ring-circ{position:relative;flex-shrink:0}
+.pct-ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.pct-ring-pct{font-size:9px;color:var(--text3);margin-left:1px}
+.pct-ring-lbl{font-size:10px;color:var(--text2);text-align:center;line-height:1.15;max-width:66px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pct-ring-item.active .pct-ring-lbl{color:var(--acc);font-weight:600}
+.goal-flash{animation:goalflash 1.2s ease}
+@keyframes goalflash{0%,100%{box-shadow:none}30%{box-shadow:0 0 0 2px var(--acc)}}
+
+/* ── Goals: horizon-ringen bovenaan (prominenter) ── */
+.goal-hz-rings{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px 8px;margin-bottom:6px;justify-content:space-around}
+.goal-hz-rings .pct-ring-item{width:74px}
 </style>
 </head>
 <body>
@@ -2352,6 +2438,23 @@ function icon(name, size, color) {
 }
 
 // ── Progress ring (SVG circle) ──
+function pctRing(pct, label, onclick, active){
+  pct=Math.max(0,Math.min(100,Math.round(pct||0)));
+  var size=58, r=24, circ=2*Math.PI*r, off=circ*(1-pct/100), cx=size/2;
+  var col = pct>=100?'var(--acc)':pct>0?'var(--acc)':'var(--text3)';
+  var click = onclick ? ' onclick="'+onclick+'"' : '';
+  return '<div class="pct-ring-item'+(active?' active':'')+'"'+click+'>'
+    +'<div class="pct-ring-circ" style="width:'+size+'px;height:'+size+'px">'
+    +'<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'" style="transform:rotate(-90deg)">'
+    +'<circle cx="'+cx+'" cy="'+cx+'" r="'+r+'" fill="none" stroke="var(--bg3)" stroke-width="4"/>'
+    +'<circle cx="'+cx+'" cy="'+cx+'" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'" style="transition:stroke-dashoffset .5s"/>'
+    +'</svg>'
+    +'<span class="pct-ring-num">'+pct+'<span class="pct-ring-pct">%</span></span>'
+    +'</div>'
+    +'<span class="pct-ring-lbl">'+label+'</span>'
+    +'</div>';
+}
+
 function progressRing(pct, size, label, sublabel) {
   size = size || 64;
   var r = (size-8)/2;
@@ -2709,17 +2812,28 @@ function focusTasksToday(){
   var t=td();
   return (S.tasks||[]).filter(function(x){return x.focusDate===t && !x.done;});
 }
+function _top3Date(){
+  var which=window._top3Day||'vandaag';
+  if(which==='morgen'){ var d=new Date(); d.setDate(d.getDate()+1); return d.toISOString().split('T')[0]; }
+  return td();
+}
+function setTop3Day(which){ window._top3Day=which; rDash(); if(typeof rVandaag==='function' && document.querySelector('[data-s=vandaag].on')) rVandaag(); }
 function buildTop3(){
-  var t=td();
+  var which=window._top3Day||'vandaag';
+  var t=_top3Date();
   var focus=(S.tasks||[]).filter(function(x){return x.focusDate===t;});
   var open=focus.filter(function(x){return !x.done;});
   var done=focus.filter(function(x){return x.done;});
   var slots=3;
   var html='<div class="top3-card">'
-    +'<div class="top3-hd">'+icon('target',14,'var(--acc)')+'<span>Vandaag mijn focus</span>'
+    +'<div class="top3-hd">'+icon('target',14,'var(--acc)')+'<span>Mijn focus</span>'
+    +'<div class="top3-daytabs">'
+    +'<button class="top3-daytab'+(which==='vandaag'?' on':'')+'" onclick="setTop3Day(\'vandaag\')">Vandaag</button>'
+    +'<button class="top3-daytab'+(which==='morgen'?' on':'')+'" onclick="setTop3Day(\'morgen\')">Morgen</button>'
+    +'</div>'
     +'<span class="top3-count">'+done.length+'/'+focus.length+'</span></div>';
   if(!focus.length){
-    html+='<div class="top3-empty">Kies je 1–3 belangrijkste taken voor vandaag.</div>';
+    html+='<div class="top3-empty">Kies je 1–3 belangrijkste taken voor '+(which==='morgen'?'morgen':'vandaag')+'.</div>';
   } else {
     html+='<div class="top3-list">'+focus.map(function(x){
       var p=proj(x);
@@ -2731,7 +2845,6 @@ function buildTop3(){
         +'</div>';
     }).join('')+'</div>';
   }
-  // toevoeg-knop als er nog ruimte is
   if(open.length+done.length<slots){
     html+='<button class="top3-add" onclick="openFocusPicker()">'+icon('plus',13,'var(--acc)')+'Taak kiezen ('+(slots-focus.length)+' vrij)</button>';
   }
@@ -2756,10 +2869,10 @@ function togFocusEl(btn){
 function unsetFocusEl(btn){
   var id=btn.getAttribute('data-tid');
   var t=(S.tasks||[]).find(function(x){return x.id===id;});
-  if(t){ t.focusDate=''; save(); rDash(); }
+  if(t){ t.focusDate=''; save(); rDash(); if(typeof rVandaag==='function' && document.querySelector('[data-s=vandaag].on')) rVandaag(); }
 }
 function openFocusPicker(){
-  var t=td();
+  var t=_top3Date();
   // kandidaat-taken: open, niet al in focus
   var cands=(S.tasks||[]).filter(function(x){return !x.done && x.focusDate!==t;});
   if(!cands.length){ toast('Geen open taken om te kiezen — maak er eerst een aan'); return; }
@@ -2781,11 +2894,11 @@ function openFocusPicker(){
 }
 function pickFocusEl(row){
   var id=row.getAttribute('data-tid');
-  var t=td();
+  var t=_top3Date();
   var focusN=(S.tasks||[]).filter(function(x){return x.focusDate===t;}).length;
   if(focusN>=3){ toast('Je hebt al 3 focus-taken — haal er eerst een weg'); return; }
   var task=(S.tasks||[]).find(function(x){return x.id===id;});
-  if(task){ task.focusDate=t; save(); closeModal(); rDash(); toast('Toegevoegd aan focus'); }
+  if(task){ task.focusDate=t; save(); closeModal(); rDash(); if(typeof rVandaag==='function' && document.querySelector('[data-s=vandaag].on')) rVandaag(); toast('Toegevoegd aan focus'); }
 }
 
 function buildHero(){
@@ -4750,54 +4863,126 @@ function createGoalTask(goalId){
   save(); closeModal(); rGoals(); toast('Taak gemaakt en gekoppeld');
 }
 
+function togGoalAcc(key){
+  if(!window._goalAcc) window._goalAcc={};
+  var cur=window._goalAcc[key]!==undefined?window._goalAcc[key]:true;
+  window._goalAcc[key]=!cur;
+  var body=document.getElementById('gaccb-'+key);
+  var chev=document.getElementById('gacc-'+key);
+  if(body) body.style.display=window._goalAcc[key]?'':'none';
+  if(chev) chev.classList.toggle('open',window._goalAcc[key]);
+}
+function scrollToGoal(gid){
+  var card=document.getElementById('goal-'+gid);
+  if(card){ card.scrollIntoView({behavior:'smooth',block:'center'}); card.classList.add('goal-flash'); setTimeout(function(){card.classList.remove('goal-flash');},1200); }
+}
+function scrollToHz(key){
+  if(!window._goalAcc) window._goalAcc={};
+  window._goalAcc[key]=true;
+  var card=document.getElementById('goalhz-'+key);
+  if(card){
+    var body=document.getElementById('gaccb-'+key);
+    var chev=document.getElementById('gacc-'+key);
+    if(body) body.style.display='';
+    if(chev) chev.classList.add('open');
+    card.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}
+function editGoalTitleEl(el2){
+  var gid=el2.getAttribute('data-gid');
+  var g=(S.goals||[]).find(function(x){return x.id===gid;});
+  if(!g || el2.querySelector('input')) return;
+  var cur=g.title;
+  el2.innerHTML='';
+  var inp=document.createElement('input');
+  inp.type='text'; inp.className='goal-edit-inp'; inp.value=cur;
+  inp.onclick=function(e){ e.stopPropagation(); };
+  inp.onkeydown=function(e){ if(e.key==='Enter'){e.preventDefault();inp.blur();} else if(e.key==='Escape'){inp.value='__C__';inp.blur();} };
+  inp.onblur=function(){
+    if(inp.value!=='__C__'){ var v=stripEmoji(inp.value).trim(); if(v){ g.title=v; save(); } }
+    rGoals();
+  };
+  el2.appendChild(inp); inp.focus(); inp.select();
+}
+function editGoalFieldEl(el2, field){
+  var gid=el2.getAttribute('data-gid');
+  var g=(S.goals||[]).find(function(x){return x.id===gid;});
+  if(!g || el2.querySelector('input')) return;
+  var cur=g[field]||'';
+  var placeholders={why:'Waarom is dit belangrijk voor jou?',nextAction:'Eerstvolgende concrete stap...',when:'Bijv. elke maandagochtend, of na het ontbijt'};
+  el2.innerHTML='';
+  var inp=document.createElement('input');
+  inp.type='text'; inp.className='goal-edit-inp'; inp.value=cur; inp.placeholder=placeholders[field]||'';
+  inp.onclick=function(e){ e.stopPropagation(); };
+  inp.onkeydown=function(e){ if(e.key==='Enter'){e.preventDefault();inp.blur();} else if(e.key==='Escape'){inp.value='__C__';inp.blur();} };
+  inp.onblur=function(){
+    if(inp.value!=='__C__'){ g[field]=stripEmoji(inp.value).trim(); save(); }
+    rGoals();
+  };
+  el2.appendChild(inp); inp.focus(); inp.select();
+}
+
 function rGoals() {
   if(!S.goalsV2) {
-    // Fresh start volgens nieuwe horizon-structuur
     S.goals = [
-      {id:'g'+Date.now()+'a', title:'Dashboard af', horizon:'maandelijks', done:false, items:[]},
-      {id:'g'+Date.now()+'b', title:'Reis boeken', horizon:'kwartaal', done:false, items:[]},
-      {id:'g'+Date.now()+'c', title:'Feestje organiseren', horizon:'jaar', done:false, items:[]},
-      {id:'g'+Date.now()+'d', title:'Vriendin vinden', horizon:'2jaar', done:false, items:[]},
-      {id:'g'+Date.now()+'e', title:'Financieel vrij zijn', horizon:'35jaar', done:false, items:[]}
+      {id:'g'+Date.now()+'a', title:'Dashboard afmaken en lanceren', horizon:'kwartaal', done:false, items:[]},
+      {id:'g'+Date.now()+'c', title:'Eigen bedrijf laten groeien', horizon:'jaar', done:false, items:[]},
+      {id:'g'+Date.now()+'d', title:'Financieel onafhankelijk worden', horizon:'35jaar', done:false, items:[]},
+      {id:'g'+Date.now()+'e', title:'Een leven leiden dat klopt met mijn waarden', horizon:'visie', done:false, items:[]}
     ];
     S.goalsV2 = true;
     save();
   }
   if(!S.goals) S.goals = [];
+  // Migratie oude horizonnen → 4 niveaus
+  var migMap={maandelijks:'kwartaal','2jaar':'35jaar','510jaar':'visie'};
+  S.goals.forEach(function(g){ if(migMap[g.horizon]) g.horizon=migMap[g.horizon]; });
   if(!window._goalAcc) window._goalAcc = {};
+  if(!window._goalDeep) window._goalDeep = {};
 
   var horizons = [
-    ['maandelijks','Maandelijks'],
-    ['kwartaal','Kwartaal'],
-    ['jaar','Jaar'],
-    ['2jaar','2 jaar'],
-    ['35jaar','3-5 jaar'],
-    ['510jaar','5-10 jaar']
+    ['kwartaal','Dit kwartaal','De concrete sprint — wat lever ik de komende maanden op'],
+    ['jaar','Dit jaar','De grote mijlpalen voor dit jaar'],
+    ['35jaar','3-5 jaar','Waar bouw ik naartoe op de middellange termijn'],
+    ['visie','Levensvisie','De richting van mijn leven — het waarom achter alles']
   ];
+
+  // ── Horizon-ringen (overzicht per niveau: % behaalde doelen) ──
+  var ladderRings=horizons.slice().reverse().map(function(hz){
+    var key=hz[0];
+    var hG=S.goals.filter(function(g){return g.horizon===key;});
+    var dn=hG.filter(function(g){return g.done;}).length;
+    var pct=hG.length?Math.round(dn/hG.length*100):0;
+    return pctRing(pct, hz[1], 'scrollToHz(\''+key+'\')', false);
+  }).join('');
+  var ladder='<div class="pct-ring-row goal-hz-rings">'+ladderRings+'</div>'
+    +'<div class="goal-ladder-cap">Per niveau: hoeveel doelen je al behaald hebt.</div>';
 
   var html = '<div class="ph"><div class="pt">Goals</div>'
     +'<button class="undo-btn" onclick="undo()">↩</button>'
     +'</div>';
+  html += ladder;
 
   horizons.forEach(function(hz){
-    var key = hz[0], label = hz[1];
+    var key = hz[0], label = hz[1], sub = hz[2];
     var hGoals = S.goals.filter(function(g){ return g.horizon===key; });
     var totalGoals = hGoals.length;
     var doneGoals = hGoals.filter(function(g){ return g.done; }).length;
     var hzPct = totalGoals ? Math.round(doneGoals/totalGoals*100) : 0;
-    var accId = 'goalhz-'+key;
     var isOpen = window._goalAcc[key] !== undefined ? window._goalAcc[key] : true;
 
-    html += '<div class="card" style="margin-bottom:10px">';
-    // Header
-    html += '<div class="dash-acc-hd" onclick="toggleGoalHz(\''+key+'\')" style="padding:4px 0">'
-      +'<span style="font-size:12px;font-weight:700;color:var(--text)">'+label+'</span>'
-      +'<div style="display:flex;align-items:center;gap:8px">'
-      +'<span style="font-size:11px;color:var(--text3)">'+doneGoals+'/'+totalGoals+'</span>'
-      +'<span class="dash-acc-toggle'+(isOpen?' open':'')+'" id="dacc-t-'+accId+'">▾</span>'
-      +'</div></div>';
-    // Body
-    html += '<div id="dacc-'+accId+'" style="display:'+(isOpen?'block':'none')+';margin-top:8px">';
+    html += '<div class="card goal-hz-card" id="goalhz-'+key+'" style="margin-bottom:10px">';
+    html += '<div class="goal-hz-hd" onclick="togGoalAcc(\''+key+'\')">'
+      +'<div class="goal-hz-titles"><div class="goal-hz-label">'+label+'</div>'
+      +'<div class="goal-hz-sub">'+sub+'</div></div>'
+      +(totalGoals?'<span class="goal-hz-pct" style="color:'+cpc(hzPct)+'">'+doneGoals+'/'+totalGoals+'</span>':'')
+      +'<span class="exp-chev'+(isOpen?' open':'')+'" id="gacc-'+key+'">'+icon('arrow',16)+'</span>'
+      +'</div>';
+    html += '<div class="goal-hz-body" id="gaccb-'+key+'" style="'+(isOpen?'':'display:none')+'">';
+
+    if(!hGoals.length){
+      html += '<div class="goal-empty">Nog geen doel hier. Voeg er een toe ↓</div>';
+    }
 
     hGoals.forEach(function(g){
       var items = g.items||[];
@@ -4806,24 +4991,36 @@ function rGoals() {
       var done = items.filter(function(it){ return it.done; }).length + taskDone;
       var total = items.length + linkedTasks.length;
       var pct = g.done ? 100 : (total>0 ? Math.round(done/total*100) : 0);
+      var deep = !!window._goalDeep[g.id];
 
-      var itemsHTML = '';
-      items.forEach(function(it,ii){
-        itemsHTML += '<div class="goal-item'+(it.done?' done-item':'')+'">'
-          +'<input type="checkbox"'+(it.done?' checked':'')+' onchange="togGoalItem(\''+g.id+'\','+ii+',this.checked)">'
-          +'<div class="goal-item-lbl">'+it.t+' <span class="goal-link-badge" style="font-size:11px;color:var(--text3)">→ Taken</span></div>'
-          +'<button class="goal-item-del" onclick="delGoalItem(\''+g.id+'\','+ii+')">✕</button>'
-          +'</div>';
-      });
-
-      var addRow = '<div class="goal-add-row" style="display:flex;gap:5px;margin-top:6px">'
-        +'<input type="text" id="gi-'+g.id+'" placeholder="Taak toevoegen..." style="flex:1;font-size:12px" onkeydown="if(event.keyCode===13)addGoalItem(\''+g.id+'\')">'
-        +'<button class="btn sm" onclick="addGoalItem(\''+g.id+'\')">+</button>'
+      html += '<div class="goal-card-v2'+(g.done?' done':'')+'" id="goal-'+g.id+'">';
+      // Titel-rij
+      html += '<div class="goal-v2-hd">'
+        +'<input type="checkbox"'+(g.done?' checked':'')+' title="Doel behaald" class="goal-v2-check" onchange="togGoalDone(\''+g.id+'\',this.checked)">'
+        +'<div class="goal-v2-title" data-gid="'+g.id+'" onclick="editGoalTitleEl(this)" title="Tik om te bewerken">'+g.title+'</div>'
+        +(total>0?'<span class="goal-v2-pct" style="color:'+cpc(pct)+'">'+pct+'%</span>':'')
+        +'<button class="del" onclick="delGoal(\''+g.id+'\')">✕</button>'
         +'</div>';
+      // Voortgangsbalk
+      if(total>0||g.done){
+        html += '<div class="goal-v2-bar"><div class="goal-v2-fill" style="width:'+pct+'%;background:'+cpc(pct)+'"></div></div>';
+      }
+      // Waarom (intrinsieke motivatie) — altijd zichtbaar als ingevuld, anders subtiel
+      var why=g.why||'';
+      html += '<div class="goal-v2-why'+(why?'':' empty')+'" data-gid="'+g.id+'" onclick="editGoalFieldEl(this,\'why\')">'
+        +icon('flame',11,'var(--acc)')+'<span>'+(why||'Waarom is dit belangrijk voor jou?')+'</span></div>';
+      // Eerstvolgende actie
+      var na=g.nextAction||'';
+      html += '<div class="goal-v2-next'+(na?'':' empty')+'" data-gid="'+g.id+'" onclick="editGoalFieldEl(this,\'nextAction\')">'
+        +icon('target',11,'var(--acc)')+'<span>'+(na||'Wat is je eerstvolgende concrete stap?')+'</span></div>';
+      // Wanneer (implementation intention)
+      var wn=g.when||'';
+      html += '<div class="goal-v2-when'+(wn?'':' empty')+'" data-gid="'+g.id+'" onclick="editGoalFieldEl(this,\'when\')">'
+        +icon('clock',11,'var(--acc)')+'<span>'+(wn?'Wanneer: '+wn:'Wanneer/waar ga je hieraan werken?')+'</span></div>';
 
-      var linkedHTML='';
+      // Gekoppelde taken
       if(linkedTasks.length){
-        linkedHTML='<div class="goal-tasks">'+linkedTasks.map(function(t){
+        html += '<div class="goal-tasks">'+linkedTasks.map(function(t){
           return '<div class="goal-task'+(t.done?' done':'')+'">'
             +'<input type="checkbox"'+(t.done?' checked':'')+' data-tid="'+t.id+'" onchange="togGoalTaskEl(this)">'
             +'<span class="goal-task-t">'+t.title+'</span>'
@@ -4831,24 +5028,12 @@ function rGoals() {
             +'</div>';
         }).join('')+'</div>';
       }
-      var linkBtn='<button class="goal-link-btn" onclick="openGoalTaskPicker(\''+g.id+'\')">'+icon('plus',11,'var(--acc)')+'Taak koppelen</button>';
-      html += '<div class="goal-card" id="goal-'+g.id+'" style="margin-bottom:8px">'
-        +'<div class="goal-hd" style="display:flex;align-items:center;gap:7px">'
-        +'<input type="checkbox"'+(g.done?' checked':'')+' title="Goal voltooid" style="width:16px;height:16px;accent-color:var(--green);cursor:pointer;flex-shrink:0" onchange="togGoalDone(\''+g.id+'\',this.checked)">'
-        +'<div class="goal-title" style="flex:1;font-size:12px;font-weight:600'+(g.done?';text-decoration:line-through;color:var(--text3)':'')+'">'+g.title+'</div>'
-        +(total>0?'<span style="font-size:11px;color:'+cpc(pct)+'">'+pct+'%</span>':'')
-        +'<button class="del" onclick="delGoal(\''+g.id+'\')">✕</button>'
-        +'</div>'
-        +(total>0||g.done?'<div class="goal-prog" style="margin:7px 0"><div class="goal-pbar" style="height:5px;background:var(--bg3);border-radius:6px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:'+cpc(pct)+';transition:width .3s"></div></div></div>':'')
-        +(itemsHTML?'<div class="goal-items" style="margin-top:6px">'+itemsHTML+'</div>':'')
-        +linkedHTML
-        +addRow
-        +linkBtn
-        +'</div>';
+      html += '<button class="goal-link-btn" onclick="openGoalTaskPicker(\''+g.id+'\')">'+icon('plus',11,'var(--acc)')+'Taak koppelen</button>';
+      html += '</div>';
     });
 
-    // Add goal button per horizon
-    html += '<button class="btn sm" onclick="addGoalToHz(\''+key+'\')" style="width:100%;margin-top:4px">+ Doel toevoegen</button>';
+    // Nieuw doel toevoegen
+    html += '<button class="goal-add-btn" onclick="addGoalToHz(\''+key+'\')">'+icon('plus',13,'var(--acc)')+'Nieuw doel</button>';
     html += '</div></div>';
   });
 
@@ -4955,7 +5140,7 @@ function addEigDirect(val) {
 }
 // ── Projecten-cockpit: overzicht actieve projecten ──
 function buildProjCockpit(){
-  var active=(S.projects||[]).filter(function(p){return !p.done;});
+  var active=(S.projects||[]).filter(function(p){return projStatus(p)==='lopend';});
   if(!active.length) return '';
   // sorteer op eerstvolgende deadline (projecten met taak-deadline eerst)
   var cards=active.map(function(p){
@@ -5002,15 +5187,52 @@ function togProjShowDone(btn){
   window._projShowDone[pid]=!window._projShowDone[pid];
   rProj();
 }
+function togProjCat(cat){
+  if(!window._projCatClosed) window._projCatClosed={};
+  window._projCatClosed[cat]=!window._projCatClosed[cat];
+  rProj();
+}
+function projStatus(p){
+  if(p.status) return p.status;
+  return p.done ? 'gedaan' : 'lopend';
+}
+function setProjStatus(pid, st){
+  var p=S.projects.find(function(x){return x.id===pid;});
+  if(!p) return;
+  p.status=st;
+  p.done=(st==='gedaan');
+  save(); rProj();
+  toast(st==='gedaan'?'Afgerond':st==='toekomstig'?'Naar toekomstig':'Lopend');
+}
 function rProj() {
   if(!window._projTab) window._projTab='lopend';
-  var showDone = window._projTab==='gedaan';
-  var visP = S.projects.filter(function(p){ return showDone ? p.done : !p.done; });
-  const cats=[...new Set(visP.map(p=>p.cat||'Overig'))];
+  var tab=window._projTab;
+  var visP = S.projects.filter(function(p){
+    var st=projStatus(p);
+    if(tab==='alle') return true;
+    return st===tab;
+  });
+  // Categorie-volgorde: vaste logische volgorde, onbekende erachter
+  var catOrder=['Zakelijk','Persoonlijk','Studie','Anders','Overig'];
+  var presentCats=[...new Set(visP.map(p=>p.cat||'Overig'))];
+  var cats=catOrder.filter(function(c){return presentCats.indexOf(c)>=0;}).concat(presentCats.filter(function(c){return catOrder.indexOf(c)<0;}));
+  if(!window._projCatClosed) window._projCatClosed={};
   let html='';
   cats.forEach(cat=>{
-    html+=`<div class="pcat" style="margin-top:6px">${cat}</div>`;
-    visP.filter(p=>(p.cat||'Overig')===cat).forEach(p=>{
+    var catProjs=visP.filter(p=>(p.cat||'Overig')===cat);
+    var catClosed=!!window._projCatClosed[cat];
+    // categorie-voortgang: som van alle taken in deze categorie
+    var catTasks=0, catDone=0;
+    catProjs.forEach(function(p){ var pt=S.tasks.filter(t=>t.proj===p.id); catTasks+=pt.length; catDone+=pt.filter(t=>t.done).length; });
+    var catPct=catTasks?Math.round(catDone/catTasks*100):0;
+    html+=`<div class="pcat-head" onclick="togProjCat('${cat.replace(/'/g,"\\'")}')">
+      <span class="pcat-chev${catClosed?'':' open'}">${icon('arrow',16,'var(--text3)')}</span>
+      <span class="pcat-name">${cat}</span>
+      <span class="pcat-count">${catProjs.length}</span>
+      ${catTasks?`<span class="pcat-pct">${catPct}%</span>`:''}
+    </div>`;
+    html+=`<div class="pcat-body${catClosed?' closed':''}">`;
+    catProjs.forEach(p=>{
       const pi=S.projects.indexOf(p);
       const pt=S.tasks.filter(t=>t.proj===p.id);
       const dc=pt.filter(t=>t.done).length,tc=pt.length;
@@ -5029,7 +5251,7 @@ function rProj() {
           <span id="PC${p.id}" style="display:inline-block;transition:transform .2s;color:var(--text3);font-size:16px;transform:${op?'rotate(180deg)':''}">▾</span>
         </div>
         <div class="pbdy${op?' op':''}" id="PB${p.id}">
-          <div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)"><button onclick="event.stopPropagation();togProjDone('${p.id}')" style="background:none;border:1px solid var(--acc);color:var(--acc);border-radius:6px;font-size:11px;padding:3px 10px;cursor:pointer">${p.done?'Heropenen':'Markeer als gedaan'}</button><button onclick="event.stopPropagation();if(confirm('Project verwijderen inclusief taken?')){S.projects.splice(${pi},1);S.tasks=S.tasks.filter(function(t){return t.proj!==p.id;});save();rProj();}" style="background:none;border:1px solid #c44;color:#c44;border-radius:6px;font-size:11px;padding:3px 10px;cursor:pointer">Verwijderen</button></div>
+          <div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)"><div class="proj-status-sel">${['lopend','toekomstig','gedaan'].map(function(st){var lbls={lopend:'Lopend',toekomstig:'Toekomstig',gedaan:'Gedaan'};var cur=projStatus(p)===st;return '<button onclick="event.stopPropagation();setProjStatus(\''+p.id+'\',\''+st+'\')" class="proj-status-btn'+(cur?' on':'')+'">'+lbls[st]+'</button>';}).join('')}</div><button onclick="event.stopPropagation();if(confirm('Project verwijderen inclusief taken?')){S.projects.splice(${pi},1);S.tasks=S.tasks.filter(function(t){return t.proj!==p.id;});save();rProj();}" style="background:none;border:1px solid #c44;color:#c44;border-radius:6px;font-size:11px;padding:3px 10px;cursor:pointer">Verwijderen</button></div>
           ${(function(){
             var showDone=!!(window._projShowDone&&window._projShowDone[p.id]);
             var openT=pt.filter(function(x){return !x.done;});
@@ -5078,17 +5300,23 @@ function rProj() {
         </div>
       </div>`;
     });
+    html+='</div>';
   });
-  var lopendCount = S.projects.filter(function(p){return !p.done;}).length;
-  var gedaanCount = S.projects.filter(function(p){return p.done;}).length;
-  var emptyMsg = showDone ? em('folder','Nog geen afgeronde projecten') : em('folder','Nog geen lopende projecten');
+  var lopendCount = S.projects.filter(function(p){return projStatus(p)==='lopend';}).length;
+  var toekomstigCount = S.projects.filter(function(p){return projStatus(p)==='toekomstig';}).length;
+  var gedaanCount = S.projects.filter(function(p){return projStatus(p)==='gedaan';}).length;
+  var alleCount = S.projects.length;
+  var emptyLabels = {lopend:'Nog geen lopende projecten',toekomstig:'Nog geen toekomstige projecten',gedaan:'Nog geen afgeronde projecten',alle:'Nog geen projecten'};
+  var emptyMsg = em('folder', emptyLabels[tab]||'Nog geen projecten');
   M.innerHTML=`<div class="ph">
     <div class="pt">Projecten</div>
     <button class="btn pri" onclick="openAddProjModal()">+ Project</button>
   </div>
-  <div class="tbar">
-    <button class="tb${window._projTab==='lopend'?' on':''}" onclick="setProjTab('lopend')">Lopend (${lopendCount})</button>
-    <button class="tb${window._projTab==='gedaan'?' on':''}" onclick="setProjTab('gedaan')">Gedaan (${gedaanCount})</button>
+  <div class="tbar proj-tbar">
+    <button class="tb${tab==='lopend'?' on':''}" onclick="setProjTab('lopend')">Lopend (${lopendCount})</button>
+    <button class="tb${tab==='toekomstig'?' on':''}" onclick="setProjTab('toekomstig')">Toekomstig (${toekomstigCount})</button>
+    <button class="tb${tab==='gedaan'?' on':''}" onclick="setProjTab('gedaan')">Gedaan (${gedaanCount})</button>
+    <button class="tb${tab==='alle'?' on':''}" onclick="setProjTab('alle')">Alle (${alleCount})</button>
   </div>
   ${window._projTab==='lopend'?buildProjCockpit():''}
   <div id="proj-list">${html||emptyMsg}</div>`;
@@ -5110,7 +5338,7 @@ function openAddProjModal() {
     +'<div class="task-edit-row"><div class="task-edit-label">Naam</div>'
     +'<input type="text" id="pni-m" placeholder="Projectnaam..." style="width:100%;font-size:16px"></div>'
     +'<div class="task-edit-row"><div class="task-edit-label">Categorie</div>'
-    +'<select id="pci-m" style="width:100%;font-size:16px"><option value="Zakelijk">Zakelijk</option><option value="Persoonlijk">Persoonlijk</option><option value="Studie">Studie</option><option value="Overig">Overig</option></select></div>'
+    +'<select id="pci-m" style="width:100%;font-size:16px"><option value="Zakelijk">Zakelijk</option><option value="Persoonlijk">Persoonlijk</option><option value="Studie">Studie</option><option value="Anders">Anders (huishouden, etc.)</option><option value="Overig">Overig</option></select></div>'
     +'<div class="task-edit-row"><div class="task-edit-label">Kleur</div>'
     +'<select id="pco-m" style="width:100%;font-size:16px">'+colOpts+'</select></div>'
     +'</div>'
@@ -5621,10 +5849,9 @@ function setRoutTabEl(btn) {
 }
 function setRoutTab(tab) {
   _routTab = tab;
-  document.querySelectorAll('#rout-tbar .tb').forEach(function(b) {
-    b.classList.toggle('on', b.getAttribute('data-rtab') === tab);
-  });
-  renderRoutTab(tab);
+  // Volledige re-render zodat zowel tabs als voortgangscirkels de actieve staat tonen
+  if(document.querySelector('[data-s=rout].on') || document.getElementById('rout-tbar')) { rRout(); }
+  else { renderRoutTab(tab); }
 }
 
 // ── Routine items slepen om te herordenen (touch + muis) ──
@@ -6110,7 +6337,18 @@ function rRout() {
   var tabs=['ochtend','middag','avond','dagelijks','wekelijks','maandelijks','jaarlijks','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag','zondag'];
   var tabLabels={ochtend:'Ochtend',middag:'Middag',avond:'Avond',dagelijks:'Dagelijks',wekelijks:'Wekelijks',maandelijks:'Maandelijks',jaarlijks:'Jaarlijks',maandag:'Ma',dinsdag:'Di',woensdag:'Wo',donderdag:'Do',vrijdag:'Vr',zaterdag:'Za',zondag:'Zo'};
   var tbar=tabs.map(function(tab){return '<button class="tb'+(tab===_routTab?' on':'')+'" data-rtab="'+tab+'" onclick="setRoutTabEl(this)">' + tabLabels[tab]+'</button>';}).join('');
+  // Voortgangscirkels: % afgevinkt per hoofd-dagdeel
+  var ringTabs=['ochtend','middag','avond','dagelijks','wekelijks','maandelijks'];
+  var ringRow=ringTabs.map(function(tab){
+    var items=S.routineItems[tab]||[];
+    var pk=routPeriodKey(tab);
+    var checks=(S.routineChecks&&S.routineChecks[pk])||{};
+    var c=items.filter(function(x){return checks[x.id];}).length;
+    var pct=items.length?Math.round(c/items.length*100):0;
+    return pctRing(pct, tabLabels[tab], 'setRoutTab(\''+tab+'\')', tab===_routTab);
+  }).join('');
   M.innerHTML='<div class="ph"><div class="pt">Routine</div></div>'
+    +'<div class="pct-ring-row">'+ringRow+'</div>'
     +'<div style="font-size:11px;color:var(--text3);margin-bottom:8px">Algemene routine + vaste weekdag-taken (komen wekelijks terug)</div>'
     +'<div class="tbar" id="rout-tbar" style="overflow-x:auto">'+tbar+'</div>'
     +'<div id="rout-body"></div>';
