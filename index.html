@@ -1794,6 +1794,18 @@ body[data-theme="light"] .fin-ov-card {
 .modal-bg{padding:16px;box-sizing:border-box}
 .modal-box{width:100%;max-width:380px;max-height:85vh}
 @media(max-width:480px){.modal-box{max-height:80vh}}
+
+/* ── Dashboard voortgangsringen: responsive, volle breedte, 1 rij op mobiel ── */
+.dash-rings{display:flex;gap:6px;overflow-x:visible;justify-content:space-between;padding:4px 0 12px;width:100%}
+.dash-rings .pct-ring-item{flex:1 1 0;min-width:0;width:auto;max-width:none}
+.dash-rings .pct-ring-circ{width:clamp(48px,18vw,72px)!important;height:clamp(48px,18vw,72px)!important}
+.dash-rings .pct-ring-circ svg{width:100%;height:100%}
+.dash-rings .pct-ring-num{font-size:clamp(13px,4vw,17px)}
+.dash-rings .pct-ring-lbl{max-width:100%;font-size:clamp(9px,2.6vw,11px)}
+
+/* ── Vandaag: "Mag nog" blok (optioneel, subtieler) ── */
+.mag-card{opacity:.92;border-style:dashed}
+.mag-card .vd-task-t{color:var(--text2)}
 </style>
 </head>
 <body>
@@ -3048,8 +3060,24 @@ function weerOmschr(code){
 }
 
 function rVandaag() {
-  var t=td();
-  // Habits
+  if(!window._vandaagDay) window._vandaagDay=td();
+  var t=window._vandaagDay;
+  var today=td();
+  var isToday=(t===today);
+  var isPast=(t<today);
+
+  // Dag-label
+  var tom=new Date(); tom.setDate(tom.getDate()+1); var tomStr=tom.toISOString().split('T')[0];
+  var yes=new Date(); yes.setDate(yes.getDate()-1); var yesStr=yes.toISOString().split('T')[0];
+  var dayLabel;
+  if(isToday) dayLabel='Vandaag';
+  else if(t===tomStr) dayLabel='Morgen';
+  else if(t===yesStr) dayLabel='Gisteren';
+  else dayLabel=new Date(t).toLocaleDateString('nl-NL',{weekday:'short',day:'numeric',month:'short'});
+  var dateStr=new Date(t).toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long'});
+  dateStr=dateStr.charAt(0).toUpperCase()+dateStr.slice(1);
+
+  // ── Habits (alleen voor gekozen dag) ──
   var habItems = S.habItems || DEF_HABS;
   var h=S.habits[t]||{};
   var hc=habItems.filter(function(x){return h[x.id];}).length;
@@ -3059,70 +3087,82 @@ function rVandaag() {
     return '<div class="hck'+(v?' done':'')+'"><input type="checkbox" id="VH'+x.id+'" data-hid="'+x.id+'"'+(v?' checked':'')+' onchange="togVHEl(this)"><label class="hck-lbl" for="VH'+x.id+'">'+x.l+'</label></div>';
   }).join('');
 
-  // Taken vandaag: open taken met deadline vandaag/te laat + taken zonder deadline die niet done zijn (max overzichtelijk)
-  var allTasks=(S.tasks||[]).filter(function(x){return !x.done;});
-  var dueToday=allTasks.filter(function(x){return x.deadline && x.deadline<=t;});
-  var noDue=allTasks.filter(function(x){return !x.deadline;});
-  var taskList=dueToday.concat(noDue).slice(0,12);
+  // ── Ingepland (events/tijdsblokken voor die dag) ──
+  var evHTML=buildDashEvents(t,'Geen afspraken gepland — ga naar de Planner om tijdsblokken toe te voegen');
+
+  // ── Taken: strikt taken gekoppeld aan tijdsblokken (events) van die dag ──
+  var dayEvents=evsFor(t);
+  var plannedIds=[];
+  dayEvents.forEach(function(ev){ (ev.taskIds||[]).forEach(function(tid){ if(plannedIds.indexOf(tid)<0) plannedIds.push(tid); }); });
+  var plannedTasks=plannedIds.map(function(tid){ return (S.tasks||[]).find(function(x){return x.id===tid;}); }).filter(Boolean);
   var taskHTML='';
-  if(taskList.length){
-    taskHTML=taskList.map(function(task){
+  if(plannedTasks.length){
+    taskHTML=plannedTasks.map(function(task){
       var p=proj(task);
-      var overdue=task.deadline && task.deadline<t;
-      var db=task.deadline?deadlineBadge(task.deadline):'';
-      return '<div class="vd-task" id="VDT'+task.id+'">'
-        +'<input type="checkbox" data-tid="'+task.id+'" onchange="togVandaagTaakEl(this)">'
+      var ev=dayEvents.find(function(e){ return (e.taskIds||[]).indexOf(task.id)>=0; });
+      return '<div class="vd-task'+(task.done?' done':'')+'" id="VDT'+task.id+'">'
+        +'<input type="checkbox" data-tid="'+task.id+'"'+(task.done?' checked':'')+' onchange="togVandaagTaakEl(this)">'
         +'<div class="vd-task-c"><div class="vd-task-t">'+task.title+'</div>'
-        +'<div class="vd-task-meta">'+(p?'<span style="color:'+p.color+'">'+p.name+'</span>':'')+(db?' '+db:'')+'</div></div>'
+        +'<div class="vd-task-meta">'+(p?'<span style="color:'+p.color+'">'+p.name+'</span>':'')+(ev?' <span style="color:var(--text3)">'+ev.st+'</span>':'')+'</div></div>'
         +'</div>';
     }).join('');
   } else {
-    taskHTML='<div style="font-size:12px;color:var(--text3);padding:8px 0">Geen open taken — lekker bezig!</div>';
+    taskHTML=em('calendar','Nog geen taken aan tijdsblokken gekoppeld'+(isToday?' voor vandaag':'')+'.',{fn:'navToSection(\'plan\')',label:'Naar Planner'});
   }
 
-  var evHTML=buildDashEvents(t,'Geen events vandaag — ga naar de Planner');
+  // ── "Mag nog" — te late taken + losse open taken zonder dag (optioneel, alleen op vandaag) ──
+  var magHTML='';
+  if(isToday){
+    var overdue=(S.tasks||[]).filter(function(x){ return !x.done && x.deadline && x.deadline<today; });
+    var losse=(S.tasks||[]).filter(function(x){ return !x.done && !x.deadline && plannedIds.indexOf(x.id)<0 && x.focusDate!==today; });
+    var magList=overdue.concat(losse);
+    // sluit taken uit die al in planned staan
+    magList=magList.filter(function(x){ return plannedIds.indexOf(x.id)<0; });
+    if(magList.length){
+      magHTML=magList.slice(0,10).map(function(task){
+        var p=proj(task);
+        var overdueB=task.deadline && task.deadline<today;
+        var db=task.deadline?deadlineBadge(task.deadline):'';
+        return '<div class="vd-task" id="VDT'+task.id+'">'
+          +'<input type="checkbox" data-tid="'+task.id+'" onchange="togVandaagTaakEl(this)">'
+          +'<div class="vd-task-c"><div class="vd-task-t">'+task.title+'</div>'
+          +'<div class="vd-task-meta">'+(p?'<span style="color:'+p.color+'">'+p.name+'</span>':'')+(db?' '+db:'')+'</div></div>'
+          +'</div>';
+      }).join('');
+      if(magList.length>10) magHTML+='<div style="font-size:11px;color:var(--text3);padding:6px 2px;cursor:pointer" onclick="navToSection(\'taken\')">+'+(magList.length-10)+' meer →</div>';
+    }
+  }
 
-  var dateStr=new Date().toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long'});
-  dateStr=dateStr.charAt(0).toUpperCase()+dateStr.slice(1);
-
-  M.innerHTML='<div class="ph"><div class="pt">Vandaag</div><div style="font-size:12px;color:var(--text3);margin-top:2px">'+dateStr+'</div></div>'
-    // Top-3 focus (visueel, bovenaan)
+  M.innerHTML='<div class="ph"><div class="pt">Vandaag</div></div>'
+    // Dag-navigatie
+    +'<div class="day-nav">'
+    +'<button class="day-nav-btn" onclick="vandaagDayNav(-1)">'+icon('arrow',16)+'</button>'
+    +'<button class="day-nav-lbl'+(isToday?'':' off')+'" onclick="vandaagDayToday()">'+dayLabel+'</button>'
+    +'<button class="day-nav-btn" onclick="vandaagDayNav(1)">'+icon('arrow',16)+'</button>'
+    +'</div>'
+    +'<div style="font-size:12px;color:var(--text3);margin:-4px 0 12px;text-align:center">'+dateStr+'</div>'
+    // 1. Top-3 focus
     +buildTop3()
-    // Intentie + energie
-    +'<div class="intentie-card" id="intentie-card">'
-    +'<div style="display:flex;gap:7px;align-items:center;margin-bottom:12px">'
-    +icon('target',15,'var(--acc)')+'<span class="intentie-label">Intentie van vandaag</span>'
-    +'</div>'
-    +'<input class="intentie-input" id="intentie-inp" placeholder="Vandaag ga ik..." onblur="saveIntentie()" onkeydown="if(event.keyCode===13)this.blur()">'
-    +'<div class="intentie-energie">'
-    +'<span class="intentie-energie-lbl">'+icon('battery',13,'var(--acc)')+'Energie</span>'
-    +'<div style="display:flex;gap:5px">'
-    +[1,2,3,4,5].map(function(n,i){ return '<button class="energie-seg" data-lvl="'+i+'" onclick="setEnergie('+i+')" title="Niveau '+n+'"><span class="energie-seg-bar" style="height:'+(6+n*3)+'px"></span></button>'; }).join('')
-    +'</div></div>'
-    +'</div>'
-    // Routine vandaag
-    +'<div class="dash-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('list',14,'var(--acc)')+'Routine vandaag</span>'
+    // 2. Routine
+    +'<div class="dash-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('list',14,'var(--acc)')+'Routine</span>'
     +'<button class="dash-card-link" data-sec="rout" onclick="navToSecEl(this)">Beheer'+icon('arrow',11)+'</button></div>'
     +buildDashRoutine()+'</div>'
-    // Ingepland (vandaag/morgen)
+    // 3. Ingepland
     +'<div class="dash-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('clock',14,'var(--acc)')+'Ingepland</span>'
     +'<button class="dash-card-link" data-sec="plan" onclick="navToSecEl(this)">Planner'+icon('arrow',11)+'</button></div>'
-    +'<div class="dash-ev-tabs">'
-    +'<button class="dash-ev-tab on" id="dash-evtab-vandaag" onclick="setDashEvTab(\'vandaag\')">Vandaag</button>'
-    +'<button class="dash-ev-tab" id="dash-evtab-morgen" onclick="setDashEvTab(\'morgen\')">Morgen</button>'
-    +'</div><div id="dash-ev-body">'+evHTML+'</div></div>'
-    // Habits
+    +evHTML+'</div>'
+    // 4. Taken (planner-tijdsblokken)
+    +'<div class="dash-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('check',14,'var(--acc)')+'Taken voor deze dag</span></div>'
+    +taskHTML+'</div>'
+    // "Mag nog" (optioneel)
+    +(magHTML?'<div class="dash-card mag-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('bolt',14,'var(--acc)')+'Mag nog</span><span style="font-size:11px;color:var(--text3);margin-left:auto">als je tijd over hebt</span></div>'+magHTML+'</div>':'')
+    // 5. Habits
     +'<div class="dash-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('check',14,'var(--acc)')+'Habits</span>'
     +'<span style="font-size:11px;color:'+tcpc(habHP)+';font-weight:600;margin-left:auto">'+habHP+'%</span></div>'
-    +habH+'</div>'
-    // Taken vandaag
-    +'<div class="dash-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('check',14,'var(--acc)')+'Taken</span>'
-    +'<button class="dash-card-link" data-sec="taken" onclick="navToSecEl(this)">Alle taken'+icon('arrow',11)+'</button></div>'
-    +taskHTML+'</div>';
-  // intentie laden + snelle taak
-  loadIntentie();
-  if(typeof loadEnergie==='function') loadEnergie();
+    +habH+'</div>';
 }
+function vandaagDayNav(dir){ var d=new Date(window._vandaagDay||td()); d.setDate(d.getDate()+dir); window._vandaagDay=d.toISOString().split('T')[0]; rVandaag(); }
+function vandaagDayToday(){ window._vandaagDay=td(); rVandaag(); }
 function togVHEl(cb){ var id=cb.getAttribute('data-hid'); var t=td(); if(!S.habits[t])S.habits[t]={}; S.habits[t][id]=cb.checked; save(); rVandaag(); }
 function togVandaagTaakEl(cb){ var id=cb.getAttribute('data-tid'); var task=(S.tasks||[]).find(function(x){return x.id===id;}); if(task){ task.done=cb.checked; save(); rVandaag(); } }
 
@@ -3283,39 +3323,26 @@ function rDash() {
   var projTotal=(S.projects||[]).length;
   var projDone=(S.projects||[]).filter(function(x){return x.done;}).length;
   var projPct=projTotal?Math.round(projDone/projTotal*100):0;
+  var goalsTotal=(S.goals||[]).length;
+  var goalsDone=(S.goals||[]).filter(function(x){return x.done;}).length;
+  var goalsPct=goalsTotal?Math.round(goalsDone/goalsTotal*100):0;
   var statBoxHTML=''
     +'<div class="stat-ring-card">'+progressRing(habHP,64,hc+'/'+habItems.length,'')+'<span class="stat-ring-lbl">Habits</span></div>'
     +'<div class="stat-ring-card">'+progressRing(rouPct,64,rouDone+'/'+rouTotal,'')+'<span class="stat-ring-lbl">Routine</span></div>'
     +'<div class="stat-ring-card">'+progressRingHTML(streakPct,64,streakCenter)+'<span class="stat-ring-lbl">Streak</span></div>';
 
   M.innerHTML=''
-    // ── HERO BLOK (tijd, datum, weer, taak nu/straks) ──
+    // ── 1. HERO (nu bezig) ──
     +buildHero()
-    // ── TOP-3 FOCUS ──
-    +buildTop3()
-    // ── GEDAAN-VOORTGANG (taken + projecten) ──
-    +'<div class="dash-gedaan-row">'
-    +'<div class="dash-card gedaan-card">'
-    +'<div class="gedaan-top"><span class="gedaan-lbl">Taken gedaan</span><span class="gedaan-num">'+takenDone+'/'+takenTotal+'</span></div>'
-    +'<div class="gedaan-bar"><div class="gedaan-fill" style="width:'+takenPct+'%"></div></div>'
-    +'</div>'
-    +'<div class="dash-card gedaan-card">'
-    +'<div class="gedaan-top"><span class="gedaan-lbl">Projecten gedaan</span><span class="gedaan-num">'+projDone+'/'+projTotal+'</span></div>'
-    +'<div class="gedaan-bar"><div class="gedaan-fill" style="width:'+projPct+'%"></div></div>'
-    +'</div>'
-    +'</div>'
-// ── 1. STAT RINGEN ──
-    +'<div class="stat-ring-row">'+statBoxHTML+'</div>'
-// ── ROUTINE VANDAAG (tabs) ──
+    // ── 2. OPKOMENDE ACTIVITEIT ──
     +'<div class="dash-card">'
     +'<div class="dash-card-hd">'
-    +'<span class="dash-card-title">'+icon('list',14,'var(--acc)')+'Routine vandaag</span>'
-    +'<button class="dash-card-link" data-sec="rout" onclick="navToSecEl(this)">Alle'+icon('arrow',11)+'</button>'
+    +'<span class="dash-card-title">'+icon('calendar',14,'var(--acc)')+'Opkomende activiteit</span>'
+    +'<button class="dash-card-link" data-sec="plan" onclick="navToSecEl(this)">Planner'+icon('arrow',11)+'</button>'
     +'</div>'
-    +buildDashRoutine()
+    +upcomEvHTML
     +'</div>'
-
-    // ── QUICK LINKS ──
+    // ── 3. QUICK LINKS ──
     +'<div class="dash-quick">'
     +'<button class="dash-ql" data-sec="plan" onclick="navToSecEl(this)">'+icon('calendar',18,'var(--acc)')+'<span>Planner</span></button>'
     +'<button class="dash-ql" data-sec="taken" onclick="navToSecEl(this)">'+icon('check',18,'var(--acc)')+'<span>Taken</span></button>'
@@ -3323,24 +3350,27 @@ function rDash() {
     +'<button class="dash-ql" data-sec="goals" onclick="navToSecEl(this)">'+icon('target',18,'var(--acc)')+'<span>Goals</span></button>'
     +'<button class="dash-ql" data-sec="fin" onclick="navToSecEl(this)">'+icon('euro',18,'var(--acc)')+'<span>Financiën</span></button>'
     +'</div>'
-    // ── BACKUP + IMPORT KNOPPEN ──
+    // ── 4. BACKUP MAKEN / IMPORTEREN ──
     +'<div class="dash-backup-row">'
     +'<button class="dash-backup-btn" onclick="exportBackup()">'+icon('cloud',15,'#fff')+'<span>Backup maken</span></button>'
     +'<button class="dash-backup-btn alt" onclick="triggerImport()">'+icon('refresh',15,'var(--acc)')+'<span>Importeren</span></button>'
     +'</div>'
-    // ── 11. GOALS VOORTGANG ──
-    +'<div class="dash-card">'
-    +'<div class="dash-acc-hd" data-acc="goals" onclick="toggleDashAccEl(this)">'
-    +'<span class="dash-card-title">'+icon('target',14,'var(--acc)')+'Goals voortgang</span>'
-    +'<div style="display:flex;align-items:center;gap:8px">'
-    +'<button class="dash-card-link" data-sec="goals" onclick="navToSecEl(this)">Alle'+icon('arrow',11)+'</button>'
-    +'<span class="dash-acc-toggle" id="dacc-t-goals">'+icon('arrow',12)+'</span>'
-    +'</div></div>'
-    +'<div id="dacc-goals">'+buildDashGoals()+'</div>'
+    // ── 5. PROGRESSIE-RINGEN (taken · projecten · routine · goals) ──
+    +'<div class="pct-ring-row dash-rings">'
+    +pctRing(takenPct,'Taken','navToSection(\'taken\')',false)
+    +pctRing(projPct,'Projecten','navToSection(\'proj\')',false)
+    +pctRing(rouPct,'Routine','navToSection(\'rout\')',false)
+    +pctRing(goalsPct,'Goals','navToSection(\'goals\')',false)
     +'</div>'
-    // ── FOCUS (links) + SNELLE TAAK & STREAK (rechts, gestapeld) ──
-    +'<div class="dash-focus-row">'
-    // Focus timer links (altijd uitgeklapt)
+    // ── 6. ROUTINE VANDAAG ──
+    +'<div class="dash-card">'
+    +'<div class="dash-card-hd">'
+    +'<span class="dash-card-title">'+icon('list',14,'var(--acc)')+'Routine vandaag</span>'
+    +'<button class="dash-card-link" data-sec="rout" onclick="navToSecEl(this)">Alle'+icon('arrow',11)+'</button>'
+    +'</div>'
+    +buildDashRoutine()
+    +'</div>'
+    // ── 7. FOCUS TIMER ──
     +'<div class="dash-card dash-focus-main">'
     +'<div class="dash-card-title" style="margin-bottom:10px">'+icon('timer',14,'var(--acc)')+'Focus timer</div>'
     +'<div class="pomo-display" id="pomo-display">25:00</div>'
@@ -3349,112 +3379,26 @@ function rDash() {
     +'</div>'
     +'<div style="display:flex;gap:6px;margin-top:12px">'
     +'<button class="pomo-btn pri" id="pomo-start-btn" onclick="pomoStart()">Start focus</button>'
-    +'<button class="pomo-btn stop" id="pomo-stop-btn" style="display:none;max-width:48px" onclick="pomoStop()">■</button>'
+    +'<button class="pomo-btn stop" id="pomo-stop-btn" style="display:none;max-width:48px" onclick="pomoStop()">\u25a0</button>'
     +'</div>'
     +'<div style="font-size:11px;color:var(--text3);text-align:center;margin-top:6px">Sessies vandaag: <strong>'+(S.focusLog&&S.focusLog[t]?S.focusLog[t]:0)+'</strong></div>'
     +'</div>'
-    // Rechterkolom: snelle taak + streak gestapeld
-    +'<div class="dash-focus-side">'
-    +'<div class="dash-card">'
-    +'<div class="dash-card-title" style="margin-bottom:9px">'+icon('bolt',13,'var(--acc)')+'Snelle taak</div>'
-    +'<div style="display:flex;gap:7px;align-items:center">'
-    +'<input class="quick-task-input" id="quick-task-inp" placeholder="Taak toevoegen..." onkeydown="if(event.keyCode===13)quickAddTask()">'
-    +'<button class="btn pri" onclick="quickAddTask()" style="padding:7px 11px;flex-shrink:0">'+icon('plus',14,'#fff')+'</button>'
-    +'</div></div>'
-    +'<div class="dash-card">'
-    +'<div class="dash-card-title" style="margin-bottom:8px;display:flex;align-items:center;justify-content:space-between">'
-    +'<span style="display:inline-flex;align-items:center;gap:6px">'+icon('flame',13,'var(--acc)')+'Streak</span>'
-    +'<span style="font-family:var(--font-display);color:var(--acc);font-size:14px">'+streak+'</span>'
-    +'</div>'
-    +'<div class="streak-grid-mini">'+buildStreakGrid()+'</div>'
-    +'</div>'
-    +'</div>'
-    +'</div>'
-
-    // ── divider ──
-    +'<div class="dash-divider"><span>Vandaag</span></div>'
-// ── 5. INTENTIE VAN VANDAAG (visueel, terracotta hover) ──
-    +'<div class="intentie-card" id="intentie-card">'
-    +'<div style="display:flex;gap:7px;align-items:center;margin-bottom:12px">'
-    +icon('target',15,'var(--acc)')+'<span class="intentie-label">Intentie van vandaag</span>'
-    +'</div>'
-    +'<input class="intentie-input" id="intentie-inp" placeholder="Vandaag ga ik..." onblur="saveIntentie()" onkeydown="if(event.keyCode===13)this.blur()">'
-    +'<div class="intentie-energie">'
-    +'<span class="intentie-energie-lbl">'+icon('battery',13,'var(--acc)')+'Energie</span>'
-    +'<div style="display:flex;gap:5px">'
-    +[1,2,3,4,5].map(function(n,i){ return '<button class="energie-seg" data-lvl="'+i+'" onclick="setEnergie('+i+')" title="Niveau '+n+'"><span class="energie-seg-bar" style="height:'+(6+n*3)+'px"></span></button>'; }).join('')
-    +'</div></div>'
-    +'</div>'
-// ── 4. OPKOMENDE ACTIVITEITEN ──
-    +'<div class="dash-card">'
-    +'<div class="dash-acc-hd" data-acc="upcoming" onclick="toggleDashAccEl(this)">'
-    +'<span class="dash-card-title">'+icon('calendar',14,'var(--acc)')+'Opkomende activiteiten</span>'
-    +'<span class="dash-acc-toggle" id="dacc-t-upcoming">'+icon('arrow',12)+'</span>'
-    +'</div>'
-    +'<div id="dacc-upcoming">'+upcomEvHTML+'</div>'
-    +'</div>'
-// ── 6. INGEPLAND (vandaag / morgen tabs) ──
-    +'<div class="dash-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('clock',14,'var(--acc)')+'Ingepland</span>'
-    +'<button class="dash-card-link" data-sec="plan" onclick="navToSecEl(this)">Planner'+icon('arrow',11)+'</button></div>'
-    +'<div class="dash-ev-tabs">'
-    +'<button class="dash-ev-tab on" id="dash-evtab-vandaag" onclick="setDashEvTab(\'vandaag\')">Vandaag</button>'
-    +'<button class="dash-ev-tab" id="dash-evtab-morgen" onclick="setDashEvTab(\'morgen\')">Morgen</button>'
-    +'</div>'
-    +'<div id="dash-ev-body">'+evHTML+'</div>'
-    +'</div>'
-// ── 7. TAKEN VANDAAG ──
-    +'<div class="dash-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('check',14,'var(--acc)')+'Taken vandaag</span>'
-    +'<button class="dash-card-link" data-sec="taken" onclick="navToSecEl(this)">Alle taken'+icon('arrow',11)+'</button></div>'
-    +taskHTML
-    +'</div>'
-    // ── divider ──
-    +'<div class="dash-divider"><span>Tracking</span></div>'
-// ── 9. HABITS ──
-    +'<div class="dash-card">'
-    +'<div class="dash-acc-hd" data-acc="habits" onclick="toggleDashAccEl(this)">'
-    +'<span class="dash-card-title">'+icon('check',14,'var(--acc)')+'Habits</span>'
-    +'<div style="display:flex;align-items:center;gap:8px">'
-    +'<span style="font-size:11px;color:'+tcpc(habHP)+';font-weight:600">'+habHP+'%</span>'
-    +'<button class="dash-card-link" data-sec="hab" onclick="navToSecEl(this)">Alle'+icon('arrow',11)+'</button>'
-    +'<span class="dash-acc-toggle" id="dacc-t-habits">'+icon('arrow',12)+'</span>'
-    +'</div></div>'
-    +'<div id="dacc-habits">'+habH+'</div>'
-    +'</div>'
-// ── 3. HABIT STREAK (30 dagen) ──
-    +'<div class="dash-card secondary">'
-    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
-    +'<span class="dash-card-title">'+icon('flame',14,'var(--acc)')+'Habit streak</span>'
-    +'<span style="font-size:12px;font-weight:600;color:var(--acc);font-family:var(--font-display)">'+streak+' dagen</span>'
-    +'</div>'
-    +'<div class="streak-grid">'+buildStreakGrid()+'</div>'
-    +'</div>'
-
-    // ── divider ──
-    +'<div class="dash-divider"><span>Inspiratie</span></div>'
-// ── 2. QUOTE VAN DE DAG ──
+    // ── 8. QUOTE VAN DE DAG (onderaan) ──
     +'<div class="dash-card secondary" style="display:flex;align-items:flex-start;gap:12px">'
     +'<div style="flex:1">'
     +'<div class="dag-quote" style="background:none;border-left:2px solid var(--acc);padding:2px 0 2px 18px;margin:0;border-radius:0">'+(dagQ.text||'Geen quote ingesteld')+'</div>'
-    +(dagQ.author ? '<div class="dag-quote-author" style="margin-top:6px;font-size:11px;color:var(--text3);font-family:var(--font-ui);letter-spacing:.3px">— '+dagQ.author+'</div>' : '')
+    +(dagQ.author ? '<div class="dag-quote-author" style="margin-top:6px;font-size:11px;color:var(--text3);font-family:var(--font-ui);letter-spacing:.3px">\u2014 '+dagQ.author+'</div>' : '')
     +'</div>'
     +'<button class="btn sm" onclick="openQuoteEditModal()" style="flex-shrink:0;font-size:12px" title="Quote aanpassen">'+icon('edit',13)+'</button>'
     +'</div>';
 
-  // Init accordion states (habits+routine open by default, supps closed)
+  // Init accordion states (routine sub-categorieën: alleen Vandaag open)
   setTimeout(function(){
-    initDashAcc('upcoming', false);
-    initDashAcc('habits', false);
-    initDashAcc('routine', false);
-    initDashAcc('supps', false);
-    initDashAcc('goals', false);
-    // Routine sub-categorieën: alleen Vandaag open
     if(window._dashRoutCats){
       window._dashRoutCats.forEach(function(accId, i){
         initDashAcc(accId, i===0); // eerste = Vandaag = open
       });
     }
-    loadIntentie();
-    loadEnergie();
     updatePomoDisplay();
     startHeroClock();
     loadHeroWeer();
