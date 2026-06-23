@@ -29,7 +29,8 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:12px;background:va
 .gl{font-size:11px;font-weight:700;color:var(--text3);padding:10px 12px 3px;letter-spacing:.9px;text-transform:uppercase}
 .ni{display:flex;align-items:center;gap:8px;padding:5px 8px;margin:1px 6px;cursor:pointer;color:var(--text3);border-radius:10px;font-size:12px;user-select:none;transition:all .1s}
 .ni:hover{background:var(--bg3);color:var(--text)}
-.ni.on{background:var(--bg3);color:var(--text);font-weight:600}
+.ni.on{background:var(--acc-soft);color:var(--acc);font-weight:600;box-shadow:inset 3px 0 0 var(--acc)}
+.ni.on svg{stroke:var(--acc)}
 /* MAIN */
 .main{flex:1;overflow-y:auto;padding:18px 20px;background:var(--bg)}
 .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
@@ -170,7 +171,7 @@ input[type=checkbox]:focus, input[type=radio]:focus { outline: none; }
 .otask-t{font-size:12px;font-weight:500;color:var(--text);line-height:1.35}
 .otask-p{font-size:10px;margin-top:2px}
 /* MODAL */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;display:flex;align-items:center;justify-content:center}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center}
 .modal-box{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;width:360px;max-height:520px;overflow-y:auto;box-shadow:0 24px 70px rgba(0,0,0,.5)}
 /* AI */
 .ai-btn{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:4px 11px;border-radius:20px;background:linear-gradient(135deg,var(--green),var(--purple));color:#fff;font-weight:700;border:none;cursor:pointer;transition:opacity .1s}
@@ -304,9 +305,11 @@ tr:last-child td{border-bottom:none}
 
 
 /* ── ROUTINE SYSTEEM ─────────────────────────────────────────────── */
-.rout-item{display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid var(--border)}
+.rout-item{display:flex;align-items:center;gap:11px;padding:10px 4px;border-bottom:1px solid var(--border);transition:opacity .15s}
+.rout-item.done{opacity:.6}
+.rout-item.done .rout-lbl-txt{text-decoration:line-through;color:var(--text3)}
 .rout-item:last-child{border-bottom:none}
-.rout-cb{width:16px;height:16px;accent-color:var(--text);cursor:pointer;flex-shrink:0}
+.rout-cb{width:24px;height:24px;accent-color:var(--acc);cursor:pointer;flex-shrink:0}
 .rout-lbl{flex:1;font-size:12px;color:var(--text);cursor:text;line-height:1.35;border-radius:6px;padding:2px 4px;margin:-2px 0;transition:background .12s;display:flex;align-items:center;gap:5px;min-width:0}
 .rout-lbl:hover{background:var(--acc-softer)}
 .rout-lbl-txt{overflow:hidden;text-overflow:ellipsis}
@@ -1731,6 +1734,66 @@ body[data-theme="light"] .fin-ov-card {
 .goal-hz-rings .pct-ring-num{font-size:18px}
 .goal-hz-rings .pct-ring-pct{font-size:11px}
 .goal-hz-rings .pct-ring-lbl{font-size:11px;max-width:78px}
+
+/* ── Dag-navigatie (habits + routine) ── */
+.day-nav{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.day-nav-btn{flex-shrink:0;width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text2);cursor:pointer;transition:all .12s}
+.day-nav-btn:first-child svg{transform:rotate(180deg)}
+.day-nav-btn:hover{border-color:var(--acc-line);color:var(--acc)}
+.day-nav-lbl{flex:1;height:38px;background:var(--acc-soft);border:1px solid var(--acc-line);border-radius:10px;color:var(--acc);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-ui);transition:all .12s}
+.day-nav-lbl.off{background:var(--bg2);border-color:var(--border);color:var(--text2)}
+.day-nav-lbl.off:hover{border-color:var(--acc-line);color:var(--acc)}
+/* ── Habit rijen (tikbaar) ── */
+.hab-row{display:flex;align-items:center;gap:12px;padding:12px 10px;border-radius:10px;cursor:pointer;transition:background .12s;border-bottom:1px solid var(--border)}
+.hab-row:last-child{border-bottom:none}
+.hab-row:active{background:var(--acc-softer)}
+.hab-cb{width:26px;height:26px;flex-shrink:0;border-radius:8px;border:2px solid var(--border);background:var(--bg3);display:flex;align-items:center;justify-content:center;transition:all .15s}
+.hab-cb.on{background:var(--acc);border-color:var(--acc)}
+.hab-row.done .hab-cb{background:var(--acc);border-color:var(--acc)}
+.hab-row-mid{flex:1;min-width:0}
+.hab-row-lbl{font-size:14px;color:var(--text);display:block;transition:all .15s}
+.hab-row.done .hab-row-lbl{color:var(--text3);text-decoration:line-through}
+.hab-strip{display:flex;gap:4px;margin-top:6px}
+.hab-dot{width:9px;height:9px;border-radius:50%;background:var(--bg3);transition:background .15s}
+.hab-dot.on{background:var(--acc)}
+.hab-dot.today{box-shadow:0 0 0 2px var(--acc-line)}
+.hab-del{background:none;border:none;color:var(--text3);font-size:13px;cursor:pointer;flex-shrink:0;opacity:.5;padding:4px}
+.hab-del:hover{opacity:1;color:var(--urgent)}
+
+/* ── Toast / snackbar ── */
+.app-toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 30px -8px rgba(0,0,0,.7);z-index:9999;opacity:0;transition:opacity .25s,transform .25s;max-width:90vw}
+.app-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.app-toast-msg{font-size:13px;color:var(--text)}
+.app-toast-undo{background:none;border:none;color:var(--acc);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-ui);white-space:nowrap;padding:2px 4px}
+.app-toast-undo:hover{text-decoration:underline}
+
+/* ── Snel-toevoegen knop (FAB) ── */
+.fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));width:56px;height:56px;border-radius:18px;border:none;background:linear-gradient(135deg,var(--acc),var(--acc-dim));box-shadow:0 6px 20px -4px rgba(217,119,87,.5);cursor:pointer;z-index:900;display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
+.fab:active{transform:scale(.92)}
+.fab:hover{box-shadow:0 8px 26px -4px rgba(217,119,87,.65)}
+.fab::before,.fab::after{content:'';position:absolute;background:#fff;border-radius:2px}
+.fab::before{width:22px;height:3px}
+.fab::after{width:3px;height:22px}
+@media(min-width:900px){.fab{right:28px;bottom:28px}}
+
+/* ── Vriendelijke lege staten ── */
+.es{display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 16px;text-align:center}
+.es-ic{opacity:.6}
+.es-tx{font-size:13px;color:var(--text3);max-width:240px;line-height:1.4}
+.es-btn{margin-top:4px;display:inline-flex;align-items:center;gap:6px;background:var(--acc-soft);border:1px solid var(--acc-line);color:var(--acc);border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-ui)}
+.es-btn:hover{background:var(--acc-softer)}
+
+/* ── Planner event: hold-to-drag feedback ── */
+.dgev.draggable{touch-action:pan-y}
+.dgev-lift{box-shadow:0 8px 24px -6px rgba(0,0,0,.7);z-index:50!important;opacity:.95;transform:scale(1.02)}
+
+/* ── Modal sluit-knop (X) + mobiel-veilig centreren ── */
+.modal-box{position:relative}
+.modal-x{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:8px;border:none;background:var(--bg3);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transform:rotate(45deg);transition:background .12s,color .12s;z-index:2}
+.modal-x:hover{background:var(--urgent-soft);color:var(--urgent)}
+.modal-bg{padding:16px;box-sizing:border-box}
+.modal-box{width:100%;max-width:380px;max-height:85vh}
+@media(max-width:480px){.modal-box{max-height:80vh}}
 </style>
 </head>
 <body>
@@ -1792,8 +1855,26 @@ body[data-theme="light"] .fin-ov-card {
 <!-- MAIN -->
 <div class="main" id="M"></div>
 </div>
+<button class="fab" id="fab" onclick="openAddTaskModal()" title="Snel taak toevoegen" aria-label="Snel taak toevoegen"></button>
 
 <script>
+// ── Toast / snackbar ──────────────────────────────────────────
+var _toastTimer=null;
+function toast(msg, undoFn){
+  var ex=document.getElementById('app-toast'); if(ex) ex.remove();
+  if(_toastTimer){ clearTimeout(_toastTimer); }
+  var el2=document.createElement('div');
+  el2.id='app-toast'; el2.className='app-toast';
+  el2.innerHTML='<span class="app-toast-msg">'+msg+'</span>'+(undoFn?'<button class="app-toast-undo" id="app-toast-undo">Ongedaan maken</button>':'');
+  document.body.appendChild(el2);
+  if(undoFn){
+    var ub=document.getElementById('app-toast-undo');
+    if(ub) ub.onclick=function(){ try{ undoFn(); }catch(e){} var t=document.getElementById('app-toast'); if(t) t.remove(); };
+  }
+  requestAnimationFrame(function(){ el2.classList.add('show'); });
+  _toastTimer=setTimeout(function(){ if(el2){ el2.classList.remove('show'); setTimeout(function(){ if(el2&&el2.parentNode) el2.remove(); },250); } }, undoFn?5000:2600);
+}
+
 // ── Mobile sidebar & theme ────────────────────────────────────
 function toggleSidebar() {
   var sb = document.querySelector('.sb');
@@ -2152,7 +2233,7 @@ var tcpc = function(p){ return p>=100?'#D97757':p>=70?'#C56A4B':p>=40?'#A85940':
 var tscC = function(s){ return s>=8?'#D97757':s>=6?'#C56A4B':s>=4?'#A85940':s>0?'#7d4530':'#666'; };
 const scC = s => s>=8?'#D97757':s>=6?'#E0a183':s>=4?'#C56A4B':'#D97757';
 const gl = arr => arr.map(g=>`<div class="gi"><span class="gd"></span>${g}</div>`).join('');
-const em = (ic,tx) => `<div class="es">•${tx}</div>`;
+const em = (ic,tx,action) => `<div class="es"><div class="es-ic">${icon(ic&&ICONS[ic]?ic:'list',26,'var(--text3)')}</div><div class="es-tx">${tx}</div>${action?`<button class="es-btn" onclick="${action.fn}">${action.label}</button>`:''}</div>`;
 const tMin = t => { const[h,m]=t.split(':').map(Number); return h*60+m; };
 const tPx = t => Math.max(0,(tMin(t)-SH*60)/60*HH);
 const dPx = (s,e) => Math.max(16,(tMin(e)-tMin(s))/60*HH);
@@ -3781,7 +3862,7 @@ function rPlan() {
     <div class="card" style="margin-bottom:10px">
       <div class="dash-acc-hd" onclick="toggleDashAccEl(this)" data-acc="mob-ev">
         <div class="ct" style="margin-bottom:0">+ Nieuw event / afspraak</div>
-        <span class="dash-acc-toggle exp-chev open" id="dacc-t-mob-ev">'+icon('arrow',18)+'</span>
+        <span class="dash-acc-toggle exp-chev open" id="dacc-t-mob-ev">${icon('arrow',18)}</span>
       </div>
       <div id="dacc-mob-ev">
         <input type="text" id="nev-t-mob" placeholder="Titel (bijv. Afspraak tandarts)" style="width:100%;margin-bottom:8px;font-size:16px">
@@ -3966,18 +4047,42 @@ function _minToTime(m){
   return (h<10?'0'+h:h)+':'+(mm<10?'0'+mm:mm);
 }
 function _snap(min){ return Math.round(min/30)*30; } // snap naar half uur
+var _dgevHold=null;
 function dgevDragStart(e, elx){
   if(e.button!==undefined && e.button!==0) return; // alleen linkermuis
   var eid=elx.getAttribute('data-eid');
   var ev=(S.events||[]).find(function(x){return x.id===eid;}); if(!ev) return;
-  e.preventDefault(); e.stopPropagation();
   var grid=document.getElementById('dayGrid'); if(!grid) return;
-  _dgevDrag={ mode:'move', eid:eid, ev:ev, el:elx, startY:e.clientY, moved:false,
-    origStart:tMin(ev.st), origEnd:tMin(ev.et), dur:tMin(ev.et)-tMin(ev.st), grid:grid };
-  try{ elx.setPointerCapture(e.pointerId); }catch(_){}
-  elx.addEventListener('pointermove', dgevDragMove);
-  elx.addEventListener('pointerup', dgevDragEnd);
-  elx.addEventListener('pointercancel', dgevDragEnd);
+  // Hold-to-drag: niet meteen slepen, eerst even vasthouden zodat normaal scrollen blijft werken
+  var startX=e.clientX, startY=e.clientY, pid=e.pointerId;
+  var armed=false;
+  // pre-listeners om beweging/loslaten tijdens de wachttijd te detecteren
+  var preMove=function(ev2){
+    // als de vinger beweegt vóór de hold-tijd → het is scrollen, annuleer
+    if(Math.abs(ev2.clientY-startY)>8 || Math.abs(ev2.clientX-startX)>8){ cancelHold(); }
+  };
+  var preUp=function(){ cancelHold(); };
+  function cancelHold(){
+    if(_dgevHold){ clearTimeout(_dgevHold); _dgevHold=null; }
+    elx.removeEventListener('pointermove', preMove);
+    elx.removeEventListener('pointerup', preUp);
+    elx.removeEventListener('pointercancel', preUp);
+  }
+  elx.addEventListener('pointermove', preMove);
+  elx.addEventListener('pointerup', preUp);
+  elx.addEventListener('pointercancel', preUp);
+  _dgevHold=setTimeout(function(){
+    cancelHold();
+    // start nu pas het echte slepen
+    _dgevDrag={ mode:'move', eid:eid, ev:ev, el:elx, startY:startY, moved:false,
+      origStart:tMin(ev.st), origEnd:tMin(ev.et), dur:tMin(ev.et)-tMin(ev.st), grid:grid };
+    elx.classList.add('dgev-lift');
+    if(navigator.vibrate){ try{ navigator.vibrate(15); }catch(_){} }
+    try{ elx.setPointerCapture(pid); }catch(_){}
+    elx.addEventListener('pointermove', dgevDragMove);
+    elx.addEventListener('pointerup', dgevDragEnd);
+    elx.addEventListener('pointercancel', dgevDragEnd);
+  }, 220);
 }
 function dgevResizeStart(e, handle){
   e.preventDefault(); e.stopPropagation();
@@ -4013,6 +4118,7 @@ function dgevDragMove(e){
 }
 function dgevDragEnd(e){
   if(!_dgevDrag) return;
+  if(_dgevDrag.el) _dgevDrag.el.classList.remove('dgev-lift');
   var target=_dgevDrag._handle||_dgevDrag.el;
   try{ target.releasePointerCapture(e.pointerId); }catch(_){}
   target.removeEventListener('pointermove', dgevDragMove);
@@ -4584,7 +4690,7 @@ function planTaskNewSlot(tid){
   save();closeModal();rPlBody();rOTList();
   toast('✓ Ingepland om '+st);
 }
-function closeModal() { var _mb=document.querySelector('.modal-bg');if(_mb)_mb.remove(); }
+function closeModal() { var all=document.querySelectorAll('.modal-bg'); all.forEach(function(m){ m.remove(); }); }
 
 function linkTask(tid,eid) { const ev=S.events.find(e=>e.id===eid);if(!ev)return;if(!ev.taskIds)ev.taskIds=[];if(!ev.taskIds.includes(tid))ev.taskIds.push(tid);save();rPlBody();rOTList(); }
 function unlinkTask(eid,tid) { const ev=S.events.find(e=>e.id===eid);if(ev)ev.taskIds=(ev.taskIds||[]).filter(t=>t!==tid);save(); }
@@ -5080,10 +5186,11 @@ function saveNewGoal(){
   save();closeModal();rGoals();
 }
 function delGoal(id){
-  if(!confirm('Goal verwijderen?'))return;
-  var g=S.goals.find(function(x){return x.id===id;});
-  if(g&&g.items){ g.items.forEach(function(it){ if(it.taskId){ S.tasks=S.tasks.filter(function(t){return t.id!==it.taskId;}); } }); }
+  var idx=S.goals.findIndex(function(x){return x.id===id;});
+  if(idx<0)return;
+  var removed=S.goals[idx];
   S.goals=S.goals.filter(function(g){return g.id!==id;});save();rGoals();
+  toast('Goal verwijderd', function(){ S.goals.splice(idx,0,removed); save(); rGoals(); });
 }
 function togGoalDone(id,v){
   var g=S.goals.find(function(g){return g.id===id;});if(!g)return;
@@ -5225,7 +5332,8 @@ function rProj() {
   let html='';
   cats.forEach(cat=>{
     var catProjs=visP.filter(p=>(p.cat||'Overig')===cat);
-    var catClosed=!(window._projCatOpen&&window._projCatOpen[cat]);
+    var catDefault=(tab==='lopend');
+    var catClosed=window._projCatOpen&&window._projCatOpen[cat]!==undefined?!window._projCatOpen[cat]:!catDefault;
     // categorie-voortgang: som van alle taken in deze categorie
     var catTasks=0, catDone=0;
     catProjs.forEach(function(p){ var pt=S.tasks.filter(t=>t.proj===p.id); catTasks+=pt.length; catDone+=pt.filter(t=>t.done).length; });
@@ -5248,9 +5356,9 @@ function rProj() {
           <div class="pdot" style="background:${p.color}"></div>
           <div class="pnm">${p.name}</div>
           <div class="proj-prog-wrap" style="display:flex;align-items:center;gap:5px${tc?'':';display:none'}">
-            ${tc?`<div style="width:42px;height:4px;background:var(--bg3);border-radius:6px;overflow:hidden">
+            ${tc?`<div style="width:60px;height:5px;background:var(--bg3);border-radius:6px;overflow:hidden">
               <div class="proj-bar-fill" style="background:${p.color};width:${pc}%;height:100%;transition:width .3s"></div>
-            </div><span class="proj-counter" style="font-size:11px;color:var(--text3)">${dc}/${tc}</span>`:
+            </div><span class="proj-counter" style="font-size:11px;color:var(--text3);font-variant-numeric:tabular-nums">${pc}% · ${dc}/${tc}</span>`:
             `<span style="font-size:11px;color:var(--text3)">geen taken</span>`}
           </div>
           <span id="PC${p.id}" class="exp-chev${op?' open':''}">${icon('arrow',16)}</span>
@@ -5323,7 +5431,6 @@ function rProj() {
     <button class="tb${tab==='gedaan'?' on':''}" onclick="setProjTab('gedaan')">Gedaan (${gedaanCount})</button>
     <button class="tb${tab==='alle'?' on':''}" onclick="setProjTab('alle')">Alle (${alleCount})</button>
   </div>
-  ${window._projTab==='lopend'?buildProjCockpit():''}
   <div id="proj-list">${html||emptyMsg}</div>`;
 }
 
@@ -5748,9 +5855,10 @@ function openAddTaskModal() {
     +'<div style="display:flex;gap:6px;margin-top:14px">'
     +'<button class="btn pri" onclick="saveAddTaskModal()" style="flex:1">Toevoegen</button>'
     +'<button class="btn" onclick="closeModal()">Annuleer</button></div>';
+  closeModal();
   var modal = document.createElement('div');
   modal.className = 'modal-bg';
-  modal.innerHTML = '<div class="modal-box">'+body+'</div>';
+  modal.innerHTML = '<div class="modal-box"><button class="modal-x" onclick="closeModal()" aria-label="Sluiten">'+icon('plus',18)+'</button>'+body+'</div>';
   document.body.appendChild(modal);
   modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
   setTimeout(function(){ var i=document.getElementById('atm-t'); if(i) i.focus(); }, 100);
@@ -5964,13 +6072,25 @@ function isoWeekKey(d){
   var week=1+Math.round((dt-firstThu)/(7*24*3600*1000));
   return dt.getFullYear()+'-W'+(week<10?'0'+week:week);
 }
+function _routDate(){ if(!window._routDay) window._routDay=td(); return window._routDay; }
 function routPeriodKey(tab){
   var now=new Date();
   if(tab==='wekelijks') return 'W:'+isoWeekKey(now);
   if(tab==='maandelijks') return 'M:'+now.getFullYear()+'-'+(now.getMonth()+1);
   if(tab==='jaarlijks') return 'Y:'+now.getFullYear();
-  // dagelijks, ochtend, middag, avond, en weekdagen → per dag
-  return td();
+  // dagelijks, ochtend, middag, avond, en weekdagen → per gekozen dag
+  return _routDate();
+}
+function routDayNav(dir){ var d=new Date(_routDate()); d.setDate(d.getDate()+dir); window._routDay=d.toISOString().split('T')[0]; rRout(); }
+function routDayToday(){ window._routDay=td(); rRout(); }
+function routDayLabel(){
+  var ds=_routDate(); var t=td();
+  var tom=new Date(); tom.setDate(tom.getDate()+1);
+  var yes=new Date(); yes.setDate(yes.getDate()-1);
+  if(ds===t) return 'Vandaag';
+  if(ds===tom.toISOString().split('T')[0]) return 'Morgen';
+  if(ds===yes.toISOString().split('T')[0]) return 'Gisteren';
+  return new Date(ds).toLocaleDateString('nl-NL',{weekday:'short',day:'numeric',month:'short'});
 }
 
 function renderRoutTab(tab) {
@@ -6098,6 +6218,8 @@ function togRout(tab, id, v) {
   var p = items.length ? Math.round(c / items.length * 100) : 0;
   var pf = el('rout-pf-' + tab); if (pf) { pf.style.width = p + '%'; pf.style.background = cpc(p); }
   var sc = el('rout-sc-' + tab); if (sc) { sc.textContent = c + '/' + items.length; sc.style.color = cpc(p); }
+  // werk de bovenste voortgangscirkel van dit tabblad bij
+  if(typeof rRout==='function' && document.querySelector('.pct-ring-row')) { var _st=_routTab; rRout(); }
 }
 
 function addRoutItemEl(inp) {
@@ -6125,8 +6247,12 @@ function addRoutItem(tab) {
 
 function delRoutItem(tab, id) {
   if (!S.routineItems || !S.routineItems[tab]) return;
+  var idx=S.routineItems[tab].findIndex(function(x){return x.id===id;});
+  if(idx<0)return;
+  var removed=S.routineItems[tab][idx];
   S.routineItems[tab] = S.routineItems[tab].filter(function(x) { return x.id !== id; });
   save(); renderRoutTab(tab);
+  toast('Item verwijderd', function(){ S.routineItems[tab].splice(idx,0,removed); save(); renderRoutTab(tab); });
 }
 
 
@@ -6136,9 +6262,31 @@ function togTask(i,v) { if(S.tasks[i])S.tasks[i].done=v;save(); }
 // ══════════════════════════════════════════════════════════════════════
 //  HABITS (einde dag check-in)
 // ══════════════════════════════════════════════════════════════════════
+function _habDate(){
+  if(!window._habDay) window._habDay=td();
+  return window._habDay;
+}
+function habDayNav(dir){
+  var d=new Date(_habDate());
+  d.setDate(d.getDate()+dir);
+  window._habDay=d.toISOString().split('T')[0];
+  rHab();
+}
+function habDayToday(){ window._habDay=td(); rHab(); }
+function habDayLabel(){
+  var ds=_habDate(); var t=td();
+  var d=new Date(ds); var tom=new Date(); tom.setDate(tom.getDate()+1);
+  var yes=new Date(); yes.setDate(yes.getDate()-1);
+  if(ds===t) return 'Vandaag';
+  if(ds===tom.toISOString().split('T')[0]) return 'Morgen';
+  if(ds===yes.toISOString().split('T')[0]) return 'Gisteren';
+  return d.toLocaleDateString('nl-NL',{weekday:'short',day:'numeric',month:'short'});
+}
+
 function rHab() {
   if(!S.habItems) S.habItems = DEF_HABS.map(function(h){return Object.assign({},h);});
-  var t = td();
+  var t = _habDate();
+  var isToday = (t===td());
   var hdata = S.habits[t] || {};
   var c = S.habItems.filter(function(h){return hdata[h.id];}).length;
   var tot = S.habItems.length;
@@ -6166,10 +6314,21 @@ function rHab() {
   // Build habit items — clean horizontal toggle rows
   var itemsH = S.habItems.map(function(h){
     var v = !!hdata[h.id];
-    return '<div class="hab-row" id="habrow-'+h.id+'">'
-      +'<button class="hab-cb'+(v?' on':'')+'" data-hid="'+h.id+'" onclick="togHabBtn(this)"></button>'
-      +'<span class="hab-row-lbl'+(v?' done':'')+'">'+h.l+'</span>'
-      +'<button class="hab-del" data-hid="'+h.id+'" onclick="delHabBtn(this)">✕</button>'
+    // 7-dagen streepjes voor deze habit
+    var strip='';
+    for(var si=6;si>=0;si--){
+      var sd=new Date(t); sd.setDate(sd.getDate()-si);
+      var sk=sd.toISOString().split('T')[0];
+      var on=!!(S.habits[sk]&&S.habits[sk][h.id]);
+      strip+='<span class="hab-dot'+(on?' on':'')+(si===0?' today':'')+'"></span>';
+    }
+    return '<div class="hab-row'+(v?' done':'')+'" data-hid="'+h.id+'" onclick="togHabRow(this)">'
+      +'<span class="hab-cb'+(v?' on':'')+'">'+(v?icon('check',13,'#fff'):'')+'</span>'
+      +'<div class="hab-row-mid">'
+      +'<span class="hab-row-lbl">'+h.l+'</span>'
+      +'<span class="hab-strip">'+strip+'</span>'
+      +'</div>'
+      +'<button class="hab-del" data-hid="'+h.id+'" onclick="event.stopPropagation();delHabBtn(this)">✕</button>'
       +'</div>';
   }).join('');
 
@@ -6193,6 +6352,13 @@ function rHab() {
 
     +'<div class="sp on" id="sp-hvd">'
 
+    // Dag-navigatie
+    +'<div class="day-nav">'
+    +'<button class="day-nav-btn" onclick="habDayNav(-1)">'+icon('arrow',16)+'</button>'
+    +'<button class="day-nav-lbl'+(isToday?'':' off')+'" onclick="habDayToday()">'+habDayLabel()+'</button>'
+    +'<button class="day-nav-btn" onclick="habDayNav(1)">'+icon('arrow',16)+'</button>'
+    +'</div>'
+
     // Top stat bar
     +'<div class="card" style="margin-bottom:10px">'
     +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
@@ -6215,7 +6381,7 @@ function rHab() {
     // Habit list
     +'<div class="card">'
     +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
-    +'<div class="ct" style="margin-bottom:0">Habits vandaag</div>'
+    +'<div class="ct" style="margin-bottom:0">Habits '+(isToday?'vandaag':habDayLabel().toLowerCase())+'</div>'
     +'<span style="font-size:11px;color:var(--text3)">Einde dag invullen</span>'
     +'</div>'
     +itemsH
@@ -6253,6 +6419,12 @@ function calcStreak(){
 }
 function delHabBtn(btn){delHabItem(btn.getAttribute('data-hid'));}
 
+function togHabRow(row){
+  var id=row.getAttribute('data-hid');
+  var v=!row.classList.contains('done');
+  togHabItem(id,v);
+  rHab();
+}
 function togHabBtn(btn) {
   var id = btn.getAttribute('data-hid');
   var v = !btn.classList.contains('on');
@@ -6263,7 +6435,7 @@ function togHabBtn(btn) {
 }
 
 function togHabItem(id,v){
-  var t=td();
+  var t=_habDate();
   if(!S.habits[t])S.habits[t]={};
   S.habits[t][id]=v;save();
   // Update progress
@@ -6280,8 +6452,12 @@ function addHabItem(){
 }
 function delHabItem(id){
   if(!S.habItems)return;
+  var idx=S.habItems.findIndex(function(h){return h.id===id;});
+  if(idx<0)return;
+  var removed=S.habItems[idx];
   S.habItems=S.habItems.filter(function(h){return h.id!==id;});
   save();rHab();
+  toast('Habit verwijderd', function(){ S.habItems.splice(idx,0,removed); save(); rHab(); });
 }
 function setHabScore(n){
   var t=td();
@@ -6352,7 +6528,13 @@ function rRout() {
     var pct=items.length?Math.round(c/items.length*100):0;
     return pctRing(pct, tabLabels[tab], 'setRoutTab(\''+tab+'\')', tab===_routTab);
   }).join('');
+  var rIsToday=(_routDate()===td());
   M.innerHTML='<div class="ph"><div class="pt">Routine</div></div>'
+    +'<div class="day-nav">'
+    +'<button class="day-nav-btn" onclick="routDayNav(-1)">'+icon('arrow',16)+'</button>'
+    +'<button class="day-nav-lbl'+(rIsToday?'':' off')+'" onclick="routDayToday()">'+routDayLabel()+'</button>'
+    +'<button class="day-nav-btn" onclick="routDayNav(1)">'+icon('arrow',16)+'</button>'
+    +'</div>'
     +'<div class="pct-ring-row">'+ringRow+'</div>'
     +'<div style="font-size:11px;color:var(--text3);margin-bottom:8px">Algemene routine + vaste weekdag-taken (komen wekelijks terug)</div>'
     +'<div class="tbar" id="rout-tbar" style="overflow-x:auto">'+tbar+'</div>'
