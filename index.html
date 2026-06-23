@@ -1806,6 +1806,11 @@ body[data-theme="light"] .fin-ov-card {
 /* ── Vandaag: "Mag nog" blok (optioneel, subtieler) ── */
 .mag-card{opacity:.92;border-style:dashed}
 .mag-card .vd-task-t{color:var(--text2)}
+
+/* ── Fix: SVG-iconen mogen geen tikken/pointers opvangen (label-edit + slepen) ── */
+.rout-lbl svg, .rout-drag svg, .hab-row svg, .vd-task svg{pointer-events:none}
+.rout-drag{padding:10px 12px;margin:-10px -6px}
+.rout-item{gap:8px}
 </style>
 </head>
 <body>
