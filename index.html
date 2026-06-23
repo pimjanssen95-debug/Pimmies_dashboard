@@ -114,7 +114,7 @@ input[type=checkbox]:focus, input[type=radio]:focus { outline: none; }
 .pdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .pnm{flex:1;font-size:12px;font-weight:600;color:var(--text)}
 .pchev{font-size:12px;color:var(--text3);transition:transform .2s}
-.pchev.op{transform:rotate(180deg)}
+
 .pbdy{display:none;padding:0 0 10px 16px}
 .pbdy.op{display:block}
 .ptk{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--border)}
@@ -1724,8 +1724,13 @@ body[data-theme="light"] .fin-ov-card {
 @keyframes goalflash{0%,100%{box-shadow:none}30%{box-shadow:0 0 0 2px var(--acc)}}
 
 /* ── Goals: horizon-ringen bovenaan (prominenter) ── */
-.goal-hz-rings{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px 8px;margin-bottom:6px;justify-content:space-around}
-.goal-hz-rings .pct-ring-item{width:74px}
+.goal-hz-rings{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px 6px;margin-bottom:6px;justify-content:center;gap:2px}
+.goal-hz-rings .pct-ring-item{width:80px;gap:8px}
+.goal-hz-rings .pct-ring-circ{width:72px !important;height:72px !important}
+.goal-hz-rings .pct-ring-circ svg{width:72px;height:72px}
+.goal-hz-rings .pct-ring-num{font-size:18px}
+.goal-hz-rings .pct-ring-pct{font-size:11px}
+.goal-hz-rings .pct-ring-lbl{font-size:11px;max-width:78px}
 </style>
 </head>
 <body>
@@ -3356,9 +3361,9 @@ function rDash() {
 
   // Init accordion states (habits+routine open by default, supps closed)
   setTimeout(function(){
-    initDashAcc('upcoming', true);
-    initDashAcc('habits', true);
-    initDashAcc('routine', true);
+    initDashAcc('upcoming', false);
+    initDashAcc('habits', false);
+    initDashAcc('routine', false);
     initDashAcc('supps', false);
     initDashAcc('goals', false);
     // Routine sub-categorieën: alleen Vandaag open
@@ -3776,7 +3781,7 @@ function rPlan() {
     <div class="card" style="margin-bottom:10px">
       <div class="dash-acc-hd" onclick="toggleDashAccEl(this)" data-acc="mob-ev">
         <div class="ct" style="margin-bottom:0">+ Nieuw event / afspraak</div>
-        <span class="dash-acc-toggle open" id="dacc-t-mob-ev">▾</span>
+        <span class="dash-acc-toggle exp-chev open" id="dacc-t-mob-ev">'+icon('arrow',18)+'</span>
       </div>
       <div id="dacc-mob-ev">
         <input type="text" id="nev-t-mob" placeholder="Titel (bijv. Afspraak tandarts)" style="width:100%;margin-bottom:8px;font-size:16px">
@@ -4865,7 +4870,7 @@ function createGoalTask(goalId){
 
 function togGoalAcc(key){
   if(!window._goalAcc) window._goalAcc={};
-  var cur=window._goalAcc[key]!==undefined?window._goalAcc[key]:true;
+  var cur=window._goalAcc[key]!==undefined?window._goalAcc[key]:false;
   window._goalAcc[key]=!cur;
   var body=document.getElementById('gaccb-'+key);
   var chev=document.getElementById('gacc-'+key);
@@ -4959,7 +4964,7 @@ function rGoals() {
     +'<div class="goal-ladder-cap">Per niveau: hoeveel doelen je al behaald hebt.</div>';
 
   var html = '<div class="ph"><div class="pt">Goals</div>'
-    +'<button class="undo-btn" onclick="undo()">↩</button>'
+    +'<button class="undo-btn" onclick="undo()" title="Laatste wijziging ongedaan maken">'+icon('refresh',15,'var(--acc)')+'</button>'
     +'</div>';
   html += ladder;
 
@@ -4969,7 +4974,7 @@ function rGoals() {
     var totalGoals = hGoals.length;
     var doneGoals = hGoals.filter(function(g){ return g.done; }).length;
     var hzPct = totalGoals ? Math.round(doneGoals/totalGoals*100) : 0;
-    var isOpen = window._goalAcc[key] !== undefined ? window._goalAcc[key] : true;
+    var isOpen = window._goalAcc[key] !== undefined ? window._goalAcc[key] : false;
 
     html += '<div class="card goal-hz-card" id="goalhz-'+key+'" style="margin-bottom:10px">';
     html += '<div class="goal-hz-hd" onclick="togGoalAcc(\''+key+'\')">'
@@ -5188,8 +5193,8 @@ function togProjShowDone(btn){
   rProj();
 }
 function togProjCat(cat){
-  if(!window._projCatClosed) window._projCatClosed={};
-  window._projCatClosed[cat]=!window._projCatClosed[cat];
+  if(!window._projCatOpen) window._projCatOpen={};
+  window._projCatOpen[cat]=!window._projCatOpen[cat];
   rProj();
 }
 function projStatus(p){
@@ -5216,11 +5221,11 @@ function rProj() {
   var catOrder=['Zakelijk','Persoonlijk','Studie','Anders','Overig'];
   var presentCats=[...new Set(visP.map(p=>p.cat||'Overig'))];
   var cats=catOrder.filter(function(c){return presentCats.indexOf(c)>=0;}).concat(presentCats.filter(function(c){return catOrder.indexOf(c)<0;}));
-  if(!window._projCatClosed) window._projCatClosed={};
+  if(!window._projCatOpen) window._projCatOpen={};
   let html='';
   cats.forEach(cat=>{
     var catProjs=visP.filter(p=>(p.cat||'Overig')===cat);
-    var catClosed=!!window._projCatClosed[cat];
+    var catClosed=!(window._projCatOpen&&window._projCatOpen[cat]);
     // categorie-voortgang: som van alle taken in deze categorie
     var catTasks=0, catDone=0;
     catProjs.forEach(function(p){ var pt=S.tasks.filter(t=>t.proj===p.id); catTasks+=pt.length; catDone+=pt.filter(t=>t.done).length; });
@@ -5248,7 +5253,7 @@ function rProj() {
             </div><span class="proj-counter" style="font-size:11px;color:var(--text3)">${dc}/${tc}</span>`:
             `<span style="font-size:11px;color:var(--text3)">geen taken</span>`}
           </div>
-          <span id="PC${p.id}" style="display:inline-block;transition:transform .2s;color:var(--text3);font-size:16px;transform:${op?'rotate(180deg)':''}">▾</span>
+          <span id="PC${p.id}" class="exp-chev${op?' open':''}">${icon('arrow',16)}</span>
         </div>
         <div class="pbdy${op?' op':''}" id="PB${p.id}">
           <div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)"><div class="proj-status-sel">${['lopend','toekomstig','gedaan'].map(function(st){var lbls={lopend:'Lopend',toekomstig:'Toekomstig',gedaan:'Gedaan'};var cur=projStatus(p)===st;return '<button onclick="event.stopPropagation();setProjStatus(\''+p.id+'\',\''+st+'\')" class="proj-status-btn'+(cur?' on':'')+'">'+lbls[st]+'</button>';}).join('')}</div><button onclick="event.stopPropagation();if(confirm('Project verwijderen inclusief taken?')){S.projects.splice(${pi},1);S.tasks=S.tasks.filter(function(t){return t.proj!==p.id;});save();rProj();}" style="background:none;border:1px solid #c44;color:#c44;border-radius:6px;font-size:11px;padding:3px 10px;cursor:pointer">Verwijderen</button></div>
@@ -5362,7 +5367,7 @@ function saveNewProj() {
   S.projects.push({id:'p'+Date.now(), name:n.value.trim(), cat:cat?cat.value:'Overig', color:col?col.value:'#E0a183'});
   save(); closeModal(); rProj();
 }
-function togP(pid) { if(oPs.has(pid))oPs.delete(pid);else oPs.add(pid);const b=el('PB'+pid);const c=el('PC'+pid);if(b)b.classList.toggle('op',oPs.has(pid));if(c)c.style.transform=oPs.has(pid)?'rotate(180deg)':''; }
+function togP(pid) { if(oPs.has(pid))oPs.delete(pid);else oPs.add(pid);const b=el('PB'+pid);const c=el('PC'+pid);if(b)b.classList.toggle('op',oPs.has(pid));if(c)c.classList.toggle('open',oPs.has(pid)); }
 function addPT(pid) {
   var inp=el('PA'+pid);var v=inp?inp.value.trim():'';if(!v)return;
   var prioEl=el('PP'+pid);var dlEl=el('PD'+pid);
@@ -8195,7 +8200,7 @@ function rNotes() {
 
   M.innerHTML = '<div class="ph"><div class="pt">Aantekeningen</div>'
     +'<div style="display:flex;gap:6px;align-items:center">'
-    +'<button class="undo-btn" onclick="undo()">↩</button>'
+    +'<button class="undo-btn" onclick="undo()" title="Laatste wijziging ongedaan maken">'+icon('refresh',15,'var(--acc)')+'</button>'
     +'<button class="btn pri" onclick="addNoteModal()">+ Aantekening</button>'
     +'</div></div>'
     +'<div class="tbar">'+catBtns+'</div>'
