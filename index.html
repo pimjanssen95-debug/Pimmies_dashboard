@@ -5918,6 +5918,7 @@ function setRoutTab(tab) {
 
 // ── Routine items slepen om te herordenen (touch + muis) ──
 var _routDrag = null;
+var _routHold = null;
 function editRoutItemEl(span){
   if(_routDrag) return; // niet bewerken tijdens slepen
   var rid=span.getAttribute('data-rid');
@@ -5955,19 +5956,36 @@ function saveRoutItemEdit(inp){
 
 function routDragStart(e, handle){
   if(e.button!==undefined && e.button!==0) return;
-  e.preventDefault(); e.stopPropagation();
   var item = handle.closest('.rout-item');
   if(!item) return;
   var tab = item.getAttribute('data-tab');
   var container = item.parentElement;
-  _routDrag = { item: item, tab: tab, container: container, handle: handle, moved:false, startY:e.clientY };
-  item.classList.add('rout-dragging');
-  try{ handle.setPointerCapture(e.pointerId); }catch(_){}
-  handle.addEventListener('pointermove', routDragMove);
-  handle.addEventListener('pointerup', routDragEnd);
-  handle.addEventListener('pointercancel', routDragEnd);
+  var startX=e.clientX, startY=e.clientY, pid=e.pointerId;
+  // Hold-to-drag (zelfde systeem als planner): eerst even vasthouden, anders scrollt de lijst gewoon
+  var preMove=function(ev2){
+    if(Math.abs(ev2.clientY-startY)>8 || Math.abs(ev2.clientX-startX)>8){ cancelHold(); }
+  };
+  var preUp=function(){ cancelHold(); };
+  function cancelHold(){
+    if(_routHold){ clearTimeout(_routHold); _routHold=null; }
+    handle.removeEventListener('pointermove', preMove);
+    handle.removeEventListener('pointerup', preUp);
+    handle.removeEventListener('pointercancel', preUp);
+  }
+  handle.addEventListener('pointermove', preMove);
+  handle.addEventListener('pointerup', preUp);
+  handle.addEventListener('pointercancel', preUp);
+  _routHold=setTimeout(function(){
+    cancelHold();
+    _routDrag = { item: item, tab: tab, container: container, handle: handle, moved:false, startY:startY };
+    item.classList.add('rout-dragging');
+    if(navigator.vibrate){ try{ navigator.vibrate(15); }catch(_){} }
+    try{ handle.setPointerCapture(pid); }catch(_){}
+    handle.addEventListener('pointermove', routDragMove);
+    handle.addEventListener('pointerup', routDragEnd);
+    handle.addEventListener('pointercancel', routDragEnd);
+  }, 220);
 }
-
 
 function routDragMove(e){
   if(!_routDrag) return;
