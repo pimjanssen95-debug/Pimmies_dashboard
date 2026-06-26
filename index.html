@@ -1811,6 +1811,79 @@ body[data-theme="light"] .fin-ov-card {
 .rout-lbl svg, .rout-drag svg, .hab-row svg, .vd-task svg{pointer-events:none}
 .rout-drag{padding:10px 12px;margin:-10px -6px}
 .rout-item{gap:8px}
+
+/* ── Visie & Frame: inspirerende opmaak ── */
+.vis-intro{font-size:13px;color:var(--text2);line-height:1.6;text-align:center;font-style:italic;padding:4px 12px 14px;max-width:480px;margin:0 auto}
+.vis-arc{margin:0 0 22px;padding:8px 4px}
+.vis-arc-labels{display:flex;justify-content:space-between;margin-top:2px;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+.vis-arc-labels span:first-child{color:var(--text3)}
+.vis-arc-labels span:last-child{color:var(--acc)}
+.om-label{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px}
+.om-hero-lg .om-quote{font-size:16px}
+.om-release{border-left:2px solid var(--text3);opacity:.92}
+.om-release .om-label{color:var(--text3)}
+.om-mantra-card{background:linear-gradient(135deg,var(--acc-softer),var(--acc-soft));border:1px solid var(--acc-line)}
+.om-mantra-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+
+/* ── Eigenschappen: inspirerend ── */
+.eig-identity{font-size:18px;line-height:1.7;color:var(--text2);padding:18px;background:linear-gradient(135deg,var(--acc-softer),transparent);border-radius:14px;margin-bottom:14px;font-family:var(--font-serif)}
+.eig-identity-lead{color:var(--acc);font-weight:600}
+.eig-identity-word{color:var(--text);font-weight:600}
+.eig-identity-sep{color:var(--acc-line);margin:0 2px}
+.eig-chip-v2{display:inline-flex;align-items:center;gap:6px;background:var(--acc-soft);border:1px solid var(--acc-line);color:var(--text);border-radius:20px;padding:6px 10px 6px 12px;font-size:13px;font-weight:500}
+.eig-chip-v2 svg{flex-shrink:0}
+.eig-chip-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:11px;padding:0 0 0 2px;display:flex}
+.eig-chip-del:hover{color:var(--urgent)}
+.eig-grid{display:flex;flex-wrap:wrap;gap:7px}
+.eig-sugg-wrap{display:flex;flex-wrap:wrap;gap:6px}
+.eig-sugg{font-size:12px;padding:5px 12px;background:var(--bg3);border:1px dashed var(--acc-line);border-radius:20px;color:var(--text3);cursor:pointer;transition:all .12s}
+.eig-sugg:hover{color:var(--acc);border-color:var(--acc);background:var(--acc-softer)}
+/* ── Rules to live by: inspirerend ── */
+.rule-cats-wrap{display:flex;flex-direction:column;gap:12px}
+.rule-cat-v2{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px}
+.rule-cat-hd-v2{display:flex;align-items:center;gap:9px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.rule-cat-ic{display:flex;flex-shrink:0}
+.rule-cat-title{flex:1;font-size:15px;font-weight:700;color:var(--text);font-family:var(--font-display)}
+.rule-cat-del{background:none;border:none;cursor:pointer;opacity:.5;padding:4px;display:flex}
+.rule-cat-del:hover{opacity:1}
+.rule-lines{display:flex;flex-direction:column;gap:2px;margin-bottom:10px}
+.rule-line{display:flex;align-items:center;gap:10px;padding:7px 4px;border-radius:8px;transition:background .12s}
+.rule-line:hover{background:var(--acc-softer)}
+.rule-line-dot{width:6px;height:6px;border-radius:50%;background:var(--acc);flex-shrink:0}
+.rule-line-txt{flex:1;font-size:14px;color:var(--text)}
+.rule-line .del-tag{background:none;border:none;color:var(--text3);cursor:pointer;font-size:11px;opacity:0;transition:opacity .12s;padding:2px}
+.rule-line:hover .del-tag{opacity:.7}
+.rule-line .del-tag:hover{color:var(--urgent);opacity:1}
+.rule-add-row{display:flex;gap:6px;align-items:center}
+.rule-add-row input{flex:1}
+
+/* ── Werk (uren-tracker) ── */
+.werk-stats{display:flex;gap:8px;margin-bottom:14px}
+.werk-stat{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 8px;text-align:center}
+.werk-stat-v{font-size:18px;font-weight:700;color:var(--acc);font-family:var(--font-display);line-height:1.1}
+.werk-stat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.werk-chart-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.werk-toggle{display:flex;gap:0;background:var(--bg3);border-radius:8px;padding:2px}
+.werk-tg{background:none;border:none;color:var(--text3);font-size:11px;font-weight:600;padding:5px 10px;border-radius:6px;cursor:pointer;font-family:var(--font-ui);transition:all .12s}
+.werk-tg.on{background:var(--acc);color:#fff}
+.werk-chart{height:120px;display:flex;align-items:flex-end}
+.werk-chart-svg{width:100%;height:100%}
+.werk-chart-vals{display:flex;margin-top:4px}
+.werk-chart-val{text-align:center;font-size:10px;color:var(--acc);font-weight:600;font-variant-numeric:tabular-nums}
+.werk-chart-lbls{display:flex;margin-top:2px}
+.werk-chart-lbl{text-align:center;font-size:10px;color:var(--text3)}
+.werk-form{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.werk-form-row{display:flex;flex-direction:column;gap:4px}
+.werk-form-row label{font-size:11px;color:var(--text3);font-weight:600}
+.werk-form-row input{width:100%}
+.werk-row{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border)}
+.werk-row:last-child{border-bottom:none}
+.werk-row-main{flex:1;min-width:0}
+.werk-row-date{font-size:13px;color:var(--text);font-weight:600;text-transform:capitalize}
+.werk-row-time{font-size:11px;color:var(--text3);margin-top:1px}
+.werk-row-h{font-size:14px;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums;flex-shrink:0}
+.werk-row-del{background:none;border:none;color:var(--text3);cursor:pointer;flex-shrink:0;opacity:.5;transform:rotate(45deg);padding:2px;display:flex}
+.werk-row-del:hover{opacity:1;color:var(--urgent)}
 </style>
 </head>
 <body>
@@ -1856,6 +1929,7 @@ body[data-theme="light"] .fin-ov-card {
   <div class="ni" data-s="supp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 0-2-2v-4m0 0h18"/></svg>Supplementen</div>
   <div class="ni" data-s="fit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Fitness</div>
   <div class="ni" data-s="fin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Financiën</div>
+  <div class="ni" data-s="werk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>Werk</div>
   <div class="gl">Archief</div>
   <div class="ni" data-s="shop"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Shopping</div>
   <div class="ni" data-s="lees"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Lees &amp; Wachtlijst</div>
@@ -2478,7 +2552,7 @@ function normalizeData(){
 // ─── NAVIGATION ──────────────────────────────────────────────────────────────
 const RENDERS = {
   dash:rDash, vandaag:rVandaag, plan:rPlan, review:rReview, visie:rVisie, eig:rEig, rules:rRules, goals:rGoals,
-  proj:rProj, taken:rTaken, hab:rHab, rout:rRout, refl:rRefl, fit:rFit, supp:rSupp, fin:rFin,
+  proj:rProj, taken:rTaken, hab:rHab, rout:rRout, refl:rRefl, fit:rFit, supp:rSupp, fin:rFin, werk:rWerk,
   shop:rShop, lees:rLees, ops:rOps, gerecht:rGerecht, ctc:rCtc, qt:rQt, notes:rNotes, settings:rSettings
 };
 document.querySelectorAll('.ni').forEach(n => n.addEventListener('click', () => {
@@ -4807,19 +4881,60 @@ Wees direct en motiverend. Max 200 woorden.`;
 // ─── STATISCHE SECTIES ───────────────────────────────────────────────────────
 function rVisie() {
   var v=S.visie||{};
-  var visie=v.visie||"I'm on a mission to empower people \u2014 especially entrepreneurs \u2014 to unlock their full potential and align with the abundant flow of the universe. Through my knowledge, skills, and creative energy, I help others rise while building impactful projects that make the world a little better, more beautiful, and healthier. With my partner by my side, I travel the world and feel at home wherever we go.";
-  var frame=v.frame||"My vibe is electric. My aura? Magnetic. I move through the world with the fire of life in my eyes \u2014 desired & wanted by women, respected and feared by men. Unstoppable. Inspiring. Limitless.";
-  var mantra=v.mantra||"I have died 1,000 deaths and by God if it is required, I shall die 1,000 more. I am incorruptible, impenetrable \u2014 immortal. I know precisely who I am and what I must do. Unstoppable. Inspiring. Limitless.";
+  var visie=v.visie||"Ik ben op een missie om mensen \u2014 vooral ondernemers \u2014 te helpen hun volle potentieel te ontketenen. Met mijn kennis, vaardigheden en creatieve energie bouw ik aan projecten die de wereld een beetje mooier, beter en gezonder maken. Ik reis de wereld over en voel me overal thuis.";
+  var frame=v.frame||"Ik beweeg door de wereld met het vuur van het leven in mijn ogen. Rustig, zelfverzekerd, aanwezig. Ik weet wie ik ben en wat ik te doen heb. Onstuitbaar. Inspirerend. Grenzeloos.";
+  var values=v.values||"";
+  var oldstory=v.oldstory||"";
+  var mantra=v.mantra||"Ik ben duizend doden gestorven en als het moet sterf ik er duizend meer. Ik weet precies wie ik ben en wat ik moet doen. Onstuitbaar. Inspirerend. Grenzeloos.";
+  var wins=v.wins||"";
+
+  // ── Visuele transformatie-boog (van oud naar nieuw zelfbeeld) ──
+  var arc='<div class="vis-arc">'
+    +'<svg viewBox="0 0 320 80" preserveAspectRatio="none" style="width:100%;height:80px">'
+    +'<defs><linearGradient id="arcgrad" x1="0" y1="0" x2="1" y2="0">'
+    +'<stop offset="0%" stop-color="var(--text3)"/><stop offset="100%" stop-color="var(--acc)"/></linearGradient></defs>'
+    +'<path d="M10,68 Q160,8 310,24" fill="none" stroke="url(#arcgrad)" stroke-width="3" stroke-linecap="round"/>'
+    +'<circle cx="10" cy="68" r="5" fill="var(--text3)"/>'
+    +'<circle cx="310" cy="24" r="6" fill="var(--acc)"/>'
+    +'</svg>'
+    +'<div class="vis-arc-labels"><span>Waar ik was</span><span>Wie ik word</span></div>'
+    +'</div>';
+
+  function heroBlock(field, label, txt, big){
+    return '<div class="om-hero'+(big?' om-hero-lg':'')+'">'
+      +'<button class="om-edit-btn" onclick="editVisie(\''+field+'\')">'+icon('edit',13)+'</button>'
+      +'<div class="om-label">'+label+'</div>'
+      +'<div class="om-quote" id="'+field+'-txt">'+(txt||'<span style=\"color:var(--text3);font-style:italic\">Tik op bewerken om dit in te vullen\u2026</span>')+'</div>'
+      +'</div>';
+  }
+
   M.innerHTML='<div class="ph"><div class="pt">Visie &amp; Frame</div></div>'
-  +'<div class="om-hero"><button class="om-edit-btn" onclick="editVisie(\'visie\')">Bewerken</button><div style="font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px">Mijn Missie</div><div class="om-quote" id="visie-txt">'+visie+'</div></div>'
-  +'<div class="om-hero"><button class="om-edit-btn" onclick="editVisie(\'frame\')">Bewerken</button><div style="font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px">Mijn Frame</div><div class="om-quote" id="frame-txt">'+frame+'</div></div>'
-  +'<div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.8px;text-transform:uppercase">Mantra</div><button class="om-edit-btn" onclick="editVisie(\'mantra\')">Bewerken</button></div><div class="om-mantra" id="mantra-txt">'+mantra+'</div></div>';
+    +'<div class="vis-intro">Dit is geen takenlijst. Dit is wie je aan het worden bent. Lees het, voel het, herhaal het \u2014 tot het waar wordt.</div>'
+    +arc
+    // 1. Missie
+    +heroBlock('visie','\u2728 Mijn missie \u2014 mijn waarom', visie, true)
+    // 2. Wie ik ben (zelfbeeld)
+    +heroBlock('frame','\ud83d\udd25 Wie ik ben', frame, true)
+    // 3. Kernwaarden
+    +'<div class="om-hero"><button class="om-edit-btn" onclick="editVisie(\'values\')">'+icon('edit',13)+'</button>'
+    +'<div class="om-label">\ud83e\udded Mijn kernwaarden \u2014 mijn kompas</div>'
+    +'<div class="om-quote" id="values-txt">'+(values||'<span style="color:var(--text3);font-style:italic">Welke 3-5 woorden bepalen je keuzes? Bijv. Moed \u00b7 Vrijheid \u00b7 Groei \u00b7 Liefde\u2026</span>')+'</div></div>'
+    // 4. Oude verhaal loslaten
+    +'<div class="om-hero om-release"><button class="om-edit-btn" onclick="editVisie(\'oldstory\')">'+icon('edit',13)+'</button>'
+    +'<div class="om-label">\ud83c\udf43 Het oude verhaal dat ik loslaat</div>'
+    +'<div class="om-quote" id="oldstory-txt">'+(oldstory||'<span style="color:var(--text3);font-style:italic">Welk oud beeld van jezelf laat je achter? \u201cIk ben niet langer iemand die\u2026\u201d</span>')+'</div></div>'
+    // 5. Mantra
+    +'<div class="card om-mantra-card"><div class="om-mantra-hd"><div class="om-label" style="margin:0">\u26a1 Mijn mantra \u2014 dagelijks herhalen</div><button class="om-edit-btn" style="position:static" onclick="editVisie(\'mantra\')">'+icon('edit',13)+'</button></div><div class="om-mantra" id="mantra-txt">'+mantra+'</div></div>'
+    // 6. Bewijs / overwinningen
+    +'<div class="om-hero"><button class="om-edit-btn" onclick="editVisie(\'wins\')">'+icon('edit',13)+'</button>'
+    +'<div class="om-label">\ud83c\udfc6 Mijn bewijs \u2014 overwinningen die het waarmaken</div>'
+    +'<div class="om-quote" id="wins-txt">'+(wins||'<span style="color:var(--text3);font-style:italic">Leg kleine en grote overwinningen vast. Elk bewijs voedt je nieuwe zelfbeeld.</span>')+'</div></div>';
 }
 function editVisie(field) {
   var v=S.visie||{};
-  var defaults={visie:"Mijn visie...",frame:"Mijn frame...",mantra:"Mijn mantra..."};
+  var defaults={visie:"Mijn missie...",frame:"Wie ik ben...",mantra:"Mijn mantra...",values:"Moed · Vrijheid · Groei · Liefde",oldstory:"Ik ben niet langer iemand die...",wins:"- "};
   var cur=v[field]||defaults[field];
-  var titles={visie:'Mijn Missie',frame:'Mijn Frame',mantra:'Mantra'};
+  var titles={visie:'Mijn missie',frame:'Wie ik ben',mantra:'Mantra',values:'Kernwaarden',oldstory:'Het oude verhaal loslaten',wins:'Overwinningen'};
   var body='<div style="font-size:14px;font-weight:700;margin-bottom:12px">'+titles[field]+' bewerken</div>';
   body+='<textarea class="om-ta" id="visie-edit" rows="6">'+cur+'</textarea>';
   body+='<div style="display:flex;gap:6px;margin-top:10px"><button class="btn pri" onclick="saveVisie(\''+field+'\')" style="flex:1">Opslaan</button><button class="btn" onclick="closeModal()">Annuleer</button></div>';
@@ -4838,21 +4953,36 @@ function rRules() {
     'Prive':['Pro-actief','Assertief','Geen excuses','Eigenverantwoordelijkheid'],
     'Voeding':['Geen suiker','Geen processed foods','Clean eten'],
     'Zakelijk':['Deadlines nakomen','Facturen versturen','Uren bijhouden'],
-    'Spiritualiteit':['Dagelijks meditieren','Affirmaties lezen'],
-    'Liefde & Seksualiteit':['Geen porno','Geen zelfbevrediging','Geen seks zonder connectie','Geen casual seks'],
-    'Manhood':['Sterk en stabiel zijn','Man van je woord'],
-    'Gezondheid':['Dagelijks bewegen','Clean eten','Koude douche','Vroeg opstaan']
+    'Spiritualiteit':['Dagelijks mediteren','Affirmaties lezen'],
+    'Gezondheid':['Dagelijks bewegen','Koude douche','Vroeg opstaan']
   };
+  // Icoon per categorie (op trefwoord)
+  function catIcon(cat){
+    var c=cat.toLowerCase();
+    if(c.indexOf('voed')>=0||c.indexOf('eten')>=0) return 'flame';
+    if(c.indexOf('zakelijk')>=0||c.indexOf('werk')>=0) return 'euro';
+    if(c.indexOf('spirit')>=0||c.indexOf('mind')>=0) return 'sun';
+    if(c.indexOf('gezond')>=0||c.indexOf('health')>=0||c.indexOf('fit')>=0) return 'bolt';
+    if(c.indexOf('liefde')>=0||c.indexOf('seks')>=0) return 'flame';
+    if(c.indexOf('man')>=0) return 'target';
+    return 'flag';
+  }
   var catOrder=Object.keys(S.rules);
   var catsHTML=catOrder.map(function(cat){
     var rules=S.rules[cat]||[];
-    var tagsHTML=rules.map(function(r,ri){return '<span class="rule-tag">'+r+'<button class="del-tag" onclick="delRule(\''+cat.replace(/'/g,"\\'").replace(/&/g,'__amp__')+'\','+ri+')">x</button></span>';}).join('');
+    var tagsHTML=rules.map(function(r,ri){return '<div class="rule-line"><span class="rule-line-dot"></span><span class="rule-line-txt">'+r+'</span><button class="del-tag" onclick="delRule(\''+cat.replace(/'/g,"\\'").replace(/&/g,'__amp__')+'\','+ri+')">&#10005;</button></div>';}).join('');
     var catSafe=cat.replace(/'/g,"\\'").replace(/&/g,'__amp__');
-    return '<div class="rule-cat"><div class="rule-cat-hd"><span class="rule-cat-title">'+cat+'</span><button class="btn sm" onclick="delRuleCat(\''+catSafe+'\')">Categorie verwijderen</button></div><div class="rule-tags">'+tagsHTML+'</div><div class="rule-add-row"><input type="text" id="ri-'+catSafe+'" placeholder="Nieuwe regel..."><button class="btn" onclick="addRule(\''+catSafe+'\')">+</button></div></div>';
+    return '<div class="rule-cat-v2">'
+      +'<div class="rule-cat-hd-v2"><span class="rule-cat-ic">'+icon(catIcon(cat),16,'var(--acc)')+'</span><span class="rule-cat-title">'+cat+'</span>'
+      +'<button class="rule-cat-del" onclick="delRuleCat(\''+catSafe+'\')" title="Categorie verwijderen">'+icon('edit',13,'var(--text3)')+'</button></div>'
+      +'<div class="rule-lines">'+(tagsHTML||'<div style="font-size:12px;color:var(--text3);font-style:italic;padding:4px 0">Nog geen regels</div>')+'</div>'
+      +'<div class="rule-add-row"><input type="text" id="ri-'+catSafe+'" placeholder="Nieuwe regel..."><button class="btn sm" onclick="addRule(\''+catSafe+'\')">'+icon('plus',14)+'</button></div>'
+      +'</div>';
   }).join('');
   M.innerHTML='<div class="ph"><div class="pt">Rules to live by</div>'
-  +'<button class="btn" onclick="addRuleCat()">+ Categorie</button></div>'
-  +'<div class="card">'+catsHTML+'</div>';
+    +'<button class="btn pri" onclick="addRuleCat()">+ Categorie</button></div>'
+    +'<div class="vis-intro">Je standaarden bepalen je leven, niet je doelen. Dit is de code waar je naar leeft \u2014 jouw woord aan jezelf.</div>'
+    +'<div class="rule-cats-wrap">'+catsHTML+'</div>';
 }
 function addRuleCat(){
   var name=prompt('Naam van de categorie:');
@@ -5177,16 +5307,19 @@ function togGoalItem(gid,idx,v){
 }
 function rEig() {
   var eigs=S.eigenschappen||[];
-  var chipsHTML=eigs.map(function(x,i){return '<span class="eig-chip">'+x+'<button class="eig-chip-del" onclick="S.eigenschappen.splice('+i+',1);save();rEig()">&#10005;</button></span>';}).join('');
-  // Motivational eigenschap suggestions
-  var suggs=['Gedisciplineerd','Ambitieus','Empathisch','Creatief','Loyaal','Doorzetter','Betrouwbaar','Charismatisch','Leergierig','Authentiek','Resultaatgericht','Proactief'];
-  var suggsHTML=suggs.filter(function(s){return eigs.indexOf(s)<0;}).map(function(s){return '<span onclick="addEigDirect(\''+s+'\')" style="font-size:11px;padding:3px 10px;background:var(--bg3);border:1px dashed var(--border);border-radius:20px;color:var(--text3);cursor:pointer;transition:all .1s" onmouseover="this.style.color=\'var(--text)\';this.style.borderColor=\'var(--text3)\'" onmouseout="this.style.color=\'var(--text3)\';this.style.borderColor=\'var(--border)\'">+ '+s+'</span>';}).join('');
+  var chipsHTML=eigs.map(function(x,i){return '<span class="eig-chip-v2">'+icon('check',12,'var(--acc)')+'<span>'+x+'</span><button class="eig-chip-del" onclick="S.eigenschappen.splice('+i+',1);save();rEig()">&#10005;</button></span>';}).join('');
+  var suggs=['Gedisciplineerd','Ambitieus','Empathisch','Creatief','Loyaal','Doorzetter','Betrouwbaar','Charismatisch','Leergierig','Authentiek','Resultaatgericht','Proactief','Kalm','Moedig','Geduldig','Vrijgevig'];
+  var suggsHTML=suggs.filter(function(s){return eigs.indexOf(s)<0;}).map(function(s){return '<span class="eig-sugg" onclick="addEigDirect(\''+s+'\')">+ '+s+'</span>';}).join('');
   M.innerHTML='<div class="ph"><div class="pt">Eigenschappen</div></div>'
+    +'<div class="vis-intro">De woorden die je hier kiest, word je. Benoem wie je in de kern bent \u2014 en wie je aan het worden bent.</div>'
+    +(eigs.length?'<div class="eig-identity"><span class="eig-identity-lead">Ik ben</span> '+eigs.map(function(x){return '<span class="eig-identity-word">'+x.toLowerCase()+'</span>';}).join('<span class="eig-identity-sep">\u00b7</span>')+'.</div>':'')
     +'<div class="card">'
-    +'<div class="row" style="margin-bottom:12px"><input type="text" id="ei" placeholder="Eigenschap toevoegen..."><button class="btn" onclick="addEig()">Toevoegen</button></div>'
-    +(eigs.length?'<div class="eig-grid" style="margin-bottom:14px">'+chipsHTML+'</div>':'<div style="font-size:12px;color:var(--text3);margin-bottom:14px">Nog geen eigenschappen toegevoegd.</div>')
-    +'<div style="font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.7px;text-transform:uppercase;margin-bottom:8px">Suggesties</div>'
-    +'<div style="display:flex;flex-wrap:wrap;gap:5px">'+suggsHTML+'</div>'
+    +'<div class="om-label">Mijn eigenschappen</div>'
+    +'<div class="row" style="margin-bottom:12px"><input type="text" id="ei" placeholder="Eigenschap toevoegen..."><button class="btn pri" onclick="addEig()">Toevoegen</button></div>'
+    +(eigs.length?'<div class="eig-grid" style="margin-bottom:6px">'+chipsHTML+'</div>':'<div style="font-size:12px;color:var(--text3);margin-bottom:14px;font-style:italic">Nog geen eigenschappen \u2014 kies er een paar uit de suggesties hieronder.</div>')
+    +'</div>'
+    +'<div class="card"><div class="om-label">Inspiratie \u2014 tik om toe te voegen</div>'
+    +'<div class="eig-sugg-wrap">'+suggsHTML+'</div>'
     +'</div>';
 }
 function addEig() {
@@ -5958,33 +6091,17 @@ function routDragStart(e, handle){
   if(e.button!==undefined && e.button!==0) return;
   var item = handle.closest('.rout-item');
   if(!item) return;
+  e.preventDefault(); e.stopPropagation();
   var tab = item.getAttribute('data-tab');
   var container = item.parentElement;
-  var startX=e.clientX, startY=e.clientY, pid=e.pointerId;
-  // Hold-to-drag (zelfde systeem als planner): eerst even vasthouden, anders scrollt de lijst gewoon
-  var preMove=function(ev2){
-    if(Math.abs(ev2.clientY-startY)>8 || Math.abs(ev2.clientX-startX)>8){ cancelHold(); }
-  };
-  var preUp=function(){ cancelHold(); };
-  function cancelHold(){
-    if(_routHold){ clearTimeout(_routHold); _routHold=null; }
-    handle.removeEventListener('pointermove', preMove);
-    handle.removeEventListener('pointerup', preUp);
-    handle.removeEventListener('pointercancel', preUp);
-  }
-  handle.addEventListener('pointermove', preMove);
-  handle.addEventListener('pointerup', preUp);
-  handle.addEventListener('pointercancel', preUp);
-  _routHold=setTimeout(function(){
-    cancelHold();
-    _routDrag = { item: item, tab: tab, container: container, handle: handle, moved:false, startY:startY };
-    item.classList.add('rout-dragging');
-    if(navigator.vibrate){ try{ navigator.vibrate(15); }catch(_){} }
-    try{ handle.setPointerCapture(pid); }catch(_){}
-    handle.addEventListener('pointermove', routDragMove);
-    handle.addEventListener('pointerup', routDragEnd);
-    handle.addEventListener('pointercancel', routDragEnd);
-  }, 220);
+  // Toegewijde greep (touch-action:none) → meteen slepen, geen hold nodig.
+  _routDrag = { item: item, tab: tab, container: container, handle: handle, moved:false, startY:e.clientY };
+  item.classList.add('rout-dragging');
+  if(navigator.vibrate){ try{ navigator.vibrate(12); }catch(_){} }
+  try{ handle.setPointerCapture(e.pointerId); }catch(_){}
+  handle.addEventListener('pointermove', routDragMove);
+  handle.addEventListener('pointerup', routDragEnd);
+  handle.addEventListener('pointercancel', routDragEnd);
 }
 
 function routDragMove(e){
@@ -6927,6 +7044,123 @@ function addSet() { const c=el('sets-c');if(!c||fSets>=8)return;const d=document
 function saveFit(catId) { var ex=(el('fex')?el('fex').value:'');if(!ex||ex==='__c')return;var sets=[];for(var i=0;i<fSets;i++){var sw=document.getElementById('sw'+i),sr=document.getElementById('sr'+i);var w=sw?parseFloat(sw.value||0):0,r=sr?parseInt(sr.value||0):0;if(w>0||r>0)sets.push({w:w,r:r});}if(!sets.length)return;if(!S.fitLog)S.fitLog=[];var fdDate=el('fd')?el('fd').value:td();S.fitLog.push({id:'f'+Date.now(),cat:catId,exercise:ex,date:fdDate,sets:sets});fSets=1;save();rFitC(catId);}
 
 // ─── FINANCIËN ───────────────────────────────────────────────────────────────
+function werkMinutes(entry){
+  var s=entry.start.split(':'), e=entry.end.split(':');
+  var sm=(+s[0])*60+(+s[1]), em2=(+e[0])*60+(+e[1]);
+  if(em2<sm) em2+=24*60; // over middernacht
+  return Math.max(0, em2-sm-(entry.pauze||0));
+}
+function fmtHM(mins){
+  var h=Math.floor(mins/60), m=mins%60;
+  return h+'u'+(m?' '+m+'m':'');
+}
+function rWerk(){
+  if(!S.werk) S.werk=[];
+  if(!window._werkChartMode) window._werkChartMode='dag';
+  var entries=S.werk.slice().sort(function(a,b){ return (b.date+b.start).localeCompare(a.date+a.start); });
+
+  // Totalen
+  var t=td();
+  var todayMin=S.werk.filter(function(e){return e.date===t;}).reduce(function(a,e){return a+werkMinutes(e);},0);
+  var weekDates=wkDates(0);
+  var weekMin=S.werk.filter(function(e){return weekDates.indexOf(e.date)>=0;}).reduce(function(a,e){return a+werkMinutes(e);},0);
+  var nowM=new Date(); var moPrefix=nowM.getFullYear()+'-'+String(nowM.getMonth()+1).padStart(2,'0');
+  var monthMin=S.werk.filter(function(e){return e.date.indexOf(moPrefix)===0;}).reduce(function(a,e){return a+werkMinutes(e);},0);
+
+  // ── Grafiek-data ──
+  var chartBars=[], chartLabels=[], chartMax=1;
+  if(window._werkChartMode==='dag'){
+    // Uren per dag, deze week (ma-zo)
+    var dns=['Ma','Di','Wo','Do','Vr','Za','Zo'];
+    weekDates.forEach(function(ds,i){
+      var min=S.werk.filter(function(e){return e.date===ds;}).reduce(function(a,e){return a+werkMinutes(e);},0);
+      chartBars.push(min); chartLabels.push(dns[i]); if(min>chartMax)chartMax=min;
+    });
+  } else {
+    // Uren per week, deze maand (laatste ~5 weken-blokken van de maand)
+    var weeksMap={};
+    S.werk.forEach(function(e){
+      if(e.date.indexOf(moPrefix)!==0) return;
+      var wk=isoWeekKey(new Date(e.date));
+      weeksMap[wk]=(weeksMap[wk]||0)+werkMinutes(e);
+    });
+    var wkKeys=Object.keys(weeksMap).sort();
+    if(!wkKeys.length){ chartBars=[0]; chartLabels=['']; }
+    wkKeys.forEach(function(wk,i){
+      chartBars.push(weeksMap[wk]); chartLabels.push('W'+wk.split('-W')[1]||('W'+(i+1))); if(weeksMap[wk]>chartMax)chartMax=weeksMap[wk];
+    });
+  }
+  // SVG bar chart
+  var bw=100/(chartBars.length||1);
+  var barsSVG=chartBars.map(function(min,i){
+    var h=chartMax?(min/chartMax*100):0;
+    var x=i*bw+bw*0.15, w=bw*0.7;
+    return '<rect x="'+x+'" y="'+(100-h)+'" width="'+w+'" height="'+h+'" rx="1.5" fill="'+(min>0?'var(--acc)':'var(--bg3)')+'"/>';
+  }).join('');
+  var labelsSVG=chartLabels.map(function(l,i){
+    return '<div class="werk-chart-lbl" style="flex:1">'+l+'</div>';
+  }).join('');
+  var valuesSVG=chartBars.map(function(min,i){
+    return '<div class="werk-chart-val" style="flex:1">'+(min>0?(min/60).toFixed(min%60?1:0):'')+'</div>';
+  }).join('');
+
+  M.innerHTML='<div class="ph"><div class="pt">Werk</div></div>'
+    // Totalen-ringen/cijfers
+    +'<div class="werk-stats">'
+    +'<div class="werk-stat"><div class="werk-stat-v">'+fmtHM(todayMin)+'</div><div class="werk-stat-l">Vandaag</div></div>'
+    +'<div class="werk-stat"><div class="werk-stat-v">'+fmtHM(weekMin)+'</div><div class="werk-stat-l">Deze week</div></div>'
+    +'<div class="werk-stat"><div class="werk-stat-v">'+fmtHM(monthMin)+'</div><div class="werk-stat-l">Deze maand</div></div>'
+    +'</div>'
+    // Grafiek
+    +'<div class="card">'
+    +'<div class="werk-chart-hd"><span class="om-label" style="margin:0">Gewerkte uren</span>'
+    +'<div class="werk-toggle">'
+    +'<button class="werk-tg'+(window._werkChartMode==='dag'?' on':'')+'" onclick="setWerkChart(\'dag\')">Per dag</button>'
+    +'<button class="werk-tg'+(window._werkChartMode==='week'?' on':'')+'" onclick="setWerkChart(\'week\')">Per week</button>'
+    +'</div></div>'
+    +'<div class="werk-chart"><svg viewBox="0 0 100 100" preserveAspectRatio="none" class="werk-chart-svg">'+barsSVG+'</svg></div>'
+    +'<div class="werk-chart-vals">'+valuesSVG+'</div>'
+    +'<div class="werk-chart-lbls">'+labelsSVG+'</div>'
+    +'<div style="font-size:10px;color:var(--text3);text-align:center;margin-top:6px">uren</div>'
+    +'</div>'
+    // Nieuwe registratie
+    +'<div class="card">'
+    +'<div class="om-label">Uren registreren</div>'
+    +'<div class="werk-form">'
+    +'<div class="werk-form-row"><label>Datum</label><input type="date" id="werk-date" value="'+t+'"></div>'
+    +'<div class="werk-form-row"><label>Van</label><input type="time" id="werk-start" value="09:00"></div>'
+    +'<div class="werk-form-row"><label>Tot</label><input type="time" id="werk-end" value="17:00"></div>'
+    +'<div class="werk-form-row"><label>Pauze (min)</label><input type="number" id="werk-pauze" value="30" min="0" step="5"></div>'
+    +'</div>'
+    +'<button class="btn pri" style="width:100%;margin-top:10px" onclick="addWerk()">Toevoegen</button>'
+    +'</div>'
+    // Lijst
+    +'<div class="card"><div class="om-label">Registraties</div>'
+    +(entries.length?entries.map(function(e){
+      var dlabel=new Date(e.date).toLocaleDateString('nl-NL',{weekday:'short',day:'numeric',month:'short'});
+      return '<div class="werk-row"><div class="werk-row-main"><div class="werk-row-date">'+dlabel+'</div>'
+        +'<div class="werk-row-time">'+e.start+' \u2013 '+e.end+(e.pauze?' \u00b7 '+e.pauze+'m pauze':'')+'</div></div>'
+        +'<div class="werk-row-h">'+fmtHM(werkMinutes(e))+'</div>'
+        +'<button class="werk-row-del" onclick="delWerk(\''+e.id+'\')">'+icon('plus',14)+'</button></div>';
+    }).join(''):'<div style="font-size:12px;color:var(--text3);font-style:italic;padding:6px 0">Nog geen uren geregistreerd.</div>')
+    +'</div>';
+}
+function setWerkChart(mode){ window._werkChartMode=mode; rWerk(); }
+function addWerk(){
+  var d=el('werk-date'), s=el('werk-start'), e=el('werk-end'), p=el('werk-pauze');
+  if(!d||!d.value||!s.value||!e.value){ toast('Vul datum, van en tot in'); return; }
+  if(!S.werk) S.werk=[];
+  S.werk.push({id:'w'+Date.now(), date:d.value, start:s.value, end:e.value, pauze:parseInt(p.value)||0});
+  save(); rWerk(); toast('Uren toegevoegd');
+}
+function delWerk(id){
+  var idx=S.werk.findIndex(function(x){return x.id===id;});
+  if(idx<0)return;
+  var removed=S.werk[idx];
+  S.werk.splice(idx,1); save(); rWerk();
+  toast('Verwijderd', function(){ S.werk.splice(idx,0,removed); save(); rWerk(); });
+}
+
 function rFin() {
   // Ensure budget categories exist
   if(!S.budgetCats) S.budgetCats=[];
