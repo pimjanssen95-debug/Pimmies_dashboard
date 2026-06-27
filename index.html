@@ -1884,6 +1884,35 @@ body[data-theme="light"] .fin-ov-card {
 .werk-row-h{font-size:14px;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums;flex-shrink:0}
 .werk-row-del{background:none;border:none;color:var(--text3);cursor:pointer;flex-shrink:0;opacity:.5;transform:rotate(45deg);padding:2px;display:flex}
 .werk-row-del:hover{opacity:1;color:var(--urgent)}
+
+/* ── Persoonlijke begroeting (hero) ── */
+.hero-greet{margin-bottom:10px;opacity:0;animation:greetIn .7s cubic-bezier(.2,.7,.2,1) forwards}
+.hero-greet-txt{font-size:20px;font-weight:600;color:var(--text);font-family:var(--font-display);letter-spacing:.2px}
+.hero-greet-name{color:var(--acc);cursor:pointer;border-bottom:1px dotted transparent;transition:border-color .15s}
+.hero-greet-name:hover{border-bottom-color:var(--acc-line)}
+@keyframes greetIn{0%{opacity:0;transform:translateY(-8px)}100%{opacity:1;transform:translateY(0)}}
+/* ── Momentum / streak ── */
+.mom-card{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,var(--acc-soft),var(--acc-softer));border:1px solid var(--acc-line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.mom-flame{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--bg);transition:transform .3s}
+.mom-flame.lit{animation:flamePulse 2.5s ease-in-out infinite}
+@keyframes flamePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.mom-body{flex:1;min-width:0}
+.mom-num{font-size:17px;font-weight:700;color:var(--text);font-family:var(--font-display);line-height:1.1}
+.mom-msg{font-size:12px;color:var(--text2);margin-top:2px}
+.mom-dots{display:flex;gap:5px;margin-top:8px}
+.mom-dot{width:11px;height:11px;border-radius:50%;background:var(--bg3);transition:background .3s}
+.mom-dot.on{background:var(--acc)}
+.mom-dot.today{box-shadow:0 0 0 2px var(--acc-line)}
+
+/* ── Routine: omhoog/omlaag pijltjes (vervangt slepen) ── */
+.rout-move{display:inline-flex;gap:2px;flex-shrink:0}
+.rout-move-btn{width:24px;height:24px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--acc-line);border-radius:6px;color:var(--acc);cursor:pointer;padding:0;transition:all .12s}
+.rout-move-btn svg{transform:rotate(-90deg)}
+.rout-move-btn.down svg{transform:rotate(90deg)}
+.rout-move-btn:hover{background:var(--acc-softer)}
+.rout-move-btn:active{background:var(--acc-soft)}
+.rout-move-btn:disabled{opacity:.25;cursor:default;border-color:var(--border);color:var(--text3)}
+.rout-move-btn:disabled:hover,.rout-move-btn:disabled:active{background:transparent}
 </style>
 </head>
 <body>
@@ -2566,6 +2595,7 @@ document.querySelectorAll('.ni').forEach(n => n.addEventListener('click', () => 
     setMobTitle(lbl);
   }
   qsa('.ni').forEach(x=>x.classList.remove('on')); n.classList.add('on');
+  try{ if(_lsOk) localStorage.setItem('pimmies_lastsec', n.dataset.s); }catch(_){}
   (RENDERS[n.dataset.s]||function(){})();
 }));
 
@@ -3078,13 +3108,29 @@ function pickFocusEl(row){
   if(task){ task.focusDate=t; save(); closeModal(); rDash(); if(typeof rVandaag==='function' && document.querySelector('[data-s=vandaag].on')) rVandaag(); toast('Toegevoegd aan focus'); }
 }
 
+function editHeroNaam(){
+  var cur=(S.settings&&S.settings.naam)||'Pim';
+  var v=prompt('Je naam:', cur);
+  if(v===null) return;
+  v=stripEmoji(v).trim();
+  if(!S.settings) S.settings={};
+  S.settings.naam=v||'Pim';
+  save(); rDash();
+}
 function buildHero(){
   var d=new Date();
   var dateStr=new Intl.DateTimeFormat('nl-NL',{timeZone:'Europe/Amsterdam',day:'2-digit',month:'2-digit',year:'numeric'}).format(d).replace(/\//g,'-');
+  // Persoonlijke begroeting op basis van dagdeel
+  var hr=parseInt(new Intl.DateTimeFormat('nl-NL',{timeZone:'Europe/Amsterdam',hour:'2-digit',hour12:false}).format(d),10);
+  var groet = hr<6?'Goedenacht':hr<12?'Goedemorgen':hr<18?'Goedemiddag':'Goedenavond';
+  var naam = (S.settings&&S.settings.naam)||'Pim';
+  var greetHTML='<div class="hero-greet" id="hero-greet">'
+    +'<span class="hero-greet-txt">'+groet+', <span class="hero-greet-name" onclick="editHeroNaam()" title="Tik om je naam te wijzigen">'+naam+'</span></span>'
+    +'</div>';
   var nn=findNowNext();
   var nuTitle = nn.nu ? nn.nu.title : 'Niets gepland';
   var nuTime = (nn.nu && nn.nu.st) ? '<span class="hero-task-time">'+nn.nu.st+' – '+nn.nu.et+'</span>' : '';
-  return '<div class="hero-block">'
+  return greetHTML+'<div class="hero-block">'
     +'<div class="hero-left">'
     +'<div class="hero-label">'+icon('sun',11,'var(--acc)')+'Vandaag</div>'
     +'<div class="hero-time" id="hero-time">--:--</div>'
@@ -3462,6 +3508,8 @@ function rDash() {
     +'</div>'
     +'<div style="font-size:11px;color:var(--text3);text-align:center;margin-top:6px">Sessies vandaag: <strong>'+(S.focusLog&&S.focusLog[t]?S.focusLog[t]:0)+'</strong></div>'
     +'</div>'
+    // ── Momentum / streak ──
+    +buildMomentum()
     // ── 8. QUOTE VAN DE DAG (onderaan) ──
     +'<div class="dash-card secondary" style="display:flex;align-items:flex-start;gap:12px">'
     +'<div style="flex:1">'
@@ -6087,22 +6135,18 @@ function saveRoutItemEdit(inp){
   renderRoutTab(tab);
 }
 
-function routDragStart(e, handle){
-  if(e.button!==undefined && e.button!==0) return;
-  var item = handle.closest('.rout-item');
-  if(!item) return;
-  e.preventDefault(); e.stopPropagation();
-  var tab = item.getAttribute('data-tab');
-  var container = item.parentElement;
-  // Toegewijde greep (touch-action:none) → meteen slepen, geen hold nodig.
-  _routDrag = { item: item, tab: tab, container: container, handle: handle, moved:false, startY:e.clientY };
-  item.classList.add('rout-dragging');
-  if(navigator.vibrate){ try{ navigator.vibrate(12); }catch(_){} }
-  try{ handle.setPointerCapture(e.pointerId); }catch(_){}
-  handle.addEventListener('pointermove', routDragMove);
-  handle.addEventListener('pointerup', routDragEnd);
-  handle.addEventListener('pointercancel', routDragEnd);
+function moveRoutItem(tab, id, dir){
+  var arr=S.routineItems&&S.routineItems[tab];
+  if(!arr) return;
+  var idx=arr.findIndex(function(x){return x.id===id;});
+  if(idx<0) return;
+  var ni=idx+dir;
+  if(ni<0||ni>=arr.length) return;
+  var tmp=arr[idx]; arr[idx]=arr[ni]; arr[ni]=tmp;
+  save();
+  renderRoutTab(tab);
 }
+function routDragStart(){ /* vervangen door pijltjes (moveRoutItem) */ }
 
 function routDragMove(e){
   if(!_routDrag) return;
@@ -6191,8 +6235,9 @@ function renderRoutTab(tab) {
   var weekdays = ['maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag','zondag'];
   var isWeekday = weekdays.indexOf(tab) >= 0;
 
-  var itemsH = items.map(function(x) {
+  var itemsH = items.map(function(x, _ri, _arr) {
     var v = !!checks[x.id];
+    var _last=_arr.length-1;
     var timeBadge = '';
     if (isWeekday && x.time) {
       timeBadge = '<span style="font-size:11px;color:var(--orange);font-weight:600;margin-right:4px">'+x.time+'</span>';
@@ -6201,11 +6246,9 @@ function renderRoutTab(tab) {
       ? '<button class="rout-del" onclick="setRoutTime(\''+tab+'\',\''+x.id+'\')" title="Tijd instellen" style="color:var(--acc);margin-right:2px">'+icon('clock',13,'var(--acc)')+'</button>'
       : '';
     return '<div class="rout-item' + (v ? ' done' : '') + '" id="ri-' + x.id + '" data-rid="' + x.id + '" data-tab="' + tab + '">'
-      + '<span class="rout-drag" title="Sleep om te verplaatsen" onpointerdown="routDragStart(event,this)">'+icon('drag',15,'var(--text3)')+'</span>'
       + '<input type="checkbox" class="rout-cb" id="rc-' + x.id + '"' + (v ? ' checked' : '') + ' data-rid="' + x.id + '" data-tab="' + tab + '" onchange="togRoutEl(this)">'
       + '<span class="rout-lbl" data-rid="' + x.id + '" data-tab="' + tab + '" onclick="editRoutItemEl(this)" title="Tik om te bewerken">' + timeBadge + '<span class="rout-lbl-txt">' + x.l + '</span></span>'
-      + timeBtn
-      + '<button class="rout-del" onclick="delRoutItem(\'' + tab + '\',\'' + x.id + '\')">✕</button>'
+      + timeBtn+ '<span class="rout-move">'+ '<button class="rout-move-btn"'+(_ri===0?' disabled':'')+' onclick="moveRoutItem(\''+tab+'\',\''+x.id+'\',-1)" title="Omhoog" aria-label="Omhoog">'+icon('arrow',13)+'</button>'+ '<button class="rout-move-btn down"'+(_ri===_last?' disabled':'')+' onclick="moveRoutItem(\''+tab+'\',\''+x.id+'\',1)" title="Omlaag" aria-label="Omlaag">'+icon('arrow',13)+'</button>'+ '</span>'+ '<button class="rout-del" onclick="delRoutItem(\'' + tab + '\',\'' + x.id + '\')">✕</button>'
       + '</div>';
   }).join('') || '<div style="font-size:12px;color:var(--text3);padding:10px 0">Nog geen items — voeg er een toe</div>';
 
@@ -6489,6 +6532,46 @@ function rHab() {
     +'<div class="sp" id="sp-harc"></div>';
 }
 
+function calcActiveStreak(){
+  // Aaneengesloten dagen 'actief' = minstens 1 habit OF routine-item afgevinkt
+  var streak=0; var d2=new Date();
+  for(var guard=0; guard<400; guard++){
+    var k=d2.toISOString().split('T')[0];
+    var hh=S.habits&&S.habits[k];
+    var habActive = hh && Object.keys(hh).some(function(id){return hh[id];});
+    var rr=S.routineChecks&&S.routineChecks[k];
+    var routActive = rr && Object.keys(rr).some(function(id){return rr[id];});
+    var isToday = (k===td());
+    if(habActive||routActive){ streak++; }
+    else if(!isToday){ break; } // vandaag nog niks = streak nog niet gebroken
+    d2.setDate(d2.getDate()-1);
+  }
+  return streak;
+}
+function buildMomentum(){
+  var s=calcActiveStreak();
+  var msg = s===0 ? 'Begin vandaag — vink iets af en je streak start'
+    : s===1 ? 'Mooi begin. Dag 1 staat.'
+    : s<4 ? 'Lekker bezig — houd het vast'
+    : s<8 ? 'Sterke reeks. Niet loslaten nu.'
+    : 'Onstuitbaar. Dit is wie je bent.';
+  // vlammetjes-strip laatste 7 dagen
+  var dots='';
+  for(var i=6;i>=0;i--){
+    var dd=new Date(); dd.setDate(dd.getDate()-i);
+    var k=dd.toISOString().split('T')[0];
+    var hh=S.habits&&S.habits[k]; var rr=S.routineChecks&&S.routineChecks[k];
+    var act=(hh&&Object.keys(hh).some(function(id){return hh[id];}))||(rr&&Object.keys(rr).some(function(id){return rr[id];}));
+    dots+='<span class="mom-dot'+(act?' on':'')+(i===0?' today':'')+'"></span>';
+  }
+  return '<div class="mom-card">'
+    +'<div class="mom-flame'+(s>0?' lit':'')+'">'+icon('flame',26,s>0?'var(--acc)':'var(--text3)')+'</div>'
+    +'<div class="mom-body">'
+    +'<div class="mom-num">'+s+' '+(s===1?'dag':'dagen')+' op rij</div>'
+    +'<div class="mom-msg">'+msg+'</div>'
+    +'<div class="mom-dots">'+dots+'</div>'
+    +'</div></div>';
+}
 function calcStreak(){
   var streak=0; var d2=new Date(); var t2=td();
   while(true){
@@ -6959,11 +7042,12 @@ function rFitC(id) {
   <div class="card" style="border-left:3px solid ${cat.c}">
     <div style="font-size:12px;font-weight:700;color:${cat.c};margin-bottom:10px">${cat.l} — Training loggen</div>
     <div class="row" style="margin-bottom:7px">
-      <input type="date" id="fd" value="${td()}" style="width:130px;flex:none">
-      <select id="fex" style="flex:1" onchange="if(this.value==='__c'){const v=prompt('Oefening naam:');if(v){const o=document.createElement('option');o.value=v;o.text=v;o.selected=true;this.insertBefore(o,this.lastElementChild);}else this.value='${cat.ex[0]}'}">${cat.ex.map(ex=>`<option>${ex}</option>`).join('')}<option value="__c">+ Eigen oefening</option></select>
+      <input type="date" id="fd" value="${window._fitDate||td()}" style="width:130px;flex:none" onchange="window._fitDate=this.value;rFitC('${id}')">
+      <select id="fex" style="flex:1" onchange="window._fitEx='${id}'+'|'+this.value;if(this.value==='__c'){const v=prompt('Oefening naam:');if(v){const o=document.createElement('option');o.value=v;o.text=v;o.selected=true;this.insertBefore(o,this.lastElementChild);}else{this.value='${cat.ex[0]}';}}window._fitEx='${id}'+'|'+this.value;rFitC('${id}')">${cat.ex.concat((window._fitExtra&&window._fitExtra[id])||[]).map(ex=>`<option${(window._fitEx===id+'|'+ex)?' selected':''}>${ex}</option>`).join('')}<option value="__c">+ Eigen oefening</option></select>
     </div>
-    <div id="sets-c"><div class="row" style="margin-bottom:5px;align-items:center"><input type="number" placeholder="kg" id="sw0" style="width:70px;flex:none"><input type="number" placeholder="reps" id="sr0" style="width:70px;flex:none"><span style="font-size:11px;color:var(--text3)">Set 1</span></div></div>
-    <div style="display:flex;gap:5px;margin-top:7px"><button class="btn" onclick="addSet()">+ Set toevoegen</button><button class="btn pri" onclick="saveFit('${id}')" style="flex:1">✓ Training opslaan</button></div>
+    <div id="sets-c">${buildFitSetRows(id)}</div>
+    <div style="display:flex;gap:5px;margin-top:7px"><button class="btn" onclick="addFitSetRow('${id}')" style="flex:1">+ Set toevoegen</button></div>
+    <div style="font-size:11px;color:var(--text3);margin-top:8px;display:flex;align-items:center;gap:5px">${icon('check',12,'var(--acc)')}<span>Elke set wordt direct opgeslagen</span></div>
   </div>
   ${Object.keys(prs).length?`<div class="card"><div class="ct">Personal Records</div><div style="display:flex;flex-wrap:wrap;gap:7px">${Object.entries(prs).map(([ex,w])=>`<div style="background:${cat.c}18;border:1px solid ${cat.c}44;border-radius:10px;padding:6px 11px;font-size:12px"><strong style="color:${cat.c}">${w}kg</strong><div style="font-size:11px;color:var(--text2)">${ex}</div></div>`).join('')}</div></div>`:''}
   ${fitExerciseProgressCard(id, cat)}
@@ -7040,10 +7124,76 @@ function togFitDay(catId, d){
   rFitC(catId);
 }
 
-function addSet() { const c=el('sets-c');if(!c||fSets>=8)return;const d=document.createElement('div');d.className='row';d.style.cssText='margin-bottom:5px;align-items:center';d.innerHTML='<input type="number" placeholder="kg" id="sw'+fSets+'" style="width:70px;flex:none"><input type="number" placeholder="reps" id="sr'+fSets+'" style="width:70px;flex:none"><span style="font-size:11px;color:var(--text3)">Set '+(fSets+1)+'</span>';c.appendChild(d);fSets++; }
-function saveFit(catId) { var ex=(el('fex')?el('fex').value:'');if(!ex||ex==='__c')return;var sets=[];for(var i=0;i<fSets;i++){var sw=document.getElementById('sw'+i),sr=document.getElementById('sr'+i);var w=sw?parseFloat(sw.value||0):0,r=sr?parseInt(sr.value||0):0;if(w>0||r>0)sets.push({w:w,r:r});}if(!sets.length)return;if(!S.fitLog)S.fitLog=[];var fdDate=el('fd')?el('fd').value:td();S.fitLog.push({id:'f'+Date.now(),cat:catId,exercise:ex,date:fdDate,sets:sets});fSets=1;save();rFitC(catId);}
+function _fitCurrentDate(){ var d=el('fd'); return d&&d.value?d.value:(window._fitDate||td()); }
+function _fitCurrentEx(){ var s=el('fex'); if(s&&s.value&&s.value!=='__c') return s.value; if(window._fitEx&&window._fitEx.indexOf('|')>=0) return window._fitEx.split('|')[1]; return ''; }
+// Vind of maak de huidige trainingsregel (datum + categorie + oefening)
+function _fitEntry(catId, create){
+  var date=_fitCurrentDate(), ex=_fitCurrentEx();
+  if(!ex) return null;
+  if(!S.fitLog) S.fitLog=[];
+  var entry=S.fitLog.find(function(l){ return l.cat===catId && l.date===date && l.exercise===ex; });
+  if(!entry && create){
+    entry={id:'f'+Date.now(), cat:catId, exercise:ex, date:date, sets:[]};
+    S.fitLog.push(entry);
+  }
+  return entry;
+}
+function buildFitSetRows(catId){
+  var entry=_fitEntry(catId,false);
+  var sets=entry?entry.sets:[];
+  var rows='';
+  sets.forEach(function(s,i){
+    rows+='<div class="row fit-set-row" style="margin-bottom:5px;align-items:center" data-si="'+i+'">'
+      +'<input type="number" inputmode="decimal" placeholder="kg" value="'+(s.w||'')+'" style="width:70px;flex:none" onchange="updateFitSet(\''+catId+'\','+i+',\'w\',this.value)">'
+      +'<input type="number" inputmode="numeric" placeholder="reps" value="'+(s.r||'')+'" style="width:70px;flex:none" onchange="updateFitSet(\''+catId+'\','+i+',\'r\',this.value)">'
+      +'<span style="font-size:11px;color:var(--acc)">Set '+(i+1)+' '+icon('check',11,'var(--acc)')+'</span>'
+      +'<button class="fit-set-del" onclick="delFitSet(\''+catId+'\','+i+')" style="background:none;border:none;color:var(--text3);cursor:pointer;margin-left:auto;padding:4px;transform:rotate(45deg)">'+icon('plus',13)+'</button>'
+      +'</div>';
+  });
+  // Eén lege invoerregel onderaan om een nieuwe set toe te voegen
+  var n=sets.length;
+  rows+='<div class="row fit-set-row fit-set-new" style="margin-bottom:5px;align-items:center">'
+    +'<input type="number" inputmode="decimal" placeholder="kg" id="fit-new-w" style="width:70px;flex:none" onchange="commitNewFitSet(\''+catId+'\')">'
+    +'<input type="number" inputmode="numeric" placeholder="reps" id="fit-new-r" style="width:70px;flex:none" onchange="commitNewFitSet(\''+catId+'\')">'
+    +'<span style="font-size:11px;color:var(--text3)">Set '+(n+1)+'</span>'
+    +'</div>';
+  return rows;
+}
+// Nieuwe set vastleggen zodra kg of reps is ingevuld
+function commitNewFitSet(catId){
+  var w=el('fit-new-w'), r=el('fit-new-r');
+  var wv=w?parseFloat(w.value||0):0, rv=r?parseInt(r.value||0):0;
+  if(wv<=0 && rv<=0) return; // niks ingevuld
+  if(!_fitCurrentEx()){ toast('Kies eerst een oefening'); return; }
+  var entry=_fitEntry(catId,true);
+  entry.sets.push({w:wv, r:rv});
+  save();
+  rFitC(catId);
+}
+function updateFitSet(catId, idx, field, val){
+  var entry=_fitEntry(catId,false);
+  if(!entry||!entry.sets[idx]) return;
+  entry.sets[idx][field] = field==='w'?parseFloat(val||0):parseInt(val||0);
+  save();
+}
+function delFitSet(catId, idx){
+  var entry=_fitEntry(catId,false);
+  if(!entry) return;
+  var removed=entry.sets[idx];
+  entry.sets.splice(idx,1);
+  // lege trainingsregel opruimen
+  if(!entry.sets.length){ S.fitLog=S.fitLog.filter(function(l){return l!==entry;}); }
+  save(); rFitC(catId);
+  toast('Set verwijderd', function(){
+    var e2=_fitEntry(catId,true); e2.sets.splice(idx,0,removed); save(); rFitC(catId);
+  });
+}
+function addFitSetRow(catId){
+  // Forceer commit van de lege regel als die is ingevuld, anders focus
+  commitNewFitSet(catId);
+}
 
-// ─── FINANCIËN ───────────────────────────────────────────────────────────────
+
 function werkMinutes(entry){
   var s=entry.start.split(':'), e=entry.end.split(':');
   var sm=(+s[0])*60+(+s[1]), em2=(+e[0])*60+(+e[1]);
@@ -8904,7 +9054,16 @@ function init() {
   if(!S.budgetCats)S.budgetCats=[];
   selDay=td();
   save();
-  rDash();
+  // Herstel laatst bekeken pagina (zodat je niet terugvalt naar dashboard na app-wissel/herlaad)
+  var lastSec=null;
+  try{ if(_lsOk) lastSec=localStorage.getItem('pimmies_lastsec'); }catch(_){}
+  if(lastSec && RENDERS[lastSec]){
+    var ni=document.querySelector('[data-s='+lastSec+']');
+    if(ni){ qsa('.ni').forEach(x=>x.classList.remove('on')); ni.classList.add('on');
+      var lbl=ni.textContent.trim(); if(typeof setMobTitle==='function') setMobTitle(lbl);
+      RENDERS[lastSec]();
+    } else { rDash(); }
+  } else { rDash(); }
   // Auto-update datum elke minuut
   setInterval(setDates, 60000);
 }
