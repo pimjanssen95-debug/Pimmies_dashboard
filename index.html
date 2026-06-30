@@ -23,8 +23,8 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:12px;background:va
 .app{display:flex;height:100vh}
 /* SIDEBAR */
 .sb{width:200px;min-width:200px;background:var(--bg2);border-right:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;flex-shrink:0}
-.sb-top{padding:14px 12px 10px;border-bottom:1px solid var(--border)}
-.sb-name{font-size:14px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.sb-top{padding:10px 12px 8px;border-bottom:1px solid var(--border)}
+.sb-name{font-size:13px;font-weight:700;color:var(--text);letter-spacing:-.3px;line-height:1.1}
 .sb-date{font-size:11px;color:var(--text3);margin-top:2px}
 .gl{font-size:11px;font-weight:700;color:var(--text3);padding:10px 12px 3px;letter-spacing:.9px;text-transform:uppercase}
 .ni{display:flex;align-items:center;gap:8px;padding:5px 8px;margin:1px 6px;cursor:pointer;color:var(--text3);border-radius:10px;font-size:12px;user-select:none;transition:all .1s}
@@ -40,7 +40,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:12px;background:va
 .ct{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.6px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:11px}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
 .sc{background:var(--bg3);border-radius:10px;padding:10px;text-align:center}
 .sn{font-size:22px;font-weight:700;color:var(--text)}
 .sl{font-size:10px;color:var(--text3);margin-top:1px}
@@ -80,33 +80,33 @@ input[type=checkbox]:focus, input[type=radio]:focus { outline: none; }
 .hi input[type=checkbox]{width:15px;height:15px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
 .hi label{cursor:pointer;font-size:12px;color:var(--text);flex:1;line-height:1.35}
 .hi.ck label{text-decoration:line-through;color:var(--text3)}
-.tk{display:flex;align-items:flex-start;gap:7px;padding:6px 0;border-bottom:1px solid var(--border)}
+.tk{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)}
 .tk:last-child{border-bottom:none}
 .tk input[type=checkbox]{margin-top:2px;width:14px;height:14px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
 .tkc{flex:1}.tkt{font-size:12px;color:var(--text)}
 .tk.dn .tkt{text-decoration:line-through;color:var(--text3)}
 .tkp{font-size:11px;margin-top:2px}
-.li{display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
+.li{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
 .li:last-child{border-bottom:none}
 .lim{flex:1;color:var(--text)}
 .lis{font-size:11px;color:var(--text3);margin-top:1px}
 /* TABS */
-.tbar{display:flex;border-bottom:1px solid var(--border);margin-bottom:11px;overflow-x:auto;flex-shrink:0}
+.tbar{display:flex;border-bottom:1px solid var(--border);margin-bottom:12px;overflow-x:auto;flex-shrink:0}
 .tb{padding:6px 12px;font-size:12px;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;color:var(--text3);white-space:nowrap;margin-bottom:-1px;transition:all .15s}
 .tb.on{color:var(--text);border-bottom-color:var(--green);font-weight:600}
 .sp{display:none}.sp.on{display:block}
 /* EMPTY STATE */
 .es{text-align:center;padding:20px;color:var(--text3);font-size:12px}
-.es i{font-size:24px;display:block;margin-bottom:6px;opacity:.3}
+.es i{font-size:22px;display:block;margin-bottom:6px;opacity:.3}
 /* PROGRESS */
 .prog{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .pbar{flex:1;height:6px;background:var(--bg3);border-radius:6px;overflow:hidden}
 .pfil{height:100%;border-radius:6px;transition:width .3s}
 /* SCORES */
-.scrow{display:flex;gap:3px;flex-wrap:wrap;margin-top:6px}
+.scrow{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
 .scb{width:26px;height:26px;border-radius:50%;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text2);transition:all .1s}
 .scb.on{background:var(--green);color:#fff;border-color:var(--green)}
-.lbl{font-size:11px;color:var(--text3);margin-bottom:3px;display:block;font-weight:600}
+.lbl{font-size:11px;color:var(--text3);margin-bottom:4px;display:block;font-weight:600}
 /* PROJECT ACCORDION */
 .pcat{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;padding:8px 0 4px;border-bottom:1px solid var(--border)}
 .prow{border-bottom:1px solid var(--border)}
@@ -118,7 +118,7 @@ input[type=checkbox]:focus, input[type=radio]:focus { outline: none; }
 
 .pbdy{display:none;padding:0 0 10px 16px}
 .pbdy.op{display:block}
-.ptk{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--border)}
+.ptk{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
 .ptk:last-child{border-bottom:none}
 .ptk input[type=checkbox]{width:15px;height:15px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
 .ptklb{flex:1;font-size:12px;color:var(--text);cursor:pointer}
@@ -163,7 +163,7 @@ input[type=checkbox]:focus, input[type=radio]:focus { outline: none; }
 .mn-d:hover{background:var(--bg3)}
 .mn-d.today{border-color:var(--green)}
 .mn-d.oth{opacity:.3}
-.mn-dn{font-size:11px;font-weight:600;margin-bottom:3px;color:var(--text)}
+.mn-dn{font-size:11px;font-weight:600;margin-bottom:4px;color:var(--text)}
 .mn-d.today .mn-dn{color:var(--green)}
 .mn-ev{font-size:10px;padding:1px 4px;border-radius:6px;margin-bottom:1px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .otask{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:7px 9px;margin-bottom:6px;cursor:pointer;transition:border-color .1s}
@@ -210,30 +210,30 @@ tr:last-child td{border-bottom:none}
 .stat-lbl{font-size:10px;color:var(--text3);margin-top:3px}
 .stat-sub{font-size:11px;color:var(--text3);margin-top:2px;font-weight:500}
 /* Habit check row */
-.hck{display:flex;align-items:center;gap:9px;padding:5px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .05s}
+.hck{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .05s}
 .hck:last-child{border-bottom:none}
 .hck input[type=checkbox]{width:15px;height:15px;accent-color:var(--text);cursor:pointer;flex-shrink:0}
 .hck-lbl{font-size:12px;color:var(--text);flex:1;line-height:1.3;user-select:none}
 .hck.done .hck-lbl{text-decoration:line-through;color:var(--text3)}
 .hck-cat{font-size:11px;color:var(--text3);white-space:nowrap}
 /* Progress bar inline */
-.dash-prog{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.dash-prog{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .dash-pbar{flex:1;height:4px;background:var(--bg3);border-radius:6px;overflow:hidden}
 .dash-pfil{height:100%;border-radius:6px;background:var(--text3);transition:width .3s}
 .dash-pct{font-size:11px;color:var(--text3);min-width:28px;text-align:right;font-weight:600}
 /* Event block with tasks */
-.ev-row{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid var(--border)}
+.ev-row{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)}
 .ev-row:last-child{border-bottom:none}
 .ev-dot{width:3px;border-radius:6px;flex-shrink:0;margin-top:3px;align-self:stretch}
 .ev-info{flex:1;min-width:0}
 .ev-title{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ev-time{font-size:11px;color:var(--text3);margin-top:1px}
-.ev-tasks-dash{margin-top:5px;display:flex;flex-direction:column;gap:3px}
-.ev-task-ck{display:flex;align-items:center;gap:7px;padding:2px 0}
+.ev-tasks-dash{margin-top:5px;display:flex;flex-direction:column;gap:4px}
+.ev-task-ck{display:flex;align-items:center;gap:8px;padding:2px 0}
 .ev-task-ck input{width:13px;height:13px;accent-color:var(--text);cursor:pointer;flex-shrink:0}
 .ev-task-ck label{font-size:12px;color:var(--text2);cursor:pointer;flex:1;line-height:1.3}
 .ev-task-ck.done label{text-decoration:line-through;color:var(--text3)}
-.ev-add-btn{font-size:11px;color:var(--text3);background:none;border:1px dashed var(--border);border-radius:6px;padding:2px 8px;cursor:pointer;margin-top:4px;transition:all .1s;display:inline-flex;align-items:center;gap:3px}
+.ev-add-btn{font-size:11px;color:var(--text3);background:none;border:1px dashed var(--border);border-radius:6px;padding:2px 8px;cursor:pointer;margin-top:4px;transition:all .1s;display:inline-flex;align-items:center;gap:4px}
 .ev-add-btn:hover{color:var(--text);border-color:var(--text3)}
 /* Task check on dashboard */
 .dash-tk{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
@@ -259,14 +259,14 @@ tr:last-child td{border-bottom:none}
 .prio-btn.hoog{background:#D85A30}
 .prio-btn.normaal{background:#FAC775}
 .prio-btn.laag{background:#1D9E75}
-.deadline-badge{font-size:10px;padding:1px 7px;border-radius:10px;white-space:nowrap;display:inline-flex;align-items:center;gap:3px;font-weight:500}
+.deadline-badge{font-size:10px;padding:1px 7px;border-radius:10px;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;font-weight:500}
 .deadline-ok{background:rgba(29,158,117,.12);color:#1D9E75;border:1px solid rgba(29,158,117,.3)}
 .deadline-soon{background:rgba(250,199,117,.12);color:#FAC775;border:1px solid rgba(250,199,117,.3)}
 .deadline-over{background:var(--urgent-soft);color:var(--urgent);border:1px solid rgba(197,82,74,.3);font-weight:600}
 .tk-meta{display:flex;align-items:center;gap:5px;margin-top:3px;flex-wrap:wrap}
 /* Task modal edit */
 .task-edit-modal{display:flex;flex-direction:column;gap:10px}
-.task-edit-row{display:flex;flex-direction:column;gap:3px}
+.task-edit-row{display:flex;flex-direction:column;gap:4px}
 .task-edit-label{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 .prio-picker{display:flex;gap:8px}
 .prio-pick-btn{flex:1;padding:6px;border-radius:10px;border:1px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;background:var(--bg3);color:var(--text2);transition:all .15s;text-align:center}
@@ -285,7 +285,7 @@ tr:last-child td{border-bottom:none}
 .fin-section{margin-bottom:4px}
 .fin-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px}
 .fin-row:last-child{border-bottom:none}
-.fin-row-name{display:flex;align-items:center;gap:7px;flex:1;min-width:0}
+.fin-row-name{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
 .fin-row-cat{font-size:10px;padding:1px 7px;border-radius:10px;background:var(--bg3);color:var(--text3);white-space:nowrap}
 .fin-row-amt{font-size:12px;font-weight:600;white-space:nowrap;min-width:60px;text-align:right}
 .fin-row-freq{font-size:11px;color:var(--text3);white-space:nowrap;margin-left:4px}
@@ -305,7 +305,7 @@ tr:last-child td{border-bottom:none}
 
 
 /* ── ROUTINE SYSTEEM ─────────────────────────────────────────────── */
-.rout-item{display:flex;align-items:center;gap:11px;padding:10px 4px;border-bottom:1px solid var(--border);transition:opacity .15s}
+.rout-item{display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid var(--border);transition:opacity .15s}
 .rout-item.done{opacity:.6}
 .rout-item.done .rout-lbl-txt{text-decoration:line-through;color:var(--text3)}
 .rout-item:last-child{border-bottom:none}
@@ -325,11 +325,11 @@ tr:last-child td{border-bottom:none}
 .hab-q{padding:8px 0;border-bottom:1px solid var(--border)}
 .hab-q:last-child{border-bottom:none}
 .hab-q-lbl{font-size:12px;color:var(--text);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
-.hab-score-row{display:flex;gap:3px;flex-wrap:wrap}
+.hab-score-row{display:flex;gap:4px;flex-wrap:wrap}
 .hsb{width:26px;height:26px;border-radius:50%;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--text3);transition:all .1s;display:flex;align-items:center;justify-content:center}
 .hsb.on{background:var(--text);color:var(--bg);border-color:var(--text)}
 /* Supplement */
-.supp-item{display:flex;align-items:center;gap:9px;padding:5px 0;border-bottom:1px solid var(--border)}
+.supp-item{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
 .supp-item:last-child{border-bottom:none}
 .supp-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--text);cursor:pointer;flex-shrink:0}
 .supp-name{font-size:12px;color:var(--text);flex:1;line-height:1.3}
@@ -339,9 +339,9 @@ tr:last-child td{border-bottom:none}
 /* Reflectie vragen */
 .refl-q{padding:10px 0;border-bottom:1px solid var(--border)}
 .refl-q:last-child{border-bottom:none}
-.refl-q-lbl{font-size:12px;color:var(--text);margin-bottom:7px;font-weight:500}
+.refl-q-lbl{font-size:12px;color:var(--text);margin-bottom:8px;font-weight:500}
 .refl-q-del{background:none;border:none;cursor:pointer;color:var(--text3);font-size:11px;float:right;padding:0}
-.refl-check-row{display:flex;align-items:center;gap:9px}
+.refl-check-row{display:flex;align-items:center;gap:8px}
 .refl-check-row input{width:16px;height:16px;accent-color:var(--text);cursor:pointer}
 
 /* ── OVER MIJ ─────────────────────────────────────────────────────── */
@@ -387,10 +387,10 @@ tr:last-child td{border-bottom:none}
 .goal-add-row{display:flex;gap:5px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
 .goal-add-row input{flex:1;font-size:12px}
 .goal-add-row select{font-size:12px;width:110px}
-.add-goal-btn{display:flex;align-items:center;gap:7px;padding:10px 14px;border:1px dashed var(--border);border-radius:10px;cursor:pointer;color:var(--text3);font-size:12px;margin-bottom:10px;transition:all .15s;background:none;width:100%}
+.add-goal-btn{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px dashed var(--border);border-radius:10px;cursor:pointer;color:var(--text3);font-size:12px;margin-bottom:10px;transition:all .15s;background:none;width:100%}
 .add-goal-btn:hover{border-color:var(--text3);color:var(--text)}
 /* Eigenschappen visual */
-.eig-grid{display:flex;flex-wrap:wrap;gap:7px}
+.eig-grid{display:flex;flex-wrap:wrap;gap:8px}
 .eig-chip{font-size:12px;padding:5px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;color:var(--text2);display:flex;align-items:center;gap:6px;transition:border-color .1s}
 .eig-chip:hover{border-color:var(--text3)}
 .eig-chip-del{background:none;border:none;cursor:pointer;color:var(--text3);padding:0;font-size:11px;line-height:1}
@@ -964,7 +964,7 @@ body[data-theme="light"] .fin-ov-card {
   letter-spacing: .6px;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap:8px;
 }
 .dash-card-title svg { color: var(--acc); }
 .dash-card-link {
@@ -975,7 +975,7 @@ body[data-theme="light"] .fin-ov-card {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap:4px;
   padding: 2px 4px;
 }
 .dash-card-link:hover { color: var(--acc); }
@@ -996,7 +996,7 @@ body[data-theme="light"] .fin-ov-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 7px;
+  gap:8px;
 }
 .stat-ring-lbl {
   font-size:11px;
@@ -1036,7 +1036,7 @@ body[data-theme="light"] .fin-ov-card {
 .dash-list-row {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap:8px;
   padding: 7px 0;
   border-bottom: 1px solid var(--border);
   font-size: 12px;
@@ -1216,7 +1216,7 @@ body[data-theme="light"] .fin-ov-card {
 }
 .ger-meta-item {
   background: var(--bg3); border-radius:10px; padding: 9px 11px;
-  display: flex; flex-direction: column; gap: 3px;
+  display: flex; flex-direction: column; gap:4px;
 }
 .ger-meta-lbl {
   font-size:11px; color: var(--text3); text-transform: uppercase; letter-spacing: .5px;
@@ -1261,9 +1261,9 @@ body[data-theme="light"] .fin-ov-card {
   margin-top: 10px; padding: 12px; background: var(--bg3);
   border-radius: 10px; display: flex; flex-direction: column; gap: 8px;
 }
-.ger-add-row { display: flex; gap: 7px; align-items: flex-end; }
+.ger-add-row { display: flex; gap:8px; align-items: flex-end; }
 .ger-add-name { width: 100%; }
-.ger-add-field { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.ger-add-field { flex: 1; display: flex; flex-direction: column; gap:4px; min-width: 0; }
 .ger-add-field label {
   font-size:11px; color: var(--text3); text-transform: uppercase; letter-spacing: .4px;
 }
@@ -1298,18 +1298,18 @@ body[data-theme="light"] .fin-ov-card {
 
 /* Event-modal taak suggesties */
 #ets-suggest{margin-bottom:6px}
-.ets-sug{display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--border);border-radius:10px;margin-bottom:4px;cursor:pointer;font-size:12px;color:var(--text);transition:all .12s}
+.ets-sug{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:10px;margin-bottom:4px;cursor:pointer;font-size:12px;color:var(--text);transition:all .12s}
 .ets-sug:hover{border-color:var(--acc);background:var(--acc-softer)}
 .ets-sug.ets-new{color:var(--acc);border-style:dashed}
 
 /* Verwijderbare taak-pills in planner/dashboard */
-.dv-task-pill{font-size:11px;background:rgba(217,119,87,.2);padding:2px 7px;border-radius:10px;color:var(--acc);cursor:pointer;display:inline-flex;align-items:center;gap:3px;transition:background .12s}
+.dv-task-pill{font-size:11px;background:rgba(217,119,87,.2);padding:2px 7px;border-radius:10px;color:var(--acc);cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:background .12s}
 .dv-task-pill:hover{background:rgba(217,119,87,.35)}
 .dv-task-x{opacity:.6;font-size:11px}
 .dv-task-pill:hover .dv-task-x{opacity:1}
 
 /* Dashboard taak loskoppelen */
-.ev-task-ck{display:flex;align-items:center;gap:7px}
+.ev-task-ck{display:flex;align-items:center;gap:8px}
 .ev-task-unlink{background:none;border:none;color:var(--text3);cursor:pointer;font-size:11px;padding:2px 4px;flex-shrink:0;opacity:.5;transition:opacity .12s}
 .ev-task-unlink:hover{opacity:1;color:var(--acc)}
 
@@ -1322,7 +1322,7 @@ body[data-theme="light"] .fin-ov-card {
 .rout-drag-hint{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3);margin-bottom:10px;opacity:.8}
 
 /* Taken inline snelle invoer */
-.taken-quick{display:flex;gap:7px;align-items:center;margin-bottom:12px}
+.taken-quick{display:flex;gap:8px;align-items:center;margin-bottom:12px}
 .taken-quick input{background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);padding:10px 12px;font-size:16px}
 .taken-quick input:focus{border-color:var(--acc);outline:none}
 
@@ -1390,13 +1390,13 @@ body[data-theme="light"] .fin-ov-card {
 /* ── Dashboard hero-blok (subtiel & visueel) ── */
 .hero-block{position:relative;display:grid;grid-template-columns:1fr auto 1.1fr;gap:18px;align-items:center;background:linear-gradient(135deg,var(--bg2),var(--bg2) 60%,var(--acc-softer));border:1px solid var(--border);border-radius:14px;padding:16px 18px 16px 22px;margin-bottom:12px;overflow:hidden}
 .hero-block::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--acc),var(--acc-dim))}
-.hero-left{display:flex;flex-direction:column;gap:3px}
+.hero-left{display:flex;flex-direction:column;gap:4px}
 .hero-divider{width:1px;align-self:stretch;background:linear-gradient(transparent,var(--border),transparent);margin:4px 0}
 .hero-right{display:flex;flex-direction:column;align-items:flex-start}
 .hero-label{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(--acc);font-weight:700;text-transform:uppercase;letter-spacing:1px}
-.hero-time{font-family:var(--font-display);font-weight:400;font-size:48px;line-height:.95;color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:1px}
+.hero-time{font-family:var(--font-display);font-weight:400;font-size:44px;line-height:.95;color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:1px}
 .hero-date{font-size:12px;color:var(--text3);letter-spacing:.4px;font-variant-numeric:tabular-nums}
-.hero-weer{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);background:var(--acc-soft);border:1px solid var(--acc-line);padding:4px 9px;border-radius:20px;margin-bottom:11px;align-self:flex-start}
+.hero-weer{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);background:var(--acc-soft);border:1px solid var(--acc-line);padding:4px 9px;border-radius:20px;margin-bottom:12px;align-self:flex-start}
 .hero-weer-ic{display:inline-flex;align-items:center}
 .hero-weer-ic svg{vertical-align:middle}
 .hero-nu-lbl{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--acc);font-weight:700;text-transform:uppercase;letter-spacing:.7px}
@@ -1408,7 +1408,7 @@ body[data-theme="light"] .fin-ov-card {
 .hero-straks{font-family:var(--font-display);font-weight:400;font-size:14px;line-height:1.15;color:var(--text3);margin-top:1px;opacity:.7;word-break:break-word}
 @media(max-width:560px){
   .hero-block{grid-template-columns:1fr auto 1fr;gap:12px;padding:14px 14px 14px 18px}
-  .hero-time{font-size:38px}
+  .hero-time{font-size:44px}
   .hero-nu{font-size:16px}
   .hero-straks{font-size:12px}
   .hero-weer{font-size:10px;padding:3px 7px}
@@ -1417,7 +1417,7 @@ body[data-theme="light"] .fin-ov-card {
 /* ── Gedaan-voortgang blokken ── */
 .dash-gedaan-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
 .gedaan-card{margin-bottom:0;padding:14px 16px}
-.gedaan-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.gedaan-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .gedaan-lbl{font-size:12px;color:var(--text2);font-weight:600}
 .gedaan-num{font-family:var(--font-display);font-size:16px;color:var(--acc)}
 .gedaan-bar{height:7px;background:var(--bg3);border-radius:6px;overflow:hidden}
@@ -1425,7 +1425,7 @@ body[data-theme="light"] .fin-ov-card {
 @media(max-width:560px){.dash-gedaan-row{grid-template-columns:1fr}}
 
 /* ── Subtaken (dropdown onder taak) ── */
-.tk-sub-toggle{display:inline-flex;align-items:center;gap:3px;background:none;border:none;color:var(--text3);cursor:pointer;padding:2px 5px;border-radius:6px;font-size:10px;flex-shrink:0;transition:all .12s}
+.tk-sub-toggle{display:inline-flex;align-items:center;gap:4px;background:none;border:none;color:var(--text3);cursor:pointer;padding:2px 5px;border-radius:6px;font-size:10px;flex-shrink:0;transition:all .12s}
 .tk-sub-toggle:hover{color:var(--acc);background:var(--acc-softer)}
 .tk-sub-toggle svg{transition:transform .2s}
 .tk-sub-toggle.open svg{transform:rotate(90deg)}
@@ -1457,7 +1457,7 @@ body[data-theme="light"] .fin-ov-card {
 /* ── Fitness trainingshistorie per datum ── */
 .fit-day{border-bottom:1px solid var(--border)}
 .fit-day:last-child{border-bottom:none}
-.fit-day-hd{display:flex;align-items:center;gap:9px;padding:10px 2px;cursor:pointer;transition:background .12s}
+.fit-day-hd{display:flex;align-items:center;gap:8px;padding:10px 2px;cursor:pointer;transition:background .12s}
 .fit-day-hd:hover{background:var(--acc-softer)}
 .fit-day-chev{display:inline-flex;color:var(--text3);transition:transform .2s;flex-shrink:0}
 .fit-day-chev.open{transform:rotate(90deg);color:var(--acc)}
@@ -1470,7 +1470,7 @@ body[data-theme="light"] .fin-ov-card {
 /* ── App logo / merkteken ── */
 .logo-mark{display:inline-flex;flex-shrink:0;line-height:0}
 .logo-mark svg{border-radius:14px;box-shadow:0 4px 12px -4px rgba(217,119,87,.55)}
-.sb-brand{display:flex;align-items:center;gap:10px}
+.sb-brand{display:flex;align-items:center;gap:9px}
 .sb-brand .sb-name{font-family:var(--font-display);font-weight:400;font-size:16px;letter-spacing:0}
 .logo-mark.mob{margin-right:8px;vertical-align:middle}
 .mob-header,.mob-bar{display:flex;align-items:center}
@@ -1531,10 +1531,10 @@ body[data-theme="light"] .fin-ov-card {
 
 /* ── Dagelijkse Top-3 focus ── */
 .top3-card{background:linear-gradient(135deg,var(--acc-soft),var(--acc-softer));border:1px solid var(--acc-line);border-radius:14px;padding:14px;margin-bottom:12px}
-.top3-hd{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px}
+.top3-hd{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px}
 .top3-hd .top3-count{margin-left:auto;font-size:11px;font-weight:600;color:var(--acc);background:var(--bg);padding:2px 9px;border-radius:10px}
 .top3-empty{font-size:12px;color:var(--text3);padding:6px 0 10px}
-.top3-list{display:flex;flex-direction:column;gap:7px;margin-bottom:8px}
+.top3-list{display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
 .top3-item{display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
 .top3-item.done{opacity:.5}
 .top3-item.done .top3-item-t{text-decoration:line-through}
@@ -1558,23 +1558,23 @@ body[data-theme="light"] .fin-ov-card {
 
 /* ── Projecten-cockpit ── */
 .pck-wrap{margin:4px 0 16px}
-.pck-hd{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
+.pck-hd{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
 .pck-hd-n{margin-left:auto;font-size:11px;color:var(--acc);background:var(--acc-softer);padding:1px 8px;border-radius:10px;letter-spacing:0}
 .pck-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
 .pck-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:13px;cursor:pointer;transition:border-color .14s,transform .14s}
 .pck-card:hover{border-color:var(--acc-line);transform:translateY(-2px)}
-.pck-top{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.pck-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .pck-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .pck-name{font-size:12px;font-weight:600;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pck-dl{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;color:var(--text3);flex-shrink:0}
+.pck-dl{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;color:var(--text3);flex-shrink:0}
 .pck-dl.soon{color:var(--acc)}
 .pck-dl.urgent{color:var(--urgent)}
-.pck-bar{height:6px;background:var(--bg3);border-radius:6px;overflow:hidden;margin-bottom:7px}
+.pck-bar{height:6px;background:var(--bg3);border-radius:6px;overflow:hidden;margin-bottom:8px}
 .pck-fil{height:100%;border-radius:6px;transition:width .3s}
 .pck-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--text3)}
 
 /* ── Vandaag-pagina taken ── */
-.vd-task{display:flex;align-items:center;gap:11px;padding:11px 4px;border-bottom:1px solid var(--border)}
+.vd-task{display:flex;align-items:center;gap:12px;padding:11px 4px;border-bottom:1px solid var(--border)}
 .vd-task:last-child{border-bottom:none}
 .vd-task input[type=checkbox]{width:19px;height:19px;flex-shrink:0;accent-color:var(--acc);cursor:pointer}
 .vd-task-c{flex:1;min-width:0}
@@ -1591,7 +1591,7 @@ body[data-theme="light"] .fin-ov-card {
 .tk-sub-toggle.open svg{transform:rotate(90deg);color:var(--acc)}
 .tk-sub-toggle:hover{background:var(--acc-softer);color:var(--acc)}
 /* Fitness dag-chevron naar rechts */
-.fit-day-hd{display:flex;align-items:center;gap:9px;padding:11px 2px;cursor:pointer;transition:background .12s}
+.fit-day-hd{display:flex;align-items:center;gap:8px;padding:11px 2px;cursor:pointer;transition:background .12s}
 .fit-day-chev{display:inline-flex;align-items:center;color:var(--text3);transition:transform .2s,color .2s;flex-shrink:0;margin-left:auto;order:3}
 .fit-day-chev svg{width:18px;height:18px}
 .fit-day-chev.open{transform:rotate(90deg);color:var(--acc)}
@@ -1622,7 +1622,7 @@ body[data-theme="light"] .fin-ov-card {
 .est-pick-btn{flex:1;min-width:42px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);border-radius:6px;padding:6px 4px;font-size:11px;cursor:pointer;font-family:var(--font-ui);transition:all .12s}
 .est-pick-btn:hover{border-color:var(--acc-line)}
 .est-pick-btn.sel{background:var(--acc-soft);border-color:var(--acc);color:var(--acc);font-weight:600}
-.est-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--text3);background:var(--bg3);border-radius:6px;padding:1px 6px;white-space:nowrap}
+.est-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--text3);background:var(--bg3);border-radius:6px;padding:1px 6px;white-space:nowrap}
 .cap-bar{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;font-size:12px;flex-wrap:wrap}
 .cap-bar.over{border-color:var(--urgent);background:var(--urgent-soft)}
 .cap-seg{display:flex;align-items:center;gap:5px;color:var(--text2)}
@@ -1641,11 +1641,11 @@ body[data-theme="light"] .fin-ov-card {
 .goal-link-btn:hover{background:var(--acc-softer)}
 
 /* ── Weekthema banner ── */
-.day-theme-banner{display:flex;align-items:center;gap:7px;padding:8px 12px;background:var(--acc-softer);border:1px solid var(--acc-line);border-radius:10px;margin-bottom:10px;font-size:12px;color:var(--text2)}
+.day-theme-banner{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--acc-softer);border:1px solid var(--acc-line);border-radius:10px;margin-bottom:10px;font-size:12px;color:var(--text2)}
 .day-theme-banner strong{color:var(--acc);font-weight:600}
 
 /* ── Top-3 Vandaag/Morgen tabs ── */
-.top3-daytabs{display:flex;gap:3px;margin-left:auto;background:var(--bg);border-radius:8px;padding:2px}
+.top3-daytabs{display:flex;gap:4px;margin-left:auto;background:var(--bg);border-radius:10px;padding:2px}
 .top3-daytab{background:none;border:none;color:var(--text3);font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:var(--font-ui);transition:all .12s}
 .top3-daytab.on{background:var(--acc);color:#fff}
 .top3-hd .top3-count{margin-left:8px}
@@ -1657,12 +1657,12 @@ body[data-theme="light"] .fin-ov-card {
 .proj-status-btn.on{background:var(--acc-soft);border-color:var(--acc);color:var(--acc);font-weight:600}
 
 /* ── Projecten: categorie-secties (overzichtelijker) ── */
-.pcat-head{display:flex;align-items:center;gap:9px;padding:11px 12px;margin-top:10px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;cursor:pointer;user-select:none;transition:border-color .12s}
+.pcat-head{display:flex;align-items:center;gap:8px;padding:11px 12px;margin-top:10px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;cursor:pointer;user-select:none;transition:border-color .12s}
 .pcat-head:first-child{margin-top:0}
 .pcat-head:hover{border-color:var(--acc-line)}
 .pcat-chev{display:inline-flex;align-items:center;color:var(--text3);transition:transform .2s;flex-shrink:0}
 .pcat-chev.open{transform:rotate(90deg)}
-.pcat-name{font-size:13px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.5px}
+.pcat-name{font-size:14px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.5px}
 .pcat-count{font-size:11px;color:var(--text3);background:var(--bg3);border-radius:20px;padding:1px 9px;font-weight:600}
 .pcat-pct{margin-left:auto;font-size:12px;font-weight:600;color:var(--acc)}
 .pcat-body{padding:2px 4px 0;overflow:hidden}
@@ -1690,18 +1690,18 @@ body[data-theme="light"] .fin-ov-card {
 .goal-hz-body{margin-top:12px}
 .goal-empty{font-size:12px;color:var(--text3);font-style:italic;padding:4px 0 10px}
 /* Goal-kaart v2 */
-.goal-card-v2{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:9px}
+.goal-card-v2{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px}
 .goal-card-v2.done{opacity:.6}
-.goal-v2-hd{display:flex;align-items:center;gap:9px}
+.goal-v2-hd{display:flex;align-items:center;gap:8px}
 .goal-v2-check{width:17px;height:17px;flex-shrink:0;accent-color:var(--acc);cursor:pointer}
-.goal-v2-title{flex:1;font-size:13px;font-weight:600;color:var(--text);cursor:text;border-radius:6px;padding:2px 4px;margin:-2px 0;transition:background .12s}
+.goal-v2-title{flex:1;font-size:14px;font-weight:600;color:var(--text);cursor:text;border-radius:6px;padding:2px 4px;margin:-2px 0;transition:background .12s}
 .goal-v2-title:hover{background:var(--acc-softer)}
 .goal-card-v2.done .goal-v2-title{text-decoration:line-through;color:var(--text3)}
 .goal-v2-pct{font-size:11px;font-weight:600;flex-shrink:0;font-variant-numeric:tabular-nums}
 .goal-v2-bar{height:5px;background:var(--bg3);border-radius:20px;overflow:hidden;margin:9px 0}
 .goal-v2-fill{height:100%;border-radius:20px;transition:width .3s}
 /* De drie velden (waarom / actie / wanneer) */
-.goal-v2-why,.goal-v2-next,.goal-v2-when{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2);padding:6px 8px;border-radius:8px;cursor:text;margin-top:5px;transition:background .12s;min-height:30px}
+.goal-v2-why,.goal-v2-next,.goal-v2-when{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);padding:6px 8px;border-radius:10px;cursor:text;margin-top:5px;transition:background .12s;min-height:30px}
 .goal-v2-why{background:var(--acc-softer)}
 .goal-v2-next{background:var(--bg2)}
 .goal-v2-when{background:var(--bg2)}
@@ -1720,7 +1720,7 @@ body[data-theme="light"] .fin-ov-card {
 .pct-ring-item.active{background:var(--acc-soft)}
 .pct-ring-circ{position:relative;flex-shrink:0}
 .pct-ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
-.pct-ring-pct{font-size:9px;color:var(--text3);margin-left:1px}
+.pct-ring-pct{font-size:10px;color:var(--text3);margin-left:1px}
 .pct-ring-lbl{font-size:10px;color:var(--text2);text-align:center;line-height:1.15;max-width:66px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pct-ring-item.active .pct-ring-lbl{color:var(--acc);font-weight:600}
 .goal-flash{animation:goalflash 1.2s ease}
@@ -1740,14 +1740,14 @@ body[data-theme="light"] .fin-ov-card {
 .day-nav-btn{flex-shrink:0;width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text2);cursor:pointer;transition:all .12s}
 .day-nav-btn:first-child svg{transform:rotate(180deg)}
 .day-nav-btn:hover{border-color:var(--acc-line);color:var(--acc)}
-.day-nav-lbl{flex:1;height:38px;background:var(--acc-soft);border:1px solid var(--acc-line);border-radius:10px;color:var(--acc);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-ui);transition:all .12s}
+.day-nav-lbl{flex:1;height:38px;background:var(--acc-soft);border:1px solid var(--acc-line);border-radius:10px;color:var(--acc);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-ui);transition:all .12s}
 .day-nav-lbl.off{background:var(--bg2);border-color:var(--border);color:var(--text2)}
 .day-nav-lbl.off:hover{border-color:var(--acc-line);color:var(--acc)}
 /* ── Habit rijen (tikbaar) ── */
 .hab-row{display:flex;align-items:center;gap:12px;padding:12px 10px;border-radius:10px;cursor:pointer;transition:background .12s;border-bottom:1px solid var(--border)}
 .hab-row:last-child{border-bottom:none}
 .hab-row:active{background:var(--acc-softer)}
-.hab-cb{width:26px;height:26px;flex-shrink:0;border-radius:8px;border:2px solid var(--border);background:var(--bg3);display:flex;align-items:center;justify-content:center;transition:all .15s}
+.hab-cb{width:26px;height:26px;flex-shrink:0;border-radius:10px;border:2px solid var(--border);background:var(--bg3);display:flex;align-items:center;justify-content:center;transition:all .15s}
 .hab-cb.on{background:var(--acc);border-color:var(--acc)}
 .hab-row.done .hab-cb{background:var(--acc);border-color:var(--acc)}
 .hab-row-mid{flex:1;min-width:0}
@@ -1757,21 +1757,21 @@ body[data-theme="light"] .fin-ov-card {
 .hab-dot{width:9px;height:9px;border-radius:50%;background:var(--bg3);transition:background .15s}
 .hab-dot.on{background:var(--acc)}
 .hab-dot.today{box-shadow:0 0 0 2px var(--acc-line)}
-.hab-del{background:none;border:none;color:var(--text3);font-size:13px;cursor:pointer;flex-shrink:0;opacity:.5;padding:4px}
+.hab-del{background:none;border:none;color:var(--text3);font-size:14px;cursor:pointer;flex-shrink:0;opacity:.5;padding:4px}
 .hab-del:hover{opacity:1;color:var(--urgent)}
 
 /* ── Toast / snackbar ── */
 .app-toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 30px -8px rgba(0,0,0,.7);z-index:9999;opacity:0;transition:opacity .25s,transform .25s;max-width:90vw}
 .app-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.app-toast-msg{font-size:13px;color:var(--text)}
-.app-toast-undo{background:none;border:none;color:var(--acc);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-ui);white-space:nowrap;padding:2px 4px}
+.app-toast-msg{font-size:14px;color:var(--text)}
+.app-toast-undo{background:none;border:none;color:var(--acc);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-ui);white-space:nowrap;padding:2px 4px}
 .app-toast-undo:hover{text-decoration:underline}
 
 /* ── Snel-toevoegen knop (FAB) ── */
-.fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));width:56px;height:56px;border-radius:18px;border:none;background:linear-gradient(135deg,var(--acc),var(--acc-dim));box-shadow:0 6px 20px -4px rgba(217,119,87,.5);cursor:pointer;z-index:900;display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
+.fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));width:56px;height:56px;border-radius:20px;border:none;background:linear-gradient(135deg,var(--acc),var(--acc-dim));box-shadow:0 6px 20px -4px rgba(217,119,87,.5);cursor:pointer;z-index:900;display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
 .fab:active{transform:scale(.92)}
 .fab:hover{box-shadow:0 8px 26px -4px rgba(217,119,87,.65)}
-.fab::before,.fab::after{content:'';position:absolute;background:#fff;border-radius:2px}
+.fab::before,.fab::after{content:'';position:absolute;background:#fff;border-radius:6px}
 .fab::before{width:22px;height:3px}
 .fab::after{width:3px;height:22px}
 @media(min-width:900px){.fab{right:28px;bottom:28px}}
@@ -1779,8 +1779,8 @@ body[data-theme="light"] .fin-ov-card {
 /* ── Vriendelijke lege staten ── */
 .es{display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 16px;text-align:center}
 .es-ic{opacity:.6}
-.es-tx{font-size:13px;color:var(--text3);max-width:240px;line-height:1.4}
-.es-btn{margin-top:4px;display:inline-flex;align-items:center;gap:6px;background:var(--acc-soft);border:1px solid var(--acc-line);color:var(--acc);border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-ui)}
+.es-tx{font-size:14px;color:var(--text3);max-width:240px;line-height:1.4}
+.es-btn{margin-top:4px;display:inline-flex;align-items:center;gap:6px;background:var(--acc-soft);border:1px solid var(--acc-line);color:var(--acc);border-radius:10px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-ui)}
 .es-btn:hover{background:var(--acc-softer)}
 
 /* ── Planner event: hold-to-drag feedback ── */
@@ -1789,7 +1789,7 @@ body[data-theme="light"] .fin-ov-card {
 
 /* ── Modal sluit-knop (X) + mobiel-veilig centreren ── */
 .modal-box{position:relative}
-.modal-x{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:8px;border:none;background:var(--bg3);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transform:rotate(45deg);transition:background .12s,color .12s;z-index:2}
+.modal-x{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:10px;border:none;background:var(--bg3);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transform:rotate(45deg);transition:background .12s,color .12s;z-index:2}
 .modal-x:hover{background:var(--urgent-soft);color:var(--urgent)}
 .modal-bg{padding:16px;box-sizing:border-box}
 .modal-box{width:100%;max-width:380px;max-height:85vh}
@@ -1813,7 +1813,7 @@ body[data-theme="light"] .fin-ov-card {
 .rout-item{gap:8px}
 
 /* ── Visie & Frame: inspirerende opmaak ── */
-.vis-intro{font-size:13px;color:var(--text2);line-height:1.6;text-align:center;font-style:italic;padding:4px 12px 14px;max-width:480px;margin:0 auto}
+.vis-intro{font-size:14px;color:var(--text2);line-height:1.6;text-align:center;font-style:italic;padding:4px 12px 14px;max-width:480px;margin:0 auto}
 .vis-arc{margin:0 0 22px;padding:8px 4px}
 .vis-arc-labels{display:flex;justify-content:space-between;margin-top:2px;font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
 .vis-arc-labels span:first-child{color:var(--text3)}
@@ -1830,24 +1830,24 @@ body[data-theme="light"] .fin-ov-card {
 .eig-identity-lead{color:var(--acc);font-weight:600}
 .eig-identity-word{color:var(--text);font-weight:600}
 .eig-identity-sep{color:var(--acc-line);margin:0 2px}
-.eig-chip-v2{display:inline-flex;align-items:center;gap:6px;background:var(--acc-soft);border:1px solid var(--acc-line);color:var(--text);border-radius:20px;padding:6px 10px 6px 12px;font-size:13px;font-weight:500}
+.eig-chip-v2{display:inline-flex;align-items:center;gap:6px;background:var(--acc-soft);border:1px solid var(--acc-line);color:var(--text);border-radius:20px;padding:6px 10px 6px 12px;font-size:14px;font-weight:500}
 .eig-chip-v2 svg{flex-shrink:0}
 .eig-chip-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:11px;padding:0 0 0 2px;display:flex}
 .eig-chip-del:hover{color:var(--urgent)}
-.eig-grid{display:flex;flex-wrap:wrap;gap:7px}
+.eig-grid{display:flex;flex-wrap:wrap;gap:8px}
 .eig-sugg-wrap{display:flex;flex-wrap:wrap;gap:6px}
 .eig-sugg{font-size:12px;padding:5px 12px;background:var(--bg3);border:1px dashed var(--acc-line);border-radius:20px;color:var(--text3);cursor:pointer;transition:all .12s}
 .eig-sugg:hover{color:var(--acc);border-color:var(--acc);background:var(--acc-softer)}
 /* ── Rules to live by: inspirerend ── */
 .rule-cats-wrap{display:flex;flex-direction:column;gap:12px}
 .rule-cat-v2{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px}
-.rule-cat-hd-v2{display:flex;align-items:center;gap:9px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.rule-cat-hd-v2{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
 .rule-cat-ic{display:flex;flex-shrink:0}
-.rule-cat-title{flex:1;font-size:15px;font-weight:700;color:var(--text);font-family:var(--font-display)}
+.rule-cat-title{flex:1;font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-display)}
 .rule-cat-del{background:none;border:none;cursor:pointer;opacity:.5;padding:4px;display:flex}
 .rule-cat-del:hover{opacity:1}
 .rule-lines{display:flex;flex-direction:column;gap:2px;margin-bottom:10px}
-.rule-line{display:flex;align-items:center;gap:10px;padding:7px 4px;border-radius:8px;transition:background .12s}
+.rule-line{display:flex;align-items:center;gap:10px;padding:7px 4px;border-radius:10px;transition:background .12s}
 .rule-line:hover{background:var(--acc-softer)}
 .rule-line-dot{width:6px;height:6px;border-radius:50%;background:var(--acc);flex-shrink:0}
 .rule-line-txt{flex:1;font-size:14px;color:var(--text)}
@@ -1863,7 +1863,7 @@ body[data-theme="light"] .fin-ov-card {
 .werk-stat-v{font-size:18px;font-weight:700;color:var(--acc);font-family:var(--font-display);line-height:1.1}
 .werk-stat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
 .werk-chart-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.werk-toggle{display:flex;gap:0;background:var(--bg3);border-radius:8px;padding:2px}
+.werk-toggle{display:flex;gap:0;background:var(--bg3);border-radius:10px;padding:2px}
 .werk-tg{background:none;border:none;color:var(--text3);font-size:11px;font-weight:600;padding:5px 10px;border-radius:6px;cursor:pointer;font-family:var(--font-ui);transition:all .12s}
 .werk-tg.on{background:var(--acc);color:#fff}
 .werk-chart{height:120px;display:flex;align-items:flex-end}
@@ -1879,7 +1879,7 @@ body[data-theme="light"] .fin-ov-card {
 .werk-row{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border)}
 .werk-row:last-child{border-bottom:none}
 .werk-row-main{flex:1;min-width:0}
-.werk-row-date{font-size:13px;color:var(--text);font-weight:600;text-transform:capitalize}
+.werk-row-date{font-size:14px;color:var(--text);font-weight:600;text-transform:capitalize}
 .werk-row-time{font-size:11px;color:var(--text3);margin-top:1px}
 .werk-row-h{font-size:14px;font-weight:700;color:var(--acc);font-variant-numeric:tabular-nums;flex-shrink:0}
 .werk-row-del{background:none;border:none;color:var(--text3);cursor:pointer;flex-shrink:0;opacity:.5;transform:rotate(45deg);padding:2px;display:flex}
@@ -1887,7 +1887,7 @@ body[data-theme="light"] .fin-ov-card {
 
 /* ── Persoonlijke begroeting (hero) ── */
 .hero-greet{margin-bottom:10px;opacity:0;animation:greetIn .7s cubic-bezier(.2,.7,.2,1) forwards}
-.hero-greet-txt{font-size:20px;font-weight:600;color:var(--text);font-family:var(--font-display);letter-spacing:.2px}
+.hero-greet-txt{font-size:22px;font-weight:600;color:var(--text);font-family:var(--font-display);letter-spacing:.2px}
 .hero-greet-name{color:var(--acc);cursor:pointer;border-bottom:1px dotted transparent;transition:border-color .15s}
 .hero-greet-name:hover{border-bottom-color:var(--acc-line)}
 @keyframes greetIn{0%{opacity:0;transform:translateY(-8px)}100%{opacity:1;transform:translateY(0)}}
@@ -1897,7 +1897,7 @@ body[data-theme="light"] .fin-ov-card {
 .mom-flame.lit{animation:flamePulse 2.5s ease-in-out infinite}
 @keyframes flamePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 .mom-body{flex:1;min-width:0}
-.mom-num{font-size:17px;font-weight:700;color:var(--text);font-family:var(--font-display);line-height:1.1}
+.mom-num{font-size:18px;font-weight:700;color:var(--text);font-family:var(--font-display);line-height:1.1}
 .mom-msg{font-size:12px;color:var(--text2);margin-top:2px}
 .mom-dots{display:flex;gap:5px;margin-top:8px}
 .mom-dot{width:11px;height:11px;border-radius:50%;background:var(--bg3);transition:background .3s}
@@ -1913,7 +1913,153 @@ body[data-theme="light"] .fin-ov-card {
 .rout-move-btn:active{background:var(--acc-soft)}
 .rout-move-btn:disabled{opacity:.25;cursor:default;border-color:var(--border);color:var(--text3)}
 .rout-move-btn:disabled:hover,.rout-move-btn:disabled:active{background:transparent}
+
+/* ── Oefeningen ── */
+.oef-search{width:100%;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;margin-bottom:14px;font-family:var(--font-ui)}
+.oef-search:focus{border-color:var(--acc-line)}
+.oef-search::placeholder{color:var(--text3)}
+.oef-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.oef-cat{padding:6px 12px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text3);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;font-family:var(--font-ui)}
+.oef-cat:hover{border-color:var(--acc-line);color:var(--text2)}
+.oef-cat.on{border-color:var(--acc);background:var(--acc-soft);color:var(--acc)}
+.oef-cat-n{opacity:.6;font-size:10px}
+.oef-count{font-size:11px;color:var(--text3);margin-bottom:12px}
+.oef-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden;transition:border-color .15s}
+.oef-card.open{border-color:var(--acc-line)}
+.oef-hd{padding:13px 14px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.oef-meta{flex:1;min-width:0}
+.oef-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.oef-tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.oef-badge{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--acc-soft);color:var(--acc);border:1px solid var(--acc-line)}
+.oef-tag{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600;background:var(--bg3);color:var(--text3);border:1px solid var(--border);display:inline-flex;align-items:center;gap:4px}
+.oef-tag.freq{background:var(--acc-softer);color:var(--acc-dim);border-color:var(--acc-line)}
+.oef-body{padding:0 14px 14px;border-top:1px solid var(--border);margin-top:0}
+.oef-sec{margin-top:12px}
+.oef-sec-t{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.oef-sec-x{font-size:14px;color:var(--text2);line-height:1.6}
+.oef-steps{list-style:none;padding:0;margin:0;counter-reset:oef}
+.oef-steps li{font-size:14px;color:var(--text2);line-height:1.6;padding-left:22px;position:relative;margin-bottom:4px;counter-increment:oef}
+.oef-steps li::before{content:counter(oef);position:absolute;left:0;top:0;color:var(--acc);font-weight:700;font-size:11px;width:16px;height:16px;display:flex;align-items:center;justify-content:center;background:var(--acc-softer);border-radius:50%}
+.oef-del{margin-top:14px;background:none;border:1px solid var(--border);color:var(--text3);font-size:12px;padding:7px 12px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:var(--font-ui)}
+.oef-del svg{transform:rotate(45deg)}
+.oef-del:hover{border-color:var(--urgent);color:var(--urgent)}
+.oef-form-row{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.oef-form-row label{font-size:11px;color:var(--text3);font-weight:600}
+
+/* ── Firebase: inlog + sync ── */
+.login-ov{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-box{width:100%;max-width:360px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:28px 24px}
+.login-logo{font-family:var(--font-display);font-size:22px;color:var(--acc);text-align:center;margin-bottom:18px}
+.login-title{font-size:18px;font-weight:700;color:var(--text);text-align:center;margin-bottom:4px}
+.login-sub{font-size:13px;color:var(--text3);text-align:center;margin-bottom:18px;line-height:1.5}
+.login-box input{width:100%;padding:12px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:15px;margin-bottom:10px;outline:none;font-family:var(--font-ui)}
+.login-box input:focus{border-color:var(--acc-line)}
+.login-err{font-size:12px;color:var(--urgent);min-height:16px;text-align:center;margin-bottom:4px}
+.login-switch{font-size:13px;color:var(--text3);text-align:center;margin-top:16px}
+.login-switch a{color:var(--acc);cursor:pointer;font-weight:600}
+.sync-spinner{width:34px;height:34px;border:3px solid var(--bg3);border-top-color:var(--acc);border-radius:50%;margin:0 auto;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sync-ind{font-size:10px;color:var(--text3);transition:color .2s}
+.sync-ind.ok{color:var(--acc)}
+.sync-ind.err{color:var(--urgent)}
+
+/* ── Onboarding ── */
+.onb-ov{position:fixed;inset:0;background:rgba(15,15,15,.96);z-index:10000;display:flex;align-items:center;justify-content:center;padding:24px}
+.onb-box{width:100%;max-width:380px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:28px 24px;animation:onbIn .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes onbIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.onb-logo{font-family:var(--font-display);font-size:22px;color:var(--acc);text-align:center;margin-bottom:16px}
+.onb-title{font-size:22px;font-weight:700;color:var(--text);text-align:center;margin-bottom:10px;font-family:var(--font-display)}
+.onb-sub{font-size:14px;color:var(--text2);text-align:center;line-height:1.55;margin-bottom:18px}
+.onb-field{margin-bottom:18px}
+.onb-field label{display:block;font-size:12px;color:var(--text3);font-weight:600;margin-bottom:6px}
+.onb-field input{width:100%;padding:12px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:16px;outline:none;font-family:var(--font-ui)}
+.onb-field input:focus{border-color:var(--acc-line)}
+.onb-list{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.onb-li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text2);line-height:1.45}
+.onb-li svg{flex-shrink:0;margin-top:1px}
+.onb-li b{color:var(--text);font-weight:600}
+.onb-dots{display:flex;gap:6px;justify-content:center;margin-bottom:16px}
+.onb-dot{width:7px;height:7px;border-radius:50%;background:var(--bg3);transition:background .2s}
+.onb-dot.on{background:var(--acc);width:20px;border-radius:4px}
+.onb-skip{text-align:center;font-size:13px;color:var(--text3);margin-top:12px;cursor:pointer}
+.onb-skip:hover{color:var(--text2)}
+/* ── Begin-hier hint ── */
+.start-hint{position:relative;background:linear-gradient(135deg,var(--acc-soft),var(--acc-softer));border:1px solid var(--acc-line);border-radius:16px;padding:18px;margin-bottom:14px}
+.start-hint-x{position:absolute;top:12px;right:12px;cursor:pointer;color:var(--text3);transform:rotate(45deg);opacity:.6}
+.start-hint-x:hover{opacity:1}
+.start-hint-t{font-size:17px;font-weight:700;color:var(--text);font-family:var(--font-display);margin-bottom:6px}
+.start-hint-s{font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:14px;padding-right:20px}
+.start-hint-btns{display:flex;gap:8px;flex-wrap:wrap}
+.start-hint-btns .btn{flex:1;min-width:120px}
+
+/* ── Inklapbare menu-groepen ── */
+.gl{display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:color .12s}
+.gl:hover{color:var(--text2)}
+.gl-chev{display:inline-flex;opacity:.5;transition:transform .18s}
+.gl-chev svg{transform:rotate(90deg)}
+.gl.gl-closed .gl-chev svg{transform:rotate(0deg)}
+.gl-items{overflow:hidden}
 </style>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAQtC8wM7RU3vibCJZHo6Lcm5p0EEDKSd4",
+    authDomain: "pimmies-os.firebaseapp.com",
+    projectId: "pimmies-os",
+    storageBucket: "pimmies-os.firebasestorage.app",
+    messagingSenderId: "802122498834",
+    appId: "1:802122498834:web:242bef1ce7c26bf63a69cb"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Brug naar de hoofd-app (niet-module script). Alles via window.PimFB.
+  window.PimFB = {
+    ready: false,
+    user: null,
+    // Registreren
+    register: function(email, pass){
+      return createUserWithEmailAndPassword(auth, email, pass);
+    },
+    // Inloggen
+    login: function(email, pass){
+      return signInWithEmailAndPassword(auth, email, pass);
+    },
+    // Uitloggen
+    logout: function(){
+      return signOut(auth);
+    },
+    // Data ophalen uit cloud voor huidige gebruiker
+    cloudGet: async function(){
+      if(!auth.currentUser) return null;
+      var ref = doc(db, 'users', auth.currentUser.uid);
+      var snap = await getDoc(ref);
+      return snap.exists() ? snap.data() : null;
+    },
+    // Data wegschrijven naar cloud voor huidige gebruiker
+    cloudSet: async function(dataStr){
+      if(!auth.currentUser) return false;
+      var ref = doc(db, 'users', auth.currentUser.uid);
+      await setDoc(ref, { data: dataStr, updated: Date.now() });
+      return true;
+    }
+  };
+
+  // Auth-status doorgeven aan de hoofd-app
+  onAuthStateChanged(auth, function(user){
+    window.PimFB.user = user;
+    window.PimFB.ready = true;
+    if(typeof window.onFirebaseAuthChange === 'function'){
+      window.onFirebaseAuthChange(user);
+    }
+  });
+</script>
+
 </head>
 <body>
 <!-- Mobile overlay -->
@@ -1935,7 +2081,7 @@ body[data-theme="light"] .fin-ov-card {
     <button class="ham-btn" onclick="closeSidebar()" aria-label="Sluiten" style="font-size:16px">✕</button>
   </div>
   <div class="sb-top">
-    <div class="sb-brand"><span class="logo-mark"><svg viewBox="0 0 64 64" width="28" height="28"><defs><linearGradient id="lmg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E0a183"/><stop offset="55%" stop-color="#D97757"/><stop offset="100%" stop-color="#B8694C"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#lmg)"/><text x="32" y="45" font-family="'DM Serif Display',Georgia,serif" font-size="38" fill="#fff" text-anchor="middle">P</text></svg></span><div><div class="sb-name">Pimmies OS</div>
+    <div class="sb-brand"><span class="logo-mark"><svg viewBox="0 0 64 64" width="22" height="22"><defs><linearGradient id="lmg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E0a183"/><stop offset="55%" stop-color="#D97757"/><stop offset="100%" stop-color="#B8694C"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#lmg)"/><text x="32" y="45" font-family="'DM Serif Display',Georgia,serif" font-size="38" fill="#fff" text-anchor="middle">P</text></svg></span><div><div class="sb-name">Pimmies OS</div>
     <div class="sb-date" id="sbd"></div></div></div>
   </div>
   <div class="gl">Hoofd</div>
@@ -1959,6 +2105,7 @@ body[data-theme="light"] .fin-ov-card {
   <div class="ni" data-s="fit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Fitness</div>
   <div class="ni" data-s="fin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Financiën</div>
   <div class="ni" data-s="werk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>Werk</div>
+  <div class="ni" data-s="oef"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><path d="M21 21l-1-1"/><path d="M3 3l1 1"/><path d="M18 22l4-4"/><path d="M2 6l4-4"/><path d="M3 10l7-7"/><path d="M14 21l7-7"/></svg>Oefeningen</div>
   <div class="gl">Archief</div>
   <div class="ni" data-s="shop"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Shopping</div>
   <div class="ni" data-s="lees"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Lees &amp; Wachtlijst</div>
@@ -2072,102 +2219,13 @@ const DX = [
   {id:'der',l:'Deer Exercise'},{id:'plv',l:'Pelvic oefening'}
 ];
 // Default supplements
-const DEF_SUPPS = [
-  // OCHTEND
-  {id:'sp1',name:'Probiotica Bandini Florax',note:'lege maag voor ontbijt',dagdeel:'ochtend',perDay:0.17,perMonth:5.02},
-  {id:'sp2',name:'Tongkat Ali 450mg',note:'HerbsbySonja',dagdeel:'ochtend',perDay:0.43,perMonth:13.19},
-  {id:'sp3',name:'Cistanche 400mg',note:'HerbsbySonja',dagdeel:'ochtend',perDay:0.37,perMonth:11.16},
-  {id:'sp4',name:'CDP Choline 550mg',note:'',dagdeel:'ochtend',perDay:0.73,perMonth:22.32},
-  {id:'sp5',name:'Vitamine C Acerola 1000mg',note:'',dagdeel:'ochtend',perDay:0.23,perMonth:7.10},
-  {id:'sp6',name:'Zinc Bisglycinate 25mg',note:'Bandini',dagdeel:'ochtend',perDay:0.04,perMonth:1.37},
-  {id:'sp7',name:'Koper 2mg',note:'NutriFair',dagdeel:'ochtend',perDay:0.03,perMonth:1.00},
-  {id:'sp8',name:'L-Carnitine 3000mg',note:'',dagdeel:'ochtend',perDay:0.33,perMonth:10.15},
-  {id:'sp9',name:'L-Lysine 1000mg',note:'',dagdeel:'ochtend',perDay:0.11,perMonth:3.38},
-  {id:'sp10',name:'Omega-3 IFOS TG',note:'Fjord Labs – dosis 1 van 2',dagdeel:'ochtend',perDay:0.26,perMonth:7.86},
-  {id:'sp11',name:'Kelp Jodium 150mcg',note:'HERBADIREKT',dagdeel:'ochtend',perDay:0.05,perMonth:1.40},
-  {id:'sp12',name:'Boron 3mg',note:'1e dosis',dagdeel:'ochtend',perDay:0.02,perMonth:0.75},
-  // MIDDAG
-  {id:'sp13',name:'Vegavero Glutathion Complex',note:'3 caps bij lunch',dagdeel:'middag',perDay:1.00,perMonth:30.44},
-  {id:'sp14',name:'Omega-3 IFOS TG',note:'2e dosis middag',dagdeel:'middag',perDay:0.26,perMonth:7.86},
-  {id:'sp15',name:'Boron 3mg',note:'2e dosis middag',dagdeel:'middag',perDay:0.02,perMonth:0.75},
-  // AVOND
-  {id:'sp16',name:'Collageen Marine 2700mg',note:'2 tabs bij avondeten',dagdeel:'avond',perDay:0.67,perMonth:20.29},
-  {id:'sp17',name:'Zinc Carnosine 37.5mg',note:'bij avondeten',dagdeel:'avond',perDay:0.27,perMonth:8.12},
-  {id:'sp18',name:'Boron 3mg',note:'3e dosis avond',dagdeel:'avond',perDay:0.02,perMonth:0.75},
-  {id:'sp19',name:'Magnesium Glycinaat',note:'VitaBright – 30 min voor bed',dagdeel:'avond',perDay:0.22,perMonth:6.76},
-  {id:'sp20',name:'Glycine 3000mg poeder',note:'voor bed in water',dagdeel:'avond',perDay:0.07,perMonth:2.28},
-  {id:'sp21',name:'Fair & Pure Glutathion 750mg',note:'overbodig – overweeg te stoppen',dagdeel:'avond',perDay:0.37,perMonth:11.16},
-  // PERIODIEK
-  {id:'sp22',name:'D3 + K2 10.000 IU',note:'Fairvital – 1 caps per 7 dagen',dagdeel:'periodiek',perDay:0.02,perMonth:0.62}
-];
+const DEF_SUPPS = [];
 // Default routine items (used if S.routineItems is empty)
-const DEF_ROUT = {
-  ochtend:[
-    {id:'ro1',l:'Bed opmaken'},{id:'ro2',l:'Yoga / stretching'},
-    {id:'ro3',l:'Affirmaties lezen'},{id:'ro4',l:'Ochtend meditatie'},
-    {id:'ro5',l:'Supplementen innemen'},{id:'ro6',l:'Skincare + tandenpoetsen'},
-    {id:'ro7',l:'Bouillon / citroen / seamoss'}
-  ],
-  middag:[
-    {id:'rm1',l:'Middagsupplementen'},{id:'rm2',l:'Lunch bewust eten'}
-  ],
-  avond:[
-    {id:'ra1',l:'Fly-mode 21:00'},{id:'ra2',l:'Kamer opruimen'},
-    {id:'ra3',l:'Avond supplementen'},{id:'ra4',l:'Tanden + skincare'},
-    {id:'ra5',l:'Avond stretching'},{id:'ra6',l:'Avond affirmaties'},
-    {id:'ra7',l:'Avond meditatie'},{id:'ra8',l:'Geen scherm na 20:00'}
-  ],
-  dagelijks:[
-    {id:'rd1',l:'Creatine + shake'},{id:'rd2',l:'Lezen 30+ min'},
-    {id:'rd3',l:'Spaans 15 min+'},{id:'rd4',l:'Breathwork'},
-    {id:'rd5',l:'Deer Exercise'},{id:'rd6',l:'Pelvic oefening'}
-  ],
-  wekelijks:[
-    {id:'rw1',l:'Weekplanning zondag avond'},{id:'rw2',l:'Huis schoonmaken'},
-    {id:'rw3',l:'Was doen'}
-  ],
-  maandelijks:[
-    {id:'rma1',l:'Maandreflectie schrijven'},{id:'rma2',l:'Financien bijwerken'}
-  ],
-  jaarlijks:[
-    {id:'rj1',l:'Jaardoelen reviewen'},{id:'rj2',l:'Grote schoonmaak'}
-  ],
-  maandag:[], dinsdag:[], woensdag:[], donderdag:[], vrijdag:[], zaterdag:[], zondag:[]
-};
+const DEF_ROUT = {ochtend:[{id:'ro_ex1',l:'Voorbeeld: bed opmaken'},{id:'ro_ex2',l:'Voorbeeld: water drinken'}],middag:[],avond:[{id:'ra_ex1',l:'Voorbeeld: dag van morgen plannen'}],dagelijks:[],wekelijks:[],maandelijks:[],jaarlijks:[],maandag:[],dinsdag:[],woensdag:[],donderdag:[],vrijdag:[],zaterdag:[],zondag:[]};
 // Default habit questions (end of day)
-const DEF_HABS = [
-  {id:'h1',l:'Zaad ingehouden',type:'check'},
-  {id:'h2',l:'Niet gerookt',type:'check'},
-  {id:'h3',l:'Geen drugs',type:'check'},
-  {id:'h4',l:'Geen snooze',type:'check'},
-  {id:'h5',l:'Alles direct opgeruimd',type:'check'},
-  {id:'h6',l:'Routine gevolgd',type:'check'},
-  {id:'h7',l:'Alles in Pimmies OS gezet',type:'check'},
-  {id:'h8',l:'Koud afgedouched',type:'check'},
-  {id:'h9',l:'Clean gegeten',type:'check'},
-  {id:'h10',l:'Een ding tegelijk',type:'check'}
-];
+const DEF_HABS = [{id:'h1',l:'Voorbeeld: water drinken',type:'check'},{id:'h2',l:'Voorbeeld: bewegen',type:'check'}];
 // Default reflectie vragen (end of day)
-const DEF_REFL_QS = [
-  {id:'rq1', l:'Vandaag was ik productief',type:'score'},
-  {id:'rq2', l:'Vandaag was ik gefocust',type:'score'},
-  {id:'rq3', l:'Vandaag liep ik rond als een god',type:'score'},
-  {id:'rq4', l:'Vandaag heb ik mijn waarheid gesproken',type:'score'},
-  {id:'rq5', l:'Vandaag was ik pro-actief en assertief',type:'score'},
-  {id:'rq6', l:'Vandaag heb ik niet uitgesteld',type:'score'},
-  {id:'rq7', l:'Vandaag had ik een sense van doe het nu',type:'score'},
-  {id:'rq8', l:'Vandaag waren mijn gedachtes puur',type:'score'},
-  {id:'rq9', l:'Vandaag was ik vrij van lust',type:'score'},
-  {id:'rq10',l:'Vandaag leefde ik in het nu',type:'score'},
-  {id:'rq11',l:'Vandaag heb ik iedereen behandeld als m\'n beste maat',type:'score'},
-  {id:'rq12',l:'Vandaag heb ik liefhebbend gesproken over mezelf',type:'score'},
-  {id:'rq13',l:'Vandaag was ik energiek',type:'score'},
-  {id:'rq14',l:'Vandaag leefde ik positief en blij',type:'score'},
-  {id:'rq15',l:'Wat was mijn grootste win van vandaag?',type:'text'},
-  {id:'rq16',l:'Waarvoor ben ik dankbaar?',type:'text'},
-  {id:'rq17',l:'Belangrijkste dingen voor morgen',type:'text'},
-  {id:'rq18',l:'Dagscore',type:'score'}
-];
+const DEF_REFL_QS = [{id:'rq1',l:'Vandaag was ik productief',type:'score'},{id:'rq2',l:'Vandaag was ik gefocust',type:'score'},{id:'rq3',l:'Vandaag voelde ik me goed',type:'score'}];
 
 const FC = [
   {id:'chest',l:'Chest+Schouders',c:'#D97757',ex:['Bench Press','Incline Press','Dips','Lateral Raises','Shoulder Press','Cable Fly','Pec Deck']},
@@ -2183,75 +2241,14 @@ const DA = [
   {id:'btc',n:'BTC (Bitcoin)',c:'#D97757'}
 ];
 const DEFP = [
-  // Zakelijk
-  {id:'p_sk',name:'SK compressor service',cat:'Zakelijk',color:'#D97757'},
-  {id:'p_nh',name:'NH-revisie Techniek',cat:'Zakelijk',color:'#D97757'},
-  {id:'p_retm',name:'RETM',cat:'Zakelijk',color:'#D97757'},
-  {id:'p_comp',name:'Compressor huren.nl',cat:'Zakelijk',color:'#C56A4B'},
-  {id:'p_uitz',name:'Uitzendbureau',cat:'Zakelijk',color:'#C56A4B'},
-  {id:'p_pim',name:'Pimmies v2',cat:'Zakelijk',color:'#C56A4B'},
-  // Persoonlijk
-  {id:'p_hov',name:'Hovenieren leren',cat:'Persoonlijk',color:'#E0a183'},
-  {id:'p_game',name:'Game leren',cat:'Persoonlijk',color:'#C56A4B'},
-  {id:'p_claude',name:'Claude leren',cat:'Persoonlijk',color:'#C56A4B'},
-  {id:'p_crypto',name:'Crypto en financien',cat:'Persoonlijk',color:'#F7931A'},
-  {id:'p_dash',name:'Dashboard bouwen',cat:'Persoonlijk',color:'#E0a183'},
-  {id:'p_huis',name:'Huishouden',cat:'Persoonlijk',color:'#E0a183'},
-  {id:'p_anders',name:'Anders',cat:'Persoonlijk',color:'#888780'}
+  {id:'p_ex',name:'Mijn eerste project',cat:'Persoonlijk',color:'#D97757'}
 ];
 
 // Default tasks per project
 const DEFT = [
-  // SK compressor service
-  {id:'t_sk1',title:'Menu bouwen',proj:'p_sk',done:false},
-  {id:'t_sk2',title:'Footer aanpassen',proj:'p_sk',done:false},
-  {id:'t_sk3',title:'Landingspaginas diensten bouwen',proj:'p_sk',done:false},
-  {id:'t_sk4',title:"Landingspagina's cases / blog bouwen",proj:'p_sk',done:false},
-  {id:'t_sk5',title:'Blog/cases pagina opnieuw',proj:'p_sk',done:false},
-  {id:'t_sk6',title:'Footers bouwen',proj:'p_sk',done:false},
-  // NH-revisie Techniek
-  {id:'t_nh1',title:'Website parts',proj:'p_nh',done:false},
-  {id:'t_nh2',title:'Afspraak inplannen Niek',proj:'p_nh',done:false},
-  {id:'t_nh3',title:'Aanpassingen doorvoeren',proj:'p_nh',done:false},
-  // RETM
-  {id:'t_retm1',title:'Terug mailen',proj:'p_retm',done:false},
-  {id:'t_retm2',title:'Definitieve bestanden opmaken',proj:'p_retm',done:false},
-  {id:'t_retm3',title:'Definitieve huisstijl boekje opmaken',proj:'p_retm',done:false},
-  {id:'t_retm4',title:'Factuur maken',proj:'p_retm',done:false},
-  // Compressor huren.nl
-  {id:'t_comp1',title:"H1's aanpassen",proj:'p_comp',done:false},
-  // Hovenieren leren
-  {id:'t_hov1',title:'Kennis plan opzetten',proj:'p_hov',done:false},
-  // Game leren
-  {id:'t_game1',title:'Female psychologie',proj:'p_game',done:false},
-  {id:'t_game2',title:'Eerste date vragen',proj:'p_game',done:false},
-  {id:'t_game3',title:'How to text',proj:'p_game',done:false},
-  {id:'t_game4',title:'Wat is frame',proj:'p_game',done:false},
-  {id:'t_game5',title:'Wat is mijn frame',proj:'p_game',done:false},
-  {id:'t_game6',title:'Hoe te flirten',proj:'p_game',done:false},
-  {id:'t_game7',title:'Vrouwen op feestjes',proj:'p_game',done:false},
-  {id:'t_game8',title:'How to cold reads',proj:'p_game',done:false},
-  {id:'t_game9',title:'How to tease methodes',proj:'p_game',done:false},
-  {id:'t_game10',title:'How to seks',proj:'p_game',done:false},
-  {id:'t_game11',title:'How to seks 2 dry orgasm',proj:'p_game',done:false},
-  {id:'t_game12',title:'Document/boekje maken',proj:'p_game',done:false},
-  // Claude leren
-  {id:'t_claude1',title:'Kennis plan opzetten',proj:'p_claude',done:false},
-  // Crypto en financien
-  {id:'t_crypto1',title:'Overzicht maken inkomsten',proj:'p_crypto',done:false},
-  {id:'t_crypto2',title:'Overzicht maken vaste lasten',proj:'p_crypto',done:false},
-  {id:'t_crypto3',title:'Overzicht maken crypto',proj:'p_crypto',done:false},
-  {id:'t_crypto4',title:'Overzicht maken crypto inkomsten',proj:'p_crypto',done:false},
-  {id:'t_crypto5',title:'Overzicht maken alle uitgaven',proj:'p_crypto',done:false},
-  // Dashboard bouwen
-  {id:'t_dash1',title:'Habits toevoegen',proj:'p_dash',done:false},
-  {id:'t_dash2',title:'Routines toevoegen',proj:'p_dash',done:false},
-  {id:'t_dash3',title:'Checklist einde dag maken',proj:'p_dash',done:false},
-  // Huishouden
-  {id:'t_huis1',title:'Kasten opruimen',proj:'p_huis',done:false},
-  // Anders
-  {id:'t_and1',title:'Auto schoon',proj:'p_anders',done:false},
-  {id:'t_and2',title:'Auto hoes',proj:'p_anders',done:false}
+  {id:'t_ex1',title:'Voorbeeld: mijn eerste taak — tik om af te vinken',proj:'',done:false},
+  {id:'t_ex2',title:'Voorbeeld: tik op het potlood om te bewerken',proj:'',done:false},
+  {id:'t_ex3',title:'Voorbeeld: veeg of gebruik de knop om te verwijderen',proj:'',done:false}
 ];
 const DEVE = [
   // ── MAANDAG (dag 1) ── vrije dag / projecten ──
@@ -2472,10 +2469,12 @@ function save() {
   if (_undoStack.length > 20) _undoStack.shift();
   _undoPtr = _undoStack.length - 1;
   // Persist
-  if (_lsOk) { try { localStorage.setItem(SK, d); return; } catch(e) {} }
+  if (_lsOk) { try { localStorage.setItem(SK, d); updateUndoBtns(); cloudSyncSoon(); return; } catch(e) {} }
   _mem[SK] = d;
   // Update undo button state
   updateUndoBtns();
+  // Push naar cloud (gebundeld)
+  cloudSyncSoon();
 }
 function undo() {
   if (_undoPtr <= 0) return;
@@ -2581,7 +2580,7 @@ function normalizeData(){
 // ─── NAVIGATION ──────────────────────────────────────────────────────────────
 const RENDERS = {
   dash:rDash, vandaag:rVandaag, plan:rPlan, review:rReview, visie:rVisie, eig:rEig, rules:rRules, goals:rGoals,
-  proj:rProj, taken:rTaken, hab:rHab, rout:rRout, refl:rRefl, fit:rFit, supp:rSupp, fin:rFin, werk:rWerk,
+  proj:rProj, taken:rTaken, hab:rHab, rout:rRout, refl:rRefl, fit:rFit, supp:rSupp, fin:rFin, werk:rWerk, oef:rOef,
   shop:rShop, lees:rLees, ops:rOps, gerecht:rGerecht, ctc:rCtc, qt:rQt, notes:rNotes, settings:rSettings
 };
 document.querySelectorAll('.ni').forEach(n => n.addEventListener('click', () => {
@@ -3109,12 +3108,12 @@ function pickFocusEl(row){
 }
 
 function editHeroNaam(){
-  var cur=(S.settings&&S.settings.naam)||'Pim';
+  var cur=(S.settings&&S.settings.naam)||'';
   var v=prompt('Je naam:', cur);
   if(v===null) return;
   v=stripEmoji(v).trim();
   if(!S.settings) S.settings={};
-  S.settings.naam=v||'Pim';
+  S.settings.naam=v||'';
   save(); rDash();
 }
 function buildHero(){
@@ -3123,9 +3122,9 @@ function buildHero(){
   // Persoonlijke begroeting op basis van dagdeel
   var hr=parseInt(new Intl.DateTimeFormat('nl-NL',{timeZone:'Europe/Amsterdam',hour:'2-digit',hour12:false}).format(d),10);
   var groet = hr<6?'Goedenacht':hr<12?'Goedemorgen':hr<18?'Goedemiddag':'Goedenavond';
-  var naam = (S.settings&&S.settings.naam)||'Pim';
+  var naam = (S.settings&&S.settings.naam)||'';
   var greetHTML='<div class="hero-greet" id="hero-greet">'
-    +'<span class="hero-greet-txt">'+groet+', <span class="hero-greet-name" onclick="editHeroNaam()" title="Tik om je naam te wijzigen">'+naam+'</span></span>'
+    +'<span class="hero-greet-txt">'+groet+(naam?', ':'')+'<span class="hero-greet-name" onclick="editHeroNaam()" title="Tik om je naam te wijzigen">'+(naam||'+')+'</span></span>'
     +'</div>';
   var nn=findNowNext();
   var nuTitle = nn.nu ? nn.nu.title : 'Niets gepland';
@@ -3291,6 +3290,20 @@ function vandaagDayToday(){ window._vandaagDay=td(); rVandaag(); }
 function togVHEl(cb){ var id=cb.getAttribute('data-hid'); var t=td(); if(!S.habits[t])S.habits[t]={}; S.habits[t][id]=cb.checked; save(); rVandaag(); }
 function togVandaagTaakEl(cb){ var id=cb.getAttribute('data-tid'); var task=(S.tasks||[]).find(function(x){return x.id===id;}); if(task){ task.done=cb.checked; save(); rVandaag(); } }
 
+function buildStartHint(){
+  // Toon alleen als gebruiker nog (bijna) niks heeft gedaan
+  var taskCount=(S.tasks||[]).filter(function(t){return t.title && t.title.indexOf('Voorbeeld:')<0;}).length;
+  var done=(S.settings&&S.settings.startHintDismissed);
+  if(done || taskCount>0) return '';
+  return '<div class="start-hint"><div class="start-hint-x" onclick="dismissStartHint()">'+icon('plus',16)+'</div>'
+    +'<div class="start-hint-t">Begin hier</div>'
+    +'<div class="start-hint-s">Welkom! Zet je eerste echte taak klaar of stel je ochtendroutine in. De voorbeelden mag je aanpassen of weggooien.</div>'
+    +'<div class="start-hint-btns">'
+    +'<button class="btn pri" onclick="openAddTaskModal()">+ Eerste taak</button>'
+    +'<button class="btn" onclick="navToSection(\'rout\')">Routine instellen</button>'
+    +'</div></div>';
+}
+function dismissStartHint(){ if(!S.settings)S.settings={}; S.settings.startHintDismissed=true; save(); rDash(); }
 function rDash() {
   var t=td();
   var h=S.habits[t]||{};
@@ -3458,7 +3471,7 @@ function rDash() {
 
   M.innerHTML=''
     // ── 1. HERO (nu bezig) ──
-    +buildHero()
+    +buildHero()+buildStartHint()
     // ── 2. OPKOMENDE ACTIVITEIT ──
     +'<div class="dash-card">'
     +'<div class="dash-card-hd">'
@@ -4929,11 +4942,11 @@ Wees direct en motiverend. Max 200 woorden.`;
 // ─── STATISCHE SECTIES ───────────────────────────────────────────────────────
 function rVisie() {
   var v=S.visie||{};
-  var visie=v.visie||"Ik ben op een missie om mensen \u2014 vooral ondernemers \u2014 te helpen hun volle potentieel te ontketenen. Met mijn kennis, vaardigheden en creatieve energie bouw ik aan projecten die de wereld een beetje mooier, beter en gezonder maken. Ik reis de wereld over en voel me overal thuis.";
-  var frame=v.frame||"Ik beweeg door de wereld met het vuur van het leven in mijn ogen. Rustig, zelfverzekerd, aanwezig. Ik weet wie ik ben en wat ik te doen heb. Onstuitbaar. Inspirerend. Grenzeloos.";
+  var visie=v.visie||"";
+  var frame=v.frame||"";
   var values=v.values||"";
   var oldstory=v.oldstory||"";
-  var mantra=v.mantra||"Ik ben duizend doden gestorven en als het moet sterf ik er duizend meer. Ik weet precies wie ik ben en wat ik moet doen. Onstuitbaar. Inspirerend. Grenzeloos.";
+  var mantra=v.mantra||"";
   var wins=v.wins||"";
 
   // ── Visuele transformatie-boog (van oud naar nieuw zelfbeeld) ──
@@ -4997,13 +5010,7 @@ function saveVisie(field) {
   save();closeModal();rVisie();
 }
 function rRules() {
-  if(!S.rules)S.rules={
-    'Prive':['Pro-actief','Assertief','Geen excuses','Eigenverantwoordelijkheid'],
-    'Voeding':['Geen suiker','Geen processed foods','Clean eten'],
-    'Zakelijk':['Deadlines nakomen','Facturen versturen','Uren bijhouden'],
-    'Spiritualiteit':['Dagelijks mediteren','Affirmaties lezen'],
-    'Gezondheid':['Dagelijks bewegen','Koude douche','Vroeg opstaan']
-  };
+  if(!S.rules)S.rules={'Gezondheid':[],'Werk':[],'Persoonlijk':[]};
   // Icoon per categorie (op trefwoord)
   function catIcon(cat){
     var c=cat.toLowerCase();
@@ -6266,7 +6273,6 @@ function renderRoutTab(tab) {
     + (items.length ? '<div style="display:flex;gap:6px;margin-bottom:12px">'
         + '<button class="btn sm" data-rtab="' + tab + '" onclick="routCheckAll(this)" style="flex:1">' + (allDone ? 'Alles uitvinken' : 'Alles afvinken') + '</button>'
         + '</div>' : '')
-    + (items.length>1 ? '<div class="rout-drag-hint">'+icon('drag',12,'var(--text3)')+'Sleep met het handvat om de volgorde te wijzigen</div>' : '')
     + '<div class="rout-list" data-tab="' + tab + '">' + itemsH + '</div>'
     + '<div class="rout-add">'
     + '<input type="text" id="rout-new-' + tab + '" data-tab="' + tab + '" placeholder="Item toevoegen..." onkeydown="if(event.key===\"Enter\")addRoutItemEl(this)">'
@@ -6675,6 +6681,65 @@ function rHArc(){
 //  ROUTINE (afvinken door de dag)
 // ══════════════════════════════════════════════════════════════════════
 var _routTab='ochtend';
+// ── Routine bulk-import (plak een lijst) ──
+var ROUT_HEADER_MAP = {
+  'ochtend':'ochtend','middag':'middag','avond':'avond',
+  'dagelijks':'dagelijks','wekelijks':'wekelijks','maandelijks':'maandelijks','jaarlijks':'jaarlijks',
+  'ma':'maandag','maandag':'maandag','di':'dinsdag','dinsdag':'dinsdag','wo':'woensdag','woensdag':'woensdag',
+  'do':'donderdag','donderdag':'donderdag','vr':'vrijdag','vrijdag':'vrijdag',
+  'za':'zaterdag','zaterdag':'zaterdag','zo':'zondag','zondag':'zondag'
+};
+function openRoutBulk(){
+  closeModal();
+  var body='<div style="font-size:15px;font-weight:700;margin-bottom:6px">Routine-lijst plakken</div>'
+    +'<div style="font-size:12px;color:var(--text3);margin-bottom:10px;line-height:1.5">Plak je lijst met kopjes (Ochtend, Avond, Ma, Di\u2026) en items eronder met een streepje. De app sorteert alles zelf.</div>'
+    +'<textarea id="rb-text" rows="10" placeholder="Ochtend:\n- Bed opmaken\n- Water drinken\n\nMa:\n- Rug + Biceps" style="width:100%;font-size:13px;font-family:monospace;line-height:1.5"></textarea>'
+    +'<div style="display:flex;align-items:center;gap:8px;margin:12px 0">'
+    +'<label style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="rb-mode" value="add" checked> Toevoegen aan bestaande</label>'
+    +'</div>'
+    +'<div style="display:flex;align-items:center;gap:8px;margin:0 0 14px"><label style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="rb-mode" value="replace"> Vervangen (wist bestaande per dagdeel)</label></div>'
+    +'<button class="btn pri" style="width:100%" onclick="runRoutBulk()">Importeren</button>';
+  var modal=document.createElement('div'); modal.className='modal-bg';
+  modal.innerHTML='<div class="modal-box"><button class="modal-x" onclick="closeModal()" aria-label="Sluiten">'+icon('plus',18)+'</button>'+body+'</div>';
+  document.body.appendChild(modal);
+  modal.addEventListener('click',function(e){ if(e.target===modal) closeModal(); });
+}
+function runRoutBulk(){
+  var ta=el('rb-text'); if(!ta||!ta.value.trim()){ toast('Plak eerst je lijst'); return; }
+  var modeEl=document.querySelector('input[name=rb-mode]:checked');
+  var mode=modeEl?modeEl.value:'add';
+  var lines=ta.value.split('\n');
+  var parsed={}; var curKey=null;
+  lines.forEach(function(line){
+    var raw=line.trim();
+    if(!raw) return;
+    // kopje? (eindigt op : of is een bekend kopje)
+    var headerMatch=raw.replace(/:$/,'').trim().toLowerCase();
+    if(ROUT_HEADER_MAP[headerMatch] && (raw.indexOf(':')>=0 || !raw.match(/^[-*\u2022]/))){
+      curKey=ROUT_HEADER_MAP[headerMatch];
+      if(!parsed[curKey]) parsed[curKey]=[];
+      return;
+    }
+    // item? (begint met -, *, of bullet)
+    var item=raw.replace(/^[-*\u2022]\s*/,'').trim();
+    if(item && curKey){ parsed[curKey].push(item); }
+  });
+  var keys=Object.keys(parsed).filter(function(k){return parsed[k].length;});
+  if(!keys.length){ toast('Geen items herkend \u2014 check de opmaak'); return; }
+  if(!S.routineItems) S.routineItems={};
+  var added=0;
+  keys.forEach(function(k){
+    if(mode==='replace'){ S.routineItems[k]=[]; }
+    if(!S.routineItems[k]) S.routineItems[k]=[];
+    parsed[k].forEach(function(label,i){
+      S.routineItems[k].push({id:'r'+Date.now()+'_'+k+'_'+i, l:label});
+      added++;
+    });
+  });
+  save(); closeModal(); rRout();
+  toast(added+' item'+(added!==1?'s':'')+' toegevoegd');
+}
+
 function rRout() {
   if(!S.routineItems){S.routineItems={};}
   // Ensure all DEF_ROUT keys exist (incl. weekdays)
@@ -6696,7 +6761,7 @@ function rRout() {
     return pctRing(pct, tabLabels[tab], 'setRoutTab(\''+tab+'\')', tab===_routTab);
   }).join('');
   var rIsToday=(_routDate()===td());
-  M.innerHTML='<div class="ph"><div class="pt">Routine</div></div>'
+  M.innerHTML='<div class="ph"><div class="pt">Routine</div><button class="btn pri" onclick="openRoutBulk()">+ Lijst plakken</button></div>'
     +'<div class="day-nav">'
     +'<button class="day-nav-btn" onclick="routDayNav(-1)">'+icon('arrow',16)+'</button>'
     +'<button class="day-nav-lbl'+(rIsToday?'':' off')+'" onclick="routDayToday()">'+routDayLabel()+'</button>'
@@ -7036,6 +7101,7 @@ function rFit() {
 function setFC(btn,id) { qsa('.tbar .tb',M).forEach(b=>b.classList.remove('on'));btn.classList.add('on');cFit=id;fSets=1;rFitC(id); }
 function rFitC(id) {
   const cat=FC.find(c=>c.id===id); const e=el('fitbd'); if(!e||!cat)return;
+  const allEx=cat.ex.concat((S.fitCustomEx&&S.fitCustomEx[id])||[]);
   const logs=(S.fitLog||[]).filter(l=>l.cat===id).sort((a,b)=>b.date.localeCompare(a.date));
   const prs={}; logs.forEach(l=>(l.sets||[]).forEach(s=>{if(!prs[l.exercise]||s.w>prs[l.exercise])prs[l.exercise]=s.w;}));
   e.innerHTML=`
@@ -7043,7 +7109,7 @@ function rFitC(id) {
     <div style="font-size:12px;font-weight:700;color:${cat.c};margin-bottom:10px">${cat.l} — Training loggen</div>
     <div class="row" style="margin-bottom:7px">
       <input type="date" id="fd" value="${window._fitDate||td()}" style="width:130px;flex:none" onchange="window._fitDate=this.value;rFitC('${id}')">
-      <select id="fex" style="flex:1" onchange="window._fitEx='${id}'+'|'+this.value;if(this.value==='__c'){const v=prompt('Oefening naam:');if(v){const o=document.createElement('option');o.value=v;o.text=v;o.selected=true;this.insertBefore(o,this.lastElementChild);}else{this.value='${cat.ex[0]}';}}window._fitEx='${id}'+'|'+this.value;rFitC('${id}')">${cat.ex.concat((window._fitExtra&&window._fitExtra[id])||[]).map(ex=>`<option${(window._fitEx===id+'|'+ex)?' selected':''}>${ex}</option>`).join('')}<option value="__c">+ Eigen oefening</option></select>
+      <select id="fex" style="flex:1" onchange="if(this.value==='__c'){addCustomExercise('${id}');return;}window._fitEx='${id}'+'|'+this.value;rFitC('${id}')">${allEx.map(ex=>`<option${(window._fitEx===id+'|'+ex)?' selected':''}>${ex}</option>`).join('')}<option value="__c">+ Eigen oefening</option></select>
     </div>
     <div id="sets-c">${buildFitSetRows(id)}</div>
     <div style="display:flex;gap:5px;margin-top:7px"><button class="btn" onclick="addFitSetRow('${id}')" style="flex:1">+ Set toevoegen</button></div>
@@ -7124,6 +7190,21 @@ function togFitDay(catId, d){
   rFitC(catId);
 }
 
+function addCustomExercise(catId){
+  var v=prompt('Naam van de nieuwe oefening:');
+  if(!v||!v.trim()){ rFitC(catId); return; }
+  v=v.trim();
+  if(!S.fitCustomEx) S.fitCustomEx={};
+  if(!S.fitCustomEx[catId]) S.fitCustomEx[catId]=[];
+  // bestaande oefeningen (ingebouwd + custom) checken op duplicaat
+  var cat=FC.find(function(c){return c.id===catId;});
+  var all=(cat?cat.ex:[]).concat(S.fitCustomEx[catId]);
+  if(all.indexOf(v)<0){ S.fitCustomEx[catId].push(v); }
+  window._fitEx=catId+'|'+v;
+  save();
+  rFitC(catId);
+  toast('Oefening toegevoegd');
+}
 function _fitCurrentDate(){ var d=el('fd'); return d&&d.value?d.value:(window._fitDate||td()); }
 function _fitCurrentEx(){ var s=el('fex'); if(s&&s.value&&s.value!=='__c') return s.value; if(window._fitEx&&window._fitEx.indexOf('|')>=0) return window._fitEx.split('|')[1]; return ''; }
 // Vind of maak de huidige trainingsregel (datum + categorie + oefening)
@@ -7193,6 +7274,98 @@ function addFitSetRow(catId){
   commitNewFitSet(catId);
 }
 
+
+var DEF_OEF = [];
+function _oefList(){
+  if(!S.oefeningen){ S.oefeningen = DEF_OEF.map(function(o){return Object.assign({},o,{hoe:o.hoe.slice()});}); save(); }
+  return S.oefeningen;
+}
+function rOef(){
+  var list=_oefList();
+  if(!window._oefCat) window._oefCat='Alle';
+  if(window._oefSearch===undefined) window._oefSearch='';
+  if(!window._oefOpen) window._oefOpen={};
+  var cats=['Alle'].concat(list.map(function(o){return o.cat;}).filter(function(c,i,a){return a.indexOf(c)===i;}));
+  var q=(window._oefSearch||'').toLowerCase();
+  var filtered=list.filter(function(o){
+    var mc=window._oefCat==='Alle'||o.cat===window._oefCat;
+    var ms=!q||o.name.toLowerCase().indexOf(q)>=0||(o.wat||'').toLowerCase().indexOf(q)>=0||(o.waarom||'').toLowerCase().indexOf(q)>=0||o.cat.toLowerCase().indexOf(q)>=0;
+    return mc&&ms;
+  });
+  var chips=cats.map(function(c){
+    var n=c==='Alle'?list.length:list.filter(function(o){return o.cat===c;}).length;
+    return '<button class="oef-cat'+(window._oefCat===c?' on':'')+'" onclick="setOefCat(\''+c.replace(/'/g,"\\'")+'\')">'+c+' <span class="oef-cat-n">'+n+'</span></button>';
+  }).join('');
+  var cards=filtered.map(function(o){
+    var open=!!window._oefOpen[o.id];
+    return '<div class="oef-card'+(open?' open':'')+'">'
+      +'<div class="oef-hd" onclick="togOef(\''+o.id+'\')">'
+      +'<div class="oef-meta"><div class="oef-name">'+o.name+'</div>'
+      +'<div class="oef-tags"><span class="oef-badge">'+o.cat+'</span>'
+      +(o.time?'<span class="oef-tag">'+icon('clock',10,'var(--text3)')+' '+o.time+'</span>':'')
+      +(o.freq?'<span class="oef-tag freq">'+o.freq+'</span>':'')
+      +'</div></div>'
+      +'<span class="exp-chev'+(open?' open':'')+'">'+icon('arrow',16)+'</span>'
+      +'</div>'
+      +'<div class="oef-body"'+(open?'':' style="display:none"')+'>'
+      +(o.wat?'<div class="oef-sec"><div class="oef-sec-t">Wat is het</div><div class="oef-sec-x">'+o.wat+'</div></div>':'')
+      +(o.waarom?'<div class="oef-sec"><div class="oef-sec-t">Waarom</div><div class="oef-sec-x">'+o.waarom+'</div></div>':'')
+      +((o.hoe&&o.hoe.length)?'<div class="oef-sec"><div class="oef-sec-t">Hoe</div><ol class="oef-steps">'+o.hoe.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ol></div>':'')
+      +'<button class="oef-del" onclick="delOef(\''+o.id+'\')">'+icon('plus',13)+' Verwijderen</button>'
+      +'</div></div>';
+  }).join('');
+  M.innerHTML='<div class="ph"><div class="pt">Oefeningen</div><button class="btn pri" onclick="openAddOef()">+ Oefening</button></div>'
+    +'<input type="text" class="oef-search" placeholder="Zoek oefening..." value="'+(window._oefSearch||'').replace(/"/g,'&quot;')+'" oninput="oefSearch(this.value)">'
+    +'<div class="oef-cats">'+chips+'</div>'
+    +'<div class="oef-count">'+filtered.length+' oefening'+(filtered.length!==1?'en':'')+'</div>'
+    +(filtered.length?'<div>'+cards+'</div>':em('list','Geen oefeningen gevonden'));
+}
+function setOefCat(c){ window._oefCat=c; rOef(); }
+function oefSearch(v){
+  window._oefSearch=v;
+  // alleen de lijst en teller verversen zou ideaal zijn, maar full re-render is simpel & veilig
+  var inp=document.querySelector('.oef-search'); var pos=inp?inp.selectionStart:null;
+  rOef();
+  var inp2=document.querySelector('.oef-search'); if(inp2){ inp2.focus(); if(pos!==null){try{inp2.setSelectionRange(pos,pos);}catch(_){}} }
+}
+function togOef(id){ if(!window._oefOpen)window._oefOpen={}; window._oefOpen[id]=!window._oefOpen[id]; rOef(); }
+function delOef(id){
+  var list=_oefList();
+  var idx=list.findIndex(function(o){return o.id===id;});
+  if(idx<0)return;
+  var removed=list[idx];
+  list.splice(idx,1); save(); rOef();
+  toast('Oefening verwijderd', function(){ list.splice(idx,0,removed); save(); rOef(); });
+}
+function openAddOef(){
+  closeModal();
+  var existing=_oefList().map(function(o){return o.cat;}).filter(function(c,i,a){return a.indexOf(c)===i;});
+  var catOpts=existing.map(function(c){return '<option>'+c+'</option>';}).join('')+'<option value="__new">+ Nieuwe categorie</option>';
+  var body='<div style="font-size:15px;font-weight:700;margin-bottom:12px">Nieuwe oefening</div>'
+    +'<div class="oef-form-row"><label>Naam</label><input type="text" id="oef-name" placeholder="Bijv. Diepe squat"></div>'
+    +'<div class="oef-form-row"><label>Categorie</label><select id="oef-cat" onchange="if(this.value===\'__new\'){var v=prompt(\'Nieuwe categorie:\');if(v){var o=document.createElement(\'option\');o.value=v;o.text=v;o.selected=true;this.insertBefore(o,this.lastElementChild);}else this.selectedIndex=0;}">'+catOpts+'</select></div>'
+    +'<div style="display:flex;gap:8px"><div class="oef-form-row" style="flex:1"><label>Tijd</label><input type="text" id="oef-time" placeholder="3 min"></div>'
+    +'<div class="oef-form-row" style="flex:1"><label>Frequentie</label><input type="text" id="oef-freq" placeholder="Dagelijks"></div></div>'
+    +'<div class="oef-form-row"><label>Wat is het</label><textarea id="oef-wat" rows="2"></textarea></div>'
+    +'<div class="oef-form-row"><label>Waarom</label><textarea id="oef-waarom" rows="2"></textarea></div>'
+    +'<div class="oef-form-row"><label>Hoe (één stap per regel)</label><textarea id="oef-hoe" rows="4" placeholder="Stap 1\nStap 2"></textarea></div>'
+    +'<button class="btn pri" style="width:100%;margin-top:8px" onclick="saveNewOef()">Toevoegen</button>';
+  var modal=document.createElement('div'); modal.className='modal-bg';
+  modal.innerHTML='<div class="modal-box"><button class="modal-x" onclick="closeModal()" aria-label="Sluiten">'+icon('plus',18)+'</button>'+body+'</div>';
+  document.body.appendChild(modal);
+  modal.addEventListener('click',function(e){ if(e.target===modal) closeModal(); });
+}
+function saveNewOef(){
+  var name=el('oef-name'); if(!name||!name.value.trim()){ toast('Vul een naam in'); return; }
+  var cat=el('oef-cat'); var catv=cat?cat.value:'Overig'; if(catv==='__new'||!catv) catv='Overig';
+  var hoeRaw=el('oef-hoe')?el('oef-hoe').value:'';
+  var hoe=hoeRaw.split('\n').map(function(s){return s.replace(/^[-*\u2022]\s*/,'').trim();}).filter(Boolean);
+  var list=_oefList();
+  list.unshift({id:'ox'+Date.now(), cat:catv, name:name.value.trim(),
+    time:el('oef-time')?el('oef-time').value.trim():'', freq:el('oef-freq')?el('oef-freq').value.trim():'',
+    wat:el('oef-wat')?el('oef-wat').value.trim():'', waarom:el('oef-waarom')?el('oef-waarom').value.trim():'', hoe:hoe});
+  save(); closeModal(); rOef(); toast('Oefening toegevoegd');
+}
 
 function werkMinutes(entry){
   var s=entry.start.split(':'), e=entry.end.split(':');
@@ -8182,15 +8355,7 @@ function saveDefi(mo) { if(!S.defi)S.defi={};if(!S.defi[mo])S.defi[mo]={};DA.for
 // ════════════════════════════════════════════════════════════
 // GERECHTEN & KOSTEN TRACKER
 // ════════════════════════════════════════════════════════════
-var DEF_WERKBLOKKEN = [
-  {title:'Ochtendroutine', st:'07:00', et:'08:00'},
-  {title:'Diep werkblok', st:'09:00', et:'11:00'},
-  {title:'Werkblok', st:'11:00', et:'13:00'},
-  {title:'Lunch & pauze', st:'13:00', et:'14:00'},
-  {title:'Werkblok middag', st:'14:00', et:'17:00'},
-  {title:'Sport / training', st:'18:00', et:'19:30'},
-  {title:'Avondroutine', st:'21:00', et:'22:00'}
-];
+var DEF_WERKBLOKKEN = [];
 function getWerkblokken(){
   if(!S.werkblokken || !S.werkblokken.length) S.werkblokken = DEF_WERKBLOKKEN.map(function(b){return Object.assign({},b);});
   return S.werkblokken;
@@ -8861,7 +9026,13 @@ function rSettings() {
   const kb=(size/1024).toFixed(1);
   var capH=(dayCapacityMin()/60);
   M.innerHTML=`<div class="ph"><div class="pt">Data & Import</div></div>
-  <div class="card" style="margin-bottom:10px"><div class="ct">Voorkeuren</div>
+  ${(window.PimFB&&window.PimFB.user)?`<div class="card" style="margin-bottom:10px"><div class="ct">Account &amp; sync</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+      <div style="min-width:0"><div style="font-size:13px;color:var(--text);font-weight:600;overflow:hidden;text-overflow:ellipsis">${window.PimFB.user.email}</div>
+      <div style="font-size:11px;color:var(--acc);margin-top:2px"><span id="sync-indicator" class="sync-ind">Gesynchroniseerd met cloud</span></div></div>
+      <button class="btn" onclick="doLogout()" style="flex-shrink:0">Uitloggen</button>
+    </div></div>`:''}
+  <div class="card" style="margin-bottom:10px"><div class="ct">Hulp</div><button class="btn" style="width:100%" onclick="restartOnboarding()">Rondleiding opnieuw bekijken</button></div><div class="card" style="margin-bottom:10px"><div class="ct">Voorkeuren</div>
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
       <div><div style="font-size:13px;color:var(--text)">Werkdag-capaciteit</div>
       <div style="font-size:11px;color:var(--text3)">Aantal productieve uren per dag — gebruikt voor de belasting-indicator in de planner</div></div>
@@ -8926,7 +9097,347 @@ function importJSON() {
 function clearData() { S={habits:{},morningR:{},eveningR:{},dailyEx:{},habScore:{},reflDay:{},reflWeek:{},reflMonth:{},fitLog:[],subs:[],vasteL:[],finance:[],defi:{},tasks:[],projects:DEFP,events:DEVE,specials:[],eigenschappen:[],lees:[],opgeslagen:[],contacten:[],quotes:[],notes:[],shopping:[]};save();rSettings();alert('Data gewist'); }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
-function init() {
+
+// ════════════════════════════════════════════════════════
+// FIREBASE SYNC LAAG
+// ════════════════════════════════════════════════════════
+var _cloudSyncTimer=null;
+var _cloudSyncing=false;
+var _authResolved=false;
+
+// Debounced push naar cloud (max 1x per 2.5s, bundelt wijzigingen)
+function cloudSyncSoon(){
+  if(!window.PimFB || !window.PimFB.user) return;
+  if(_cloudSyncTimer) clearTimeout(_cloudSyncTimer);
+  _cloudSyncTimer=setTimeout(function(){ cloudSyncNow(); }, 2500);
+}
+function cloudSyncNow(){
+  if(!window.PimFB || !window.PimFB.user || _cloudSyncing) return;
+  _cloudSyncing=true;
+  var dataStr=JSON.stringify(S);
+  window.PimFB.cloudSet(dataStr).then(function(){
+    _cloudSyncing=false;
+    var ind=el('sync-indicator'); if(ind){ ind.textContent='Gesynchroniseerd'; ind.className='sync-ind ok'; setTimeout(function(){ if(ind) ind.className='sync-ind'; },1500); }
+  }).catch(function(e){
+    _cloudSyncing=false;
+    var ind=el('sync-indicator'); if(ind){ ind.textContent='Sync mislukt'; ind.className='sync-ind err'; }
+  });
+}
+
+// Auth-status veranderd (ingelogd / uitgelogd)
+window.onFirebaseAuthChange=function(user){
+  _authResolved=true;
+  if(user){
+    // Ingelogd → haal cloud-data op en voeg samen met lokaal
+    handleLoginData(user);
+  } else {
+    // Uitgelogd → toon inlogscherm
+    showLoginScreen();
+  }
+};
+
+// Bij inloggen: bepaal of we lokale data uploaden of cloud-data downloaden
+function handleLoginData(user){
+  showSyncLoading('Je gegevens laden...');
+  window.PimFB.cloudGet().then(function(cloud){
+    var localStr=null;
+    try{ localStr = _lsOk?localStorage.getItem(SK):(_mem[SK]||null); }catch(e){}
+    var localHasData = localStr && localStr.length>20 && localStr!=='{}';
+
+    if(cloud && cloud.data){
+      // Cloud heeft data
+      if(localHasData){
+        // Zowel cloud als lokaal → vraag de gebruiker (alleen 1e keer relevant)
+        var cloudObj, localObj;
+        try{ cloudObj=JSON.parse(cloud.data); }catch(e){ cloudObj={}; }
+        try{ localObj=JSON.parse(localStr); }catch(e){ localObj={}; }
+        var cloudSize=cloud.data.length, localSize=localStr.length;
+        // Als ze identiek zijn, gewoon cloud gebruiken
+        if(cloud.data===localStr){ applyCloudData(cloud.data); return; }
+        // Anders: laat gebruiker kiezen
+        askMergeChoice(cloud.data, localStr, cloudSize, localSize);
+      } else {
+        // Alleen cloud → gebruik cloud
+        applyCloudData(cloud.data);
+      }
+    } else {
+      // Geen cloud-data → upload lokale data (eerste keer inloggen)
+      if(localHasData){
+        // Upload de lokale string direct naar de cloud
+        window.PimFB.cloudSet(localStr);
+      }
+      hideSyncLoading();
+      hideLoginScreen();
+      bootApp();
+    }
+  }).catch(function(e){
+    hideSyncLoading();
+    // Bij fout: ga door met lokale data (niet blokkeren)
+    hideLoginScreen();
+    bootApp();
+  });
+}
+
+function applyCloudData(dataStr){
+  try{
+    Object.keys(S).forEach(function(k){ delete S[k]; });
+    Object.assign(S, JSON.parse(dataStr));
+    if(_lsOk){ try{ localStorage.setItem(SK, dataStr); }catch(e){} } else { _mem[SK]=dataStr; }
+  }catch(e){}
+  hideSyncLoading();
+  hideLoginScreen();
+  bootApp();
+}
+
+// Keuze-dialoog als zowel cloud als lokaal data hebben
+function askMergeChoice(cloudStr, localStr, cloudSize, localSize){
+  hideSyncLoading();
+  var ov=document.createElement('div'); ov.className='login-ov'; ov.id='merge-ov';
+  ov.innerHTML='<div class="login-box">'
+    +'<div class="login-title">Welke gegevens wil je gebruiken?</div>'
+    +'<div class="login-sub">Er staan gegevens in de cloud én op dit apparaat. Kies welke je wilt houden.</div>'
+    +'<button class="btn pri" style="width:100%;margin-bottom:10px" onclick="chooseMerge(\'cloud\')">Cloud-gegevens gebruiken<br><span style="font-size:11px;opacity:.7">('+Math.round(cloudSize/1024)+' KB uit de cloud)</span></button>'
+    +'<button class="btn" style="width:100%" onclick="chooseMerge(\'local\')">Lokale gegevens gebruiken<br><span style="font-size:11px;opacity:.7">('+Math.round(localSize/1024)+' KB van dit apparaat)</span></button>'
+    +'</div>';
+  document.body.appendChild(ov);
+  window._mergeCloud=cloudStr; window._mergeLocal=localStr;
+}
+function chooseMerge(which){
+  var ov=el('merge-ov'); if(ov) ov.remove();
+  if(which==='cloud'){ applyCloudData(window._mergeCloud); }
+  else { applyCloudData(window._mergeLocal); cloudSyncNow(); }
+}
+
+// ── Inlogscherm ──
+function showLoginScreen(){
+  if(el('login-ov')) return;
+  var ov=document.createElement('div'); ov.className='login-ov'; ov.id='login-ov';
+  ov.innerHTML='<div class="login-box">'
+    +'<div class="login-logo">Pimmies OS</div>'
+    +'<div class="login-title" id="login-mode-title">Inloggen</div>'
+    +'<div class="login-sub" id="login-sub">Log in om je gegevens overal te gebruiken</div>'
+    +'<input type="email" id="login-email" placeholder="E-mailadres" autocomplete="email">'
+    +'<input type="password" id="login-pass" placeholder="Wachtwoord" autocomplete="current-password">'
+    +'<div class="login-err" id="login-err"></div>'
+    +'<button class="btn pri" style="width:100%;margin-top:6px" id="login-btn" onclick="doLogin()">Inloggen</button>'
+    +'<div class="login-switch">Nog geen account? <a onclick="toggleLoginMode()" id="login-switch-link">Registreren</a></div>'
+    +'</div>';
+  document.body.appendChild(ov);
+}
+function hideLoginScreen(){ var ov=el('login-ov'); if(ov) ov.remove(); }
+var _loginMode='login';
+function toggleLoginMode(){
+  _loginMode = _loginMode==='login'?'register':'login';
+  el('login-mode-title').textContent = _loginMode==='login'?'Inloggen':'Account aanmaken';
+  el('login-sub').textContent = _loginMode==='login'?'Log in om je gegevens overal te gebruiken':'Maak een account om je gegevens veilig op te slaan';
+  el('login-btn').textContent = _loginMode==='login'?'Inloggen':'Registreren';
+  el('login-switch-link').textContent = _loginMode==='login'?'Registreren':'Inloggen';
+  document.querySelector('.login-switch').childNodes[0].textContent = _loginMode==='login'?'Nog geen account? ':'Heb je al een account? ';
+  el('login-err').textContent='';
+}
+function doLogin(){
+  var email=el('login-email').value.trim(), pass=el('login-pass').value;
+  var errEl=el('login-err');
+  if(!email||!pass){ errEl.textContent='Vul je e-mail en wachtwoord in'; return; }
+  if(pass.length<6){ errEl.textContent='Wachtwoord moet minstens 6 tekens zijn'; return; }
+  el('login-btn').textContent='Even geduld...'; el('login-btn').disabled=true;
+  var p = _loginMode==='login' ? window.PimFB.login(email,pass) : window.PimFB.register(email,pass);
+  p.catch(function(e){
+    el('login-btn').disabled=false;
+    el('login-btn').textContent = _loginMode==='login'?'Inloggen':'Registreren';
+    var msg='Er ging iets mis';
+    if(e.code==='auth/invalid-email') msg='Ongeldig e-mailadres';
+    else if(e.code==='auth/user-not-found'||e.code==='auth/invalid-credential') msg='Onjuiste login. Klopt je e-mail en wachtwoord?';
+    else if(e.code==='auth/wrong-password') msg='Onjuist wachtwoord';
+    else if(e.code==='auth/email-already-in-use') msg='Dit e-mailadres heeft al een account. Log in.';
+    else if(e.code==='auth/weak-password') msg='Wachtwoord te zwak (min. 6 tekens)';
+    else if(e.code==='auth/network-request-failed') msg='Geen internetverbinding';
+    errEl.textContent=msg;
+  });
+}
+
+// ── Sync-laadscherm ──
+function showSyncLoading(txt){
+  if(el('sync-load')) { el('sync-load-txt').textContent=txt; return; }
+  var ov=document.createElement('div'); ov.className='login-ov'; ov.id='sync-load';
+  ov.innerHTML='<div class="login-box" style="text-align:center"><div class="sync-spinner"></div><div class="login-sub" id="sync-load-txt" style="margin-top:14px">'+(txt||'Laden...')+'</div></div>';
+  document.body.appendChild(ov);
+}
+function hideSyncLoading(){ var ov=el('sync-load'); if(ov) ov.remove(); }
+
+function doLogout(){
+  if(!confirm('Uitloggen? Je gegevens blijven veilig in de cloud staan.')) return;
+  cloudSyncNow();
+  setTimeout(function(){ window.PimFB.logout(); location.reload(); }, 400);
+}
+
+// App opstarten (na auth + data klaar)
+var _appBooted=false;
+function bootApp(){
+  if(_appBooted) return;
+  _appBooted=true;
+  realInit();
+}
+
+function init(){
+  // Wacht op Firebase auth voordat we de app tonen
+  if(window.PimFB && window.PimFB.ready){
+    window.onFirebaseAuthChange(window.PimFB.user);
+  } else {
+    // Firebase nog niet geladen → toon laadscherm, wacht
+    showSyncLoading('Verbinden...');
+    var tries=0;
+    var iv=setInterval(function(){
+      tries++;
+      if(window.PimFB && window.PimFB.ready){
+        clearInterval(iv);
+        window.onFirebaseAuthChange(window.PimFB.user);
+      } else if(tries>40){
+        // Firebase laadt niet (offline?) → start lokaal zonder sync
+        clearInterval(iv);
+        hideSyncLoading();
+        bootApp();
+      }
+    }, 250);
+  }
+}
+
+
+// ════════════════════════════════════════════════════════
+// ONBOARDING (nieuwe gebruikers)
+// ════════════════════════════════════════════════════════
+var _onbStep=0;
+function maybeShowOnboarding(){
+  // Toon alleen als nog niet voltooid
+  if(S.settings && S.settings.onboarded) return;
+  showOnboarding();
+}
+function showOnboarding(){
+  _onbStep=0;
+  if(el('onb-ov')) return;
+  var ov=document.createElement('div'); ov.className='onb-ov'; ov.id='onb-ov';
+  document.body.appendChild(ov);
+  renderOnbStep();
+}
+function renderOnbStep(){
+  var ov=el('onb-ov'); if(!ov) return;
+  var naam=(S.settings&&S.settings.naam)||'';
+  var steps=[
+    // Stap 1: naam
+    {
+      title:'Welkom bij Pimmies OS',
+      body:'<div class="onb-sub">Je persoonlijke dashboard om je dag, doelen en gewoontes op \u00e9\u00e9n plek te beheren.</div>'
+        +'<div class="onb-field"><label>Hoe mag de app je noemen?</label>'
+        +'<input type="text" id="onb-naam" placeholder="Je naam of bijnaam" value="'+naam.replace(/"/g,'&quot;')+'"></div>',
+      btn:'Verder',
+      onNext:function(){ var n=el('onb-naam'); if(n&&n.value.trim()){ if(!S.settings)S.settings={}; S.settings.naam=stripEmoji(n.value.trim()); save(); } }
+    },
+    // Stap 2: wat is het
+    {
+      title:'Alles op \u00e9\u00e9n plek',
+      body:'<div class="onb-sub">Pimmies OS bundelt je hele leven-beheer:</div>'
+        +'<div class="onb-list">'
+        +'<div class="onb-li">'+icon('check',16,'var(--acc)')+'<span><b>Dashboard</b> \u2014 je dag in \u00e9\u00e9n oogopslag</span></div>'
+        +'<div class="onb-li">'+icon('list',16,'var(--acc)')+'<span><b>Taken & planner</b> \u2014 wat moet er gebeuren</span></div>'
+        +'<div class="onb-li">'+icon('repeat',16,'var(--acc)')+'<span><b>Routines & gewoontes</b> \u2014 je dagelijkse ritme</span></div>'
+        +'<div class="onb-li">'+icon('target',16,'var(--acc)')+'<span><b>Doelen & visie</b> \u2014 waar je naartoe werkt</span></div>'
+        +'</div>',
+      btn:'Verder'
+    },
+    // Stap 3: navigatie
+    {
+      title:'Zo vind je je weg',
+      body:'<div class="onb-sub">Een paar dingen om te onthouden:</div>'
+        +'<div class="onb-list">'
+        +'<div class="onb-li">'+icon('list',16,'var(--acc)')+'<span>Tik op het <b>menu</b> (linksboven) voor alle pagina\'s</span></div>'
+        +'<div class="onb-li">'+icon('plus',16,'var(--acc)')+'<span>De <b>+ knop</b> rechtsonder voegt snel een taak toe</span></div>'
+        +'<div class="onb-li">'+icon('check',16,'var(--acc)')+'<span>Alles wordt <b>automatisch opgeslagen</b> en gesynct</span></div>'
+        +'<div class="onb-li">'+icon('edit',16,'var(--acc)')+'<span>De <b>voorbeelden</b> mag je gerust aanpassen of verwijderen</span></div>'
+        +'</div>',
+      btn:'Aan de slag!',
+      onNext:function(){ if(!S.settings)S.settings={}; S.settings.onboarded=true; save(); }
+    }
+  ];
+  var s=steps[_onbStep];
+  var dots='';
+  for(var i=0;i<steps.length;i++){ dots+='<span class="onb-dot'+(i===_onbStep?' on':'')+'"></span>'; }
+  ov.innerHTML='<div class="onb-box">'
+    +(_onbStep===0?'<div class="onb-logo">Pimmies OS</div>':'')
+    +'<div class="onb-title">'+s.title+'</div>'
+    +s.body
+    +'<div class="onb-dots">'+dots+'</div>'
+    +'<button class="btn pri" style="width:100%" onclick="onbNext()">'+s.btn+'</button>'
+    +(_onbStep<steps.length-1?'<div class="onb-skip" onclick="onbSkip()">Overslaan</div>':'')
+    +'</div>';
+  window._onbSteps=steps;
+}
+function onbNext(){
+  var steps=window._onbSteps;
+  var s=steps[_onbStep];
+  if(s.onNext) s.onNext();
+  if(_onbStep<steps.length-1){ _onbStep++; renderOnbStep(); }
+  else { closeOnboarding(); }
+}
+function onbSkip(){
+  if(!S.settings)S.settings={}; S.settings.onboarded=true; save();
+  closeOnboarding();
+}
+function closeOnboarding(){
+  var ov=el('onb-ov'); if(ov) ov.remove();
+  rDash();
+}
+function restartOnboarding(){
+  showOnboarding();
+}
+
+
+// ── Inklapbare menu-groepen ──
+var MENU_GROUP_DEFAULT_CLOSED = ['over mij','archief'];
+function initMenuGroups(){
+  var sb=document.querySelector('.sb'); if(!sb) return;
+  var labels=sb.querySelectorAll('.gl');
+  // Lees opgeslagen standen
+  var saved={};
+  try{ saved=JSON.parse((_lsOk?localStorage.getItem('pimmies_menugroups'):null)||'{}'); }catch(e){ saved={}; }
+  labels.forEach(function(lbl){
+    if(lbl.getAttribute('data-grouped')) return;
+    var name=lbl.textContent.trim();
+    var key=name.toLowerCase();
+    // Verzamel alle .ni tot het volgende .gl
+    var items=[];
+    var n=lbl.nextElementSibling;
+    while(n && !n.classList.contains('gl')){
+      var next=n.nextElementSibling;
+      if(n.classList.contains('ni')) items.push(n);
+      n=next;
+    }
+    // Wrap items in een container
+    var wrap=document.createElement('div');
+    wrap.className='gl-items';
+    if(items.length){ items[0].parentNode.insertBefore(wrap, items[0]); }
+    items.forEach(function(it){ wrap.appendChild(it); });
+    // Bepaal begin-stand
+    var closed;
+    if(saved.hasOwnProperty(key)) closed=saved[key];
+    else closed=MENU_GROUP_DEFAULT_CLOSED.indexOf(key)>=0;
+    if(closed){ lbl.classList.add('gl-closed'); wrap.style.display='none'; }
+    // Maak label klikbaar
+    lbl.setAttribute('data-grouped','1');
+    lbl.style.cursor='pointer';
+    lbl.innerHTML='<span>'+name+'</span><span class="gl-chev">'+icon('arrow',12)+'</span>';
+    lbl.addEventListener('click', function(){
+      var isClosed=lbl.classList.toggle('gl-closed');
+      wrap.style.display=isClosed?'none':'';
+      try{
+        var st=JSON.parse((_lsOk?localStorage.getItem('pimmies_menugroups'):null)||'{}');
+        st[key]=isClosed;
+        if(_lsOk) localStorage.setItem('pimmies_menugroups', JSON.stringify(st));
+      }catch(e){}
+    });
+  });
+}
+
+function realInit() {
   setDates();
   load();
   // Load default projects
@@ -9066,6 +9577,10 @@ function init() {
   } else { rDash(); }
   // Auto-update datum elke minuut
   setInterval(setDates, 60000);
+  // Inklapbare menu-groepen
+  initMenuGroups();
+  // Onboarding voor nieuwe gebruikers
+  maybeShowOnboarding();
 }
 init();
 </script>
