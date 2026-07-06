@@ -1547,6 +1547,8 @@ body[data-theme="light"] .fin-ov-card {
 .top3-rm:hover{opacity:1;color:var(--acc)}
 .top3-add{display:flex;align-items:center;gap:6px;width:100%;justify-content:center;background:var(--bg2);border:1px dashed var(--acc-line);color:var(--acc);border-radius:10px;padding:9px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-ui)}
 .top3-add:hover{background:var(--acc-softer)}
+.fp-search{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:13px;color:var(--text);font-family:var(--font-ui);outline:none;margin-bottom:10px;box-sizing:border-box}
+.fp-search:focus{border-color:var(--acc)}
 .fp-list{display:flex;flex-direction:column;gap:6px;max-height:50vh;overflow-y:auto}
 .fp-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .12s,background .12s}
 .fp-row:hover{border-color:var(--acc);background:var(--acc-softer)}
@@ -1649,6 +1651,12 @@ body[data-theme="light"] .fin-ov-card {
 .top3-daytabs{display:flex;gap:4px;margin-left:auto;background:var(--bg);border-radius:10px;padding:2px}
 .top3-daytab{background:none;border:none;color:var(--text3);font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:var(--font-ui);transition:all .12s}
 .top3-daytab.on{background:var(--acc);color:#fff}
+.top3-week-add{display:flex;gap:6px;margin-top:8px}
+.top3-week-add input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:12px;color:var(--text);font-family:var(--font-ui);outline:none;min-width:0}
+.top3-week-add input:focus{border-color:var(--acc)}
+.top3-week-add button{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:0 11px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.top3-week-add button:hover{border-color:var(--acc)}
+.top3-rm{line-height:1}
 .top3-hd .top3-count{margin-left:8px}
 
 /* ── Project status selector ── */
@@ -1687,6 +1695,20 @@ body[data-theme="light"] .fin-ov-card {
 .goal-hz-titles{flex:1}
 .goal-hz-label{font-size:14px;font-weight:700;color:var(--text);font-family:var(--font-display)}
 .goal-hz-sub{font-size:11px;color:var(--text3);margin-top:1px}
+/* ── Goals: compacte lijst + uitklapbare details ── */
+.goal-v2-more{background:none;border:none;color:var(--text3);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:4px;border-radius:8px;transition:transform .2s,color .15s;flex-shrink:0}
+.goal-v2-more:hover{color:var(--text)}
+.goal-v2-more.open{transform:rotate(180deg);color:var(--acc)}
+.goal-v2-deep{margin-top:9px;padding-top:9px;border-top:1px solid var(--border)}
+.goal-v2-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;flex-wrap:wrap}
+.goal-v2-foot .goal-link-btn{margin-top:0}
+.goal-v2-del{background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;padding:4px 8px;border-radius:8px;transition:all .12s}
+.goal-v2-del:hover{color:var(--urgent);background:var(--urgent-soft)}
+.goal-card-v2{padding:11px 13px}
+.goal-card-v2 .goal-v2-title{flex:1}
+.goal-hz-card{padding:15px}
+.goal-hz-label{font-size:15px}
+.goal-ladder-cap{margin-bottom:16px}
 .goal-hz-pct{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
 .goal-hz-body{margin-top:12px}
 .goal-empty{font-size:12px;color:var(--text3);font-style:italic;padding:4px 0 10px}
@@ -2018,6 +2040,19 @@ body[data-theme="light"] .fin-ov-card {
 .pl-nav-arrow{flex-shrink:0;min-width:38px;justify-content:center}
 .pl-nav-lbl{flex:1;text-align:center;font-size:13px;color:var(--text2);font-weight:600;white-space:nowrap}
 .pl-today{flex-shrink:0}
+
+/* ── Boot-animatie ── */
+.app-boot{position:fixed;inset:0;background:#0f0f0f;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .5s ease,visibility .5s}
+.app-boot.done{opacity:0;visibility:hidden;pointer-events:none}
+.app-boot-logo{width:88px;height:88px}
+.app-boot-logo path{stroke-dasharray:210;stroke-dashoffset:210;animation:appBootDraw 1.1s cubic-bezier(.22,.61,.36,1) .15s forwards}
+@keyframes appBootDraw{to{stroke-dashoffset:0}}
+.app-boot-name{font-family:Georgia,'Times New Roman',serif;font-size:21px;color:#e8e8e8;letter-spacing:.5px;opacity:0;animation:appBootFade .5s ease .75s forwards}
+.app-boot-bar{width:170px;height:2px;background:#222;border-radius:2px;overflow:hidden;opacity:0;animation:appBootFade .4s ease .85s forwards}
+.app-boot-bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#C56A4B,#E0a183);border-radius:2px;animation:appBootFill 1s cubic-bezier(.22,.61,.36,1) .85s forwards}
+@keyframes appBootFade{to{opacity:1}}
+@keyframes appBootFill{to{width:100%}}
+@media(prefers-reduced-motion:reduce){.app-boot{display:none}}
 </style>
 <script type="module">
   // Firebase laden met foutafhandeling. Faalt het laden (offline, CDN-blokkade)?
@@ -2085,6 +2120,15 @@ body[data-theme="light"] .fin-ov-card {
 
 </head>
 <body>
+<!-- Boot-animatie -->
+<div class="app-boot" id="appBoot" aria-hidden="true">
+  <svg class="app-boot-logo" viewBox="0 0 72 72" fill="none">
+    <path d="M12 46 Q13 47 15 42 L21 30 Q22 27 24 31 L29 44 Q30 47 32 43 L40 26 Q43 19 46 27 L52 42" stroke="#D97757" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <div class="app-boot-name">Pimmies OS</div>
+  <div class="app-boot-bar"><i></i></div>
+</div>
+<noscript><style>.app-boot{display:none}</style></noscript>
 <!-- Mobile overlay -->
 <div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
 
@@ -2266,11 +2310,33 @@ const FC = [
   {id:'nek',l:'Nek+Buik',c:'#C56A4B',ex:['Nek voor','Nek achter','Nek zijkant','Plank','Crunches','Leg Raises','Ab Wheel','Russian Twist']},
   {id:'cardio',l:'Cardio',c:'#E0a183',ex:['Hardlopen','Interval','Fietsen','Roeien','Zwemmen']}
 ];
-const DA = [
-  {id:'flr',n:'FLR (Flare)',c:'#C56A4B'},{id:'xrp',n:'XRP (Ripple)',c:'#A85940'},
-  {id:'xlm',n:'XLM (Stellar)',c:'#E0a183'},{id:'eth',n:'ETH (Ethereum)',c:'#C56A4B'},
-  {id:'btc',n:'BTC (Bitcoin)',c:'#D97757'}
-];
+// ── Assets (crypto, aandelen, fondsen — vrij in te richten) ──
+const ASSET_COLORS = ['#D97757','#C56A4B','#E0a183','#A85940','#b98a6f','#8a6a55'];
+function assetList(){
+  if(!S.assets){
+    // Migratie: assets afleiden uit eerder ingevoerde maanddata, zodat niets verloren gaat
+    var ids = {};
+    Object.values(S.defi||{}).forEach(function(m){ Object.keys(m||{}).forEach(function(k){ ids[k]=1; }); });
+    S.assets = Object.keys(ids).map(function(k,i){
+      return {id:k, n:k.toUpperCase(), c:ASSET_COLORS[i%ASSET_COLORS.length]};
+    });
+    save();
+  }
+  return S.assets;
+}
+function addAsset(){
+  var inp=el('asset-new'); if(!inp) return;
+  var v=inp.value.trim(); if(!v){ inp.focus(); return; }
+  var list=assetList();
+  list.push({id:'a'+Date.now(), n:v, c:ASSET_COLORS[list.length%ASSET_COLORS.length]});
+  save(); renderFinBody('assets');
+  setTimeout(function(){ var ni=el('asset-new'); if(ni) ni.focus(); },0);
+}
+function delAsset(id){
+  if(!confirm('Asset verwijderen? Je ingevoerde historie blijft bewaard, maar wordt niet meer getoond.')) return;
+  S.assets=assetList().filter(function(a){return a.id!==id;});
+  save(); renderFinBody('assets');
+}
 const DEFP = [
   {id:'p_ex',name:'Mijn eerste project',cat:'Persoonlijk',color:'#D97757'}
 ];
@@ -3003,20 +3069,60 @@ function _top3Date(){
 function setTop3Day(which){ window._top3Day=which; rDash(); if(typeof rVandaag==='function' && document.querySelector('[data-s=vandaag].on')) rVandaag(); }
 function buildTop3(){
   var which=window._top3Day||'vandaag';
-  var t=_top3Date();
-  var focus=(S.tasks||[]).filter(function(x){return x.focusDate===t;});
-  var open=focus.filter(function(x){return !x.done;});
-  var done=focus.filter(function(x){return x.done;});
-  var slots=3;
   var html='<div class="top3-card">'
     +'<div class="top3-hd">'+icon('target',14,'var(--acc)')+'<span>Mijn focus</span>'
     +'<div class="top3-daytabs">'
     +'<button class="top3-daytab'+(which==='vandaag'?' on':'')+'" onclick="setTop3Day(\'vandaag\')">Vandaag</button>'
     +'<button class="top3-daytab'+(which==='morgen'?' on':'')+'" onclick="setTop3Day(\'morgen\')">Morgen</button>'
-    +'</div>'
-    +'<span class="top3-count">'+done.length+'/'+focus.length+'</span></div>';
+    +'<button class="top3-daytab'+(which==='week'?' on':'')+'" onclick="setTop3Day(\'week\')">Deze week</button>'
+    +'</div>';
+  if(which==='week'){
+    var wf=ensureWeekFocus();
+    var wk=wf.week;
+    var wTasks=(S.tasks||[]).filter(function(x){return x.focusWeek===wk;});
+    var wDone=wf.items.filter(function(x){return x.done;}).length + wTasks.filter(function(x){return x.done;}).length;
+    var wTotal=wf.items.length + wTasks.length;
+    html+='<span class="top3-count">'+wDone+'/'+wTotal+'</span></div>';
+    if(!wTotal){
+      html+='<div class="top3-empty">Zet hier wat er deze week af moet — kies taken of typ losse punten.</div>';
+    } else {
+      html+='<div class="top3-list">';
+      // Gekozen taken (synchroon met je takenlijst)
+      html+=wTasks.map(function(x){
+        var p=proj(x);
+        return '<div class="top3-item'+(x.done?' done':'')+'">'
+          +'<input type="checkbox"'+(x.done?' checked':'')+' data-tid="'+x.id+'" onchange="togTaakEl(this);_rerenderFocus()">'
+          +'<div class="top3-item-c"><div class="top3-item-t">'+x.title+'</div>'
+          +(p?'<span class="top3-item-p" style="color:'+p.color+'">'+p.name+'</span>':'')+'</div>'
+          +'<button class="top3-rm" data-tid="'+x.id+'" onclick="unsetWeekFocusEl(this)" title="Uit weeklijst halen">'+icon('arrow',11)+'</button>'
+          +'</div>';
+      }).join('');
+      // Losse punten
+      html+=wf.items.map(function(x){
+        return '<div class="top3-item'+(x.done?' done':'')+'">'
+          +'<input type="checkbox"'+(x.done?' checked':'')+' data-wid="'+x.id+'" onchange="togWeekItemEl(this)">'
+          +'<div class="top3-item-c"><div class="top3-item-t">'+x.title+'</div></div>'
+          +'<button class="top3-rm" data-wid="'+x.id+'" onclick="rmWeekItemEl(this)" title="Verwijderen">&times;</button>'
+          +'</div>';
+      }).join('');
+      html+='</div>';
+    }
+    html+='<div class="top3-week-add">'
+      +'<input type="text" id="weekFocusInp" placeholder="Nieuw punt voor deze week\u2026" onkeydown="if(event.key===\'Enter\')addWeekItem()">'
+      +'<button onclick="addWeekItem()" title="Toevoegen">'+icon('plus',13,'var(--acc)')+'</button>'
+      +'</div>';
+    html+='<button class="top3-add" onclick="openFocusPicker(\'week\')">'+icon('list',13,'var(--acc)')+'Taak kiezen</button>';
+    html+='</div>';
+    return html;
+  }
+  var t=_top3Date();
+  var focus=(S.tasks||[]).filter(function(x){return x.focusDate===t;});
+  var open=focus.filter(function(x){return !x.done;});
+  var done=focus.filter(function(x){return x.done;});
+  var slots=3;
+  html+='<span class="top3-count">'+done.length+'/'+focus.length+'</span></div>';
   if(!focus.length){
-    html+='<div class="top3-empty">Kies je 1–3 belangrijkste taken voor '+(which==='morgen'?'morgen':'vandaag')+'.</div>';
+    html+='<div class="top3-empty">Kies je 1\u20133 belangrijkste taken voor '+(which==='morgen'?'morgen':'vandaag')+'.</div>';
   } else {
     html+='<div class="top3-list">'+focus.map(function(x){
       var p=proj(x);
@@ -3029,10 +3135,104 @@ function buildTop3(){
     }).join('')+'</div>';
   }
   if(open.length+done.length<slots){
-    html+='<button class="top3-add" onclick="openFocusPicker()">'+icon('plus',13,'var(--acc)')+'Taak kiezen ('+(slots-focus.length)+' vrij)</button>';
+    html+='<div class="top3-week-add">'
+      +'<input type="text" id="focusQuickInp" placeholder="Nieuwe taak voor '+(which==='morgen'?'morgen':'vandaag')+'\u2026" onkeydown="if(event.key===\'Enter\')addFocusTask()">'
+      +'<button onclick="addFocusTask()" title="Toevoegen">'+icon('plus',13,'var(--acc)')+'</button>'
+      +'</div>';
   }
+  html+='<button class="top3-add" onclick="openFocusPicker()">'+icon('list',13,'var(--acc)')+'Taak kiezen'+(focus.length<slots?' ('+(slots-focus.length)+' vrij)':'')+'</button>';
   html+='</div>';
   return html;
+}
+function _weekKey(){
+  var d=new Date(); d.setHours(0,0,0,0);
+  d.setDate(d.getDate()+3-((d.getDay()+6)%7));
+  var w1=new Date(d.getFullYear(),0,4);
+  var wn=1+Math.round(((d-w1)/864e5-3+((w1.getDay()+6)%7))/7);
+  return d.getFullYear()+'-W'+(wn<10?'0':'')+wn;
+}
+function ensureWeekFocus(){
+  if(!S.weekFocus) S.weekFocus={week:_weekKey(),items:[]};
+  if(!S.weekFocus.items) S.weekFocus.items=[];
+  var wk=_weekKey();
+  if(S.weekFocus.week!==wk){
+    // Nieuwe week: afgeronde punten opruimen, open punten nemen we mee
+    S.weekFocus.items=S.weekFocus.items.filter(function(x){return !x.done;});
+    // Zelfde voor gekozen taken: klaar = eruit, open = mee naar nieuwe week
+    (S.tasks||[]).forEach(function(t){
+      if(t.focusWeek && t.focusWeek!==wk){
+        if(t.done){ delete t.focusWeek; } else { t.focusWeek=wk; }
+      }
+    });
+    S.weekFocus.week=wk;
+    save();
+  }
+  return S.weekFocus;
+}
+function _rerenderFocus(){
+  rDash();
+  if(typeof rVandaag==='function' && document.querySelector('[data-s=vandaag].on')) rVandaag();
+}
+function addWeekItem(){
+  var inp=document.getElementById('weekFocusInp');
+  if(!inp) return;
+  var v=inp.value.trim();
+  if(!v){ inp.focus(); return; }
+  var wf=ensureWeekFocus();
+  wf.items.push({id:'w'+Date.now()+Math.floor(Math.random()*1000),title:v,done:false});
+  save();
+  _rerenderFocus();
+  setTimeout(function(){
+    var ni=document.getElementById('weekFocusInp');
+    if(ni) ni.focus();
+  },0);
+}
+function addFocusTask(){
+  var inp=document.getElementById('focusQuickInp');
+  if(!inp) return;
+  var v=(typeof stripEmoji==='function'?stripEmoji(inp.value):inp.value).trim();
+  if(!v){ inp.focus(); return; }
+  var t=_top3Date();
+  var n=(S.tasks||[]).filter(function(x){return x.focusDate===t;}).length;
+  if(n>=3){ toast('Max 3 focus-taken \u2014 haal er eerst een weg'); return; }
+  if(!S.tasks) S.tasks=[];
+  S.tasks.push({id:'t'+Date.now(),title:v,proj:'',prio:'normaal',deadline:'',done:false,created:td(),focusDate:t});
+  save();
+  _rerenderFocus();
+  setTimeout(function(){ var ni=document.getElementById('focusQuickInp'); if(ni) ni.focus(); },0);
+}
+function filterFpList(q){
+  q=(q||'').toLowerCase().trim();
+  var rows=document.querySelectorAll('.fp-row');
+  var visible=0;
+  for(var i=0;i<rows.length;i++){
+    var hit=!q || (rows[i].getAttribute('data-search')||'').indexOf(q)>=0;
+    rows[i].style.display=hit?'':'none';
+    if(hit) visible++;
+  }
+  var none=document.getElementById('fpNone');
+  if(none) none.style.display=visible?'none':'';
+}
+function unsetWeekFocusEl(btn){
+  var id=btn.getAttribute('data-tid');
+  var t=(S.tasks||[]).find(function(x){return x.id===id;});
+  if(t){ delete t.focusWeek; save(); _rerenderFocus(); }
+}
+function togWeekItemEl(el){
+  var id=el.getAttribute('data-wid');
+  var wf=ensureWeekFocus();
+  var it=wf.items.find(function(x){return x.id===id;});
+  if(!it) return;
+  it.done=el.checked;
+  save();
+  _rerenderFocus();
+}
+function rmWeekItemEl(btn){
+  var id=btn.getAttribute('data-wid');
+  var wf=ensureWeekFocus();
+  wf.items=wf.items.filter(function(x){return x.id!==id;});
+  save();
+  _rerenderFocus();
 }
 function togFocusEl(btn){
   var id=btn.getAttribute('data-tid');
@@ -3054,20 +3254,29 @@ function unsetFocusEl(btn){
   var t=(S.tasks||[]).find(function(x){return x.id===id;});
   if(t){ t.focusDate=''; save(); rDash(); if(typeof rVandaag==='function' && document.querySelector('[data-s=vandaag].on')) rVandaag(); }
 }
-function openFocusPicker(){
-  var t=_top3Date();
-  // kandidaat-taken: open, niet al in focus
-  var cands=(S.tasks||[]).filter(function(x){return !x.done && x.focusDate!==t;});
-  if(!cands.length){ toast('Geen open taken om te kiezen — maak er eerst een aan'); return; }
-  var rows=cands.slice(0,40).map(function(x){
+function openFocusPicker(target){
+  window._fpTarget = (target==='week') ? 'week' : 'day';
+  var cands;
+  if(window._fpTarget==='week'){
+    var wk=ensureWeekFocus().week;
+    cands=(S.tasks||[]).filter(function(x){return !x.done && x.focusWeek!==wk;});
+  } else {
+    var t=_top3Date();
+    cands=(S.tasks||[]).filter(function(x){return !x.done && x.focusDate!==t;});
+  }
+  if(!cands.length){ toast('Geen open taken om te kiezen \u2014 maak er eerst een aan'); return; }
+  var rows=cands.slice(0,200).map(function(x){
     var p=proj(x);
-    return '<div class="fp-row" data-tid="'+x.id+'" onclick="pickFocusEl(this)">'
+    var q=(x.title+' '+(p?p.name:'')).toLowerCase().replace(/"/g,'');
+    return '<div class="fp-row" data-search="'+q+'" data-tid="'+x.id+'" onclick="pickFocusEl(this)">'
       +'<div class="fp-row-t">'+x.title+'</div>'
       +(p?'<span class="fp-row-p" style="color:'+p.color+'">'+p.name+'</span>':'')
       +'</div>';
   }).join('');
-  var body='<div style="font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:7px">'+icon('target',16,'var(--acc)')+'Kies focus-taak</div>'
-    +'<div class="fp-list">'+rows+'</div>'
+  var title=(window._fpTarget==='week')?'Kies taak voor deze week':'Kies focus-taak';
+  var body='<div style="font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:7px">'+icon('target',16,'var(--acc)')+title+'</div>'
+    +'<input type="text" class="fp-search" placeholder="Zoek taak\u2026" oninput="filterFpList(this.value)">'
+    +'<div class="fp-list">'+rows+'<div id="fpNone" style="display:none;font-size:12px;color:var(--text3);padding:8px 2px">Geen taken gevonden</div></div>'
     +'<button class="btn" onclick="closeModal()" style="margin-top:12px;width:100%">Sluiten</button>';
   var modal=document.createElement('div');
   modal.className='modal-bg';
@@ -3077,11 +3286,17 @@ function openFocusPicker(){
 }
 function pickFocusEl(row){
   var id=row.getAttribute('data-tid');
+  var task=(S.tasks||[]).find(function(x){return x.id===id;});
+  if(!task) return;
+  if(window._fpTarget==='week'){
+    task.focusWeek=ensureWeekFocus().week;
+    save(); closeModal(); _rerenderFocus(); toast('Toegevoegd aan deze week');
+    return;
+  }
   var t=_top3Date();
   var focusN=(S.tasks||[]).filter(function(x){return x.focusDate===t;}).length;
-  if(focusN>=3){ toast('Je hebt al 3 focus-taken — haal er eerst een weg'); return; }
-  var task=(S.tasks||[]).find(function(x){return x.id===id;});
-  if(task){ task.focusDate=t; save(); closeModal(); rDash(); if(typeof rVandaag==='function' && document.querySelector('[data-s=vandaag].on')) rVandaag(); toast('Toegevoegd aan focus'); }
+  if(focusN>=3){ toast('Je hebt al 3 focus-taken \u2014 haal er eerst een weg'); return; }
+  task.focusDate=t; save(); closeModal(); _rerenderFocus(); toast('Toegevoegd aan focus');
 }
 
 function editHeroNaam(){
@@ -4883,7 +5098,7 @@ async function runAI() {
   const tasks=ids.map(id=>S.tasks.find(t=>t.id===id)).filter(Boolean);
   const ds=wkDates(0);
   const week=ds.map(d=>{const dt=new Date(d);const evs=evsFor(d);return`${DNF[dt.getDay()]} ${dt.getDate()}: ${evs.map(e=>`${e.st}-${e.et} ${e.title}`).join(', ')||'vrij'}`}).join('\n');
-  const prompt=`Je bent een slimme weekplanner voor Pim (heeft ADHD, houdt van structuur en overzicht). Plan de open taken in voor komende week.
+  const prompt=`Je bent een slimme weekplanner voor iemand die houdt van structuur, rust en overzicht. Plan de open taken in voor komende week.
 
 Houd rekening met de ingeplande afspraken en taken van de gebruiker.\n\nBEZETTE SLOTS DEZE WEEK:
 ${week}
@@ -5049,9 +5264,10 @@ function unlinkGoalTaskEl(btn){
 }
 function openGoalTaskPicker(goalId){
   var cands=(S.tasks||[]).filter(function(t){return !t.done && t.goalId!==goalId;});
-  var rows=cands.slice(0,50).map(function(t){
+  var rows=cands.slice(0,200).map(function(t){
     var p=proj(t);
-    return '<div class="fp-row" data-tid="'+t.id+'" data-gid="'+goalId+'" onclick="pickGoalTaskEl(this)">'
+    var q=(t.title+' '+(p?p.name:'')).toLowerCase().replace(/"/g,'');
+    return '<div class="fp-row" data-search="'+q+'" data-tid="'+t.id+'" data-gid="'+goalId+'" onclick="pickGoalTaskEl(this)">'
       +'<div class="fp-row-t">'+t.title+'</div>'
       +(p?'<span class="fp-row-p" style="color:'+p.color+'">'+p.name+'</span>':'')
       +'</div>';
@@ -5060,6 +5276,7 @@ function openGoalTaskPicker(goalId){
     +'<input type="text" id="gtp-new" placeholder="Of maak een nieuwe taak..." style="flex:1" onkeydown="if(event.keyCode===13)createGoalTask(\''+goalId+'\')">'
     +'<button class="btn pri" onclick="createGoalTask(\''+goalId+'\')">+</button></div>';
   var body='<div style="font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:7px">'+icon('target',16,'var(--acc)')+'Taak koppelen aan goal</div>'
+    +(rows?'<input type="text" class="fp-search" placeholder="Zoek taak\u2026" oninput="filterFpList(this.value)">':'')
     +'<div class="fp-list">'+(rows||'<div style="font-size:12px;color:var(--text3);padding:8px 0">Geen open taken — maak er een aan</div>')+'</div>'
     +newRow
     +'<button class="btn" onclick="closeModal()" style="margin-top:10px;width:100%">Sluiten</button>';
@@ -5152,6 +5369,7 @@ function rGoals() {
   var migMap={maandelijks:'kwartaal','2jaar':'35jaar','510jaar':'visie'};
   S.goals.forEach(function(g){ if(migMap[g.horizon]) g.horizon=migMap[g.horizon]; });
   if(!window._goalAcc) window._goalAcc = {};
+  if(window._goalAcc['kwartaal']===undefined) window._goalAcc['kwartaal']=true;
   if(!window._goalDeep) window._goalDeep = {};
 
   var horizons = [
@@ -5208,41 +5426,39 @@ function rGoals() {
       var deep = !!window._goalDeep[g.id];
 
       html += '<div class="goal-card-v2'+(g.done?' done':'')+'" id="goal-'+g.id+'">';
-      // Titel-rij
       html += '<div class="goal-v2-hd">'
         +'<input type="checkbox"'+(g.done?' checked':'')+' title="Doel behaald" class="goal-v2-check" onchange="togGoalDone(\''+g.id+'\',this.checked)">'
         +'<div class="goal-v2-title" data-gid="'+g.id+'" onclick="editGoalTitleEl(this)" title="Tik om te bewerken">'+g.title+'</div>'
         +(total>0?'<span class="goal-v2-pct" style="color:'+cpc(pct)+'">'+pct+'%</span>':'')
-        +'<button class="del" onclick="delGoal(\''+g.id+'\')">✕</button>'
+        +'<button class="goal-v2-more'+(deep?' open':'')+'" onclick="togGoalDeep(\''+g.id+'\')" title="'+(deep?'Details verbergen':'Details tonen')+'">'+icon('arrow',14)+'</button>'
         +'</div>';
-      // Voortgangsbalk
       if(total>0||g.done){
         html += '<div class="goal-v2-bar"><div class="goal-v2-fill" style="width:'+pct+'%;background:'+cpc(pct)+'"></div></div>';
       }
-      // Waarom (intrinsieke motivatie) — altijd zichtbaar als ingevuld, anders subtiel
+      html += '<div class="goal-v2-deep"'+(deep?'':' style="display:none"')+'>';
       var why=g.why||'';
       html += '<div class="goal-v2-why'+(why?'':' empty')+'" data-gid="'+g.id+'" onclick="editGoalFieldEl(this,\'why\')">'
         +icon('flame',11,'var(--acc)')+'<span>'+(why||'Waarom is dit belangrijk voor jou?')+'</span></div>';
-      // Eerstvolgende actie
       var na=g.nextAction||'';
       html += '<div class="goal-v2-next'+(na?'':' empty')+'" data-gid="'+g.id+'" onclick="editGoalFieldEl(this,\'nextAction\')">'
         +icon('target',11,'var(--acc)')+'<span>'+(na||'Wat is je eerstvolgende concrete stap?')+'</span></div>';
-      // Wanneer (implementation intention)
       var wn=g.when||'';
       html += '<div class="goal-v2-when'+(wn?'':' empty')+'" data-gid="'+g.id+'" onclick="editGoalFieldEl(this,\'when\')">'
         +icon('clock',11,'var(--acc)')+'<span>'+(wn?'Wanneer: '+wn:'Wanneer/waar ga je hieraan werken?')+'</span></div>';
-
-      // Gekoppelde taken
       if(linkedTasks.length){
         html += '<div class="goal-tasks">'+linkedTasks.map(function(t){
           return '<div class="goal-task'+(t.done?' done':'')+'">'
             +'<input type="checkbox"'+(t.done?' checked':'')+' data-tid="'+t.id+'" onchange="togGoalTaskEl(this)">'
             +'<span class="goal-task-t">'+t.title+'</span>'
-            +'<button class="goal-task-unlink" data-tid="'+t.id+'" onclick="unlinkGoalTaskEl(this)" title="Loskoppelen">✕</button>'
+            +'<button class="goal-task-unlink" data-tid="'+t.id+'" onclick="unlinkGoalTaskEl(this)" title="Loskoppelen">\u2715</button>'
             +'</div>';
         }).join('')+'</div>';
       }
-      html += '<button class="goal-link-btn" onclick="openGoalTaskPicker(\''+g.id+'\')">'+icon('plus',11,'var(--acc)')+'Taak koppelen</button>';
+      html += '<div class="goal-v2-foot">'
+        +'<button class="goal-link-btn" onclick="openGoalTaskPicker(\''+g.id+'\')">'+icon('plus',11,'var(--acc)')+'Taak koppelen</button>'
+        +'<button class="goal-v2-del" onclick="delGoal(\''+g.id+'\')">\u2715 Doel verwijderen</button>'
+        +'</div>';
+      html += '</div>';
       html += '</div>';
     });
 
@@ -5254,6 +5470,11 @@ function rGoals() {
   M.innerHTML = html;
 }
 
+function togGoalDeep(id){
+  if(!window._goalDeep) window._goalDeep={};
+  window._goalDeep[id]=!window._goalDeep[id];
+  rGoals();
+}
 function toggleGoalHz(key) {
   if(!window._goalAcc) window._goalAcc = {};
   var body = document.getElementById('dacc-goalhz-'+key);
@@ -7464,6 +7685,7 @@ function rFin() {
     +'<button class="fin-sw-btn'+(finView==='alles'?' on':'')+'" onclick="setFinView(\'alles\')">Overzicht</button>'
     +'<button class="fin-sw-btn'+(finView==='persoonlijk'?' on':'')+'" onclick="setFinView(\'persoonlijk\')">Persoonlijk</button>'
     +'<button class="fin-sw-btn'+(finView==='zakelijk'?' on':'')+'" onclick="setFinView(\'zakelijk\')">Zakelijk</button>'
+    +'<button class="fin-sw-btn'+(finView==='assets'?' on':'')+'" onclick="setFinView(\'assets\')">Assets</button>'
     +'</div>'
     +'<div id="fin-body"></div>';
   renderFinBody(finView);
@@ -7823,6 +8045,7 @@ function refreshFin(){renderFinBody(window._finView||'alles');}
 
 function renderFinBody(view){
   var e=el('fin-body');if(!e)return;
+  if(view==='assets'){e.innerHTML=buildAssetsView();return;}
   var mo=ym();
   var subs=S.subs||[];
   var vasteL=S.vasteL||[];
@@ -8304,17 +8527,25 @@ function rFTr() {
   el('fdd').value=td();
 }
 function addTr() { const o=el('foo').value.trim();const b=parseFloat(el('fbb').value);if(!o||isNaN(b))return;if(!S.finance)S.finance=[];S.finance.push({omsc:o,bed:b,type:el('ftt').value,date:el('fdd').value||td()});el('foo').value='';el('fbb').value='';save();rFTr(); }
-function rFD() {
-  const e=el('sp-fdf'); if(!e)return;
-  const defi=S.defi||{}; const mo=ym(); const now=new Date();
+function buildAssetsView(){
+  const A=assetList(); const defi=S.defi||{}; const mo=ym(); const now=new Date();
   const months=Array.from({length:12},(_,i)=>{const d=new Date(now.getFullYear(),now.getMonth()-i,1);return d.toISOString().slice(0,7);});
-  const totals={}; DA.forEach(a=>{totals[a.id]=Object.values(defi).reduce((t,m)=>t+parseFloat(m[a.id]||0),0).toFixed(4);});
+  const totals={}; A.forEach(a=>{totals[a.id]=parseFloat(Object.values(defi).reduce((t,m)=>t+parseFloat((m||{})[a.id]||0),0).toFixed(4));});
   const cur=defi[mo]||{};
-  e.innerHTML=`<div class="three" style="margin-bottom:10px">${DA.slice(0,3).map(a=>`<div class="sc"><div class="sn" style="color:${a.c};font-size:16px">${totals[a.id]}</div><div class="sl">${a.n}</div></div>`).join('')}</div>
-  <div class="card" style="margin-bottom:10px"><div class="ct">Maand invoeren — ${mo}</div>${DA.map(a=>`<div style="display:flex;align-items:center;gap:9px;margin-bottom:8px"><div style="width:10px;height:10px;border-radius:50%;background:${a.c};flex-shrink:0"></div><label style="font-size:12px;flex:1">${a.n}</label><input type="number" id="df-${a.id}" placeholder="0.0000" step="0.0001" value="${cur[a.id]||''}" style="width:120px;text-align:right"></div>`).join('')}<button class="btn pri" onclick="saveDefi('${mo}')" style="width:100%">Opslaan</button><div id="dfo" style="display:none;text-align:center;margin-top:6px;font-size:12px;color:#D97757;font-weight:700">✓ Opgeslagen!</div></div>
-  <div class="card"><div class="ct">DeFi Historie</div><div style="overflow-x:auto"><table><tr><th>Maand</th>${DA.map(a=>`<th style="color:${a.c}">${a.id.toUpperCase()}</th>`).join('')}</tr>${months.map(m=>{const d=defi[m]||{};const has=DA.some(a=>d[a.id]);if(!has&&m!==mo)return'';return`<tr><td>${m}</td>${DA.map(a=>`<td style="font-weight:${d[a.id]?700:400};color:${d[a.id]?a.c:'var(--text3)'}">${d[a.id]||'—'}</td>`).join('')}</tr>`;}).join('')}</table></div></div>`;
+  let h='';
+  if(!A.length){
+    h+='<div class="card" style="margin-bottom:10px"><div class="ct">Assets</div><div style="font-size:12px;color:var(--text2);line-height:1.6">Volg hier wat je opbouwt: crypto, aandelen, fondsen, goud — wat je maar wilt. Voeg je eerste asset toe en vul per maand in wat je hebt bijgekocht. Het totaal telt automatisch op.</div></div>';
+  } else {
+    h+='<div class="three" style="margin-bottom:10px">'+A.slice(0,6).map(a=>`<div class="sc"><div class="sn" style="color:${a.c};font-size:16px">${totals[a.id]}</div><div class="sl">${a.n}</div></div>`).join('')+'</div>';
+    h+=`<div class="card" style="margin-bottom:10px"><div class="ct">Maand invoeren — ${mo}</div>${A.map(a=>`<div style="display:flex;align-items:center;gap:9px;margin-bottom:8px"><div style="width:10px;height:10px;border-radius:50%;background:${a.c};flex-shrink:0"></div><label style="font-size:12px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${a.n}</label><input type="number" id="df-${a.id}" placeholder="aantal" step="any" value="${cur[a.id]||''}" style="width:110px;text-align:right"><button class="btn sm del" onclick="delAsset('${a.id}')" title="Asset verwijderen">\u2715</button></div>`).join('')}<button class="btn pri" onclick="saveAssetMonth('${mo}')" style="width:100%">Opslaan</button><div id="dfo" style="display:none;text-align:center;margin-top:6px;font-size:12px;color:#D97757;font-weight:700">\u2713 Opgeslagen!</div></div>`;
+  }
+  h+='<div class="card" style="margin-bottom:10px"><div class="ct">Asset toevoegen</div><div style="display:flex;gap:6px"><input type="text" id="asset-new" placeholder="Bijv. BTC, AEX-tracker, goud\u2026" style="flex:1" onkeydown="if(event.key===\'Enter\')addAsset()"><button class="btn pri" onclick="addAsset()">+</button></div></div>';
+  if(A.length){
+    h+=`<div class="card"><div class="ct">Historie</div><div style="overflow-x:auto"><table><tr><th>Maand</th>${A.map(a=>`<th style="color:${a.c}">${a.n}</th>`).join('')}</tr>${months.map(m=>{const d=defi[m]||{};const has=A.some(a=>d[a.id]);if(!has&&m!==mo)return'';return`<tr><td>${m}</td>${A.map(a=>`<td style="font-weight:${d[a.id]?700:400};color:${d[a.id]?a.c:'var(--text3)'}">${d[a.id]||'\u2014'}</td>`).join('')}</tr>`;}).join('')}</table></div></div>`;
+  }
+  return h;
 }
-function saveDefi(mo) { if(!S.defi)S.defi={};if(!S.defi[mo])S.defi[mo]={};DA.forEach(function(a){var dfEl=document.getElementById('df-'+a.id);var v=dfEl?parseFloat(dfEl.value||0):0;if(v)S.defi[mo][a.id]=v;});save();var ok=el('dfo');if(ok){ok.style.display='block';setTimeout(function(){ok.style.display='none';},2000);}rFD(); }
+function saveAssetMonth(mo){ if(!S.defi)S.defi={};if(!S.defi[mo])S.defi[mo]={};assetList().forEach(function(a){var dfEl=document.getElementById('df-'+a.id);if(!dfEl)return;var v=parseFloat(dfEl.value||0);if(v){S.defi[mo][a.id]=v;}else{delete S.defi[mo][a.id];}});save();var ok=el('dfo');if(ok){ok.style.display='block';setTimeout(function(){ok.style.display='none';},2000);}renderFinBody('assets'); }
 
 // ─── ARCHIEF ─────────────────────────────────────────────────────────────────
 
@@ -9529,6 +9760,15 @@ function realInit() {
   maybeShowOnboarding();
 }
 init();
+
+// Boot-animatie verbergen zodra de app klaar is (minimaal 1.5s zichtbaar)
+(function(){
+  var b = document.getElementById('appBoot');
+  if(!b) return;
+  var hide = function(){ b.classList.add('done'); };
+  setTimeout(hide, 1500);
+  setTimeout(hide, 4000); // vangnet
+})();
 </script>
 </body>
         +'<input type="checkbox" id="'+cbId+'" data-rid="'+x.id+'"'+(v?' checked':'')+' onchange="togDashRouEl(this)">'+
