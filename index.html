@@ -97,7 +97,10 @@ input[type=checkbox]:focus, input[type=radio]:focus { outline: none; }
 .tb.on{color:var(--text);border-bottom-color:var(--green);font-weight:600}
 .sp{display:none}.sp.on{display:block}
 /* EMPTY STATE */
-.es{text-align:center;padding:20px;color:var(--text3);font-size:12px}
+.es{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:32px 20px;color:var(--text3);font-size:12px}
+.es-logo{width:58px;height:58px;opacity:.9}
+.es-path{stroke-dasharray:210;stroke-dashoffset:210;animation:esDraw 1.2s cubic-bezier(.22,.61,.36,1) .15s forwards}
+@keyframes esDraw{to{stroke-dashoffset:0}}
 .es i{font-size:22px;display:block;margin-bottom:6px;opacity:.3}
 /* PROGRESS */
 .prog{display:flex;align-items:center;gap:8px;margin-bottom:10px}
@@ -1483,9 +1486,7 @@ body[data-theme="light"] .fin-ov-card {
 .dash-backup-btn.alt:hover{background:var(--acc-softer)}
 .dash-backup-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px var(--acc)}
 .dash-backup-btn svg{flex-shrink:0}
-.ni.ni-backup,.ni.ni-restore{width:100%;text-align:left;background:none;font-family:var(--font-ui);cursor:pointer}
-.ni.ni-backup svg,.ni.ni-restore svg{color:var(--acc)}
-.ni.ni-backup{color:var(--acc);font-weight:600}
+.ni.ni-backup,.ni.ni-restore{width:100%;text-align:left;background:none;border:none;font-family:var(--font-ui);cursor:pointer}
 
 /* ── Planner dag: sleepbare events, resize, dagdeel-banden ── */
 .dgev.draggable{cursor:grab;touch-action:none;user-select:none}
@@ -1802,7 +1803,7 @@ body[data-theme="light"] .fin-ov-card {
 /* ── Vriendelijke lege staten ── */
 .es{display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 16px;text-align:center}
 .es-ic{opacity:.6}
-.es-tx{font-size:14px;color:var(--text3);max-width:240px;line-height:1.4}
+.es-tx{font-size:13px;color:var(--text2);max-width:280px;line-height:1.6;font-family:var(--font-serif)}
 .es-btn{margin-top:4px;display:inline-flex;align-items:center;gap:6px;background:var(--acc-soft);border:1px solid var(--acc-line);color:var(--acc);border-radius:10px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-ui)}
 .es-btn:hover{background:var(--acc-softer)}
 
@@ -1914,19 +1915,6 @@ body[data-theme="light"] .fin-ov-card {
 .hero-greet-name{color:var(--acc);cursor:pointer;border-bottom:1px dotted transparent;transition:border-color .15s}
 .hero-greet-name:hover{border-bottom-color:var(--acc-line)}
 @keyframes greetIn{0%{opacity:0;transform:translateY(-8px)}100%{opacity:1;transform:translateY(0)}}
-/* ── Momentum / streak ── */
-.mom-card{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,var(--acc-soft),var(--acc-softer));border:1px solid var(--acc-line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
-.mom-flame{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--bg);transition:transform .3s}
-.mom-flame.lit{animation:flamePulse 2.5s ease-in-out infinite}
-@keyframes flamePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-.mom-body{flex:1;min-width:0}
-.mom-num{font-size:18px;font-weight:700;color:var(--text);font-family:var(--font-display);line-height:1.1}
-.mom-msg{font-size:12px;color:var(--text2);margin-top:2px}
-.mom-dots{display:flex;gap:5px;margin-top:8px}
-.mom-dot{width:11px;height:11px;border-radius:50%;background:var(--bg3);transition:background .3s}
-.mom-dot.on{background:var(--acc)}
-.mom-dot.today{box-shadow:0 0 0 2px var(--acc-line)}
-
 /* ── Routine: omhoog/omlaag pijltjes (vervangt slepen) ── */
 .rout-move{display:inline-flex;gap:2px;flex-shrink:0}
 .rout-move-btn{width:24px;height:24px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--acc-line);border-radius:6px;color:var(--acc);cursor:pointer;padding:0;transition:all .12s}
@@ -2052,7 +2040,27 @@ body[data-theme="light"] .fin-ov-card {
 .app-boot-bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#C56A4B,#E0a183);border-radius:2px;animation:appBootFill 1s cubic-bezier(.22,.61,.36,1) .85s forwards}
 @keyframes appBootFade{to{opacity:1}}
 @keyframes appBootFill{to{width:100%}}
-@media(prefers-reduced-motion:reduce){.app-boot{display:none}}
+@keyframes pgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.pg-in{animation:pgIn .16s ease-out}
+.rv-cell{opacity:0;animation:rvPop .3s cubic-bezier(.2,1.4,.4,1) forwards}
+@keyframes rvPop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+.rvb{transform:scaleY(0);transform-origin:bottom;transform-box:fill-box;animation:rvGrow .55s cubic-bezier(.22,.61,.36,1) forwards}
+@keyframes rvGrow{to{transform:scaleY(1)}}
+.app-boot-status{font-size:12px;color:#6e6a64;letter-spacing:.4px;min-height:16px;opacity:0;animation:appBootFade .5s ease 1s forwards}
+@media(prefers-reduced-motion:reduce){.app-boot{display:none}.pg-in{animation:none}.rv-cell{animation:none;opacity:1}.rvb{animation:none;transform:none}.es-path{animation:none;stroke-dashoffset:0}}
+
+/* ── Mobiele bottom-navigatie ── */
+.bnav{display:none}
+@media (max-width:768px){
+  .bnav{position:fixed;left:0;right:0;bottom:0;z-index:96;display:flex;align-items:stretch;justify-content:space-around;background:rgba(24,23,22,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:7px 4px calc(7px + env(safe-area-inset-bottom))}
+  .bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;color:var(--text3);font-size:10px;font-weight:600;font-family:var(--font-ui);padding:3px 0;cursor:pointer;transition:color .15s;-webkit-tap-highlight-color:transparent}
+  .bnav-item.on{color:var(--acc)}
+  .bnav-item svg{flex-shrink:0}
+  .bnav-plus{width:44px;height:44px;border-radius:15px;border:none;background:linear-gradient(135deg,var(--acc),var(--acc-dim));display:flex;align-items:center;justify-content:center;margin:0 6px;align-self:center;box-shadow:0 6px 16px -6px rgba(217,119,87,.55);cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent;transition:transform .15s}
+  .bnav-plus:active{transform:scale(.92)}
+  .fab{display:none}
+  .main{padding-bottom:calc(86px + env(safe-area-inset-bottom))}
+}
 </style>
 <script type="module">
   // Firebase laden met foutafhandeling. Faalt het laden (offline, CDN-blokkade)?
@@ -2127,6 +2135,7 @@ body[data-theme="light"] .fin-ov-card {
   </svg>
   <div class="app-boot-name">Pimmies OS</div>
   <div class="app-boot-bar"><i></i></div>
+  <div class="app-boot-status" id="appBootStatus"></div>
 </div>
 <noscript><style>.app-boot{display:none}</style></noscript>
 <!-- Mobile overlay -->
@@ -2154,25 +2163,26 @@ body[data-theme="light"] .fin-ov-card {
   <div class="gl">Hoofd</div>
   <div class="ni on" data-s="dash"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</div>
   <div class="ni" data-s="vandaag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>Vandaag</div>
-  <div class="gl">Werk</div>
+  <div class="gl">Kern</div>
+  <div class="ni" data-s="taken"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Taken</div>
+  <div class="ni" data-s="rout"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Routine</div>
+  <div class="ni" data-s="hab"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Habits</div>
+  <div class="ni" data-s="goals"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Goals</div>
+  <div class="ni" data-s="refl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>Reflectie</div>
+  <div class="ni" data-s="review"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Review</div>
+  <div class="gl">Plannen</div>
   <div class="ni" data-s="plan"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Planner</div>
   <div class="ni" data-s="proj"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Projecten</div>
-  <div class="ni" data-s="taken"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Taken</div>
-  <div class="gl">Over Mij</div>
+  <div class="gl">Trackers</div>
+  <div class="ni" data-s="fit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Fitness</div>
+  <div class="ni" data-s="oef"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><path d="M21 21l-1-1"/><path d="M3 3l1 1"/><path d="M18 22l4-4"/><path d="M2 6l4-4"/><path d="M3 10l7-7"/><path d="M14 21l7-7"/></svg>Oefeningen</div>
+  <div class="ni" data-s="supp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 0-2-2v-4m0 0h18"/></svg>Supplementen</div>
+  <div class="ni" data-s="fin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Financiën</div>
+  <div class="ni" data-s="werk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>Werk</div>
+  <div class="gl">Over mij</div>
   <div class="ni" data-s="visie"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Visie &amp; Frame</div>
   <div class="ni" data-s="eig"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Eigenschappen</div>
   <div class="ni" data-s="rules"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Rules to live by</div>
-  <div class="ni" data-s="goals"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Goals</div>
-  <div class="gl">Trackers</div>
-  <div class="ni" data-s="hab"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Habits</div>
-  <div class="ni" data-s="rout"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Routine</div>
-  <div class="ni" data-s="refl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>Reflectie</div>
-  <div class="ni" data-s="review"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Review</div>
-  <div class="ni" data-s="supp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 0-2-2v-4m0 0h18"/></svg>Supplementen</div>
-  <div class="ni" data-s="fit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Fitness</div>
-  <div class="ni" data-s="fin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Financiën</div>
-  <div class="ni" data-s="werk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>Werk</div>
-  <div class="ni" data-s="oef"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><path d="M21 21l-1-1"/><path d="M3 3l1 1"/><path d="M18 22l4-4"/><path d="M2 6l4-4"/><path d="M3 10l7-7"/><path d="M14 21l7-7"/></svg>Oefeningen</div>
   <div class="gl">Archief</div>
   <div class="ni" data-s="shop"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Shopping</div>
   <div class="ni" data-s="lees"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Lees &amp; Wachtlijst</div>
@@ -2182,6 +2192,7 @@ body[data-theme="light"] .fin-ov-card {
   <div class="ni" data-s="qt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Quotes</div>
   <div class="ni" data-s="notes"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Aantekeningen</div>
   <div class="gl">Instellingen</div>
+  <div class="ni" data-s="help"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>Zo werkt het</div>
   <div class="ni" data-s="settings"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Data &amp; Import</div>
   <button class="ni ni-backup" onclick="exportBackup()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Backup maken</span></button>
   <button class="ni ni-restore" onclick="triggerImport()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Backup herstellen</span></button>
@@ -2189,6 +2200,15 @@ body[data-theme="light"] .fin-ov-card {
 <!-- MAIN -->
 <div class="main" id="M"></div>
 </div>
+<!-- Mobiele bottom-navigatie -->
+<nav class="bnav" id="bnav" aria-label="Hoofdnavigatie">
+  <button class="bnav-item on" data-bs="dash" onclick="navToSection('dash')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Home</span></button>
+  <button class="bnav-item" data-bs="vandaag" onclick="navToSection('vandaag')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Vandaag</span></button>
+  <button class="bnav-plus" onclick="openAddTaskModal()" aria-label="Taak toevoegen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+  <button class="bnav-item" data-bs="taken" onclick="navToSection('taken')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Taken</span></button>
+  <button class="bnav-item" data-bs="review" onclick="navToSection('review')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-5"/></svg><span>Review</span></button>
+</nav>
+
 <button class="fab" id="fab" onclick="openAddTaskModal()" title="Snel taak toevoegen" aria-label="Snel taak toevoegen"></button>
 
 <script>
@@ -2393,7 +2413,7 @@ var tcpc = function(p){ return p>=100?'#D97757':p>=70?'#C56A4B':p>=40?'#A85940':
 var tscC = function(s){ return s>=8?'#D97757':s>=6?'#C56A4B':s>=4?'#A85940':s>0?'#7d4530':'#666'; };
 const scC = s => s>=8?'#D97757':s>=6?'#E0a183':s>=4?'#C56A4B':'#D97757';
 const gl = arr => arr.map(g=>`<div class="gi"><span class="gd"></span>${g}</div>`).join('');
-const em = (ic,tx,action) => `<div class="es"><div class="es-ic">${icon(ic&&ICONS[ic]?ic:'list',26,'var(--text3)')}</div><div class="es-tx">${tx}</div>${action?`<button class="es-btn" onclick="${action.fn}">${action.label}</button>`:''}</div>`;
+const em = (ic,tx,action) => `<div class="es"><svg class="es-logo" viewBox="0 0 72 72" fill="none"><path class="es-path" d="M12 46 Q13 47 15 42 L21 30 Q22 27 24 31 L29 44 Q30 47 32 43 L40 26 Q43 19 46 27 L52 42" stroke="var(--acc)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="es-tx">${tx}</div>${action?`<button class="es-btn" onclick="${action.fn}">${action.label}</button>`:''}</div>`;
 const tMin = t => { const[h,m]=t.split(':').map(Number); return h*60+m; };
 const tPx = t => Math.max(0,(tMin(t)-SH*60)/60*HH);
 const dPx = (s,e) => Math.max(16,(tMin(e)-tMin(s))/60*HH);
@@ -2462,6 +2482,7 @@ var _undoStack = [];
 var _undoPtr = -1;
 // ── Backup / herstel ──
 function exportBackup(){
+  starterDone(8);
   try{
     var data={ _pimmiesBackup:true, _version:1, _exportedAt:new Date().toISOString(), data:S };
     var json=JSON.stringify(data,null,2);
@@ -2505,6 +2526,7 @@ function importBackup(text){
 }
 
 function save() {
+  try{ _starterScan(); }catch(e){}
   var d = JSON.stringify(S);
   // Push to undo stack
   _undoStack.splice(_undoPtr + 1); // clear redo
@@ -2624,7 +2646,7 @@ function normalizeData(){
 const RENDERS = {
   dash:rDash, vandaag:rVandaag, plan:rPlan, review:rReview, visie:rVisie, eig:rEig, rules:rRules, goals:rGoals,
   proj:rProj, taken:rTaken, hab:rHab, rout:rRout, refl:rRefl, fit:rFit, supp:rSupp, fin:rFin, werk:rWerk, oef:rOef,
-  shop:rShop, lees:rLees, ops:rOps, gerecht:rGerecht, ctc:rCtc, qt:rQt, notes:rNotes, settings:rSettings
+  shop:rShop, lees:rLees, ops:rOps, gerecht:rGerecht, ctc:rCtc, qt:rQt, notes:rNotes, settings:rSettings, help:rHelp
 };
 document.querySelectorAll('.ni').forEach(n => n.addEventListener('click', () => {
   // Actie-knoppen (backup/herstel) hebben geen data-s en routeren niet
@@ -2638,6 +2660,11 @@ document.querySelectorAll('.ni').forEach(n => n.addEventListener('click', () => 
   }
   qsa('.ni').forEach(x=>x.classList.remove('on')); n.classList.add('on');
   try{ if(_lsOk) localStorage.setItem('pimmies_lastsec', n.dataset.s); }catch(_){}
+  var _M=document.getElementById('M');
+  if(_M && !_RM){ _M.classList.remove('pg-in'); void _M.offsetWidth; _M.classList.add('pg-in'); }
+  if(n.dataset.s==='vandaag') starterDone(1);
+  if(n.dataset.s==='review') starterDone(7);
+  document.querySelectorAll('.bnav-item').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-bs')===n.dataset.s); });
   (RENDERS[n.dataset.s]||function(){})();
 }));
 
@@ -2687,20 +2714,70 @@ function icon(name, size, color) {
 }
 
 // ── Progress ring (SVG circle) ──
+var _RM = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+function scheduleEntryFX(){
+  if (typeof requestAnimationFrame === 'undefined') return;
+  if (window._fxq) return;
+  window._fxq = true;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    window._fxq = false;
+    // Ringen tekenen zichzelf
+    document.querySelectorAll('circle[data-ringoff]').forEach(function(c){
+      c.style.strokeDashoffset = c.getAttribute('data-ringoff');
+    });
+    // Getallen tellen op
+    document.querySelectorAll('[data-countto]').forEach(function(elm){
+      if (elm._counted) return; elm._counted = true;
+      var target = parseFloat(elm.getAttribute('data-countto')) || 0;
+      var suf = elm.getAttribute('data-countsuf') || '';
+      var dec = elm.getAttribute('data-countdec') === '1';
+      if (_RM || target <= 0){ elm.textContent = (dec ? target.toFixed(1) : Math.round(target)) + suf; return; }
+      var t0 = null;
+      (function step(ts){
+        if (ts === undefined){ requestAnimationFrame(step); return; }
+        if (!t0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / 600);
+        p = 1 - Math.pow(1 - p, 3);
+        var v = target * p;
+        elm.textContent = (dec ? v.toFixed(1) : Math.round(v)) + suf;
+        if (p < 1) requestAnimationFrame(step);
+      })();
+    });
+  }); });
+}
 function pctRing(pct, label, onclick, active){
   pct=Math.max(0,Math.min(100,Math.round(pct||0)));
   var size=58, r=24, circ=2*Math.PI*r, off=circ*(1-pct/100), cx=size/2;
   var col = pct>=100?'var(--acc)':pct>0?'var(--acc)':'var(--text3)';
   var click = onclick ? ' onclick="'+onclick+'"' : '';
+  scheduleEntryFX();
   return '<div class="pct-ring-item'+(active?' active':'')+'"'+click+'>'
     +'<div class="pct-ring-circ" style="width:'+size+'px;height:'+size+'px">'
     +'<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'" style="transform:rotate(-90deg)">'
     +'<circle cx="'+cx+'" cy="'+cx+'" r="'+r+'" fill="none" stroke="var(--bg3)" stroke-width="4"/>'
-    +'<circle cx="'+cx+'" cy="'+cx+'" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'" style="transition:stroke-dashoffset .5s"/>'
+    +'<circle cx="'+cx+'" cy="'+cx+'" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+(_RM?off:circ)+'"'+(_RM?'':' data-ringoff="'+off+'"')+' style="transition:stroke-dashoffset .8s cubic-bezier(.22,.61,.36,1)"/>'
     +'</svg>'
     +'<span class="pct-ring-num">'+pct+'<span class="pct-ring-pct">%</span></span>'
     +'</div>'
     +'<span class="pct-ring-lbl">'+label+'</span>'
+    +'</div>';
+}
+
+function streakRing(){
+  var s = calcActiveStreak();
+  var pct = Math.min(100, Math.round(Math.min(s,7)/7*100));
+  var size=58, r=24, circ=2*Math.PI*r, off=circ*(1-pct/100), cx=size/2;
+  var col = s>0?'var(--acc)':'var(--text3)';
+  scheduleEntryFX();
+  return '<div class="pct-ring-item" onclick="navToSection(\'hab\')" title="'+s+' '+(s===1?'dag':'dagen')+' op rij \u2014 ring vol bij 7">'
+    +'<div class="pct-ring-circ" style="width:'+size+'px;height:'+size+'px">'
+    +'<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'" style="transform:rotate(-90deg)">'
+    +'<circle cx="'+cx+'" cy="'+cx+'" r="'+r+'" fill="none" stroke="var(--bg3)" stroke-width="4"/>'
+    +'<circle cx="'+cx+'" cy="'+cx+'" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+(_RM?off:circ)+'"'+(_RM?'':' data-ringoff="'+off+'"')+' style="transition:stroke-dashoffset .8s cubic-bezier(.22,.61,.36,1)"/>'
+    +'</svg>'
+    +'<span class="pct-ring-num">'+s+'</span>'
+    +'</div>'
+    +'<span class="pct-ring-lbl">Streak</span>'
     +'</div>';
 }
 
@@ -3471,17 +3548,73 @@ function rVandaag() {
     +'<div class="dash-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('check',14,'var(--acc)')+'Taken voor deze dag</span></div>'
     +taskHTML+'</div>'
     // "Mag nog" (optioneel)
-    +(magHTML?'<div class="dash-card mag-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('bolt',14,'var(--acc)')+'Mag nog</span><span style="font-size:11px;color:var(--text3);margin-left:auto">als je tijd over hebt</span></div>'+magHTML+'</div>':'')
+    +(magHTML?'<div class="dash-card mag-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('bolt',14,'var(--acc)')+'Nog open</span><span style="font-size:11px;color:var(--text3);margin-left:auto">te laat of nog niet ingepland</span></div>'+magHTML+'</div>':'')
     // 5. Habits
     +'<div class="dash-card"><div class="dash-card-hd"><span class="dash-card-title">'+icon('check',14,'var(--acc)')+'Habits</span>'
     +'<span style="font-size:11px;color:'+tcpc(habHP)+';font-weight:600;margin-left:auto">'+habHP+'%</span></div>'
-    +habH+'</div>';
+    +habH+'</div>'
+    +vdReflCardHTML(isToday, today);
 }
 function vandaagDayNav(dir){ var d=new Date(window._vandaagDay||td()); d.setDate(d.getDate()+dir); window._vandaagDay=d.toISOString().split('T')[0]; rVandaag(); }
 function vandaagDayToday(){ window._vandaagDay=td(); rVandaag(); }
 function togVHEl(cb){ var id=cb.getAttribute('data-hid'); var t=td(); if(!S.habits[t])S.habits[t]={}; S.habits[t][id]=cb.checked; save(); rVandaag(); }
-function togVandaagTaakEl(cb){ var id=cb.getAttribute('data-tid'); var task=(S.tasks||[]).find(function(x){return x.id===id;}); if(task){ task.done=cb.checked; save(); rVandaag(); } }
+function togVandaagTaakEl(cb){ var id=cb.getAttribute('data-tid'); var task=(S.tasks||[]).find(function(x){return x.id===id;}); if(task){ task.done=cb.checked; if(cb.checked){task.doneAt=td();}else{delete task.doneAt;} save(); rVandaag(); } }
 
+function _starterMark(i){
+  var t=(S.tasks||[]).find(function(x){return x.id==='tstart'+i;});
+  if(!t||t.done) return;
+  t.done=true; t.doneAt=td();
+  var open=(S.tasks||[]).filter(function(x){return x.id.indexOf('tstart')===0 && !x.done;}).length;
+  if(typeof toast==='function'){
+    toast(open===0 ? '\ud83c\udf89 Startersproject compleet \u2014 je kent de basis!' : '\ud83d\ude80 Starterstap \u2713 \u2014 nog '+open+' te gaan');
+  }
+}
+function starterDone(i){
+  var t=(S.tasks||[]).find(function(x){return x.id==='tstart'+i;});
+  if(!t||t.done) return;
+  _starterMark(i);
+  save();
+}
+function _starterScan(){
+  if(!S.projects || !S.projects.some(function(p){return p.id==='p_start';})) return;
+  if(!(S.tasks||[]).some(function(x){return x.id.indexOf('tstart')===0 && !x.done;})) return;
+  var T=td();
+  // Stap 3: taak in je focus gezet
+  if((S.tasks||[]).some(function(t){return t.focusDate===T;})) _starterMark(2);
+  // Stap 4: eigen taak aangemaakt
+  if((S.tasks||[]).some(function(t){return t.id.indexOf('tstart')!==0 && t.proj!=='p_start' && (t.title||'').indexOf('Voorbeeld:')<0 && t.created===T;})) _starterMark(3);
+  // Stap 7: reflectie van vandaag ingevuld
+  var rd=S.reflDay && S.reflDay[T];
+  if(rd && Object.keys(rd).some(function(k){return rd[k];})) _starterMark(6);
+}
+function ensureStarterProject(){
+  if(!S.projects) S.projects=[];
+  if(S.projects.find(function(p){return p.id==='p_start';})) return false;
+  S.projects.push({id:'p_start', name:'\ud83d\ude80 Start hier', cat:'Overig', color:'#D97757'});
+  if(!S.tasks) S.tasks=[];
+  var stappen=[
+    'Vink deze taak af \u2014 zo rond je iets af \u2713',
+    'Open \u201cVandaag\u201d in het menu en bekijk je dag',
+    'Zet een taak in je focus: Mijn focus \u2192 Taak kiezen',
+    'Maak je eigen eerste taak aan (+ knop rechtsonder)',
+    'Voeg bij Habits een gewoonte toe die je wilt opbouwen',
+    'Stel je ochtendroutine in bij Routine',
+    'Sluit je dag vanavond af met een reflectie (1 min)',
+    'Bekijk maandag je eerste weekreview',
+    'Maak een backup via de knop op het dashboard',
+    'Verberg menu-groepen die je (nog) niet gebruikt \u2014 tik op een groepsnaam'
+  ];
+  stappen.forEach(function(titel,i){
+    S.tasks.push({id:'tstart'+i, title:titel, proj:'p_start', prio:'normaal', deadline:'', done:false, created:td()});
+  });
+  save();
+  return true;
+}
+function startStarterProject(){
+  ensureStarterProject();
+  navToSection('proj');
+  toast('Startersproject staat klaar bij Projecten');
+}
 function buildStartHint(){
   // Toon alleen als gebruiker nog (bijna) niks heeft gedaan
   var taskCount=(S.tasks||[]).filter(function(t){return t.title && t.title.indexOf('Voorbeeld:')<0;}).length;
@@ -3493,9 +3626,21 @@ function buildStartHint(){
     +'<div class="start-hint-btns">'
     +'<button class="btn pri" onclick="openAddTaskModal()">+ Eerste taak</button>'
     +'<button class="btn" onclick="navToSection(\'rout\')">Routine instellen</button>'
+    +'<button class="btn" onclick="navToSection(\'help\')">Zo werkt het</button>'
     +'</div></div>';
 }
 function dismissStartHint(){ if(!S.settings)S.settings={}; S.settings.startHintDismissed=true; save(); rDash(); }
+function rvMondayCardHTML(now){
+  now = now || new Date();
+  if (now.getDay() !== 1) return '';
+  var seen = '';
+  try{ seen = _lsOk ? (localStorage.getItem('pimmies_lastreview')||'') : ''; }catch(e){}
+  if (seen === td()) return '';
+  return '<div class="dash-card" style="border-color:var(--acc-line);background:linear-gradient(135deg,var(--acc-softer),transparent)">'
+    +'<div class="dash-card-hd"><span class="dash-card-title">'+icon('flag',14,'var(--acc)')+'Je weekreview staat klaar</span>'
+    +'<button class="dash-card-link" onclick="navToSection(\'review\')">Bekijk je week'+icon('arrow',11)+'</button></div>'
+    +'<div style="font-size:12px;color:var(--text2)">Nieuwe week \u2014 vijf minuten terugkijken maakt de rest bewuster.</div></div>';
+}
 function rDash() {
   var t=td();
   var h=S.habits[t]||{};
@@ -3663,7 +3808,7 @@ function rDash() {
 
   M.innerHTML=''
     // ── 1. HERO (nu bezig) ──
-    +buildHero()+buildStartHint()
+    +buildHero()+buildStartHint()+rvMondayCardHTML()
     // ── 2. OPKOMENDE ACTIVITEIT ──
     +'<div class="dash-card">'
     +'<div class="dash-card-hd">'
@@ -3678,18 +3823,18 @@ function rDash() {
     +'<button class="dash-ql" data-sec="taken" onclick="navToSecEl(this)">'+icon('check',18,'var(--acc)')+'<span>Taken</span></button>'
     +'<button class="dash-ql" data-sec="rout" onclick="navToSecEl(this)">'+icon('repeat',18,'var(--acc)')+'<span>Routine</span></button>'
     +'<button class="dash-ql" data-sec="goals" onclick="navToSecEl(this)">'+icon('target',18,'var(--acc)')+'<span>Goals</span></button>'
-    +'<button class="dash-ql" data-sec="fin" onclick="navToSecEl(this)">'+icon('euro',18,'var(--acc)')+'<span>Financiën</span></button>'
+    +'<button class="dash-ql" data-sec="review" onclick="navToSecEl(this)">'+icon('flag',18,'var(--acc)')+'<span>Review</span></button>'
     +'</div>'
     // ── 4. BACKUP MAKEN / IMPORTEREN ──
     +'<div class="dash-backup-row">'
     +'<button class="dash-backup-btn" onclick="exportBackup()">'+icon('cloud',15,'#fff')+'<span>Backup maken</span></button>'
     +'<button class="dash-backup-btn alt" onclick="triggerImport()">'+icon('refresh',15,'var(--acc)')+'<span>Importeren</span></button>'
     +'</div>'
-    // ── 5. PROGRESSIE-RINGEN (taken · projecten · routine · goals) ──
+    // ── 5. PROGRESSIE-RINGEN (taken · projecten · streak · goals) ──
     +'<div class="pct-ring-row dash-rings">'
     +pctRing(takenPct,'Taken','navToSection(\'taken\')',false)
     +pctRing(projPct,'Projecten','navToSection(\'proj\')',false)
-    +pctRing(rouPct,'Routine','navToSection(\'rout\')',false)
+    +streakRing()
     +pctRing(goalsPct,'Goals','navToSection(\'goals\')',false)
     +'</div>'
     // ── 6. ROUTINE VANDAAG ──
@@ -3713,8 +3858,6 @@ function rDash() {
     +'</div>'
     +'<div style="font-size:11px;color:var(--text3);text-align:center;margin-top:6px">Sessies vandaag: <strong>'+(S.focusLog&&S.focusLog[t]?S.focusLog[t]:0)+'</strong></div>'
     +'</div>'
-    // ── Momentum / streak ──
-    +buildMomentum()
     // ── 8. QUOTE VAN DE DAG (onderaan) ──
     +'<div class="dash-card secondary" style="display:flex;align-items:flex-start;gap:12px">'
     +'<div style="flex:1">'
@@ -5255,7 +5398,7 @@ function delRule(catSafe,ri){
 function togGoalTaskEl(cb){
   var id=cb.getAttribute('data-tid');
   var t=(S.tasks||[]).find(function(x){return x.id===id;});
-  if(t){ t.done=cb.checked; save(); rGoals(); }
+  if(t){ t.done=cb.checked; if(cb.checked){t.doneAt=td();}else{delete t.doneAt;} save(); rGoals(); }
 }
 function unlinkGoalTaskEl(btn){
   var id=btn.getAttribute('data-tid');
@@ -5518,7 +5661,7 @@ function delGoal(id){
 }
 function togGoalDone(id,v){
   var g=S.goals.find(function(g){return g.id===id;});if(!g)return;
-  g.done=v;if(v)g.items.forEach(function(it){it.done=true;});
+  g.done=v;if(v){g.doneAt=td();g.items.forEach(function(it){it.done=true;});}else{delete g.doneAt;}
   save();rGoals();
 }
 function addGoalItem(gid){
@@ -6121,12 +6264,12 @@ function togTaakEl(cb) {
   var tid = cb.getAttribute('data-tid');
   var t = S.tasks.find(function(x){return x.id===tid;});
   if (!t) return;
-  t.done = cb.checked;
+  t.done = cb.checked; if(cb.checked){t.doneAt=td();}else{delete t.doneAt;}
   // Sync naar gekoppelde goal-subtaak
   if (t.goalId) {
     var g = S.goals.find(function(x){return x.id===t.goalId;});
     if (g && g.items) {
-      g.items.forEach(function(it){ if(it.taskId===tid) it.done=cb.checked; });
+      g.items.forEach(function(it){ if(it.taskId===tid) it.done=cb.checked; if(cb.checked){t.doneAt=td();}else{delete t.doneAt;} });
       var allDone = g.items.length>0 && g.items.every(function(it){return it.done;});
       if (allDone) g.done = true;
     }
@@ -6551,6 +6694,7 @@ function addRoutItemEl(inp) {
   if (!S.routineItems) S.routineItems = {};
   if (!S.routineItems[tab]) S.routineItems[tab] = [];
   S.routineItems[tab].push({ id: 'ri' + Date.now(), l: inp.value.trim() });
+  _starterMark(5);
   inp.value = ''; save(); renderRoutTab(tab);
 }
 function delRoutElBtn(btn) {
@@ -6665,6 +6809,7 @@ function rHab() {
     +'<span style="font-size:12px;color:var(--text3)">'+streak+' dagen</span>'
     +'<button class="btn sm" onclick="addHabItem()">+ Habit</button>'
     +'</div></div>'
+    +'<div style="font-size:12px;color:var(--text3);margin:-4px 0 12px;line-height:1.5">Gewoontes die je wilt opbouwen — dagelijks afvinken, reeks opbouwen. Je vaste ritme staat in <b>Routine</b>.</div>'
 
     +'<div class="tbar">'
     +'<button class="tb on" onclick="stb(this,\'hvd\')">Vandaag</button>'
@@ -6744,30 +6889,6 @@ function calcActiveStreak(){
   }
   return streak;
 }
-function buildMomentum(){
-  var s=calcActiveStreak();
-  var msg = s===0 ? 'Begin vandaag — vink iets af en je streak start'
-    : s===1 ? 'Mooi begin. Dag 1 staat.'
-    : s<4 ? 'Lekker bezig — houd het vast'
-    : s<8 ? 'Sterke reeks. Niet loslaten nu.'
-    : 'Onstuitbaar. Dit is wie je bent.';
-  // vlammetjes-strip laatste 7 dagen
-  var dots='';
-  for(var i=6;i>=0;i--){
-    var dd=new Date(); dd.setDate(dd.getDate()-i);
-    var k=dd.toISOString().split('T')[0];
-    var hh=S.habits&&S.habits[k]; var rr=S.routineChecks&&S.routineChecks[k];
-    var act=(hh&&Object.keys(hh).some(function(id){return hh[id];}))||(rr&&Object.keys(rr).some(function(id){return rr[id];}));
-    dots+='<span class="mom-dot'+(act?' on':'')+(i===0?' today':'')+'"></span>';
-  }
-  return '<div class="mom-card">'
-    +'<div class="mom-flame'+(s>0?' lit':'')+'">'+icon('flame',26,s>0?'var(--acc)':'var(--text3)')+'</div>'
-    +'<div class="mom-body">'
-    +'<div class="mom-num">'+s+' '+(s===1?'dag':'dagen')+' op rij</div>'
-    +'<div class="mom-msg">'+msg+'</div>'
-    +'<div class="mom-dots">'+dots+'</div>'
-    +'</div></div>';
-}
 function calcStreak(){
   var streak=0; var d2=new Date(); var t2=td();
   while(true){
@@ -6811,6 +6932,7 @@ function addHabItem(){
   var v=prompt('Nieuwe habit:');if(!v||!v.trim())return;
   if(!S.habItems)S.habItems=DEF_HABS.map(function(h){return Object.assign({},h);});
   S.habItems.push({id:'h'+Date.now(),l:v.trim(),type:'check'});
+  _starterMark(4);
   save();rHab();
 }
 function delHabItem(id){
@@ -8615,7 +8737,7 @@ function rGerecht(){
     +'</div></div>';
 
   if(!S.gerechten.length){
-    html+='<div class="es" style="text-align:center;padding:30px;color:var(--text3)">Nog geen gerechten. Voeg er een toe om kosten per portie te berekenen.</div>';
+    html+=em('list','Nog geen gerechten. Voeg hierboven je eerste toe en zie meteen wat een maaltijd per portie kost.');
     M.innerHTML=html; return;
   }
 
@@ -8794,6 +8916,7 @@ var _reviewTab = 'week';
 var _reviewOffset = 0; // 0=huidige periode, -1=vorige, etc.
 
 function rReview() {
+  try{ if(_lsOk) localStorage.setItem('pimmies_lastreview', td()); }catch(e){}
   var tabs = [['week','Week'],['maand','Maand'],['jaar','Jaar']];
   var tbar = tabs.map(function(t){
     return '<button class="tb'+(t[0]===_reviewTab?' on':'')+'" data-rvtab="'+t[0]+'" onclick="setReviewTab(this)">'+t[1]+'</button>';
@@ -8873,7 +8996,7 @@ function rvReflAvg(days) {
   return vals.length ? Math.round(vals.reduce(function(a,b){return a+b;},0)/vals.length*10)/10 : 0;
 }
 function rvTasksDone(days) {
-  return (S.tasks||[]).filter(function(t){ return t.done && days.indexOf(t.created)>=0; }).length;
+  return (S.tasks||[]).filter(function(t){ return t.done && days.indexOf(t.doneAt||t.created)>=0; }).length;
 }
 function rvFitSessions(days) {
   return (S.fitLog||[]).filter(function(l){ return days.indexOf(l.date)>=0; }).length;
@@ -8905,7 +9028,7 @@ function svgBarChart(data, labels, color, unit) {
   var bars = data.map(function(v,i){
     var h = max ? (v/max*70) : 0;
     var x = i*w;
-    return '<rect x="'+(x+w*0.15)+'" y="'+(78-h)+'" width="'+(w*0.7)+'" height="'+Math.max(h,0.5)+'" rx="1" fill="'+color+'" opacity="0.85"><title>'+labels[i]+': '+v+(unit||'')+'</title></rect>';
+    return '<rect class="rvb" x="'+(x+w*0.15)+'" y="'+(78-h)+'" width="'+(w*0.7)+'" height="'+Math.max(h,0.5)+'" rx="1" fill="'+color+'" opacity="0.85" style="animation-delay:'+(i*35)+'ms"><title>'+labels[i]+': '+v+(unit||'')+'</title></rect>';
   }).join('');
   var lbls = labels.map(function(l,i){
     if (data.length>15 && i%Math.ceil(data.length/12)!==0) return '';
@@ -8939,6 +9062,20 @@ function rvRoutDayPct(dk){
   return tot?Math.round(done/tot*100):0;
 }
 
+function vdReflCardHTML(isToday, today){
+  if(!isToday) return '';
+  var rd = S.reflDay && S.reflDay[today] ? S.reflDay[today] : null;
+  var hasRefl = rd && Object.keys(rd).some(function(k){ return rd[k]; });
+  if(hasRefl){
+    return '<div class="dash-card" style="margin-top:12px"><div class="dash-card-hd"><span class="dash-card-title">'+icon('moon',14,'var(--acc)')+'Dag afgesloten</span>'
+      +'<button class="dash-card-link" onclick="navToSection(\'refl\')">Bekijken'+icon('arrow',11)+'</button></div>'
+      +'<div style="font-size:12px;color:var(--text2)">\u2713 Je reflectie voor vandaag staat erin.</div></div>';
+  }
+  return '<div class="dash-card" style="margin-top:12px;border-color:var(--acc-line);background:linear-gradient(135deg,var(--acc-softer),transparent)">'
+    +'<div class="dash-card-hd"><span class="dash-card-title">'+icon('moon',14,'var(--acc)')+'Sluit je dag af</span></div>'
+    +'<div style="font-size:12px;color:var(--text2);margin-bottom:10px">Een minuutje terugkijken: hoe ging vandaag? Zo leer je wat voor j\u00f3u werkt.</div>'
+    +'<button class="btn pri" style="width:100%" onclick="navToSection(\'refl\')">Reflecteer (1 min)</button></div>';
+}
 function renderReview() {
   var e = el('review-body'); if (!e) return;
   var lblEl = el('review-period'); if (lblEl) lblEl.textContent = reviewPeriodLabel();
@@ -8953,6 +9090,15 @@ function renderReview() {
   var fitN    = rvFitSessions(days);
   var routPct = rvRoutPct(days);
   var suppPct = rvSuppPct(days);
+
+  // Focus-consistentie + dagscores + goals (verrijking)
+  var focusT=(S.tasks||[]).filter(function(t){ return t.focusDate && days.indexOf(t.focusDate)>=0; });
+  var focusPct=focusT.length?Math.round(focusT.filter(function(t){return t.done;}).length/focusT.length*100):0;
+  var dayScores=days.map(function(dk){ return {dk:dk, s:Math.round((rvHabPct([dk])+rvRoutDayPct(dk))/2)}; });
+  var _wd=dayScores.filter(function(d){return d.s>0;});
+  var bestDay=_wd.length?_wd.reduce(function(a,b){return b.s>a.s?b:a;}):null;
+  var DNSF=['zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'];
+  var goalsAchieved=(S.goals||[]).filter(function(g){ return g.done && g.doneAt && days.indexOf(g.doneAt)>=0; });
 
   // Build trend data: per-day for week, per-day for month, per-month for year
   var trendLabels = [], habTrend = [], reflTrend = [], taskTrend = [], fitTrend = [];
@@ -8979,17 +9125,43 @@ function renderReview() {
   }
 
   var html = '';
-  // Metric cards
-  html += '<div class="stat-row" style="margin-bottom:14px">'
-    +'<div class="stat-box"><div class="stat-num" style="font-size:22px;color:'+cpc(habPct)+'">'+habPct+'%</div><div class="stat-lbl">Habits</div></div>'
-    +'<div class="stat-box"><div class="stat-num" style="font-size:22px;color:'+scC(reflAvg)+'">'+(reflAvg||'—')+'</div><div class="stat-lbl">Reflectie</div></div>'
-    +'<div class="stat-box"><div class="stat-num" style="font-size:22px">'+tasksN+'</div><div class="stat-lbl">Taken</div></div>'
-    +'<div class="stat-box"><div class="stat-num" style="font-size:22px">'+fitN+'</div><div class="stat-lbl">Sport</div></div>'
-    +'</div>';
+  // ── Samenvatting in één zin ──
+  var sumTxt;
+  if(!_wd.length && !tasksN){
+    sumTxt='Nog geen data voor deze periode \u2014 vink af, reflecteer, en hier groeit je verhaal.';
+  } else {
+    sumTxt='Je rondde <b style="color:var(--acc)">'+tasksN+'</b> '+(tasksN===1?'taak':'taken')+' af'
+      +(habPct?', hield <b style="color:var(--acc)">'+habPct+'%</b> van je habits vol':'')
+      +(goalsAchieved.length?', behaalde <b style="color:var(--acc)">'+goalsAchieved.length+'</b> '+(goalsAchieved.length===1?'doel':'doelen'):'')
+      +(bestDay?' \u2014 beste dag: <b style="color:var(--acc)">'+DNSF[new Date(bestDay.dk).getDay()]+'</b>':'')+'.';
+  }
+  html += '<div class="card" style="margin-bottom:12px;border-left:3px solid var(--acc)"><div style="font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--text2);line-height:1.6">'+sumTxt+'</div></div>';
 
+  // ── Voortgangsringen ──
+  html += '<div class="pct-ring-row" style="justify-content:space-around;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px 6px 10px;margin-bottom:12px">'
+    + pctRing(habPct,'Habits')
+    + pctRing(routPct,'Routine')
+    + pctRing(focusPct,'Focus')
+    + '</div>';
+
+  // ── Dag voor dag (kleurstrip) ──
+  if (_reviewTab !== 'jaar') {
+    var cells = dayScores.map(function(d,ci){
+      var op = d.s ? Math.max(.16, d.s/100).toFixed(2) : 0;
+      var bg = d.s ? 'rgba(217,119,87,'+op+')' : 'var(--bg3)';
+      return '<div class="rv-cell" title="'+d.dk+' \u00b7 '+d.s+'%" style="flex:1;aspect-ratio:1;border-radius:6px;background:'+bg+';min-width:0;animation-delay:'+(ci*22)+'ms"></div>';
+    }).join('');
+    html += '<div class="card" style="margin-bottom:12px"><div class="ct">Dag voor dag</div>'
+      + '<div style="display:flex;gap:3px">'+cells+'</div>'
+      + '<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:5px"><span>begin</span><span>einde</span></div></div>';
+  }
+
+  // ── Tellers ──
   html += '<div class="stat-row" style="margin-bottom:14px">'
-    +'<div class="stat-box"><div class="stat-num" style="font-size:16px;color:'+cpc(routPct)+'">'+routPct+'%</div><div class="stat-lbl">Routine</div></div>'
-    +'<div class="stat-box"><div class="stat-num" style="font-size:16px;color:'+cpc(suppPct)+'">'+suppPct+'%</div><div class="stat-lbl">Supplementen</div></div>'
+    +'<div class="stat-box"><div class="stat-num" style="font-size:22px"><span data-countto="'+tasksN+'">0</span></div><div class="stat-lbl">Taken af</div></div>'
+    +'<div class="stat-box"><div class="stat-num" style="font-size:22px;color:'+scC(reflAvg)+'">'+(reflAvg?'<span data-countto="'+reflAvg+'" data-countdec="1">0</span>':'\u2014')+'</div><div class="stat-lbl">Reflectie</div></div>'
+    +'<div class="stat-box"><div class="stat-num" style="font-size:22px"><span data-countto="'+fitN+'">0</span></div><div class="stat-lbl">Sport</div></div>'
+    +'<div class="stat-box"><div class="stat-num" style="font-size:22px;color:'+cpc(suppPct)+'"><span data-countto="'+suppPct+'" data-countsuf="%">0%</span></div><div class="stat-lbl">Suppl.</div></div>'
     +'</div>';
 
   // Charts
@@ -9026,6 +9198,36 @@ function renderReview() {
     + (catBars?'<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)"><div style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">Per dagdeel</div>'+catBars+'</div>':'')
     + '</div>';
 
+  // ── Goals-voortgang ──
+  var _hzLabels = {'maandelijks':'Maandelijks', 'kwartaal':'Kwartaal', 'jaar':'Jaar', '2jaar':'2 jaar', '35jaar':'3-5 jaar', '510jaar':'5-10 jaar'};
+  (function(){
+    var all = S.goals||[];
+    if (!all.length && !goalsAchieved.length) return;
+    function gPct(g){
+      var items=g.items||[]; var lt=(S.tasks||[]).filter(function(t){return t.goalId===g.id;});
+      var dn=items.filter(function(i){return i.done;}).length+lt.filter(function(t){return t.done;}).length;
+      var tot=items.length+lt.length;
+      return g.done?100:(tot?Math.round(dn/tot*100):0);
+    }
+    var byHz={};
+    all.forEach(function(g){ var k=g.horizon||'overig'; (byHz[k]=byHz[k]||[]).push(g); });
+    var rows=Object.keys(byHz).map(function(k){
+      var gs=byHz[k];
+      var avg=Math.round(gs.reduce(function(a,g){return a+gPct(g);},0)/gs.length);
+      var lbl=_hzLabels[k]||k.charAt(0).toUpperCase()+k.slice(1);
+      return '<div style="margin-bottom:9px">'
+        +'<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px">'
+        +'<span style="color:var(--text2)">'+lbl+' <span style="color:var(--text3)">('+gs.length+')</span></span>'
+        +'<span style="color:'+cpc(avg)+';font-weight:600">'+avg+'%</span></div>'
+        +'<div class="fin-saldo-bar"><div class="fin-saldo-fil" style="width:'+avg+'%;background:'+cpc(avg)+'"></div></div>'
+        +'</div>';
+    }).join('');
+    var achievedH = goalsAchieved.length
+      ? '<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);margin-bottom:12px;padding:9px 11px;background:var(--acc-softer);border:1px solid var(--acc-line);border-radius:10px">'+icon('flag',13,'var(--acc)')+'<span><b style="color:var(--acc)">'+goalsAchieved.length+'</b> '+(goalsAchieved.length===1?'doel':'doelen')+' behaald deze periode: '+goalsAchieved.map(function(g){return g.title;}).join(', ')+'</span></div>'
+      : '';
+    html += '<div class="card" style="margin-top:10px;margin-bottom:10px"><div class="ct">Goals</div>'+achievedH+rows+'</div>';
+  })();
+
   // Reflectie per-vraag breakdown
   var scoreQs=(S.reflQuestions||DEF_REFL_QS).filter(function(q){return q.type==='score';});
   var qAvgs = scoreQs.map(function(q){
@@ -9046,6 +9248,7 @@ function renderReview() {
   }
 
   e.innerHTML = html;
+  scheduleEntryFX();
 }
 
 
@@ -9217,6 +9420,63 @@ function saveCapacity(val){
   S.settings.dayCapacity=Math.round(h*60);
   save();
   toast('Capaciteit: '+h+' uur per dag');
+}
+function rHelp(){
+  function stap(n, tijd, titel, tekst){
+    return '<div style="display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--border)">'
+      +'<div style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--acc-soft);border:1px solid var(--acc-line);color:var(--acc);font-family:var(--font-display);font-size:15px;display:flex;align-items:center;justify-content:center">'+n+'</div>'
+      +'<div style="min-width:0"><div style="font-size:13px;font-weight:700;color:var(--text)">'+titel+' <span style="font-weight:400;color:var(--text3);font-size:11px">\u00b7 '+tijd+'</span></div>'
+      +'<div style="font-size:12px;color:var(--text2);line-height:1.55;margin-top:2px">'+tekst+'</div></div></div>';
+  }
+  function onderdeel(sec, naam, tekst){
+    return '<div style="display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--border)">'
+      +'<div style="min-width:0;flex:1"><div style="font-size:13px;font-weight:700;color:var(--text)">'+naam+'</div>'
+      +'<div style="font-size:12px;color:var(--text2);line-height:1.55;margin-top:2px">'+tekst+'</div></div>'
+      +'<button class="btn sm" style="flex-shrink:0" onclick="navToSection(\''+sec+'\')">Openen</button></div>';
+  }
+  M.innerHTML = '<div class="ph"><div class="pt">Zo werkt het</div></div>'
+
+    // Het idee
+    +'<div class="card" style="border-left:3px solid var(--acc)">'
+    +'<div style="font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--text2);line-height:1.65">Je computer heeft een besturingssysteem. Je bedrijf ook. Pimmies OS is dat ene systeem voor je <b style="color:var(--text)">leven</b>: taken, doelen, gewoontes en gezondheid op \u00e9\u00e9n plek, die met elkaar samenwerken. Je hoeft niet alles te gebruiken \u2014 begin klein, de rest staat klaar.</div>'
+    +'</div>'
+
+    // Startersproject
+    +'<div class="card" style="background:linear-gradient(135deg,var(--acc-softer),transparent);border-color:var(--acc-line)">'
+    +'<div class="ct">Leren door te doen</div>'
+    +'<div style="font-size:12px;color:var(--text2);line-height:1.55;margin-bottom:12px">Het startersproject bevat tien kleine taken die je stap voor stap alles laten doen wat hieronder staat. Het mooiste: de app vinkt stappen <b style=\"color:var(--text)\">automatisch</b> af zodra je ze echt doet \u2014 alleen de eerste vink je zelf.</div>'
+    +'<button class="btn pri" style="width:100%" onclick="startStarterProject()">\ud83d\ude80 Zet het startersproject klaar</button>'
+    +'</div>'
+
+    // De dagelijkse lus
+    +'<div class="card"><div class="ct">De dagelijkse lus</div>'
+    +stap(1,'ochtend','Kies je focus','Open <b>Vandaag</b> en zet 1\u20133 taken in Mijn focus. Dat is je dag \u2014 de rest is bonus.')
+    +stap(2,'overdag','Doe & vink af','Werk vanuit je focus en je planning. Elke afgevinkte taak telt mee in je voortgang.')
+    +stap(3,'avond','Sluit af','Vink je habits en routine af, en doe de reflectie van 1 minuut onderaan Vandaag.')
+    +stap(4,'maandag','Kijk terug','Open <b>Review</b>: je week in cijfers en kleuren. Vijf minuten, veel inzicht.')
+    +'</div>'
+
+    // De onderdelen
+    +'<div class="card"><div class="ct">De kern-onderdelen</div>'
+    +onderdeel('taken','Taken','Alles wat je moet doen \u2014 met prioriteiten, deadlines en subtaken. Koppel taken aan projecten of goals.')
+    +onderdeel('rout','Routine','Je vaste ritme per dagdeel: wat je standaard doet. Geen losse to-do\u2019s \u2014 die horen bij Taken.')
+    +onderdeel('hab','Habits','Gewoontes die je wilt opbouwen. Dagelijks afvinken bouwt je reeks (streak) op.')
+    +onderdeel('goals','Goals','Je doelen, van dit kwartaal tot je levensvisie. Koppel taken zodat je dagelijkse werk optelt.')
+    +onderdeel('refl','Reflectie','Eén minuut per dag: hoe ging het? Bolletjes invullen, klaar. Hier leer je van.')
+    +onderdeel('review','Review','Je week of maand in cijfers: taken, habits, focus, goals. Voedt zichzelf met alles hierboven.')
+    +'</div>'
+
+    // Goed om te weten
+    +'<div class="card"><div class="ct">Goed om te weten</div>'
+    +'<div style="font-size:12px;color:var(--text2);line-height:1.7">'
+    +'<b style="color:var(--text)">\u2601 Sync</b> \u2014 alles wordt automatisch opgeslagen in je account en synct tussen telefoon en laptop.<br>'
+    +'<b style="color:var(--text)">\u21a9 Undo</b> \u2014 foutje? De pijl bovenin draait je laatste actie terug.<br>'
+    +'<b style="color:var(--text)">\ud83d\udcc1 Menu</b> \u2014 tik op een groepsnaam om onderdelen te verbergen die je niet gebruikt. Klein beginnen mag.<br>'
+    +'<b style="color:var(--text)">\ud83d\udcbe Backup</b> \u2014 via het dashboard download je altijd een volledige kopie van je gegevens. Ze blijven van jou.'
+    +'</div></div>'
+
+    // Onboarding opnieuw
+    +'<div style="text-align:center;margin-top:4px"><button class="btn" onclick="restartOnboarding()">Rondleiding opnieuw bekijken</button></div>';
 }
 function rSettings() {
   const size=JSON.stringify(S).length;
@@ -9590,6 +9850,9 @@ function onbSkip(){
 }
 function closeOnboarding(){
   var ov=el('onb-ov'); if(ov) ov.remove();
+  // Nieuwe gebruiker (nog geen eigen taken)? Zet het startersproject klaar.
+  var eigen=(S.tasks||[]).filter(function(t){return t.title && t.title.indexOf('Voorbeeld:')<0;}).length;
+  if(eigen===0) ensureStarterProject();
   rDash();
 }
 function restartOnboarding(){
@@ -9634,6 +9897,7 @@ function initMenuGroups(){
     lbl.addEventListener('click', function(){
       var isClosed=lbl.classList.toggle('gl-closed');
       wrap.style.display=isClosed?'none':'';
+      if(isClosed){ try{ starterDone(9); }catch(e){} }
       try{
         var st=JSON.parse((_lsOk?localStorage.getItem('pimmies_menugroups'):null)||'{}');
         st[key]=isClosed;
@@ -9765,8 +10029,20 @@ init();
 (function(){
   var b = document.getElementById('appBoot');
   if(!b) return;
+  // Persoonlijke, tijdsbewuste statusregel
+  var st = document.getElementById('appBootStatus');
+  if(st){
+    try{
+      var hr = new Date().getHours();
+      var naam = (typeof S!=='undefined' && S.settings && S.settings.naam) ? ', '+S.settings.naam : '';
+      st.textContent = hr<6 ? ('nog wakker'+naam+'? \u2014 leg het vast, dan rust je hoofd')
+        : hr<12 ? ('goedemorgen'+naam+' \u2014 je dag staat klaar')
+        : hr<18 ? ('goedemiddag'+naam+' \u2014 pak je focus')
+        : ('goedenavond'+naam+' \u2014 tijd om af te sluiten');
+    }catch(e){}
+  }
   var hide = function(){ b.classList.add('done'); };
-  setTimeout(hide, 1500);
+  setTimeout(hide, 1600);
   setTimeout(hide, 4000); // vangnet
 })();
 </script>
