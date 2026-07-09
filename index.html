@@ -2060,6 +2060,80 @@ body[data-theme="light"] .fin-ov-card {
   .bnav-plus:active{transform:scale(.92)}
   .fab{display:none}
   .main{padding-bottom:calc(86px + env(safe-area-inset-bottom))}
+  .app-toast{bottom:calc(90px + env(safe-area-inset-bottom))}
+}
+/* ── Quick-add sheet ── */
+.qa-ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:97;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+.qa-ov.open{opacity:1;visibility:visible}
+.qa-sheet{position:fixed;left:0;right:0;bottom:0;z-index:98;background:var(--bg2);border:1px solid var(--border);border-bottom:none;border-radius:20px 20px 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .22s cubic-bezier(.22,.61,.36,1)}
+.qa-sheet.open{transform:translateY(0)}
+.qa-hd{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text3);margin-bottom:12px;text-align:center}
+.qa-primary{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:linear-gradient(135deg,var(--acc),var(--acc-dim));border:none;border-radius:14px;padding:14px;color:#fff;font-size:14px;font-weight:700;font-family:var(--font-ui);cursor:pointer;margin-bottom:10px;box-shadow:0 6px 18px -8px rgba(217,119,87,.5)}
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.qa-item{display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:12px 4px;color:var(--text2);font-size:10.5px;font-weight:600;font-family:var(--font-ui);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.qa-item svg{color:var(--acc)}
+.qa-item:active{background:var(--acc-softer)}
+@media(prefers-reduced-motion:reduce){.qa-sheet,.qa-ov{transition:none}}
+
+/* ── Micro-interacties ── */
+/* Knoppen: subtiele indruk bij tikken */
+.btn,.btn.pri,.btn.sm,.es-btn,.dash-ql,.fin-sw-btn,.tb{transition:transform .12s cubic-bezier(.34,1.56,.64,1),background .15s,color .15s,border-color .15s,box-shadow .15s}
+.btn:active,.btn.pri:active,.btn.sm:active,.es-btn:active,.dash-ql:active,.fin-sw-btn:active,.tb:active{transform:scale(.94)}
+.btn.pri:hover{box-shadow:0 4px 14px -6px rgba(217,119,87,.5)}
+
+/* Kaarten: heel licht optillen bij hover (alleen fijn-aanwijzer, niet op touch) */
+@media(hover:hover){
+  .dash-card{transition:transform .2s cubic-bezier(.22,.61,.36,1),border-color .2s,box-shadow .2s}
+  .dash-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px -14px rgba(0,0,0,.6)}
+  .dash-ql:hover{transform:translateY(-2px)}
+  .goal-card-v2:hover{border-color:var(--acc-line)}
+}
+
+/* Menu-items: pijltje/indeuk bij tik */
+.ni{transition:background .15s,color .15s,transform .1s}
+.ni:active{transform:scale(.97)}
+
+/* Ring-items: zachte tik-feedback */
+.pct-ring-item{transition:transform .15s cubic-bezier(.34,1.56,.64,1)}
+.pct-ring-item:active{transform:scale(.93)}
+
+/* Checkboxes / afvinkbare cellen: pop bij toggle */
+.hab-cell,.hab-box,.rout-check,.task-check,.check,.cb,input[type=checkbox]{transition:transform .16s cubic-bezier(.34,1.56,.64,1)}
+.hab-cell:active,.rout-check:active,.task-check:active{transform:scale(.85)}
+
+/* Toast: verende entree */
+.app-toast{transition:opacity .25s,transform .3s cubic-bezier(.34,1.56,.64,1)!important}
+
+/* Modals: zachte schaal-in */
+@keyframes modalPop{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
+.modal,.modal-box,.modal-card,.add-modal{animation:modalPop .22s cubic-bezier(.22,.61,.36,1)}
+
+/* Sheet-items: getrapte entree wanneer de sheet opent */
+.qa-sheet.open .qa-primary{animation:qaItemIn .3s ease .02s backwards}
+.qa-sheet.open .qa-item:nth-child(1){animation:qaItemIn .3s ease .05s backwards}
+.qa-sheet.open .qa-item:nth-child(2){animation:qaItemIn .3s ease .08s backwards}
+.qa-sheet.open .qa-item:nth-child(3){animation:qaItemIn .3s ease .11s backwards}
+.qa-sheet.open .qa-item:nth-child(4){animation:qaItemIn .3s ease .14s backwards}
+@keyframes qaItemIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Bottom-nav: tik-veer op de plus en items */
+.bnav-item{transition:color .15s,transform .12s}
+.bnav-item:active{transform:scale(.9)}
+
+/* Lijstrijen: fijne hover-lift op desktop */
+@media(hover:hover){
+  .task-row,.hab-row,.goal-card-v2,.proj-card{transition:background .15s,transform .15s,border-color .15s}
+  .task-row:hover,.proj-card:hover{transform:translateX(2px)}
+}
+
+/* Inputs: zachte focus-gloed in accentkleur */
+input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow .15s;box-shadow:0 0 0 3px var(--acc-softer)}
+
+@media(prefers-reduced-motion:reduce){
+  .btn,.btn.pri,.dash-card,.ni,.pct-ring-item,.hab-cell,.bnav-item,.task-row,.dash-ql{transition:none!important}
+  .btn:active,.ni:active,.pct-ring-item:active,.bnav-item:active,.dash-ql:active{transform:none!important}
+  .modal,.modal-box,.modal-card,.add-modal,.qa-sheet.open .qa-primary,.qa-sheet.open .qa-item{animation:none!important}
+  .dash-card:hover,.dash-ql:hover,.task-row:hover,.proj-card:hover{transform:none!important}
 }
 </style>
 <script type="module">
@@ -2204,10 +2278,23 @@ body[data-theme="light"] .fin-ov-card {
 <nav class="bnav" id="bnav" aria-label="Hoofdnavigatie">
   <button class="bnav-item on" data-bs="dash" onclick="navToSection('dash')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Home</span></button>
   <button class="bnav-item" data-bs="vandaag" onclick="navToSection('vandaag')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Vandaag</span></button>
-  <button class="bnav-plus" onclick="openAddTaskModal()" aria-label="Taak toevoegen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+  <button class="bnav-plus" onclick="openQuickAdd()" aria-label="Snel toevoegen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
   <button class="bnav-item" data-bs="taken" onclick="navToSection('taken')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Taken</span></button>
   <button class="bnav-item" data-bs="review" onclick="navToSection('review')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-5"/></svg><span>Review</span></button>
 </nav>
+
+<!-- Quick-add sheet -->
+<div class="qa-ov" id="qaOv" onclick="closeQuickAdd()"></div>
+<div class="qa-sheet" id="qaSheet" role="dialog" aria-label="Snel toevoegen">
+  <div class="qa-hd">Snel toevoegen</div>
+  <button class="qa-primary" onclick="qaGo('taak')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Taak</button>
+  <div class="qa-grid">
+    <button class="qa-item" onclick="qaGo('habit')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg><span>Habit</span></button>
+    <button class="qa-item" onclick="qaGo('rout')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg><span>Routine</span></button>
+    <button class="qa-item" onclick="qaGo('note')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg><span>Notitie</span></button>
+    <button class="qa-item" onclick="qaGo('gerecht')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg><span>Gerecht</span></button>
+  </div>
+</div>
 
 <button class="fab" id="fab" onclick="openAddTaskModal()" title="Snel taak toevoegen" aria-label="Snel taak toevoegen"></button>
 
@@ -3560,6 +3647,23 @@ function vandaagDayToday(){ window._vandaagDay=td(); rVandaag(); }
 function togVHEl(cb){ var id=cb.getAttribute('data-hid'); var t=td(); if(!S.habits[t])S.habits[t]={}; S.habits[t][id]=cb.checked; save(); rVandaag(); }
 function togVandaagTaakEl(cb){ var id=cb.getAttribute('data-tid'); var task=(S.tasks||[]).find(function(x){return x.id===id;}); if(task){ task.done=cb.checked; if(cb.checked){task.doneAt=td();}else{delete task.doneAt;} save(); rVandaag(); } }
 
+function openQuickAdd(){
+  var o=el('qaOv'), s=el('qaSheet'); if(!o||!s) return;
+  o.classList.add('open'); s.classList.add('open');
+}
+function closeQuickAdd(){
+  var o=el('qaOv'), s=el('qaSheet');
+  if(o) o.classList.remove('open');
+  if(s) s.classList.remove('open');
+}
+function qaGo(w){
+  closeQuickAdd();
+  if(w==='taak'){ openAddTaskModal(); }
+  else if(w==='habit'){ navToSection('hab'); addHabItem(); }
+  else if(w==='rout'){ navToSection('rout'); }
+  else if(w==='note'){ navToSection('notes'); addNoteModal(); }
+  else if(w==='gerecht'){ navToSection('gerecht'); }
+}
 function _starterMark(i){
   var t=(S.tasks||[]).find(function(x){return x.id==='tstart'+i;});
   if(!t||t.done) return;
