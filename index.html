@@ -2,10 +2,15 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Pimmies OS</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2072%2072%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22g%22%20cx%3D%2230%25%22%20cy%3D%2225%25%22%20r%3D%2280%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%233a2318%22/%3E%3Cstop%20offset%3D%2272%25%22%20stop-color%3D%22%230f0f0f%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect%20width%3D%2272%22%20height%3D%2272%22%20rx%3D%2216%22%20fill%3D%22url%28%23g%29%22/%3E%3Cpath%20d%3D%22M12%2046%20Q13%2047%2015%2042%20L21%2030%20Q22%2027%2024%2031%20L29%2044%20Q30%2047%2032%2043%20L40%2026%20Q43%2019%2046%2027%20L52%2042%22%20stroke%3D%22%23D97757%22%20stroke-width%3D%226.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20fill%3D%22none%22/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2072%2072%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22g%22%20cx%3D%2230%25%22%20cy%3D%2225%25%22%20r%3D%2280%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%233a2318%22/%3E%3Cstop%20offset%3D%2272%25%22%20stop-color%3D%22%230f0f0f%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect%20width%3D%2272%22%20height%3D%2272%22%20rx%3D%2216%22%20fill%3D%22url%28%23g%29%22/%3E%3Cpath%20d%3D%22M12%2046%20Q13%2047%2015%2042%20L21%2030%20Q22%2027%2024%2031%20L29%2044%20Q30%2047%2032%2043%20L40%2026%20Q43%2019%2046%2027%20L52%2042%22%20stroke%3D%22%23D97757%22%20stroke-width%3D%226.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20fill%3D%22none%22/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Pimmies OS">
+  <meta name="theme-color" content="#0f0f0f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -23,7 +28,7 @@
 body{font-family:system-ui,-apple-system,sans-serif;font-size:12px;background:var(--bg);color:var(--text);height:100vh;overflow:hidden}
 .app{display:flex;height:100vh}
 /* SIDEBAR */
-.sb{width:200px;min-width:200px;background:var(--bg2);border-right:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;flex-shrink:0}
+.sb{width:200px;min-width:200px;background:var(--bg2);border-right:1px solid var(--border);padding-top:env(safe-area-inset-top);overflow-y:auto;display:flex;flex-direction:column;flex-shrink:0}
 .sb-top{padding:10px 12px 8px;border-bottom:1px solid var(--border)}
 .sb-name{font-size:13px;font-weight:700;color:var(--text);letter-spacing:-.3px;line-height:1.1}
 .sb-date{font-size:11px;color:var(--text3);margin-top:2px}
@@ -441,6 +446,9 @@ tr:last-child td{border-bottom:none}
     align-items: center;
     justify-content: space-between;
     padding: 10px 14px;
+    padding-top: calc(10px + env(safe-area-inset-top));
+    padding-left: calc(14px + env(safe-area-inset-left));
+    padding-right: calc(14px + env(safe-area-inset-right));
     background: var(--bg2);
     border-bottom: 1px solid var(--border);
     position: sticky;
@@ -640,15 +648,82 @@ tr:last-child td{border-bottom:none}
 
 /* ── Light theme ─────────────────────────────────────────────── */
 body[data-theme="light"] {
-  --bg: #f5f5f5;
-  --bg2: #ffffff;
-  --bg3: #efefef;
-  --border: #d8d8d8;
-  --text: #111111;
-  --text2: #444444;
-  --text3: #888888;
+  /* Warm crème-perzik palet (light) */
+  --bg: #f6ede6;          /* zacht crème */
+  --bg2: #fdf8f4;         /* bijna-wit warm (kaarten) */
+  --bg3: #f0e3d8;         /* perzik-tint (inputs, chips) */
+  --border: #e6d5c6;      /* zachte warme rand */
+  --text: #3b2f28;        /* warm donkerbruin i.p.v. hard zwart */
+  --text2: #7a6858;       /* gedempt bruin */
+  --text3: #a8968a;       /* lichte muted */
+  --acc-soft: rgba(217,119,87,.13);
+  --acc-softer: rgba(217,119,87,.06);
+  --acc-line: rgba(217,119,87,.28);
+  --urgent-soft: rgba(197,82,74,.12);
+  --grey: #a8968a;
 }
-body[data-theme="light"] .sb {
+body[data-theme="light"] {
+  color-scheme: light;
+}
+/* Bottom-nav blijft DONKER in light mode (bewuste keuze) */
+[data-theme="light"] .bnav {
+  background: rgba(24,23,22,.94);
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+[data-theme="light"] .bnav-item { color: #a89f98; }
+[data-theme="light"] .bnav-item.on { color: var(--acc); }
+/* Quick-add sheet ook donker (past bij de nav) */
+[data-theme="light"] .qa-sheet {
+  background: #1c1b1a;
+  border-color: rgba(255,255,255,.1);
+}
+[data-theme="light"] .qa-hd { color: #a89f98; }
+[data-theme="light"] .qa-item {
+  background: #262422;
+  border-color: rgba(255,255,255,.08);
+  color: #d8d0c8;
+}
+/* Warme, zachte schaduwen i.p.v. harde randen */
+[data-theme="light"] .card,
+[data-theme="light"] .dash-card,
+[data-theme="light"] .fin-ov-card,
+[data-theme="light"] .goal-card-v2,
+[data-theme="light"] .proj-card,
+[data-theme="light"] .tr-row {
+  box-shadow: 0 2px 12px -4px rgba(150,100,70,.12);
+}
+/* Mobiele header warm */
+[data-theme="light"] .mob-header {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+}
+/* Sidebar warm */
+[data-theme="light"] .sb {
+  background: var(--bg2);
+  box-shadow: 2px 0 16px rgba(150,100,70,.08);
+}
+[data-theme="light"] .ni.on { background: var(--acc-soft); color: var(--acc); }
+/* Inputs warm */
+[data-theme="light"] input,
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  background: var(--bg3);
+  color: var(--text);
+  border-color: var(--border);
+}
+/* Boot-scherm warm in light mode */
+[data-theme="light"] .app-boot { background: #f6ede6; }
+[data-theme="light"] .app-boot-name { color: #3b2f28; }
+[data-theme="light"] .app-boot-status { color: #a8968a; }
+/* Primaire knop houdt witte tekst (accent-bg) */
+[data-theme="light"] .btn.pri { color: #fff; }
+/* Lege-staat lijntje blijft accent */
+[data-theme="light"] .es-tx { color: var(--text2); }
+/* Diagonale streep-textuur (transform "nu") subtieler op licht */
+[data-theme="light"] .tr-from::before {
+  background: repeating-linear-gradient(115deg,transparent,transparent 9px,rgba(120,80,50,.03) 9px,rgba(120,80,50,.03) 18px);
+}
+[data-theme="light"] .sb {
   box-shadow: 2px 0 12px rgba(0,0,0,.08);
 }
 body[data-theme="light"] .modal-box {
@@ -2135,13 +2210,40 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   .modal,.modal-box,.modal-card,.add-modal,.qa-sheet.open .qa-primary,.qa-sheet.open .qa-item{animation:none!important}
   .dash-card:hover,.dash-ql:hover,.task-row:hover,.proj-card:hover{transform:none!important}
 }
+
+/* ══════════ Rustige lijstweergave (opt-in) ══════════ */
+.tkz{display:flex;align-items:center;gap:14px;padding:17px 4px;border-bottom:1px solid var(--border);transition:background .15s;position:relative}
+.tkz:hover{background:var(--acc-softer)}
+.tkz-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.tkz-title{flex:1;font-size:15px;color:var(--text);line-height:1.35;transition:color .2s,opacity .2s;cursor:pointer}
+.tkz-title:hover{color:var(--acc)}
+.tkz.done .tkz-title{text-decoration:line-through;color:var(--text3);opacity:.7}
+.tkz-badge{font-size:13px;color:var(--text3);flex-shrink:0;font-weight:500}
+.tkz-chev{width:30px;height:30px;flex-shrink:0;color:var(--text3);transition:transform .25s,background .15s,color .15s;display:flex;align-items:center;justify-content:center;background:none;border:none;border-radius:8px;cursor:pointer;padding:0}
+.tkz-chev:hover{background:var(--acc-softer);color:var(--acc)}
+.tkz-chev:active{transform:scale(.9)}
+.tkz.open .tkz-chev{transform:rotate(90deg)}
+.tkz.open .tkz-chev:active{transform:rotate(90deg) scale(.9)}
+/* uitklap-paneel */
+.tkz-panel{overflow:hidden;border-bottom:1px solid var(--border);background:var(--acc-softer)}
+.tkz-panel-in{padding:6px 4px 16px}
+.tkz-acts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2px}
+.tkz-act{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;font-family:var(--font-ui);padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;transition:transform .12s,background .15s,color .15s,border-color .15s}
+.tkz-act:active{transform:scale(.94)}
+.tkz-act.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+.tkz-act.pri.is-done{background:var(--bg2);border-color:var(--border);color:var(--text2)}
+.tkz-act.danger{color:#C5524A;border-color:rgba(197,82,74,.3)}
+.tkz-act.danger:hover{background:rgba(197,82,74,.1)}
+.tkz-detail{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:12px;color:var(--text3)}
+.tkz-detail b{color:var(--text2);font-weight:600}
+@media(prefers-reduced-motion:reduce){.tkz-chev,.tkz-title{transition:none}}
 </style>
 <script type="module">
   // Firebase laden met foutafhandeling. Faalt het laden (offline, CDN-blokkade)?
   // Dan blijft window.PimFB null en start de app lokaal door.
   try {
     const { initializeApp } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js");
-    const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js");
+    const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendPasswordResetEmail } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js");
     const { getFirestore, doc, getDoc, setDoc } = await import("https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js");
 
     const firebaseConfig = {
@@ -2166,6 +2268,9 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
       },
       login: function(email, pass){
         return signInWithEmailAndPassword(auth, email, pass);
+      },
+      resetPassword: function(email){
+        return sendPasswordResetEmail(auth, email);
       },
       logout: function(){
         return signOut(auth);
@@ -2211,7 +2316,9 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   <div class="app-boot-bar"><i></i></div>
   <div class="app-boot-status" id="appBootStatus"></div>
 </div>
-<noscript><style>.app-boot{display:none}</style></noscript>
+<noscript><style>.app-boot{display:none}
+
+</style></noscript>
 <!-- Mobile overlay -->
 <div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
 
@@ -2368,6 +2475,8 @@ function toggleTheme() {
   document.querySelectorAll('.theme-btn').forEach(function(btn) {
     btn.innerHTML = newTheme === 'light' ? icon('sun',16) : icon('moon',16);
   });
+  var tc = document.querySelector('meta[name="theme-color"]');
+  if(tc) tc.setAttribute('content', newTheme === 'light' ? '#f6ede6' : '#0f0f0f');
   try { localStorage.setItem('pimmies_theme', newTheme); } catch(e) {}
 }
 // Init theme from storage
@@ -2375,6 +2484,8 @@ function toggleTheme() {
   try {
     var t = localStorage.getItem('pimmies_theme') || 'dark';
     document.body.setAttribute('data-theme', t);
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if(tc) tc.setAttribute('content', t === 'light' ? '#f6ede6' : '#0f0f0f');
   } catch(e) {}
 })();
 
@@ -2419,6 +2530,41 @@ const FC = [
 ];
 // ── Assets (crypto, aandelen, fondsen — vrij in te richten) ──
 const ASSET_COLORS = ['#D97757','#C56A4B','#E0a183','#A85940','#b98a6f','#8a6a55'];
+// Koers-lookup (CoinGecko, gratis, geen sleutel) — op basis van het eerste woord van de asset-naam
+const CG_IDS = {BTC:'bitcoin',ETH:'ethereum',XRP:'ripple',XLM:'stellar',FLR:'flare-networks',SOL:'solana',ADA:'cardano',DOGE:'dogecoin',LTC:'litecoin',DOT:'polkadot',LINK:'chainlink',AVAX:'avalanche-2',MATIC:'matic-network',POL:'polygon-ecosystem-token',BNB:'binancecoin',TRX:'tron',ATOM:'cosmos',HBAR:'hedera-hashgraph',ALGO:'algorand',XDC:'xdce-crowd-sale'};
+function assetSym(a){ return (a.n||'').trim().split(/[\s(]/)[0].toUpperCase(); }
+function assetIncTotal(){ return (S.assets||[]).reduce(function(t,a){ return t+parseFloat(a.inc||0); },0); }
+function fetchAssetPrices(force){
+  if (typeof fetch === 'undefined') return;
+  var A = S.assets||[]; if(!A.length) return;
+  var now = Date.now();
+  if (!force && window._assetPxAt && now - window._assetPxAt < 10*60*1000) return;
+  if (window._assetPxBusy) return;
+  var ids = [];
+  A.forEach(function(a){ var id = CG_IDS[assetSym(a)]; if(id && ids.indexOf(id)<0) ids.push(id); });
+  if (!ids.length) return;
+  window._assetPxBusy = true;
+  var st = document.getElementById('asset-px-status'); if(st) st.textContent = 'Koersen ophalen\u2026';
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids='+ids.join(',')+'&vs_currencies=eur')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var px = {};
+      A.forEach(function(a){ var id = CG_IDS[assetSym(a)]; if(id && d[id] && d[id].eur) px[a.id] = d[id].eur; });
+      window._assetPx = px; window._assetPxAt = Date.now(); window._assetPxBusy = false;
+      if ((window._finView||'alles') === 'assets') renderFinBody('assets');
+    })
+    .catch(function(){
+      window._assetPxBusy = false;
+      var st2 = document.getElementById('asset-px-status'); if(st2) st2.textContent = 'Koersen niet beschikbaar';
+    });
+}
+function saveAssetInc(id, v){
+  var a = (S.assets||[]).find(function(x){ return x.id===id; }); if(!a) return;
+  var n = parseFloat(v);
+  if (n > 0) { a.inc = n; } else { delete a.inc; }
+  save();
+  var t = document.getElementById('asset-inc-tot'); if(t) t.textContent = '\u20ac'+assetIncTotal().toFixed(2);
+}
 function assetList(){
   if(!S.assets){
     // Migratie: assets afleiden uit eerder ingevoerde maanddata, zodat niets verloren gaat
@@ -2801,6 +2947,132 @@ function icon(name, size, color) {
 }
 
 // ── Progress ring (SVG circle) ──
+/* ══════════ MEERTALIGHEID (i18n) ══════════ */
+const I18N = { en: {
+  // Pagina-titels & navigatie
+  'Dashboard':'Dashboard','Vandaag':'Today','Taken':'Tasks','Routine':'Routine','Habits':'Habits','Goals':'Goals','Reflectie':'Reflection','Review':'Review','Planner':'Planner','Projecten':'Projects','Fitness':'Fitness','Oefeningen':'Exercises','Supplementen':'Supplements','Financi\u00ebn':'Finances','Werk':'Work','Gerechten':'Meals','Contacten':'Contacts','Aantekeningen':'Notes','Instellingen':'Settings','Zo werkt het':'How it works','Data & Import':'Data & Import',
+  // Veelgebruikte knoppen & labels
+  'Opslaan':'Save','Toevoegen':'Add','Verwijderen':'Delete','Annuleren':'Cancel','Sluiten':'Close','Bewerken':'Edit','Openen':'Open','Beheer':'Manage','Zoeken\u2026':'Search\u2026','Vandaag':'Today','Morgen':'Tomorrow','Deze week':'This week','Gedaan':'Done','Open':'Open','Alle':'All','Los':'Loose','Klaar':'Done',
+  // Focus-kaart
+  'Mijn focus':'My focus','Taak kiezen':'Pick a task','Nieuwe taak voor vandaag\u2026':'New task for today\u2026','Kies je 1\u20133 belangrijkste taken voor vandaag.':'Pick your 1\u20133 most important tasks for today.',
+  // Dashboard
+  'Nog open':'Still open','te laat of nog niet ingepland':'overdue or not yet planned','Opkomende activiteit':'Upcoming activity','Geen geplande activiteiten':'No planned activities','Routine vandaag':'Routine today','Je weekreview staat klaar':'Your weekly review is ready','Bekijk je week':'View your week','Nieuwe week \u2014 vijf minuten terugkijken maakt de rest bewuster.':'New week \u2014 five minutes of looking back makes the rest more intentional.','Streak':'Streak','Backup maken':'Create backup','Backup herstellen':'Restore backup',
+  // Vandaag / reflectie-kaart
+  'Sluit je dag af':'Close your day','Reflecteer (1 min)':'Reflect (1 min)','Dag afgesloten':'Day closed','Bekijken':'View','Een minuutje terugkijken: hoe ging vandaag? Zo leer je wat voor j\u00f3u werkt.':'A minute of looking back: how did today go? That\u2019s how you learn what works for you.','\u2713 Je reflectie voor vandaag staat erin.':'\u2713 Your reflection for today is saved.',
+  // Review
+  'Dag voor dag':'Day by day','Taken af':'Tasks done','Sport':'Workouts','Suppl.':'Suppl.','Focus':'Focus','begin':'start','einde':'end',
+  // Habits/Routine uitleg
+  'Gewoontes die je wilt opbouwen \u2014 dagelijks afvinken, reeks opbouwen. Je vaste ritme staat in ':'Habits you want to build \u2014 check off daily, build your streak. Your fixed rhythm lives in ',
+  'Je vaste ritme \u2014 wat je standaard doet per dagdeel of weekdag. Losse to-do\u2019s horen bij ':'Your fixed rhythm \u2014 what you do by default per part of day. Loose to-dos belong in ',
+  // Quick-add sheet
+  'Snel toevoegen':'Quick add','Overig':'Other','Zoeken in taken\u2026':'Search tasks\u2026','\u2713 Gedaan':'\u2713 Done','Snel een taak toevoegen...':'Quickly add a task...','Taak':'Task','Habit':'Habit','Notitie':'Note','Gerecht':'Meal',
+  // Financi\u00ebn
+  'Overzicht':'Overview','Persoonlijk':'Personal','Zakelijk':'Business','Assets':'Assets','Portfoliowaarde':'Portfolio value','Maandelijkse inkomsten':'Monthly income','Asset toevoegen':'Add asset','Totaal per maand':'Total per month','Telt automatisch mee bij Inkomsten op het Overzicht.':'Automatically counts toward Income on the Overview.','Uit assets (staking e.d.)':'From assets (staking etc.)','Inkomsten / maand':'Income / month','Historie':'History','Maand invoeren':'Enter month',
+  // Login
+  'Inloggen':'Log in','Registreren':'Sign up','Wachtwoord vergeten?':'Forgot password?','E-mailadres':'Email address','Wachtwoord':'Password','Log in om je gegevens overal te gebruiken':'Log in to use your data everywhere','Nog geen account?':'No account yet?','Even geduld...':'One moment\u2026',
+  // Instellingen / taal
+  'Taal':'Language','Weergave':'Display','Rustige lijstweergave':'Calm list view','Strakke rijen; tik om acties uit te klappen. Nu alleen bij Taken.':'Clean rows; tap to expand actions. Tasks only for now.','Afvinken':'Complete','Niet gedaan':'Not done','Aanpassen':'Edit','Focus vandaag':'Focus today','Uit focus':'Unfocus','Verwijderen':'Delete','Meer talen volgen.':'More languages coming.','Taal ingesteld op Nederlands':'Language set to Dutch',
+  // Lege staten & algemeen
+  'Nog geen taken':'No tasks yet','Lijst leeg':'List is empty','Niets opgeslagen':'Nothing saved','Geen contacten':'No contacts','Nog geen quotes':'No quotes yet','Geen aantekeningen in deze categorie':'No notes in this category','Nog geen reflecties':'No reflections yet','Nog geen routines ingesteld':'No routines set up yet','Alle taken gedaan! Goed bezig.':'All tasks done! Nice work.','Geen taken gevonden':'No tasks found','Geen oefeningen gevonden':'No exercises found','Log je eerste training!':'Log your first workout!'
+}};
+function getLang(){ return (S && S.settings && S.settings.lang) || 'nl'; }
+function t(s){ var L=getLang(); if(L==='nl') return s; var d=I18N[L]; return (d && d[s]) || s; }
+const NAV_I18N = {
+  groups: {nl:['Hoofd','Kern','Plannen','Trackers','Over mij','Archief','Instellingen'], en:['Main','Core','Planning','Trackers','About me','Archive','Settings']},
+  items: { dash:['Dashboard','Dashboard'], vandaag:['Vandaag','Today'], taken:['Taken','Tasks'], rout:['Routine','Routine'], hab:['Habits','Habits'], goals:['Goals','Goals'], refl:['Reflectie','Reflection'], review:['Review','Review'], plan:['Planner','Planner'], proj:['Projecten','Projects'], fit:['Fitness','Fitness'], oef:['Oefeningen','Exercises'], supp:['Supplementen','Supplements'], fin:['Financi\u00ebn','Finances'], werk:['Werk','Work'], visie:['Visie & Frame','Vision & Frame'], eig:['Eigenschappen','Traits'], rules:['Rules to live by','Rules to live by'], shop:['Shopping','Shopping'], lees:['Lees & Wachtlijst','Read & Watchlist'], ops:['Opgeslagen','Saved'], gerecht:['Gerechten','Meals'], ctc:['Contacten','Contacts'], qt:['Quotes','Quotes'], notes:['Aantekeningen','Notes'], settings:['Instellingen','Settings'], help:['Zo werkt het','How it works'] },
+  bnav: { dash:['Home','Home'], vandaag:['Vandaag','Today'], taken:['Taken','Tasks'], review:['Review','Review'] }
+};
+function applyStaticNav(L){
+  var gi = L==='en' ? 1 : 0;
+  document.querySelectorAll('.ni[data-s]').forEach(function(n){
+    var m = NAV_I18N.items[n.dataset.s]; if(!m) return;
+    for(var i=n.childNodes.length-1;i>=0;i--){
+      if(n.childNodes[i].nodeType===3 && n.childNodes[i].nodeValue.trim()){ n.childNodes[i].nodeValue=m[gi]; return; }
+    }
+  });
+  var groups = NAV_I18N.groups[L==='en'?'en':'nl'];
+  document.querySelectorAll('.sb .gl').forEach(function(gl,idx){
+    var sp = gl.querySelector('span'); if(sp && groups[idx]) sp.textContent = groups[idx];
+  });
+  document.querySelectorAll('.bnav-item').forEach(function(b){
+    var m = NAV_I18N.bnav[b.getAttribute('data-bs')]; if(!m) return;
+    var sp = b.querySelector('span'); if(sp) sp.textContent = m[gi];
+  });
+}
+function translateDom(root){
+  var L = getLang(); if(L==='nl') return;
+  var d = I18N[L]; if(!d) return;
+  if(!document.createTreeWalker || typeof NodeFilter==='undefined') return;
+  try{
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var node;
+    while((node = w.nextNode())){
+      var raw = node.nodeValue; if(!raw) continue;
+      var tr = raw.trim(); if(!tr) continue;
+      if(d[tr] && d[tr]!==tr) node.nodeValue = raw.replace(tr, d[tr]);
+    }
+    if(root.querySelectorAll){
+      root.querySelectorAll('[placeholder],[title],[aria-label]').forEach(function(e2){
+        ['placeholder','title','aria-label'].forEach(function(a){
+          var v = e2.getAttribute(a); if(v && d[v]) e2.setAttribute(a, d[v]);
+        });
+      });
+    }
+  }catch(e){}
+}
+function ensureI18nObserver(){
+  if(window._i18nObs || typeof MutationObserver==='undefined') return;
+  window._i18nObs = new MutationObserver(function(muts){
+    if(getLang()==='nl') return;
+    muts.forEach(function(m2){
+      if(!m2.addedNodes) return;
+      m2.addedNodes.forEach(function(nd){
+        if(nd.nodeType===1) translateDom(nd);
+        else if(nd.nodeType===3){
+          var d=I18N[getLang()]; if(!d) return;
+          var tv=nd.nodeValue && nd.nodeValue.trim();
+          if(tv && d[tv]) nd.nodeValue = nd.nodeValue.replace(tv, d[tv]);
+        }
+      });
+    });
+  });
+  window._i18nObs.observe(document.body, {childList:true, subtree:true});
+}
+function setLang(v){
+  if(!S.settings) S.settings = {};
+  S.settings.lang = v; save();
+  document.documentElement.lang = v;
+  applyStaticNav(v);
+  if(v!=='nl') ensureI18nObserver();
+  var cur = document.querySelector('.ni.on');
+  if(cur && cur.click){ cur.click(); } else if(typeof rDash==='function'){ try{ rDash(); }catch(e){} }
+  if(v!=='nl') translateDom(document.body);
+  if(typeof toast==='function') toast(v==='en' ? 'Language set to English' : 'Taal ingesteld op Nederlands');
+}
+function chooseLang(v){ var ov=document.getElementById('lang-ov'); if(ov) ov.remove(); setLang(v); }
+function maybeShowLangPicker(){
+  var eigen = (S.tasks||[]).filter(function(x){ return (x.title||'').indexOf('Voorbeeld:')<0 && String(x.id).indexOf('tstart')!==0; }).length;
+  if(eigen > 0){ if(!S.settings) S.settings={}; S.settings.lang='nl'; save(); return; }
+  var ov = document.createElement('div');
+  ov.id = 'lang-ov';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(10,10,10,.92);z-index:10001;display:flex;align-items:center;justify-content:center;padding:20px';
+  ov.innerHTML = '<div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:28px 24px;max-width:340px;width:100%;text-align:center">'
+    +'<div style="font-family:var(--font-serif);font-size:20px;margin-bottom:6px">Taal / Language</div>'
+    +'<div style="font-size:12px;color:var(--text3);margin-bottom:18px">Kies je taal \u00b7 Choose your language</div>'
+    +'<button class="btn pri" style="width:100%;margin-bottom:8px;padding:12px;font-size:14px" onclick="chooseLang(\'nl\')">Nederlands</button>'
+    +'<button class="btn" style="width:100%;padding:12px;font-size:14px" onclick="chooseLang(\'en\')">English</button>'
+    +'</div>';
+  document.body.appendChild(ov);
+}
+function initI18n(){
+  if(!S.settings) S.settings = {};
+  window._rustLijst = !!S.settings.rustLijst;
+  var L = S.settings.lang;
+  if(!L){ maybeShowLangPicker(); return; }
+  document.documentElement.lang = L;
+  if(L!=='nl'){ applyStaticNav(L); ensureI18nObserver(); translateDom(document.body); }
+}
+
 var _RM = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 function scheduleEntryFX(){
   if (typeof requestAnimationFrame === 'undefined') return;
@@ -4277,6 +4549,86 @@ function buildICS(events){
   return lines.join('\r\n');
 }
 
+// ── Agenda importeren (.ics van Google/Apple/Outlook) ──
+function parseICS(text){
+  // Regels "unfolden" (vervolgregels beginnen met spatie/tab)
+  text = text.replace(/\r\n[ \t]/g, '').replace(/\n[ \t]/g, '');
+  var lines = text.split(/\r?\n/);
+  var out = [], cur = null;
+  function parseDate(val, params){
+    params = params || '';
+    if (params.indexOf('VALUE=DATE') >= 0 || /^\d{8}$/.test(val)){
+      return { allday:true, date: val.slice(0,4)+'-'+val.slice(4,6)+'-'+val.slice(6,8) };
+    }
+    var m = val.match(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})?(Z)?$/);
+    if (!m) return null;
+    var d;
+    if (m[7] === 'Z'){ d = new Date(Date.UTC(+m[1], +m[2]-1, +m[3], +m[4], +m[5], +(m[6]||0))); }
+    else { d = new Date(+m[1], +m[2]-1, +m[3], +m[4], +m[5], +(m[6]||0)); }
+    var p = function(n){ return String(n).padStart(2,'0'); };
+    return { allday:false, date: d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate()), time: p(d.getHours())+':'+p(d.getMinutes()) };
+  }
+  lines.forEach(function(line){
+    if (line === 'BEGIN:VEVENT'){ cur = {}; return; }
+    if (line === 'END:VEVENT'){ if (cur) out.push(cur); cur = null; return; }
+    if (!cur) return;
+    var ci = line.indexOf(':'); if (ci < 0) return;
+    var key = line.slice(0, ci), val = line.slice(ci+1);
+    var name = key.split(';')[0], params = key.slice(name.length);
+    if (name === 'SUMMARY') cur.title = val.replace(/\\,/g, ',').replace(/\\;/g, ';').replace(/\\n/g, ' ');
+    else if (name === 'UID') cur.uid = val;
+    else if (name === 'DTSTART') cur.start = parseDate(val, params);
+    else if (name === 'DTEND') cur.end = parseDate(val, params);
+  });
+  return out;
+}
+function importICSFile(inp){
+  var f = inp.files && inp.files[0];
+  inp.value = '';
+  if (!f) return;
+  var reader = new FileReader();
+  reader.onload = function(){
+    try {
+      var evs = parseICS(String(reader.result));
+      if (!S.events) S.events = [];
+      var today = new Date(); today.setHours(0,0,0,0);
+      var max = new Date(today); max.setDate(max.getDate()+60);
+      var added = 0, allday = 0, skipped = 0;
+      evs.forEach(function(e){
+        if (!e.title || !e.start){ skipped++; return; }
+        if (e.start.allday){ allday++; return; }
+        var d = new Date(e.start.date+'T00:00');
+        if (d < today || d > max){ skipped++; return; }
+        var uidKey = (e.uid || (e.title+e.start.date)) + '_' + e.start.date;
+        if (S.events.some(function(x){ return x.icsUid === uidKey; })){ skipped++; return; }
+        var et = (e.end && !e.end.allday && e.end.date === e.start.date) ? e.end.time : null;
+        if (!et){
+          var hh = parseInt(e.start.time.slice(0,2),10);
+          et = String(Math.min(23, hh+1)).padStart(2,'0') + e.start.time.slice(2);
+        }
+        S.events.push({ id:'ev'+Date.now()+Math.random().toString(36).slice(2,6), title:e.title, date:e.start.date, st:e.start.time, et:et, color:'#D97757', rec:false, days:[], taskIds:[], icsUid:uidKey });
+        added++;
+      });
+      save();
+      if (typeof rPlBody === 'function') rPlBody(); else rPlan();
+      var msg = added + ' ' + (added===1?'afspraak':'afspraken') + ' ge\u00efmporteerd';
+      if (allday) msg += ' \u00b7 ' + allday + ' hele-dag overgeslagen';
+      if (typeof toast === 'function') toast('\ud83d\udcc5 ' + msg);
+    } catch(err){
+      if (typeof toast === 'function') toast('Kon dit bestand niet lezen \u2014 is het een .ics-agenda?');
+    }
+  };
+  reader.readAsText(f);
+}
+function gcalUrl(ev){
+  var d = ev.date.replace(/-/g,'');
+  var s = (ev.st||'09:00').replace(':',''), e = (ev.et||'10:00').replace(':','');
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(ev.title)+'&dates='+d+'T'+s+'00/'+d+'T'+e+'00&ctz=Europe/Amsterdam';
+}
+function openGcal(eid){
+  var ev = (S.events||[]).find(function(x){ return x.id===eid; });
+  if (ev) window.open(gcalUrl(ev), '_blank');
+}
 function exportICS(scope){
   // scope: 'all' | 'maand' | 'week'
   var evs=(S.events||[]).slice();
@@ -4339,6 +4691,8 @@ function rPlan() {
       <div class="pt">Planner</div>
       <div class="pl-head-actions">
         <input type="date" id="plDatePick" onchange="plJumpToDate(this.value)" title="Spring naar datum" class="pl-datepick" />
+        <button class="btn sm" onclick="document.getElementById('icsFile').click()" title="Importeer agenda (.ics)">${icon('cloud',13)}</button>
+        <input type="file" id="icsFile" accept=".ics,text/calendar" style="display:none" onchange="importICSFile(this)">
         <button class="btn sm" onclick="exportICSModal()" title="Exporteer naar agenda">${icon('calendar',13)}</button>
         <button class="ai-btn" onclick="rAIModal()">${icon('bolt',13,'#fff')} AI</button>
       </div>
@@ -4812,6 +5166,7 @@ function openEvEditor(eid, date, start, end){
     +'</div>'
     +'<div style="display:flex;gap:6px;margin-top:16px">'
     +'<button class="btn pri" onclick="saveEvEditor('+(eid?'\''+eid+'\'':'null')+')" style="flex:1">'+(isNew?'Toevoegen':'Opslaan')+'</button>'
+    +(isNew?'':'<button class="btn" onclick="openGcal(\''+eid+'\')" title="Zet in Google Agenda">'+icon('calendar',13)+' Google</button>')
     +(isNew?'':'<button class="btn" onclick="delEv(\''+eid+'\');closeModal();rPlBody()" style="color:#D97757;border-color:rgba(217,119,87,.3)">Verwijderen</button>')
     +'<button class="btn" onclick="closeModal()">Annuleer</button>'
     +'</div>';
@@ -6085,7 +6440,7 @@ function addProj() { const n=el('pni').value.trim();if(!n)return;S.projects.push
 
 // ─── TAKEN ───────────────────────────────────────────────────────────────────
 function rTaken() {
-  if (!window._takenTab) window._takenTab = 'los';
+  if (!window._takenTab || window._takenTab==='open' || window._takenTab==='gedaan') window._takenTab = 'alle';
   if (!window._takenSort) window._takenSort = 'prio';
 
   var projOpts = S.projects.map(function(p){ return '<option value="'+p.id+'">'+p.name+'</option>'; }).join('');
@@ -6096,14 +6451,14 @@ function rTaken() {
     +'<button class="btn pri" onclick="openAddTaskModal()">+ Taak</button>'
     +'</div></div>'
     +'<div class="tbar" id="taken-tbar">'
-    +'<button class="tb'+(window._takenTab==='los'?' on':'')+'" data-tab="los" onclick="setTakenTabEl(this)">Los</button>'
     +'<button class="tb'+(window._takenTab==='alle'?' on':'')+'" data-tab="alle" onclick="setTakenTabEl(this)">Alle</button>'
     +'<button class="tb'+(window._takenTab==='projecten'?' on':'')+'" data-tab="projecten" onclick="setTakenTabEl(this)">Projecten</button>'
     +'<button class="tb'+(window._takenTab==='goals'?' on':'')+'" data-tab="goals" onclick="setTakenTabEl(this)">Goals</button>'
-    +'<button class="tb'+(window._takenTab==='open'?' on':'')+'" data-tab="open" onclick="setTakenTabEl(this)">Open</button>'
-    +'<button class="tb'+(window._takenTab==='gedaan'?' on':'')+'" data-tab="gedaan" onclick="setTakenTabEl(this)">Gedaan</button>'
+    +'<button class="tb'+(window._takenTab==='los'?' on':'')+'" data-tab="los" onclick="setTakenTabEl(this)">Overig</button>'
+    +'<button class="tb'+(window._takenShowDone?' on':'')+'" id="tk-done-tog" onclick="togTakenDone(this)" style="margin-left:auto" title="Toon ook afgeronde taken">\u2713 Gedaan</button>'
     +'</div>'
     +'<div class="taken-quick"><input type="text" id="taken-quick-inp" placeholder="Snel een taak toevoegen..." onkeydown="if(event.keyCode===13)takenQuickAdd()" style="flex:1"><button class="btn pri" onclick="takenQuickAdd()" style="flex-shrink:0">'+icon('plus',14,'#fff')+'</button></div>'
+    +'<div style="margin:0 0 8px"><input type="text" id="taken-search" placeholder="Zoeken in taken\u2026" value="'+(window._takenQuery||'')+'" oninput="takenSearch(this.value)" style="width:100%"></div>'
     +'<div id="taken-filters" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px"></div>'
     +'<div id="taken-rows"></div>';
 
@@ -6119,6 +6474,15 @@ function setTakenTab(btn, tab) {
   renderTakenTab(tab);
 }
 
+function takenSearch(v){
+  window._takenQuery = v;
+  renderTakenTab(window._takenTab);
+}
+function togTakenDone(btn){
+  window._takenShowDone = !window._takenShowDone;
+  if (btn) btn.classList.toggle('on', window._takenShowDone);
+  renderTakenTab(window._takenTab);
+}
 function takenQuickAdd(){
   var inp=el('taken-quick-inp'); if(!inp) return;
   var v=inp.value.trim(); if(!v) return;
@@ -6145,6 +6509,11 @@ function renderTakenTab(tab) {
 
   // Build task list based on tab
   var tasks = S.tasks.slice();
+  // Gedaan-toggle: standaard alleen open taken
+  if (!window._takenShowDone) tasks = tasks.filter(function(t){ return !t.done; });
+  // Zoekfilter
+  var _q = (window._takenQuery||'').toLowerCase().trim();
+  if (_q) tasks = tasks.filter(function(t){ return (t.title||'').toLowerCase().indexOf(_q) >= 0; });
 
   if (tab === 'los') {
     // Collect goal-linked task IDs
@@ -6276,7 +6645,91 @@ function estMinutes(min){ return parseInt(min)||0; }
 // Werkdag-capaciteit (instelbaar, standaard 6u = 360m)
 function dayCapacityMin(){ return (S.settings && S.settings.dayCapacity ? S.settings.dayCapacity : 360); }
 
+function rustTitleDone(el){
+  var tid = el.getAttribute('data-tid');
+  var t = S.tasks.find(function(x){return x.id===tid;});
+  if(!t) return;
+  t.done = !t.done;
+  if(t.done){ t.doneAt = td(); } else { delete t.doneAt; }
+  save();
+  renderTakenTab(window._takenTab);
+}
+function togTaakRustEl(el){
+  var tid = el.getAttribute('data-tid');
+  if(!window._taakOpen) window._taakOpen = {};
+  var wasOpen = !!window._taakOpen[tid];
+  window._taakOpen = {};            // accordeon: sluit alle andere
+  if(!wasOpen) window._taakOpen[tid] = true;
+  renderTakenTab(window._takenTab);
+}
+function rustToggleDone(ev,btn){
+  ev.stopPropagation();
+  var tid = btn.getAttribute('data-tid');
+  var t = S.tasks.find(function(x){return x.id===tid;});
+  if(!t) return;
+  t.done = !t.done;
+  if(t.done){ t.doneAt = td(); } else { delete t.doneAt; }
+  save();
+  renderTakenTab(window._takenTab);
+}
+function rustEdit(ev,btn){ ev.stopPropagation(); openTaskEdit(btn.getAttribute('data-tid')); }
+function rustFocus(ev,btn){
+  ev.stopPropagation();
+  var tid = btn.getAttribute('data-tid');
+  var t = S.tasks.find(function(x){return x.id===tid;});
+  if(!t) return;
+  t.focusDate = (t.focusDate===td()) ? '' : td();
+  save();
+  renderTakenTab(window._takenTab);
+}
+function rustDel(ev,btn){ ev.stopPropagation(); delTaakRow(btn.getAttribute('data-tid')); }
+function setRustLijst(on){
+  window._rustLijst = !!on;
+  if(!S.settings) S.settings = {};
+  S.settings.rustLijst = !!on;
+  save();
+  if(typeof toast==='function') toast(on ? 'Rustige lijstweergave aan' : 'Rustige lijstweergave uit');
+  if((window._sec||'')==='taken' || document.getElementById('taken-rows')) { try{ renderTakenTab(window._takenTab); }catch(e){} }
+}
+function taakRijRust(t) {
+  var p = proj(t);
+  var prioCol = t.prio==='hoog' ? '#C5524A' : (t.prio==='laag' ? 'var(--text3)' : 'var(--acc)');
+  var db = t.deadline ? deadlineBadge(t.deadline) : '';
+  var badgeTxt = '';
+  if (t.deadline) { var dl = new Date(t.deadline+'T00:00'); var td0 = new Date(); td0.setHours(0,0,0,0);
+    var diff = Math.round((dl-td0)/86400000);
+    badgeTxt = diff<0 ? 'te laat' : diff===0 ? 'vandaag' : diff===1 ? 'morgen' : diff<=7 ? 'deze week' : dl.toLocaleDateString('nl-NL',{day:'numeric',month:'short'});
+  } else if (t.focusDate===td()) { badgeTxt = 'vandaag'; }
+  var open = !!(window._taakOpen && window._taakOpen[t.id]);
+  var subs = t.subtasks||[];
+  var h = '<div class="tkz'+(t.done?' done':'')+(open?' open':'')+'" data-tid="'+t.id+'">'
+    +'<span class="tkz-dot" style="background:'+prioCol+'"></span>'
+    +'<span class="tkz-title" data-tid="'+t.id+'" onclick="rustTitleDone(this)" title="Klik om af te vinken">'+t.title+'</span>'
+    +(badgeTxt?'<span class="tkz-badge">'+badgeTxt+'</span>':'')
+    +'<button class="tkz-chev" data-tid="'+t.id+'" onclick="togTaakRustEl(this)" title="Opties en details" aria-label="Opties">'+icon('arrow',16)+'</button>'
+    +'</div>';
+  if (open) {
+    var det = [];
+    if (p) det.push('<span><b>Project:</b> '+p.name+'</span>');
+    if (t.deadline) det.push('<span><b>Deadline:</b> '+t.deadline+'</span>');
+    if (t.prio && t.prio!=='normaal') det.push('<span><b>Prioriteit:</b> '+t.prio+'</span>');
+    if (t.estimate) det.push('<span><b>Duur:</b> '+estLabel(t.estimate)+'</span>');
+    if (subs.length) { var sd=subs.filter(function(s){return s.done;}).length; det.push('<span><b>Subtaken:</b> '+sd+'/'+subs.length+'</span>'); }
+    h += '<div class="tkz-panel"><div class="tkz-panel-in">'
+      +'<div class="tkz-acts">'
+      +'<button class="tkz-act pri'+(t.done?' is-done':'')+'" data-tid="'+t.id+'" onclick="rustToggleDone(event,this)">'+icon('check',14,t.done?'var(--text2)':'#fff')+(t.done?'Niet gedaan':'Afvinken')+'</button>'
+      +'<button class="tkz-act" data-tid="'+t.id+'" onclick="rustEdit(event,this)">'+icon('edit',13,'var(--text2)')+'Aanpassen</button>'
+      +'<button class="tkz-act" data-tid="'+t.id+'" onclick="rustFocus(event,this)">'+icon('target',13,t.focusDate===td()?'var(--acc)':'var(--text2)')+(t.focusDate===td()?'Uit focus':'Focus vandaag')+'</button>'
+      +'<button class="tkz-act danger" data-tid="'+t.id+'" onclick="rustDel(event,this)">'+icon('list',13,'#C5524A')+'Verwijderen</button>'
+      +'</div>'
+      +(det.length?'<div class="tkz-detail">'+det.join('')+'</div>':'')
+      +'</div></div>';
+  }
+  return h;
+}
 function taakRij(t) {
+  if (window._rustLijst && !t.done && typeof taakRijRust==='function') return taakRijRust(t);
+  if (window._rustLijst && typeof taakRijRust==='function') return taakRijRust(t);
   var p = proj(t);
   var db = t.deadline ? deadlineBadge(t.deadline) : '';
   var pi = prioDot('normaal');
@@ -6665,6 +7118,48 @@ function routDayLabel(){
   return new Date(ds).toLocaleDateString('nl-NL',{weekday:'short',day:'numeric',month:'short'});
 }
 
+function routRijRust(x, tab, v, ri, last, isWeekday) {
+  var key = tab + '|' + x.id;
+  var open = !!(window._routOpen && window._routOpen[key]);
+  var timeBadge = (isWeekday && x.time) ? x.time : '';
+  var h = '<div class="tkz'+(v?' done':'')+(open?' open':'')+'" data-key="'+key+'">'
+    +'<span class="tkz-dot" style="background:'+(v?'var(--text3)':'var(--acc)')+'"></span>'
+    +'<span class="tkz-title" data-tab="'+tab+'" data-rid="'+x.id+'" onclick="routTitleDone(this)" title="Klik om af te vinken">'+x.l+'</span>'
+    +(timeBadge?'<span class="tkz-badge">'+timeBadge+'</span>':'')
+    +'<button class="tkz-chev" data-key="'+key+'" onclick="togRoutRustEl(this)" title="Opties" aria-label="Opties">'+icon('arrow',16)+'</button>'
+    +'</div>';
+  if (open) {
+    h += '<div class="tkz-panel"><div class="tkz-panel-in"><div class="tkz-acts">'
+      +'<button class="tkz-act pri'+(v?' is-done':'')+'" data-tab="'+tab+'" data-rid="'+x.id+'" onclick="routRustDone(event,this)">'+icon('check',14,v?'var(--text2)':'#fff')+(v?'Niet gedaan':'Afvinken')+'</button>'
+      +'<button class="tkz-act" data-tab="'+tab+'" data-rid="'+x.id+'" onclick="routRustEdit(event,this)">'+icon('edit',13,'var(--text2)')+'Aanpassen</button>'
+      +(isWeekday?'<button class="tkz-act" data-tab="'+tab+'" data-rid="'+x.id+'" onclick="routRustTime(event,this)">'+icon('clock',13,'var(--text2)')+'Tijd</button>':'')
+      +'<button class="tkz-act'+(ri===0?' is-done':'')+'" data-tab="'+tab+'" data-rid="'+x.id+'" onclick="routRustMove(event,this,-1)"'+(ri===0?' disabled':'')+'>'+icon('arrow',13,'var(--text2)')+'Omhoog</button>'
+      +'<button class="tkz-act'+(ri===last?' is-done':'')+'" data-tab="'+tab+'" data-rid="'+x.id+'" onclick="routRustMove(event,this,1)"'+(ri===last?' disabled':'')+'>'+icon('arrow',13,'var(--text2)')+'Omlaag</button>'
+      +'<button class="tkz-act danger" data-tab="'+tab+'" data-rid="'+x.id+'" onclick="routRustDel(event,this)">'+icon('list',13,'#C5524A')+'Verwijderen</button>'
+      +'</div></div></div>';
+  }
+  return h;
+}
+function togRoutRustEl(el){
+  var key = el.getAttribute('data-key');
+  if(!window._routOpen) window._routOpen = {};
+  var was = !!window._routOpen[key];
+  window._routOpen = {};
+  if(!was) window._routOpen[key] = true;
+  renderRoutTab(_routTab);
+}
+function routTitleDone(el){
+  var tab = el.getAttribute('data-tab'), id = el.getAttribute('data-rid');
+  var pk = routPeriodKey(tab);
+  var cur = !!(S.routineChecks && S.routineChecks[pk] && S.routineChecks[pk][id]);
+  togRout(tab, id, !cur);
+  renderRoutTab(tab);
+}
+function routRustDone(ev,btn){ ev.stopPropagation(); routTitleDone(btn); }
+function routRustEdit(ev,btn){ ev.stopPropagation(); editRoutItemEl(btn); }
+function routRustTime(ev,btn){ ev.stopPropagation(); setRoutTime(btn.getAttribute('data-tab'), btn.getAttribute('data-rid')); }
+function routRustMove(ev,btn,dir){ ev.stopPropagation(); moveRoutItem(btn.getAttribute('data-tab'), btn.getAttribute('data-rid'), dir); }
+function routRustDel(ev,btn){ ev.stopPropagation(); delRoutItem(btn.getAttribute('data-tab'), btn.getAttribute('data-rid')); }
 function renderRoutTab(tab) {
   var e = el('rout-body'); if (!e) return;
   if (!S.routineItems) S.routineItems = {};
@@ -6682,6 +7177,7 @@ function renderRoutTab(tab) {
   var itemsH = items.map(function(x, _ri, _arr) {
     var v = !!checks[x.id];
     var _last=_arr.length-1;
+    if (window._rustLijst) return routRijRust(x, tab, v, _ri, _last, isWeekday);
     var timeBadge = '';
     if (isWeekday && x.time) {
       timeBadge = '<span style="font-size:11px;color:var(--orange);font-weight:600;margin-right:4px">'+x.time+'</span>';
@@ -7917,7 +8413,7 @@ function rFin() {
   renderFinBody(finView);
 }
 
-function setFinView(v){window._finView=v;renderFinBody(v);}
+function setFinView(v){window._finView=v;rFin();}
 
 function editFinItem(type, id) {
   window._finEditType = type;
@@ -8297,7 +8793,8 @@ function renderFinBody(view){
 
   var subsCost=subMnd(mySubs);
   var vasteCost=vasteTotal(myVaste);
-  var incomeTot=incTotal(myIncomes);
+  var assetInc=(view==='alles')?(S.assets||[]).reduce(function(t,a){return t+parseFloat(a.inc||0);},0):0;
+  var incomeTot=incTotal(myIncomes)+assetInc;
 
   // This month's actual transactions
   var moTrans=finance.filter(function(f){return (f.date||'').slice(0,7)===mo;});
@@ -8345,6 +8842,12 @@ function renderFinBody(view){
       +'<span style="font-weight:600;color:#D97757">€'+a.toFixed(2)+'</span>'
       +'</div>';
   });
+  if(assetInc>0){
+    html+='<div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--border)">'
+      +'<span style="color:var(--text2)">Uit assets (staking e.d.)</span>'
+      +'<span style="font-weight:600;color:#D97757">\u20ac'+assetInc.toFixed(2)+'</span>'
+      +'</div>';
+  }
   html+='<div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-top:6px">'
     +'<span>Ontvangen deze maand</span><span style="font-weight:600;color:#D97757">€'+moInk.toFixed(2)+'</span>'
     +'</div>'
@@ -8754,7 +9257,8 @@ function rFTr() {
 }
 function addTr() { const o=el('foo').value.trim();const b=parseFloat(el('fbb').value);if(!o||isNaN(b))return;if(!S.finance)S.finance=[];S.finance.push({omsc:o,bed:b,type:el('ftt').value,date:el('fdd').value||td()});el('foo').value='';el('fbb').value='';save();rFTr(); }
 function buildAssetsView(){
-  const A=assetList(); const defi=S.defi||{}; const mo=ym(); const now=new Date();
+  const A=assetList();
+  if (typeof setTimeout==='function') setTimeout(function(){ try{ fetchAssetPrices(false); }catch(e){} }, 0); const defi=S.defi||{}; const mo=ym(); const now=new Date();
   const months=Array.from({length:12},(_,i)=>{const d=new Date(now.getFullYear(),now.getMonth()-i,1);return d.toISOString().slice(0,7);});
   const totals={}; A.forEach(a=>{totals[a.id]=parseFloat(Object.values(defi).reduce((t,m)=>t+parseFloat((m||{})[a.id]||0),0).toFixed(4));});
   const cur=defi[mo]||{};
@@ -8762,8 +9266,35 @@ function buildAssetsView(){
   if(!A.length){
     h+='<div class="card" style="margin-bottom:10px"><div class="ct">Assets</div><div style="font-size:12px;color:var(--text2);line-height:1.6">Volg hier wat je opbouwt: crypto, aandelen, fondsen, goud — wat je maar wilt. Voeg je eerste asset toe en vul per maand in wat je hebt bijgekocht. Het totaal telt automatisch op.</div></div>';
   } else {
-    h+='<div class="three" style="margin-bottom:10px">'+A.slice(0,6).map(a=>`<div class="sc"><div class="sn" style="color:${a.c};font-size:16px">${totals[a.id]}</div><div class="sl">${a.n}</div></div>`).join('')+'</div>';
+    const px=window._assetPx||{};
+    h+='<div class="three" style="margin-bottom:10px">'+A.slice(0,6).map(a=>{
+      const val=px[a.id]?totals[a.id]*px[a.id]:null;
+      return `<div class="sc"><div class="sn" style="color:${a.c};font-size:16px">${totals[a.id]}</div><div class="sl">${a.n}</div>${val!==null?`<div style="font-size:10.5px;color:var(--text2);margin-top:2px;font-weight:600">\u20ac${val>=100?val.toFixed(0):val.toFixed(2)}</div>`:''}</div>`;
+    }).join('')+'</div>';
+    // Portfolio-waarde + koersen
+    const hasPx=Object.keys(px).length>0;
+    const mappable=A.some(a=>CG_IDS[assetSym(a)]);
+    if(mappable){
+      const totVal=A.reduce((t,a)=>t+(px[a.id]?totals[a.id]*px[a.id]:0),0);
+      const at=window._assetPxAt?new Date(window._assetPxAt):null;
+      const atStr=at?('bijgewerkt '+String(at.getHours()).padStart(2,'0')+':'+String(at.getMinutes()).padStart(2,'0')):'nog geen koersen';
+      h+='<div class="card" style="margin-bottom:10px"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px">'
+        +'<div><div class="ct" style="margin-bottom:2px">Portfoliowaarde</div>'
+        +(hasPx?`<div style="font-size:22px;font-weight:700;color:var(--acc)">\u20ac${totVal>=100?totVal.toFixed(0):totVal.toFixed(2)}</div>`:'')
+        +'<div id="asset-px-status" style="font-size:10.5px;color:var(--text3)">'+atStr+'</div></div>'
+        +'<button class="btn sm" onclick="fetchAssetPrices(true)">\u21bb Koersen</button>'
+        +'</div>'
+        +(hasPx?'<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">'+A.filter(a=>px[a.id]).map(a=>`<span style="font-size:11px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:4px 10px;color:var(--text2)"><b style="color:${a.c}">${assetSym(a)}</b> \u20ac${px[a.id]>=1000?px[a.id].toLocaleString('nl-NL',{maximumFractionDigits:0}):(px[a.id]<1?px[a.id].toFixed(4):px[a.id].toFixed(2))}</span>`).join('')+'</div>':'')
+        +'</div>';
+    }
     h+=`<div class="card" style="margin-bottom:10px"><div class="ct">Maand invoeren — ${mo}</div>${A.map(a=>`<div style="display:flex;align-items:center;gap:9px;margin-bottom:8px"><div style="width:10px;height:10px;border-radius:50%;background:${a.c};flex-shrink:0"></div><label style="font-size:12px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${a.n}</label><input type="number" id="df-${a.id}" placeholder="aantal" step="any" value="${cur[a.id]||''}" style="width:110px;text-align:right"><button class="btn sm del" onclick="delAsset('${a.id}')" title="Asset verwijderen">\u2715</button></div>`).join('')}<button class="btn pri" onclick="saveAssetMonth('${mo}')" style="width:100%">Opslaan</button><div id="dfo" style="display:none;text-align:center;margin-top:6px;font-size:12px;color:#D97757;font-weight:700">\u2713 Opgeslagen!</div></div>`;
+  }
+  if(A.length){
+    h+='<div class="card" style="margin-bottom:10px"><div class="ct">Maandelijkse inkomsten <span style="font-weight:400;color:var(--text3);font-size:10px">staking \u00b7 dividend \u00b7 rente</span></div>'
+      +A.map(a=>`<div style="display:flex;align-items:center;gap:9px;margin-bottom:8px"><div style="width:10px;height:10px;border-radius:50%;background:${a.c};flex-shrink:0"></div><label style="font-size:12px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${a.n}</label><span style="font-size:12px;color:var(--text3)">\u20ac</span><input type="number" placeholder="0" step="any" value="${a.inc||''}" onchange="saveAssetInc('${a.id}',this.value)" style="width:90px;text-align:right"><span style="font-size:10.5px;color:var(--text3)">p/m</span></div>`).join('')
+      +'<div style="display:flex;justify-content:space-between;font-size:12px;padding-top:8px;border-top:1px solid var(--border)"><span style="color:var(--text2)">Totaal per maand</span><span id="asset-inc-tot" style="font-weight:700;color:var(--acc)">\u20ac'+assetIncTotal().toFixed(2)+'</span></div>'
+      +'<div style="font-size:10.5px;color:var(--text3);margin-top:6px">Telt automatisch mee bij Inkomsten op het Overzicht.</div>'
+      +'</div>';
   }
   h+='<div class="card" style="margin-bottom:10px"><div class="ct">Asset toevoegen</div><div style="display:flex;gap:6px"><input type="text" id="asset-new" placeholder="Bijv. BTC, AEX-tracker, goud\u2026" style="flex:1" onkeydown="if(event.key===\'Enter\')addAsset()"><button class="btn pri" onclick="addAsset()">+</button></div></div>';
   if(A.length){
@@ -9587,6 +10118,16 @@ function rSettings() {
   const kb=(size/1024).toFixed(1);
   var capH=(dayCapacityMin()/60);
   M.innerHTML=`<div class="ph"><div class="pt">Data & Import</div></div>
+  <div class="card" style="margin-bottom:10px"><div class="ct">${t('Weergave')}</div>
+  <label style="display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer">
+  <span style="font-size:13px;color:var(--text2)">${t('Rustige lijstweergave')}<br><span style="font-size:11px;color:var(--text3)">${t('Strakke rijen; tik om acties uit te klappen. Nu alleen bij Taken.')}</span></span>
+  <input type="checkbox" ${window._rustLijst?'checked':''} onchange="setRustLijst(this.checked)" style="width:20px;height:20px;flex-shrink:0">
+  </label></div>
+  <div class="card" style="margin-bottom:10px"><div class="ct">${t('Taal')}</div>
+  <select onchange="setLang(this.value)" style="width:100%">
+  <option value="nl" ${getLang()==='nl'?'selected':''}>Nederlands</option>
+  <option value="en" ${getLang()==='en'?'selected':''}>English</option>
+  </select><div style="font-size:10.5px;color:var(--text3);margin-top:6px">${t('Meer talen volgen.')}</div></div>
   ${(window.PimFB&&window.PimFB.user)?`<div class="card" style="margin-bottom:10px"><div class="ct">Account &amp; sync</div>
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
       <div style="min-width:0"><div style="font-size:13px;color:var(--text);font-weight:600;overflow:hidden;text-overflow:ellipsis">${window.PimFB.user.email}</div>
@@ -9779,6 +10320,7 @@ function showLoginScreen(){
     +'<div class="login-sub" id="login-sub">Log in om je gegevens overal te gebruiken</div>'
     +'<input type="email" id="login-email" placeholder="E-mailadres" autocomplete="email">'
     +'<input type="password" id="login-pass" placeholder="Wachtwoord" autocomplete="current-password">'
+    +'<div style="text-align:right;margin-top:-4px;margin-bottom:2px"><a onclick="forgotPassword()" id="login-forgot-link" style="font-size:11.5px;color:var(--text3);cursor:pointer;text-decoration:underline;text-underline-offset:2px">Wachtwoord vergeten?</a></div>'
     +'<div class="login-err" id="login-err"></div>'
     +'<button class="btn pri" style="width:100%;margin-top:6px" id="login-btn" onclick="doLogin()">Inloggen</button>'
     +'<div class="login-switch">Nog geen account? <a onclick="toggleLoginMode()" id="login-switch-link">Registreren</a></div>'
@@ -9795,6 +10337,34 @@ function toggleLoginMode(){
   el('login-switch-link').textContent = _loginMode==='login'?'Registreren':'Inloggen';
   document.querySelector('.login-switch').childNodes[0].textContent = _loginMode==='login'?'Nog geen account? ':'Heb je al een account? ';
   el('login-err').textContent='';
+}
+function forgotPassword(){
+  var email = el('login-email').value.trim();
+  var errEl = el('login-err');
+  if(!email){
+    errEl.textContent = 'Vul eerst je e-mailadres in, dan sturen we een herstel-link.';
+    el('login-email').focus();
+    return;
+  }
+  if(!window.PimFB || !window.PimFB.resetPassword){
+    errEl.textContent = 'Geen verbinding \u2014 probeer het zo nog eens.';
+    return;
+  }
+  var link = el('login-forgot-link');
+  if(link) link.textContent = 'Versturen\u2026';
+  window.PimFB.resetPassword(email).then(function(){
+    if(link) link.textContent = 'Wachtwoord vergeten?';
+    errEl.style.color = 'var(--acc)';
+    errEl.textContent = 'Herstel-link verstuurd naar '+email+'. Check ook je spam-map.';
+    setTimeout(function(){ errEl.style.color=''; }, 8000);
+  }).catch(function(e){
+    if(link) link.textContent = 'Wachtwoord vergeten?';
+    var msg = 'Versturen lukte niet \u2014 probeer het later opnieuw.';
+    if(e && e.code === 'auth/invalid-email') msg = 'Dat lijkt geen geldig e-mailadres.';
+    else if(e && e.code === 'auth/too-many-requests') msg = 'Even te vaak geprobeerd \u2014 wacht een paar minuten.';
+    else if(e && e.code === 'auth/user-not-found') msg = 'Als dit adres bekend is, is er een herstel-link verstuurd.';
+    errEl.textContent = msg;
+  });
 }
 function doLogin(){
   var email=el('login-email').value.trim(), pass=el('login-pass').value;
@@ -10128,6 +10698,7 @@ function realInit() {
   maybeShowOnboarding();
 }
 init();
+try{ initI18n(); }catch(e){}
 
 // Boot-animatie verbergen zodra de app klaar is (minimaal 1.5s zichtbaar)
 (function(){
