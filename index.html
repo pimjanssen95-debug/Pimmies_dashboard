@@ -2399,7 +2399,7 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
     <button class="qa-item" onclick="qaGo('habit')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg><span>Habit</span></button>
     <button class="qa-item" onclick="qaGo('rout')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg><span>Routine</span></button>
     <button class="qa-item" onclick="qaGo('note')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg><span>Notitie</span></button>
-    <button class="qa-item" onclick="qaGo('gerecht')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg><span>Gerecht</span></button>
+    <button class="qa-item" onclick="qaGo('event')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Event</span></button>
   </div>
 </div>
 
@@ -2623,7 +2623,7 @@ let S = {
   eigenschappen:[], lees:[], opgeslagen:[], contacten:[],
   quotes:[], notes:[], shopping:[]
 };
-let oPs=new Set(), cFit='chest', fSets=1, plTab='dag', selDay='', wkOff=0, selM=new Date();
+let oPs=new Set(), cFit='chest', fSets=1, plTab='maand', selDay='', wkOff=0, selM=new Date();
 
 // ─── UTILS ───────────────────────────────────────────────────────────────────
 const td = () => new Date().toISOString().split('T')[0];
@@ -2965,7 +2965,7 @@ const I18N = { en: {
   'Gewoontes die je wilt opbouwen \u2014 dagelijks afvinken, reeks opbouwen. Je vaste ritme staat in ':'Habits you want to build \u2014 check off daily, build your streak. Your fixed rhythm lives in ',
   'Je vaste ritme \u2014 wat je standaard doet per dagdeel of weekdag. Losse to-do\u2019s horen bij ':'Your fixed rhythm \u2014 what you do by default per part of day. Loose to-dos belong in ',
   // Quick-add sheet
-  'Snel toevoegen':'Quick add','Overig':'Other','Zoeken in taken\u2026':'Search tasks\u2026','\u2713 Gedaan':'\u2713 Done','Snel een taak toevoegen...':'Quickly add a task...','Taak':'Task','Habit':'Habit','Notitie':'Note','Gerecht':'Meal',
+  'Snel toevoegen':'Quick add','Overig':'Other','Zoeken in taken\u2026':'Search tasks\u2026','\u2713 Gedaan':'\u2713 Done','Snel een taak toevoegen...':'Quickly add a task...','Taak':'Task','Habit':'Habit','Notitie':'Note','Gerecht':'Meal','Event':'Event',
   // Financi\u00ebn
   'Overzicht':'Overview','Persoonlijk':'Personal','Zakelijk':'Business','Assets':'Assets','Portfoliowaarde':'Portfolio value','Maandelijkse inkomsten':'Monthly income','Asset toevoegen':'Add asset','Totaal per maand':'Total per month','Telt automatisch mee bij Inkomsten op het Overzicht.':'Automatically counts toward Income on the Overview.','Uit assets (staking e.d.)':'From assets (staking etc.)','Inkomsten / maand':'Income / month','Historie':'History','Maand invoeren':'Enter month',
   // Login
@@ -3041,6 +3041,7 @@ function ensureI18nObserver(){
 function setLang(v){
   if(!S.settings) S.settings = {};
   S.settings.lang = v; save();
+  try{ localStorage.setItem('pimmies_lang', v); }catch(e){}
   document.documentElement.lang = v;
   applyStaticNav(v);
   if(v!=='nl') ensureI18nObserver();
@@ -3052,7 +3053,7 @@ function setLang(v){
 function chooseLang(v){ var ov=document.getElementById('lang-ov'); if(ov) ov.remove(); setLang(v); }
 function maybeShowLangPicker(){
   var eigen = (S.tasks||[]).filter(function(x){ return (x.title||'').indexOf('Voorbeeld:')<0 && String(x.id).indexOf('tstart')!==0; }).length;
-  if(eigen > 0){ if(!S.settings) S.settings={}; S.settings.lang='nl'; save(); return; }
+  if(eigen > 0){ if(!S.settings) S.settings={}; S.settings.lang='nl'; save(); try{ localStorage.setItem('pimmies_lang','nl'); }catch(e){} return; }
   var ov = document.createElement('div');
   ov.id = 'lang-ov';
   ov.style.cssText = 'position:fixed;inset:0;background:rgba(10,10,10,.92);z-index:10001;display:flex;align-items:center;justify-content:center;padding:20px';
@@ -3068,6 +3069,12 @@ function initI18n(){
   if(!S.settings) S.settings = {};
   window._rustLijst = !!S.settings.rustLijst;
   var L = S.settings.lang;
+  // Reservekopie: als de cloud-data de taalkeuze overschreef, herstel 'm hieruit
+  if(!L){
+    var backup = null;
+    try{ backup = localStorage.getItem('pimmies_lang'); }catch(e){}
+    if(backup){ L = backup; S.settings.lang = backup; try{ save(); }catch(e){} }
+  }
   if(!L){ maybeShowLangPicker(); return; }
   document.documentElement.lang = L;
   if(L!=='nl'){ applyStaticNav(L); ensureI18nObserver(); translateDom(document.body); }
@@ -3934,7 +3941,7 @@ function qaGo(w){
   else if(w==='habit'){ navToSection('hab'); addHabItem(); }
   else if(w==='rout'){ navToSection('rout'); }
   else if(w==='note'){ navToSection('notes'); addNoteModal(); }
-  else if(w==='gerecht'){ navToSection('gerecht'); }
+  else if(w==='event'){ navToSection('plan'); setTimeout(function(){ openEvEditor(null, td()); }, 30); }
 }
 function _starterMark(i){
   var t=(S.tasks||[]).find(function(x){return x.id==='tstart'+i;});
@@ -4455,6 +4462,14 @@ function togDT(id,v) { const t=S.tasks.find(x=>x.id===id); if(t){t.done=v; save(
 
 // ─── PLANNER ─────────────────────────────────────────────────────────────────
 // ── Planner navigation ──────────────────────────────────────────
+function plTabBtn(tab){
+  var btns = document.querySelectorAll('#pltb .tb');
+  for(var i=0;i<btns.length;i++){
+    var oc = btns[i].getAttribute('onclick') || '';
+    if(oc.indexOf("'"+tab+"'") >= 0) return btns[i];
+  }
+  return null;
+}
 function setPlTab(btn, tab) {
   plTab = tab;
   document.querySelectorAll('#pltb .tb').forEach(function(b){ b.classList.remove('on'); });
@@ -4471,10 +4486,7 @@ function plJumpToDate(dateStr){
   var picked=new Date(dateStr); picked.setHours(0,0,0,0);
   wkOff=Math.floor((picked-today)/(7*24*3600*1000));
   // ga naar dag-tab
-  plTab='dag';
-  var tb=document.querySelector('#pltb .tb');
-  document.querySelectorAll('#pltb .tb').forEach(function(b){ b.classList.toggle('on', b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf("'dag'")>=0); });
-  rPlBody();
+  setPlTab(plTabBtn('dag'), 'dag');
 }
 
 function plPrev() {
@@ -4705,12 +4717,12 @@ function rPlan() {
     </div>
   </div>
   <div class="tbar" id="pltb">
-    <button class="tb on" onclick="setPlTab(this,'dag')">Dag</button>
-    <button class="tb" onclick="setPlTab(this,'morgen')">Morgen</button>
-    <button class="tb" onclick="setPlTab(this,'week')">Week</button>
-    <button class="tb" onclick="setPlTab(this,'maand')">Maand</button>
-    <button class="tb" onclick="setPlTab(this,'jaar')">Jaar</button>
-    <button class="tb" onclick="setPlTab(this,'spec')">Spec.</button>
+    <button class="tb${plTab==='maand'?' on':''}" onclick="setPlTab(this,'maand')">Maand</button>
+    <button class="tb${plTab==='week'?' on':''}" onclick="setPlTab(this,'week')">Week</button>
+    <button class="tb${plTab==='dag'?' on':''}" onclick="setPlTab(this,'dag')">Dag</button>
+    <button class="tb${plTab==='morgen'?' on':''}" onclick="setPlTab(this,'morgen')">Morgen</button>
+    <button class="tb${plTab==='jaar'?' on':''}" onclick="setPlTab(this,'jaar')">Jaar</button>
+    <button class="tb${plTab==='spec'?' on':''}" onclick="setPlTab(this,'spec')">Spec.</button>
   </div>
 
   <!-- Calendar + side panel (responsive) -->
@@ -5370,9 +5382,7 @@ function rWeekView(cal,dates) {
 
 function weekDayClick(elx){
   selDay=elx.getAttribute('data-day');
-  plTab='dag';
-  document.querySelectorAll('#pltb .tb').forEach(function(b){ b.classList.toggle('on', b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf("'dag'")>=0); });
-  rPlBody();
+  setPlTab(plTabBtn('dag'), 'dag');
 }
 function weekEvClick(elx){
   selDay=elx.getAttribute('data-day');
@@ -5423,11 +5433,11 @@ function rMonthView(cal) {
 }
 
 function mnClickEl(el9){mnClick(el9.getAttribute('data-ds'));}
-function mnClickEl2(btn,date){selDay=date;setPlTab(document.querySelector('#pltb .tb'),'dag');}
+function mnClickEl2(btn,date){selDay=date;setPlTab(plTabBtn('dag'),'dag');}
 
 function mnClick(date) {
   selDay=date;
-  setPlTab(document.querySelector('#pltb .tb'), 'dag');
+  setPlTab(plTabBtn('dag'), 'dag');
 }
 
 function addMaandEvent() {
@@ -5470,7 +5480,7 @@ function saveMaandEvent() {
   save(); closeModal(); rMonthView(el('plcal'));
 }
 
-function yearMonthClick(btn){selM=new Date(parseInt(btn.getAttribute('data-y')),parseInt(btn.getAttribute('data-m')),1);plTab='maand';rPlBody();}
+function yearMonthClick(btn){selM=new Date(parseInt(btn.getAttribute('data-y')),parseInt(btn.getAttribute('data-m')),1);setPlTab(plTabBtn('maand'),'maand');}
 
 function rYearView(cal) {
   const y=selM.getFullYear(); const today=td();
@@ -7529,11 +7539,29 @@ function togHabItem(id,v){
   var pf=el('dash-hpf');if(pf){pf.style.width=p+'%';pf.style.background=cpc(p);}
 }
 function addHabItem(){
-  var v=prompt('Nieuwe habit:');if(!v||!v.trim())return;
+  var body = '<div style="font-size:14px;font-weight:700;margin-bottom:14px">Nieuwe habit</div>'
+    +'<input type="text" id="hab-new-input" placeholder="Bijv. Water drinken" style="width:100%;margin-bottom:14px" '
+    +'onkeydown="if(event.key===\'Enter\'){event.preventDefault();saveHabItem();}">'
+    +'<div style="display:flex;gap:6px"><button class="btn pri" onclick="saveHabItem()" style="flex:1">Toevoegen</button>'
+    +'<button class="btn" onclick="closeModal()">Annuleer</button></div>';
+  var modal = document.createElement('div');
+  modal.className = 'modal-bg';
+  modal.innerHTML = '<div class="modal-box">'+body+'</div>';
+  document.body.appendChild(modal);
+  modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+  setTimeout(function(){ var i=document.getElementById('hab-new-input'); if(i) i.focus(); }, 80);
+}
+function saveHabItem(){
+  var inp = document.getElementById('hab-new-input');
+  if(!inp) return;
+  var v = inp.value;
+  if(!v || !v.trim()){ inp.focus(); return; }
   if(!S.habItems)S.habItems=DEF_HABS.map(function(h){return Object.assign({},h);});
   S.habItems.push({id:'h'+Date.now(),l:v.trim(),type:'check'});
   _starterMark(4);
-  save();rHab();
+  save();
+  closeModal();
+  rHab();
 }
 function delHabItem(id){
   if(!S.habItems)return;
@@ -10696,9 +10724,10 @@ function realInit() {
   initMenuGroups();
   // Onboarding voor nieuwe gebruikers
   maybeShowOnboarding();
+  // Taal pas instellen NADAT de data geladen en de pagina gerenderd is
+  try{ initI18n(); }catch(e){}
 }
 init();
-try{ initI18n(); }catch(e){}
 
 // Boot-animatie verbergen zodra de app klaar is (minimaal 1.5s zichtbaar)
 (function(){
