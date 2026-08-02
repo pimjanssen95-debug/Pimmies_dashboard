@@ -2659,7 +2659,7 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
 .fab-undo{
   position:fixed;
   top:calc(env(safe-area-inset-top, 0px) + var(--fab-gap));
-  left:50%;transform:translateX(-50%);
+  right:calc(env(safe-area-inset-right, 0px) + var(--fab-gap) + var(--fab-size) + 9px);
   width:var(--fab-size);height:var(--fab-size);border-radius:50%;padding:0;
   display:flex;align-items:center;justify-content:center;
   background:var(--bg2);border:1px solid var(--border);color:var(--text2);
@@ -2669,7 +2669,7 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   transition:transform .16s,border-color .2s,color .2s,opacity .2s;
 }
 .fab-undo:hover:not(:disabled){border-color:var(--acc-line);color:var(--acc)}
-.fab-undo:active:not(:disabled){transform:translateX(-50%) scale(.9)}
+.fab-undo:active:not(:disabled){transform:scale(.9)}
 .fab-undo:disabled{cursor:default}
 [data-theme="light"] .fab-undo{box-shadow:0 6px 20px -10px rgba(0,0,0,.22), inset 0 0 0 1px rgba(0,0,0,.03)}
 
@@ -2783,6 +2783,55 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
 .rv-act.danger .rv-ic{color:#C5524A}
 .rv-act.danger:hover{background:rgba(197,82,74,.1)}
 @media(prefers-reduced-motion:reduce){.tkz-check,.tkz-subwrap .tkz-chev,.rv-act{transition:none}}
+
+/* ══════════════════════════════════════════════════════════════
+   RIJ-OPMAAK — enige bron van waarheid
+   compact, rustig, één ritme voor taken · routine · habits
+   ══════════════════════════════════════════════════════════════ */
+.tkz{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 4px;
+  border-bottom:1px solid var(--border);
+  transition:background .14s;position:relative;
+}
+.tkz:last-child{border-bottom:0}
+.tkz:hover{background:var(--acc-softer)}
+
+/* bolletje: 8px zichtbaar, 26px aanraakbaar, overal even groot */
+.tkz-check{width:26px;height:26px;margin-left:-9px;margin-right:-4px}
+.tkz.tkz-sub .tkz-check{width:26px;height:26px;margin-left:-9px}
+.tkz.tkz-sub .tkz-check::before{width:8px;height:8px}
+
+/* titel + meta */
+.tkz-titlewrap{gap:0;padding:0}
+.tkz-title{font-size:14.5px;line-height:1.35}
+.tkz.tkz-sub .tkz-title{font-size:14.5px;color:var(--text2)}
+.tkz.tkz-sub .tkz-check::before{opacity:.65}
+.tkz-meta{font-size:11.5px;line-height:1.4;margin-top:1px}
+.tkz-badge{font-size:11.5px;color:var(--text3);font-weight:500}
+
+/* teller + chevron compacter */
+.tkz-subwrap{gap:4px;padding:4px 2px 4px 6px}
+.tkz-subcount{font-size:11px}
+.tkz-subwrap .tkz-chev svg{width:13px;height:13px}
+
+/* subtaken: geen streep aan de zijkant, wel lijnen ertussen */
+.tkz-kinderen{
+  margin:0 0 2px 0;
+  padding-left:26px;
+  border-left:0;
+}
+.tkz.tkz-sub{
+  padding-top:7px;padding-bottom:7px;
+  border-bottom:1px solid var(--border);
+}
+.tkz-kinderen .tkz.tkz-sub:last-child{border-bottom:0}
+
+@media(max-width:420px){
+  .tkz{gap:9px;padding:8px 2px}
+  .tkz-kinderen{padding-left:22px}
+}
+@media(prefers-reduced-motion:reduce){.tkz{transition:none}}
 </style>
 <script type="module">
   // Firebase laden met foutafhandeling. Faalt het laden (offline, CDN-blokkade)?
@@ -2878,7 +2927,7 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   <span></span><span></span><span></span>
 </button>
 <button class="fab-undo undo-btn" id="fabUndo" onclick="undo()" aria-label="Ongedaan maken" title="Ongedaan maken">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M3.5 13a9 9 0 1 0 2.3-6.4L3 9"/></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8.5h9a5.5 5.5 0 0 1 0 11h-3.5"/><path d="M9 4.5 5 8.5l4 4"/></svg>
 </button>
 <div class="dots-ov" id="dotsOv" onclick="closeDots()"></div>
 <div class="dots-menu" id="dotsMenu" role="menu" aria-label="Instellingen">
@@ -2886,7 +2935,7 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   <div class="ni dm-item" data-s="help"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>Zo werkt het</div>
   <button class="ni dm-item ni-theme" onclick="toggleTheme()"><span class="theme-btn"></span><span>Thema</span><span class="ni-hint" id="themeHint"></span></button>
   <div class="dm-scheid"></div>
-  <button class="ni dm-item" onclick="openHerstelpunten()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M3.5 13a9 9 0 1 0 2.3-6.4L3 9"/></svg><span>Herstelpunten</span></button>
+  <button class="ni dm-item" onclick="openHerstelpunten()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8.5h9a5.5 5.5 0 0 1 0 11h-3.5"/><path d="M9 4.5 5 8.5l4 4"/></svg><span>Herstelpunten</span></button>
   <button class="ni dm-item ni-backup" onclick="exportBackup()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Backup maken</span></button>
   <button class="ni dm-item ni-restore" onclick="triggerImport()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Backup herstellen</span></button>
 </div>
@@ -4056,12 +4105,34 @@ function vdRoutBalk(c, tot, pct){
     + '<div class="fin-saldo-bar" style="flex:1"><div class="fin-saldo-fil" style="width:' + pct + '%;background:' + cpc(pct) + '"></div></div>'
     + '<span style="font-size:11px;font-weight:600;color:' + cpc(pct) + '">' + c + '/' + tot + '</span></div>';
 }
-function vdRoutRij(x, checks, pk){
+function vdRoutRij(x, checks, pk, tab){
   var v = !!checks[x.id];
-  var cbId = 'VR-' + x.id;
-  return '<div class="hck' + (v?' done':'') + '">'
-    + '<input type="checkbox" id="' + cbId + '" data-rid="' + x.id + '" data-pk="' + pk + '"' + (v?' checked':'') + ' onchange="togVandaagRout(this)">'
-    + '<label class="hck-lbl" for="' + cbId + '">' + x.l + '</label></div>';
+  var meta = [];
+  if(x.time) meta.push(x.time + (x.dur ? ' \u00b7 ' + Math.round(x.dur/60*10)/10 + ' uur' : ''));
+  return '<div class="tkz' + (v?' done':'') + '">'
+    + '<button class="tkz-check' + (v?' on':'') + '" data-rid="' + x.id + '" data-pk="' + pk + '" onclick="vdRoutTitleDone(this)" title="Afvinken" aria-label="Afvinken"></button>'
+    + '<span class="tkz-titlewrap"' + (tab ? ' onclick="openRoutVenster(\'' + tab + '\',\'' + x.id + '\')" title="Opties"' : '') + '>'
+    +   '<span class="tkz-title">' + x.l + '</span>'
+    +   (meta.length ? '<span class="tkz-meta">' + meta.join(' \u00b7 ') + '</span>' : '')
+    + '</span>'
+    + '</div>';
+}
+function vdHabDone(btn){
+  var id = btn.getAttribute('data-hid');
+  var d = window._vandaagDay || td();
+  if(!S.habits) S.habits = {};
+  if(!S.habits[d]) S.habits[d] = {};
+  S.habits[d][id] = !S.habits[d][id];
+  save(); rVandaag();
+}
+function vdRoutTitleDone(btn){
+  var id = btn.getAttribute('data-rid');
+  var pk = btn.getAttribute('data-pk') || window._vandaagDay || td();
+  if(!S.routineChecks) S.routineChecks = {};
+  if(!S.routineChecks[pk]) S.routineChecks[pk] = {};
+  S.routineChecks[pk][id] = !S.routineChecks[pk][id];
+  save();
+  vdRoutHertekenen();
 }
 function vdRoutSectie(key, label, items, checks, pk){
   if(!items.length) return '';
@@ -4073,7 +4144,7 @@ function vdRoutSectie(key, label, items, checks, pk){
     + '<span class="rsec-lbl' + (af?' af':'') + '">' + (af?'\u2713 ':'') + label + '</span>'
     + '<span class="rsec-cnt' + (af?' af':'') + '">' + cc + '/' + items.length + '</span></div>';
   if(dicht) return '<div class="rsec done">' + kop + '</div>';
-  var body = items.map(function(x){ return vdRoutRij(x, checks, pk); }).join('');
+  var body = items.map(function(x){ return vdRoutRij(x, checks, pk, key); }).join('');
   return '<div class="rsec">' + kop + '<div class="rsec-body">' + body + '</div></div>';
 }
 function buildVdRoutVandaag(rd){
@@ -4101,7 +4172,7 @@ function buildVdRoutBody(tab, rd){
   var c = items.filter(function(x){ return checks[x.id]; }).length;
   var pct = Math.round(c/items.length*100);
   return vdRoutBalk(c, items.length, pct)
-    + items.map(function(x){ return vdRoutRij(x, checks, pk); }).join('');
+    + items.map(function(x){ return vdRoutRij(x, checks, pk, tab); }).join('');
 }
 function buildDashRoutine(dag){
   migrateRoutDagdeel();
@@ -4682,7 +4753,16 @@ function rVandaag() {
   var habHP=pct(hc, habItems.length);
   var habH=habItems.map(function(x){
     var v=!!h[x.id];
-    return '<div class="hck'+(v?' done':'')+'"><input type="checkbox" id="VH'+x.id+'" data-hid="'+x.id+'"'+(v?' checked':'')+' onchange="togVHEl(this)"><label class="hck-lbl" for="VH'+x.id+'">'+x.l+'</label></div>';
+    var uren = (typeof habIsUren==='function') && habIsUren(x);
+    var m2 = [];
+    if(uren) m2.push(habUurLabel(habUrenWeek(x.id,t)) + ' / ' + x.freq + ' uur deze week');
+    else if(typeof habDagelijks==='function' && !habDagelijks(x)) m2.push(habWeekTelling(x.id,t) + '/' + x.freq + ' deze week');
+    return '<div class="tkz'+(v?' done':'')+'">'
+      + '<button class="tkz-check'+(v?' on':'')+'" data-hid="'+x.id+'" onclick="'+(uren?'openHabUren(\''+x.id+'\')':'vdHabDone(this)')+'" title="Afvinken" aria-label="Afvinken"></button>'
+      + '<span class="tkz-titlewrap" onclick="openHabVenster(\''+x.id+'\')" title="Opties">'
+      +   '<span class="tkz-title">'+x.l+'</span>'
+      +   (m2.length ? '<span class="tkz-meta">'+m2.join(' \u00b7 ')+'</span>' : '')
+      + '</span></div>';
   }).join('');
 
   // ── Ingepland (events/tijdsblokken voor die dag) ──
@@ -4716,11 +4796,12 @@ function rVandaag() {
     taskHTML=plannedTasks.map(function(task){
       var p=proj(task);
       var ev=dayEvents.find(function(e){ return (e.taskIds||[]).indexOf(task.id)>=0; });
-      return '<div class="vd-task'+(task.done?' done':'')+'" id="VDT'+task.id+'">'
-        +'<input type="checkbox" data-tid="'+task.id+'"'+(task.done?' checked':'')+' onchange="togVandaagTaakEl(this)">'
-        +'<div class="vd-task-c"><div class="vd-task-t">'+task.title+'</div>'
-        +'<div class="vd-task-meta">'+(p?'<span style="color:'+p.color+'">'+p.name+'</span>':'')+(ev?' <span style="color:var(--text3)">'+ev.st+'</span>':'')+'</div></div>'
-        +'</div>';
+      return '<div class="tkz'+(task.done?' done':'')+'" id="VDT'+task.id+'">'
+        +'<button class="tkz-check'+(task.done?' on':'')+'" data-tid="'+task.id+'" onclick="rustTitleDone(this)" title="Afvinken" aria-label="Afvinken"></button>'
+        +'<span class="tkz-titlewrap" onclick="openTaakVenster(\''+task.id+'\')" title="Opties">'
+        +'<span class="tkz-title">'+task.title+'</span>'
+        +'<span class="tkz-meta">'+(p?'<span style="color:'+p.color+'">'+p.name+'</span>':'')+(ev?' <span style="color:var(--text3)">'+ev.st+'</span>':'')+'</span>'
+        +'</span></div>';
     }).join('');
   } else {
     taskHTML=em('calendar','Nog geen taken aan tijdsblokken gekoppeld'+(isToday?' voor vandaag':'')+'.',{fn:'navToSection(\'plan\')',label:'Naar Planner'});
@@ -7291,34 +7372,7 @@ function rProj() {
             var doneT=pt.filter(function(x){return x.done;});
             var shown=showDone?pt:pt.filter(function(x){return !x.done||x.doneAt===td();});
             var toggleBtn=doneT.length?'<button class="proj-done-toggle'+(showDone?' on':'')+'" data-pid="'+p.id+'" onclick="togProjShowDone(this)">'+(showDone?'Verberg afgerond ('+doneT.length+')':'Toon afgerond ('+doneT.length+')')+'</button>':'';
-            var rows=shown.map(t=>{
-        var pc=prioColor(t.prio||'normaal');
-        var db=t.deadline?deadlineBadge(t.deadline):'';
-        var psubs=kinderenVan(t.id);
-        var psubDone=psubs.filter(function(s){return s.done;}).length;
-        var pexp=!!(window._taakOpen&&window._taakOpen[t.id]);
-        var ptog=psubs.length
-          ? '<button class="tk-sub-toggle'+(pexp?' open':'')+'" data-tid="'+t.id+'" onclick="togTaakExpandEl(this)">'+icon('arrow',12)+'<span class="tk-sub-count">'+psubDone+'/'+psubs.length+'</span></button>'
-          : '<button class="tk-sub-toggle empty" data-tid="'+t.id+'" onclick="togTaakExpandEl(this)" title="Subtaak toevoegen">'+icon('plus',11)+'</button>';
-        var prow = '<div class="ptk'+(t.done?' dn':'')+'" id="PT'+t.id+'">'
-          +'<div style="width:8px;height:8px;border-radius:50%;background:'+pc+';flex-shrink:0"></div>'
-          +'<input type="checkbox" id="PTC'+t.id+'"'+(t.done?' checked':'')+' onchange="togPT(\''+t.id+'\',this.checked)">'
-          +'<div style="flex:1">'
-          +'<label class="ptklb" for="PTC'+t.id+'">'+t.title+'</label>'
-          +(db?'<div style="margin-top:2px">'+db+'</div>':'')
-          +'</div>'
-          +ptog
-          +'<button class="btn sm" onclick="openTaskEdit(\''+t.id+'\')" style="font-size:10px;padding:1px 6px;color:var(--text3)">···</button>'
-          +'<button class="ptkd del" onclick="delPT(\''+t.id+'\')">✕</button>'
-          +'</div>';
-        if(pexp){
-          prow += '<div class="tk-sub-panel">'
-            +psubs.map(function(s){return '<div class="tk-sub'+(s.done?' done':'')+'"><input type="checkbox"'+(s.done?' checked':'')+' data-tid="'+t.id+'" data-sid="'+s.id+'" onchange="togSubtaakEl(this)"><span class="tk-sub-title">'+s.title+'</span><button class="tk-sub-del" data-tid="'+t.id+'" data-sid="'+s.id+'" onclick="delSubtaakEl(this)">✕</button></div>';}).join('')
-            +'<div class="tk-sub-add"><input type="text" class="tk-sub-input" id="subadd-'+t.id+'" placeholder="Subtaak toevoegen..." data-tid="'+t.id+'" onkeydown="if(event.keyCode===13)addSubtaakEl(this)"><button class="btn sm pri" data-tid="'+t.id+'" onclick="addSubtaakInputEl(this)">'+icon('plus',12,'#fff')+'</button></div>'
-            +'</div>';
-        }
-        return prow;
-      }).join('');
+            var rows=shown.map(t=>{ return taakRijRust(t); }).join('');
             var empty=pt.length===0?'<div style="font-size:12px;color:var(--text3);padding:6px 0;font-style:italic">Nog geen taken — voeg er een toe</div>':(shown.length===0?'<div style="font-size:12px;color:var(--text3);padding:6px 0;font-style:italic">Alles afgerond! '+(doneT.length?'':'')+'</div>':'');
             return rows+empty+toggleBtn;
           })()}
