@@ -2571,6 +2571,65 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   border-radius:8px;display:inline-flex;align-items:center;transition:color .15s,background .15s}
 .hab-edit:hover{color:var(--acc);background:var(--acc-softer)}
 .hab-freq-hint{font-size:11px;color:var(--text3);line-height:1.45;margin-top:6px}
+
+/* ══════════ Zijbalk: zoekveld, subitems, scheiding ══════════ */
+.sb-zoek{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;
+  margin:0 10px 8px;padding:0 11px;height:40px;border-radius:11px;
+  background:var(--bg3);border:1px solid var(--border);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.sb-zoek-ic{display:flex;align-items:center;color:var(--text3);flex-shrink:0}
+.sb-zoek input{flex:1;min-width:0;background:none;border:0;outline:none;
+  font-family:var(--font-ui);font-size:13.5px;color:var(--text);padding:0}
+.sb-zoek input::placeholder{color:var(--text3)}
+.sb-zoek:focus-within{border-color:var(--acc-line)}
+.sb-zoek-x{display:none;background:none;border:0;color:var(--text3);cursor:pointer;
+  font-size:12px;padding:4px;line-height:1;flex-shrink:0}
+.sb-zoek-x.aan{display:block}
+.sb-zoek-x:hover{color:var(--acc)}
+.sb-leeg{display:none;font-size:12.5px;color:var(--text3);padding:14px 20px;text-align:center}
+.sb-leeg.aan{display:block}
+
+/* Subitem: hoort bij het item erboven */
+.sb .ni.ni-sub{
+  margin-left:26px;width:calc(100% - 34px);min-height:36px;
+  font-size:13px;color:var(--text3);position:relative;
+}
+.sb .ni.ni-sub::before{
+  content:'';position:absolute;left:-13px;top:50%;width:8px;height:1px;
+  background:var(--border);
+}
+.sb .ni.ni-sub svg{width:15px;height:15px}
+.sb .ni.ni-sub.on{color:var(--acc)}
+
+/* Scheiding in het ⋯-menu */
+.dm-scheid{height:1px;background:var(--border);margin:6px 12px}
+
+.veld-hint{font-size:11px;color:var(--text3);line-height:1.45;margin-top:6px}
+
+/* ══════════ Dagplanning in de Vandaag-tab ══════════ */
+.vd-plan-los{margin-top:14px;padding-top:13px;border-top:1px solid var(--border)}
+.vd-plan-kop{font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;
+  color:var(--text3);margin-bottom:9px}
+.vd-los{display:flex;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid var(--border)}
+.vd-los:last-child{border-bottom:0}
+.vd-los-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.vd-los-t{flex:1;min-width:0;font-size:13.5px;color:var(--text);line-height:1.3}
+.vd-los-p{display:block;font-size:11px;margin-top:1px}
+.vd-los-b{display:inline-flex;align-items:center;gap:5px;flex-shrink:0;
+  font-family:var(--font-ui);font-size:11.5px;font-weight:600;
+  padding:6px 11px;border-radius:9px;cursor:pointer;min-height:32px;
+  background:var(--bg3);border:1px solid var(--border);color:var(--text2);
+  transition:border-color .15s,color .15s,transform .12s}
+.vd-los-b:hover{border-color:var(--acc-line);color:var(--acc)}
+.vd-los-b:active{transform:scale(.94)}
+.vd-blok-add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  min-height:44px;margin-top:14px;border-radius:11px;cursor:pointer;
+  font-family:var(--font-ui);font-size:13px;font-weight:600;
+  background:transparent;border:1px dashed var(--acc-line);color:var(--acc);
+  transition:background .15s,transform .12s}
+.vd-blok-add:hover{background:var(--acc-softer)}
+.vd-blok-add:active{transform:scale(.98)}
+@media(prefers-reduced-motion:reduce){.vd-los-b,.vd-blok-add{transition:none}}
 </style>
 <script type="module">
   // Firebase laden met foutafhandeling. Faalt het laden (offline, CDN-blokkade)?
@@ -2670,58 +2729,45 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   <div class="ni dm-item" data-s="settings"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Instellingen</div>
   <div class="ni dm-item" data-s="help"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>Zo werkt het</div>
   <button class="ni dm-item ni-theme" onclick="toggleTheme()"><span class="theme-btn"></span><span>Thema</span><span class="ni-hint" id="themeHint"></span></button>
+  <div class="dm-scheid"></div>
+  <button class="ni dm-item ni-backup" onclick="exportBackup()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Backup maken</span></button>
+  <button class="ni dm-item ni-restore" onclick="triggerImport()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Backup herstellen</span></button>
 </div>
 
 <!-- Mobile header -->
-<div class="mob-header" id="mob-header">
-  <button class="ham-btn" onclick="toggleSidebar()" aria-label="Menu">☰</button>
-  <span class="mob-title" id="mob-title" style="display:none"></span>
-  <div class="mob-header-actions">
-    <button class="btn sm theme-btn" onclick="toggleTheme()" style="font-size:12px;padding:5px 8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><path d="M12 3a9 9 0 1 0 9 9c0-.5 0-.9-.1-1.4A7 7 0 0 1 13 3.1c-.3 0-.7-.1-1-.1Z"/></svg></button>
-  </div>
-</div>
-
 <div class="app">
 <!-- SIDEBAR -->
 <div class="sb" id="main-sidebar">
-  <div class="sb-top">
-    <div class="sb-brand"><span class="logo-mark"><svg viewBox="0 0 72 72" width="34" height="34"><defs><radialGradient id="lmg" cx="30%" cy="25%" r="80%"><stop offset="0%" stop-color="#3a2318"/><stop offset="72%" stop-color="#0f0f0f"/></radialGradient></defs><rect width="72" height="72" rx="16" fill="url(#lmg)" stroke="rgba(217,119,87,.3)" stroke-width="1.5"/><path d="M14 46 Q15 47 17 42 L23 31 Q24 28 26 32 L31 44 Q32 47 34 43 L42 26 Q45 19 48 27 L54 42" stroke="#D97757" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span><div><div class="sb-name">Pimmies OS</div>
-    <div class="sb-date" id="sbd"></div></div></div>
-  </div>
-  <div class="gl">Hoofd</div>
   <div class="ni on" data-s="dash"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</div>
   <div class="ni" data-s="vandaag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>Vandaag</div>
-  <div class="gl">Kern</div>
+  <div class="gl">Elke dag</div>
   <div class="ni" data-s="taken"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Taken</div>
+  <div class="ni ni-sub" data-s="proj"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Projecten</div>
   <div class="ni" data-s="rout"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Routine</div>
   <div class="ni" data-s="hab"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Habits</div>
-  <div class="ni" data-s="goals"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Goals</div>
-  <div class="ni" data-s="refl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>Reflectie</div>
-  <div class="ni" data-s="review"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Review</div>
-  <div class="gl">Plannen</div>
+  <div class="gl">Elke week</div>
   <div class="ni" data-s="plan"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Planner</div>
-  <div class="ni" data-s="proj"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Projecten</div>
-  <div class="gl">Trackers</div>
-  <div class="ni" data-s="fit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Fitness</div>
-  <div class="ni" data-s="oef"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><path d="M21 21l-1-1"/><path d="M3 3l1 1"/><path d="M18 22l4-4"/><path d="M2 6l4-4"/><path d="M3 10l7-7"/><path d="M14 21l7-7"/></svg>Oefeningen</div>
-  <div class="ni" data-s="supp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 0-2-2v-4m0 0h18"/></svg>Supplementen</div>
+  <div class="ni" data-s="review"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Review</div>
+  <div class="ni" data-s="refl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>Reflectie</div>
+  <div class="gl">Verzamelen</div>
+  <div class="ni" data-s="notes"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Aantekeningen</div>
+  <div class="ni" data-s="gerecht"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2v8a3 3 0 0 1-2 2.83V22H7v-9.17A3 3 0 0 1 5 10V2h2v7h1V2h2v7h1V2h2Zm6 0c-1.7 0-3 2.2-3 5 0 2.4 1 4.3 2 4.8V22h2V2h-1Z"/></svg>Gerechten</div>
+  <div class="ni" data-s="shop"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Shopping</div>
+  <div class="ni" data-s="lees"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Lees &amp; Wachtlijst</div>
+  <div class="ni" data-s="ctc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Contacten</div>
+  <div class="ni" data-s="qt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Quotes</div>
+  <div class="ni" data-s="ops"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Opgeslagen</div>
+  <div class="gl">Bijhouden</div>
   <div class="ni" data-s="fin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Financiën</div>
   <div class="ni" data-s="werk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>Werk</div>
-  <div class="gl">Over mij</div>
+  <div class="ni" data-s="fit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Fitness</div>
+  <div class="ni ni-sub" data-s="oef"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><path d="M21 21l-1-1"/><path d="M3 3l1 1"/><path d="M18 22l4-4"/><path d="M2 6l4-4"/><path d="M3 10l7-7"/><path d="M14 21l7-7"/></svg>Oefeningen</div>
+  <div class="ni" data-s="supp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 0-2-2v-4m0 0h18"/></svg>Supplementen</div>
+  <div class="gl">Richting</div>
+  <div class="ni" data-s="goals"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Goals</div>
   <div class="ni" data-s="visie"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Visie &amp; Frame</div>
   <div class="ni" data-s="eig"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Eigenschappen</div>
   <div class="ni" data-s="rules"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Rules to live by</div>
-  <div class="gl">Archief</div>
-  <div class="ni" data-s="shop"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Shopping</div>
-  <div class="ni" data-s="lees"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Lees &amp; Wachtlijst</div>
-  <div class="ni" data-s="ops"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Opgeslagen</div>
-  <div class="ni" data-s="gerecht"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2v8a3 3 0 0 1-2 2.83V22H7v-9.17A3 3 0 0 1 5 10V2h2v7h1V2h2v7h1V2h2Zm6 0c-1.7 0-3 2.2-3 5 0 2.4 1 4.3 2 4.8V22h2V2h-1Z"/></svg>Gerechten</div>
-  <div class="ni" data-s="ctc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Contacten</div>
-  <div class="ni" data-s="qt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Quotes</div>
-  <div class="ni" data-s="notes"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Aantekeningen</div>
-  <div class="gl">Data</div>
-  <button class="ni ni-backup" onclick="exportBackup()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Backup maken</span></button>
-  <button class="ni ni-restore" onclick="triggerImport()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Backup herstellen</span></button>
 </div>
 <!-- MAIN -->
 <div class="main" id="M"></div>
@@ -2793,6 +2839,7 @@ function toggleSidebar() {
     closeSidebar();
   } else {
     closeDots();
+    sbZoekBouw();
     sb.classList.add('open');
     if (ov) ov.classList.add('open');
     var fb = el('fabMenu');
@@ -2801,6 +2848,7 @@ function toggleSidebar() {
   }
 }
 function closeSidebar() {
+  try{ sbZoekSloop(); }catch(e){}
   var sb = document.querySelector('.sb');
   var ov = el('sb-overlay');
   if (sb) sb.classList.remove('open');
@@ -2812,6 +2860,30 @@ function closeSidebar() {
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape'){ closeSidebar(); closeDots(); }
 });
+function sbZoekBouw(){
+  var sb = document.querySelector('.sb');
+  if(!sb || document.getElementById('sb-zoek-in')) return;
+  var box = document.createElement('div');
+  box.className = 'sb-zoek';
+  box.innerHTML = '<span class="sb-zoek-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.3-4.3"/></svg></span>'
+    + '<input type="text" id="sb-zoek-in" placeholder="Zoeken\u2026" autocomplete="off" oninput="sbZoek(this.value)">'
+    + '<button class="sb-zoek-x" id="sb-zoek-x" onclick="sbZoekLeeg()" aria-label="Wissen" tabindex="-1">\u2715</button>';
+  var leeg = document.createElement('div');
+  leeg.className = 'sb-leeg';
+  leeg.id = 'sb-leeg';
+  leeg.textContent = 'Niets gevonden';
+  sb.insertBefore(leeg, sb.firstChild);
+  sb.insertBefore(box, sb.firstChild);
+}
+function sbZoekSloop(){
+  try{ sbZoek(''); }catch(e){}
+  ['sb-zoek-in','sb-leeg'].forEach(function(id){
+    var e = document.getElementById(id);
+    if(!e) return;
+    var doel = (id === 'sb-zoek-in') ? e.parentNode : e;
+    if(doel && doel.parentNode) doel.parentNode.removeChild(doel);
+  });
+}
 function toggleDots(){
   var m = el('dotsMenu'), b = el('fabDots'), ov = el('dotsOv');
   if(!m || !b) return;
@@ -4304,13 +4376,31 @@ function rVandaag() {
   }).join('');
 
   // ── Ingepland (events/tijdsblokken voor die dag) ──
-  var evHTML=buildDashEvents(t,'Geen afspraken gepland — ga naar de Planner om tijdsblokken toe te voegen');
+  var evHTML=buildDashEvents(t,'Nog geen tijdsblokken voor deze dag');
 
   // ── Taken: strikt taken gekoppeld aan tijdsblokken (events) van die dag ──
   var dayEvents=evsFor(t);
   var plannedIds=[];
   dayEvents.forEach(function(ev){ (ev.taskIds||[]).forEach(function(tid){ if(plannedIds.indexOf(tid)<0) plannedIds.push(tid); }); });
   var plannedTasks=plannedIds.map(function(tid){ return (S.tasks||[]).find(function(x){return x.id===tid;}); }).filter(Boolean);
+  // Focustaken van deze dag die nog geen tijdsblok hebben
+  var losseTaken=(S.tasks||[]).filter(function(x){
+    return !x.done && x.focusDate===t && plannedIds.indexOf(x.id)<0;
+  });
+  var losH = losseTaken.length
+    ? '<div class="vd-plan-los">'
+      + '<div class="vd-plan-kop">Nog in te plannen</div>'
+      + losseTaken.map(function(x){
+          var p=proj(x);
+          return '<div class="vd-los">'
+            + '<span class="vd-los-dot" style="background:'+(x.prio==='hoog'?'#C5524A':'var(--acc)')+'"></span>'
+            + '<span class="vd-los-t">'+x.title+(p?'<span class="vd-los-p" style="color:'+p.color+'">'+p.name+'</span>':'')+'</span>'
+            + '<button class="vd-los-b" onclick="vdPlanTaak(\''+x.id+'\')">'+icon('clock',13)+' Tijd</button>'
+            + '</div>';
+        }).join('')
+      + '</div>'
+    : '';
+
   var taskHTML='';
   if(plannedTasks.length){
     taskHTML=plannedTasks.map(function(task){
@@ -4379,14 +4469,13 @@ function rVandaag() {
         '<div id="vd-rout">'+buildDashRoutine(t)+'</div>',
         '<button class="dash-card-link" data-sec="rout" onclick="navToSecEl(this)">Beheer'+icon('arrow',11)+'</button>',
         null, cf.routTot ? '\u2713 Alles afgevinkt' : '')
-    // 3. Ingepland \u2014 standaard compact
-    + vdKaart('agenda', 'Ingepland', 'clock', 0, 0,
-        evHTML,
+    // 3. Dagplanning \u2014 blokken, taken erin, en wat nog een tijd nodig heeft
+    + vdKaart('plan', (isToday?'Planning vandaag':'Planning ' + dayLabel.toLowerCase()), 'clock', cf.takAf, cf.takTot,
+        evHTML
+        + losH
+        + '<button class="vd-blok-add" onclick="vdNieuwBlok()">'+icon('plus',14)+' Blok toevoegen</button>',
         '<button class="dash-card-link" data-sec="plan" onclick="navToSecEl(this)">Planner'+icon('arrow',11)+'</button>',
-        'dicht', evSam)
-    // 4. Taken aan tijdsblokken
-    + vdKaart('taken', 'Taken voor deze dag', 'check', cf.takAf, cf.takTot,
-        taskHTML, '', null, cf.takTot ? '\u2713 Alles afgevinkt' : '')
+        'open', evSam)
     // 5. Habits
     + vdKaart('habits', 'Habits', 'check', cf.habAf, cf.habTot,
         habH, '', null, cf.habTot ? '\u2713 Alles afgevinkt' : '')
@@ -5662,7 +5751,7 @@ function openEvEditor(eid, date, start, end){
     +'<div style="display:flex;gap:6px;margin-top:16px">'
     +'<button class="btn pri" onclick="saveEvEditor('+(eid?'\''+eid+'\'':'null')+')" style="flex:1">'+(isNew?'Toevoegen':'Opslaan')+'</button>'
     +(isNew?'':'<button class="btn" onclick="openGcal(\''+eid+'\')" title="Zet in Google Agenda">'+icon('calendar',13)+' Google</button>')
-    +(isNew?'':'<button class="btn" onclick="delEv(\''+eid+'\');closeModal();rPlBody()" style="color:#D97757;border-color:rgba(217,119,87,.3)">Verwijderen</button>')
+    +(isNew?'':'<button class="btn" onclick="delEv(\''+eid+'\');closeModal();vdHertekenPlanner()" style="color:#D97757;border-color:rgba(217,119,87,.3)">Verwijderen</button>')
     +'<button class="btn" onclick="closeModal()">Annuleer</button>'
     +'</div>';
   var modal=document.createElement('div'); modal.className='modal-bg';
@@ -5701,7 +5790,15 @@ function saveEvEditor(eid){
     if(!S.events)S.events=[];
     S.events.push({id:'ev'+Date.now(),title:title,date:d,st:st,et:et,color:'#D97757',rec:false,days:[],taskIds:[]});
   }
-  save(); closeModal(); rPlBody();
+  // Koppel meteen de taak waarvoor dit blok werd aangemaakt
+  if(!eid && window._vdPlanTaak){
+    var nieuwEv = S.events[S.events.length-1];
+    if(nieuwEv){ nieuwEv.taskIds = [window._vdPlanTaak]; }
+    window._vdPlanTaak = null;
+    save();
+  }
+  closeModal();
+  vdHertekenPlanner();
   if(overlaps.length){
     toast('Let op: overlapt met "'+overlaps[0].title+'"');
   } else {
@@ -6143,7 +6240,7 @@ function evTaskSearch(eid){
   }
   box.innerHTML=html;
 }
-function evPickSuggest(eid,tid){ linkTask(tid,eid); closeModal(); rPlBody(); rOTList(); toast('Taak gekoppeld'); }
+function evPickSuggest(eid,tid){ linkTask(tid,eid); closeModal(); vdHertekenPlanner(); if(el('ot-list')) rOTList(); toast('Taak gekoppeld'); }
 function evCreateTask(eid){
   var inp=el('ets-search'); if(!inp) return;
   var title=inp.value.trim(); if(!title) return;
@@ -6165,6 +6262,26 @@ function evTaskEnter(eid){
   else { evCreateTask(eid); }
 }
 function delEv(id) { S.events=(S.events||[]).filter(e=>e.id!==id); save(); }
+// Na een wijziging: teken de pagina waar je op staat
+function vdHertekenPlanner(){
+  if(typeof rVandaag === 'function' && document.querySelector('[data-s=vandaag].on')){ rVandaag(); return; }
+  if(typeof rPlBody === 'function'){ try{ rPlBody(); }catch(e){} }
+}
+// Een blok maken v\u00f3\u00f3r een specifieke taak
+function vdPlanTaak(tid){
+  window._vdPlanTaak = tid;
+  var dag = window._vandaagDay || td();
+  openEvEditor(null, dag);
+  setTimeout(function(){
+    var inp = document.getElementById('eve-title');
+    var tk = (S.tasks||[]).find(function(x){ return x.id===tid; });
+    if(inp && tk && !inp.value) inp.value = tk.title;
+  }, 60);
+}
+function vdNieuwBlok(){
+  window._vdPlanTaak = null;
+  openEvEditor(null, window._vandaagDay || td());
+}
 
 // ─── AI WEEKPLANNER ───────────────────────────────────────────────────────────
 function rAIModal() {
@@ -7377,8 +7494,6 @@ function setTakenSort(s) {
 }
 
 function openAddTaskModal() {
-  // Sta je op Vandaag? Dan is 'vandaag' de logische standaard.
-  var opVandaag = !!document.querySelector('[data-s=vandaag].on');
   var projOpts = '<option value="">Geen project</option>' + S.projects.map(function(p){
     return '<option value="'+p.id+'">'+p.name+'</option>';
   }).join('');
@@ -7394,11 +7509,13 @@ function openAddTaskModal() {
     +'<option value="hoog">Dringend</option>'
     +'<option value="laag">Laag</option>'
     +'</select></div>'
-    +'<div class="task-edit-row"><div class="task-edit-label">Deadline</div>'
-    +'<input type="date" id="atm-d" style="width:100%;font-size:16px"></div>'
+    +'<div class="task-edit-row"><div class="task-edit-label">Datum</div>'
+    +'<input type="date" id="atm-d" value="'+td()+'" style="width:100%;font-size:16px">'
+    +'<div class="veld-hint">Op deze dag verschijnt de taak bij je focus. Leeg laten zet \'m in je backlog.</div></div>'
     +'</div>'
-    +'<label class="vandaag-tog"><input type="checkbox" id="atm-vd"'+(opVandaag?' checked':'')+'>'
-    +'<span class="vandaag-tog-txt"><b>Vandaag doen</b><span>Verschijnt meteen bij je focus op Vandaag</span></span></label>'
+    +'<label class="vandaag-tog"><input type="checkbox" id="atm-dl">'
+    +'<span class="vandaag-tog-txt"><b>Dit is een harde deadline</b>'
+    +'<span>Alleen aanvinken als de datum echt vaststaat \u2014 de taak komt dan ook in je planner en krijgt een \u201cte laat\u201d-stempel</span></span></label>'
     +'<div style="display:flex;gap:6px;margin-top:14px">'
     +'<button class="btn pri" onclick="saveAddTaskModal()" style="flex:1">Toevoegen</button>'
     +'<button class="btn" onclick="closeModal()">Annuleer</button></div>';
@@ -7417,20 +7534,25 @@ function saveAddTaskModal() {
   var pr = document.getElementById('atm-pr');
   var d = document.getElementById('atm-d');
   if (!t || !t.value.trim()) return;
-  var vd = document.getElementById('atm-vd');
-  var vandaag = !!(vd && vd.checked);
+  var dlEl = document.getElementById('atm-dl');
+  var datum = d && d.value ? d.value : '';
+  var isDeadline = !!(dlEl && dlEl.checked);
   S.tasks.push({
     id: 'tk'+Date.now(),
     title: t.value.trim(),
     proj: p ? p.value : '',
     prio: pr ? pr.value : 'normaal',
-    deadline: d ? d.value : '',
-    focusDate: vandaag ? td() : '',
+    deadline: (isDeadline && datum) ? datum : '',
+    focusDate: datum,
     done: false,
     created: td()
   });
   save(); closeModal();
-  if(typeof toast === 'function') toast(vandaag ? 'Toegevoegd aan vandaag' : 'Taak toegevoegd');
+  if(typeof toast === 'function'){
+    toast(!datum ? 'In je backlog gezet'
+        : (datum === td() ? 'Toegevoegd aan vandaag'
+        : 'Ingepland voor ' + new Date(datum+'T00:00').toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'short'})));
+  }
   // Blijf waar je bent: op Vandaag hertekenen we die, anders de takenlijst
   if(typeof rVandaag === 'function' && document.querySelector('[data-s=vandaag].on')) rVandaag();
   else renderTakenTab(window._takenTab||'los');
@@ -11069,6 +11191,7 @@ window.onFirebaseAuthChange=function(user){
 
 // Bij inloggen: bepaal of we lokale data uploaden of cloud-data downloaden
 function handleLoginData(user){
+  window._versLoggedIn = true;
   showSyncLoading('Je gegevens laden...');
   window.PimFB.cloudGet().then(function(cloud){
     var localStr=null;
@@ -11364,7 +11487,44 @@ function restartOnboarding(){
 
 
 // ── Inklapbare menu-groepen ──
-var MENU_GROUP_DEFAULT_CLOSED = ['over mij','archief'];
+var MENU_GROUP_DEFAULT_CLOSED = ['richting','bijhouden'];
+// ── Zoeken in het menu ──
+function sbZoek(v){
+  var q = String(v||'').toLowerCase().trim();
+  var sb = document.querySelector('.sb');
+  if(!sb) return;
+  var x = document.getElementById('sb-zoek-x');
+  if(x) x.classList.toggle('aan', !!q);
+  var leeg = document.getElementById('sb-leeg');
+  var raak = 0;
+
+  sb.querySelectorAll('.ni').forEach(function(it){
+    if(it.closest('.dots-menu')) return;
+    var t = (it.textContent||'').toLowerCase();
+    var pas = !q || t.indexOf(q) >= 0;
+    it.style.display = pas ? '' : 'none';
+    if(pas && q) raak++;
+  });
+
+  // Groepskoppen: verbergen als er niets in staat; bij zoeken alles openzetten
+  sb.querySelectorAll('.gl').forEach(function(gl){
+    var wrap = gl.nextElementSibling;
+    if(!wrap || !wrap.classList.contains('gl-items')){ gl.style.display = q ? 'none' : ''; return; }
+    var zichtbaar = Array.prototype.filter.call(wrap.querySelectorAll('.ni'), function(n){
+      return n.style.display !== 'none';
+    }).length;
+    gl.style.display = zichtbaar ? '' : 'none';
+    if(q){ wrap.style.display = zichtbaar ? '' : 'none'; }
+    else { wrap.style.display = gl.classList.contains('gl-closed') ? 'none' : ''; }
+  });
+
+  if(leeg) leeg.classList.toggle('aan', !!q && raak === 0);
+}
+function sbZoekLeeg(){
+  var i = document.getElementById('sb-zoek-in');
+  if(i){ i.value = ''; i.focus(); }
+  sbZoek('');
+}
 function initMenuGroups(){
   var sb=document.querySelector('.sb'); if(!sb) return;
   var labels=sb.querySelectorAll('.gl');
@@ -11511,14 +11671,26 @@ function realInit() {
   save();
   // Herstel laatst bekeken pagina (zodat je niet terugvalt naar dashboard na app-wissel/herlaad)
   var lastSec=null;
-  try{ if(_lsOk) lastSec=localStorage.getItem('pimmies_lastsec'); }catch(_){}
+  // Na een verse login start je op het dashboard; bij een herlaad kom je terug waar je was
+  if(window._versLoggedIn){ window._versLoggedIn=false; try{ if(_lsOk) localStorage.removeItem('pimmies_lastsec'); }catch(_){} }
+  else { try{ if(_lsOk) lastSec=localStorage.getItem('pimmies_lastsec'); }catch(_){} }
   if(lastSec && RENDERS[lastSec]){
     var ni=document.querySelector('[data-s='+lastSec+']');
     if(ni){ qsa('.ni').forEach(x=>x.classList.remove('on')); ni.classList.add('on');
       var lbl=ni.textContent.trim(); if(typeof setMobTitle==='function') setMobTitle(lbl);
-      RENDERS[lastSec]();
-    } else { rDash(); }
-  } else { rDash(); }
+      try{ RENDERS[lastSec](); }catch(e){ console.warn('Pagina kon niet laden:', e); }
+    }
+  }
+  // Vangnet: is er niets gerenderd, toon dan alsnog het dashboard
+  try{
+    var mEl = (typeof M !== 'undefined') ? M : document.getElementById('M');
+    if(!mEl || !mEl.innerHTML || mEl.innerHTML.length < 40){
+      qsa('.ni').forEach(function(x){ x.classList.remove('on'); });
+      var dEl = document.querySelector('[data-s=dash]');
+      if(dEl) dEl.classList.add('on');
+      rDash();
+    }
+  }catch(e){ try{ rDash(); }catch(_){} }
   // Auto-update datum elke minuut
   setInterval(setDates, 60000);
   // Inklapbare menu-groepen
@@ -11553,4 +11725,4 @@ init();
 })();
 </script>
 </body>
-        +'<input type="checkbox" id="'+cbId+'" data-rid="'+x.id+'"'+(v?' checked':'')+' onchange="togDashRouEl(this)">'+
+</html>
