@@ -663,12 +663,13 @@ body[data-theme="light"] {
 body[data-theme="light"] {
   color-scheme: light;
 }
-/* Bottom-nav blijft DONKER in light mode (bewuste keuze) */
+/* Bottom-nav volgt het thema */
 [data-theme="light"] .bnav {
-  background: rgba(24,23,22,.94);
-  border-top: 1px solid rgba(255,255,255,.08);
+  background: rgba(253,248,244,.94);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -2px 14px -8px rgba(58,42,30,.18);
 }
-[data-theme="light"] .bnav-item { color: #a89f98; }
+[data-theme="light"] .bnav-item { color: var(--text3); }
 [data-theme="light"] .bnav-item.on { color: var(--acc); }
 /* Quick-add sheet ook donker (past bij de nav) */
 [data-theme="light"] .qa-sheet {
@@ -2125,7 +2126,7 @@ body[data-theme="light"] .fin-ov-card {
 /* ── Mobiele bottom-navigatie ── */
 .bnav{display:none}
 @media (max-width:768px){
-  .bnav{position:fixed;left:0;right:0;bottom:0;z-index:96;display:flex;align-items:stretch;justify-content:space-around;background:rgba(24,23,22,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:7px 4px calc(7px + env(safe-area-inset-bottom))}
+  .bnav{position:fixed;left:0;right:0;bottom:0;z-index:96;display:flex;align-items:stretch;justify-content:space-around;background:var(--bnav-bg,rgba(24,23,22,.92));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:7px 4px calc(7px + env(safe-area-inset-bottom))}
   .bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;color:var(--text3);font-size:10px;font-weight:600;font-family:var(--font-ui);padding:3px 0;cursor:pointer;transition:color .15s;-webkit-tap-highlight-color:transparent}
   .bnav-item.on{color:var(--acc)}
   .bnav-item svg{flex-shrink:0}
@@ -2832,6 +2833,162 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   .tkz-kinderen{padding-left:22px}
 }
 @media(prefers-reduced-motion:reduce){.tkz{transition:none}}
+
+/* ══════════ Morgen klaarzetten + planmodus ══════════ */
+.vd-morgen{display:flex;align-items:center;justify-content:center;gap:7px;margin:0 auto 10px;
+  padding:7px 15px;min-height:36px;border-radius:99px;cursor:pointer;
+  font-family:var(--font-ui);font-size:12.5px;font-weight:600;
+  background:transparent;border:1px solid var(--border);color:var(--text3);
+  transition:border-color .15s,color .15s}
+.vd-morgen:hover{border-color:var(--acc-line);color:var(--acc)}
+.vd-morgen svg{transition:transform .18s}
+.vd-morgen:hover svg{transform:translateX(2px)}
+
+.vd-planmodus{display:flex;align-items:center;justify-content:center;gap:8px;
+  margin:0 0 14px;padding:9px 14px;border-radius:11px;
+  background:var(--acc-softer);border:1px solid var(--acc-line);
+  font-size:12px;color:var(--acc);font-weight:500;text-align:center}
+
+.vds-knoppen{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+.vds-morgen{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  min-height:46px;border-radius:12px;cursor:pointer;
+  font-family:var(--font-ui);font-size:13.5px;font-weight:600;
+  background:var(--acc);border:1px solid var(--acc);color:#fff;
+  transition:transform .12s,opacity .15s}
+.vds-morgen:hover{opacity:.92}
+.vds-morgen:active{transform:scale(.98)}
+@media(prefers-reduced-motion:reduce){.vd-morgen svg,.vds-morgen{transition:none}}
+
+/* ══════════ Projectkaart: rustiger ══════════ */
+.proj-acties{display:flex;align-items:center;justify-content:space-between;gap:8px;
+  margin-bottom:6px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.proj-del{background:none;border:0;color:var(--text3);cursor:pointer;
+  width:28px;height:28px;border-radius:8px;flex-shrink:0;font-size:12px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s,color .15s}
+.proj-del:hover{background:rgba(197,82,74,.12);color:#C5524A}
+.proj-status-sel{display:flex;gap:4px}
+.proj-status-btn{font-size:10.5px;font-weight:600;padding:5px 10px;min-height:28px;
+  border-radius:8px;cursor:pointer;font-family:var(--font-ui);
+  background:transparent;border:1px solid var(--border);color:var(--text3);
+  transition:border-color .15s,color .15s,background .15s}
+.proj-status-btn:hover{border-color:var(--acc-line);color:var(--acc)}
+.proj-status-btn.on{background:var(--acc-soft);border-color:var(--acc-line);color:var(--acc)}
+.pbdy .eerder-rij{margin-top:8px}
+
+/* ══════════ Taken: sorteerknop, chips, sorteervenster ══════════ */
+.tb-sort{margin-left:auto;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:10px;cursor:pointer;position:relative;
+  background:transparent;border:1px solid var(--border);color:var(--text3);
+  transition:border-color .15s,color .15s,background .15s}
+.tb-sort:hover{border-color:var(--acc-line);color:var(--acc)}
+.tb-sort.aan{background:var(--acc-soft);border-color:var(--acc-line);color:var(--acc)}
+.tb-sort.aan::after{content:'';position:absolute;top:-3px;right:-3px;width:7px;height:7px;
+  border-radius:50%;background:var(--acc);border:1.5px solid var(--bg)}
+
+.tk-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tk-chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-ui);
+  font-size:11.5px;font-weight:600;padding:5px 10px;min-height:30px;border-radius:99px;cursor:pointer;
+  background:var(--acc-soft);border:1px solid var(--acc-line);color:var(--acc);
+  transition:opacity .15s}
+.tk-chip:hover{opacity:.8}
+.tk-chip-x{font-size:10px;opacity:.7}
+.tk-chip-clear{font-family:var(--font-ui);font-size:11.5px;font-weight:600;padding:5px 10px;
+  min-height:30px;border-radius:99px;cursor:pointer;background:none;border:0;color:var(--text3);
+  text-decoration:underline;text-underline-offset:2px}
+.tk-chip-clear:hover{color:var(--acc)}
+
+.ts-blok{margin-bottom:14px}
+.ts-lbl{font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;
+  color:var(--text3);margin-bottom:7px}
+.ts-opts{display:flex;flex-wrap:wrap;gap:5px}
+.ts-opt{font-family:var(--font-ui);font-size:12.5px;font-weight:500;padding:7px 12px;min-height:34px;
+  border-radius:9px;cursor:pointer;background:var(--bg3);border:1px solid var(--border);
+  color:var(--text2);transition:border-color .15s,color .15s,background .15s}
+.ts-opt:hover{border-color:var(--acc-line);color:var(--acc)}
+.ts-opt.on{background:var(--acc-soft);border-color:var(--acc-line);color:var(--acc);font-weight:600}
+
+/* ══════════════════════════════════════════════════════════════
+   MENU v2 — compacter, terracotta iconen, vlak zoekveld
+   ══════════════════════════════════════════════════════════════ */
+.sb-zoek{
+  margin:0 0 4px;padding:0 18px;height:44px;border-radius:0;
+  background:var(--bg2);border:0;border-bottom:1px solid var(--border);
+  box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;
+  gap:11px;
+}
+.sb-zoek:focus-within{border-bottom-color:var(--acc-line);box-shadow:none}
+.sb-zoek input{font-size:13.5px}
+.sb-zoek input::placeholder{color:var(--text3)}
+.sb-zoek-ic{color:var(--acc)}
+.sb-zoek:focus-within .sb-zoek-ic{color:var(--acc)}
+
+/* groepskop: minder lucht erboven */
+.sb .gl{
+  font-size:9.5px;letter-spacing:1.1px;
+  padding:13px 18px 4px;
+}
+.sb .gl:first-of-type{padding-top:4px}
+
+/* menu-item: compacter */
+.sb .ni,.dots-menu .ni{
+  min-height:34px;padding:0 11px;margin:0 8px;gap:10px;
+  font-size:13px;border-radius:9px;
+}
+.sb .ni svg,.dots-menu .ni svg{
+  width:15px;height:15px;
+  color:var(--acc);stroke:var(--acc);opacity:1;
+}
+
+/* geen nesting meer */
+.sb .ni.ni-sub{margin:0 8px;width:calc(100% - 16px);min-height:34px;font-size:13px;color:var(--text2)}
+.sb .ni.ni-sub::before{display:none}
+.sb .ni.ni-sub svg{width:15px;height:15px}
+
+/* zachte verschijning bij het openen */
+.sb.open .ni{animation:niIn .26s cubic-bezier(.22,.61,.36,1) backwards}
+.sb.open .gl-items .ni:nth-child(1){animation-delay:.02s}
+.sb.open .gl-items .ni:nth-child(2){animation-delay:.04s}
+.sb.open .gl-items .ni:nth-child(3){animation-delay:.06s}
+.sb.open .gl-items .ni:nth-child(4){animation-delay:.08s}
+.sb.open .gl-items .ni:nth-child(5){animation-delay:.10s}
+.sb.open .gl-items .ni:nth-child(6){animation-delay:.12s}
+.sb.open .gl-items .ni:nth-child(7){animation-delay:.14s}
+@keyframes niIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+
+/* actief item krijgt een streepje in plaats van alleen kleur */
+.sb .ni.on{position:relative}
+.sb .ni.on::before{
+  content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);
+  width:3px;height:16px;border-radius:0 2px 2px 0;background:var(--acc);
+}
+
+@media(prefers-reduced-motion:reduce){
+  .sb.open .ni{animation:none}
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LEESBREEDTE OP GROTE SCHERMEN
+   Inhoud gecentreerd op max 900px — regels langer dan ~75 tekens
+   lezen slechter. De zwevende knoppen blijven aan de schermranden.
+   ══════════════════════════════════════════════════════════════ */
+@media(min-width:940px){
+  .main{
+    padding-left:max(24px, calc((100% - 900px) / 2));
+    padding-right:max(24px, calc((100% - 900px) / 2));
+  }
+  /* tabbalken vullen de leesbreedte; veel tabs houden hun eigen maat */
+  .tbar .tb{flex:1 1 auto;text-align:center}
+  .tbar{gap:2px}
+  /* twee kolommen waar dat rust geeft */
+  .rings,.pct-ring-row{gap:12px}
+}
+@media(min-width:1280px){
+  .main{
+    padding-left:max(24px, calc((100% - 980px) / 2));
+    padding-right:max(24px, calc((100% - 980px) / 2));
+  }
+}
 </style>
 <script type="module">
   // Firebase laden met foutafhandeling. Faalt het laden (offline, CDN-blokkade)?
@@ -2948,7 +3105,7 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   <div class="ni" data-s="vandaag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>Vandaag</div>
   <div class="gl">Elke dag</div>
   <div class="ni" data-s="taken"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Taken</div>
-  <div class="ni ni-sub" data-s="proj"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Projecten</div>
+  <div class="ni" data-s="proj"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Projecten</div>
   <div class="ni" data-s="rout"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Routine</div>
   <div class="ni" data-s="hab"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Habits</div>
   <div class="gl">Elke week</div>
@@ -2967,7 +3124,7 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   <div class="ni" data-s="fin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Financiën</div>
   <div class="ni" data-s="werk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>Werk</div>
   <div class="ni" data-s="fit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Fitness</div>
-  <div class="ni ni-sub" data-s="oef"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><path d="M21 21l-1-1"/><path d="M3 3l1 1"/><path d="M18 22l4-4"/><path d="M2 6l4-4"/><path d="M3 10l7-7"/><path d="M14 21l7-7"/></svg>Oefeningen</div>
+  <div class="ni" data-s="oef"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><path d="M21 21l-1-1"/><path d="M3 3l1 1"/><path d="M18 22l4-4"/><path d="M2 6l4-4"/><path d="M3 10l7-7"/><path d="M14 21l7-7"/></svg>Oefeningen</div>
   <div class="ni" data-s="supp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 0-2-2v-4m0 0h18"/></svg>Supplementen</div>
   <div class="gl">Richting</div>
   <div class="ni" data-s="goals"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Goals</div>
@@ -3239,9 +3396,11 @@ function addAsset(){
   setTimeout(function(){ var ni=el('asset-new'); if(ni) ni.focus(); },0);
 }
 function delAsset(id){
-  if(!confirm('Asset verwijderen? Je ingevoerde historie blijft bewaard, maar wordt niet meer getoond.')) return;
-  S.assets=assetList().filter(function(a){return a.id!==id;});
-  save(); renderFinBody('assets');
+  vraagBevestiging('Bezitting verwijderen?','Je ingevoerde historie blijft bewaard, maar wordt niet meer getoond.','Verwijderen',function(){
+    S.assets=assetList().filter(function(a){return a.id!==id;});
+    save(); renderFinBody('assets');
+    toast('Verwijderd', function(){ undo(); });
+  }, true);
 }
 const DEFP = [
   {id:'p_ex',name:'Mijn eerste project',cat:'Persoonlijk',color:'#D97757'}
@@ -3406,7 +3565,9 @@ function importBackup(text){
   catch(e){ toast('Ongeldig bestand — geen geldige backup'); return; }
   var payload = parsed && parsed._pimmiesBackup ? parsed.data : parsed;
   if(!payload || typeof payload!=='object'){ toast('Dit lijkt geen Pimmies OS backup'); return; }
-  if(!confirm('Backup terugzetten? Al je HUIDIGE data wordt vervangen door de backup. Dit kan niet ongedaan worden gemaakt.')) return;
+  vraagBevestiging('Backup terugzetten?','Al je huidige gegevens worden vervangen door de backup. Je kunt dit ongedaan maken met de knop bovenaan.','Terugzetten',function(){ _importBackupDoen(payload); }, true);
+}
+function _importBackupDoen(payload){
   try{
     // Wis huidige state en vervang door backup
     Object.keys(S).forEach(function(k){ delete S[k]; });
@@ -4254,7 +4415,7 @@ function dashCreateTask(eid){
   if(!S.tasks)S.tasks=[];
   S.tasks.push(nt);
   linkTask(nt.id,eid);
-  rDash();
+  hertekenNu();
   toast('Nieuwe taak aangemaakt en gekoppeld');
 }
 function dashTaskEnter(eid){
@@ -4382,21 +4543,23 @@ function focusTasksToday(){
   var t=td();
   return (S.tasks||[]).filter(function(x){return x.focusDate===t && !x.done;});
 }
-function _top3Date(){
-  var which=window._top3Day||'vandaag';
-  if(which==='morgen'){ var d=new Date(); d.setDate(d.getDate()+1); return dstr(d); }
-  return td();
+function _top3DagLabel(){
+  var d = window._focusDag || td();
+  if(d === td()) return 'Vandaag';
+  var m = new Date(); m.setDate(m.getDate()+1);
+  if(d === dstr(m)) return 'Morgen';
+  return new Date(d+'T00:00').toLocaleDateString('nl-NL',{weekday:'short',day:'numeric',month:'short'});
 }
-function setTop3Day(which){ window._top3Day=which; rDash(); if(typeof rVandaag==='function' && document.querySelector('[data-s=vandaag].on')) rVandaag(); }
+function _top3Date(){
+  if(window._top3Day === 'week') return td();
+  return window._focusDag || td();
+}
+function setTop3Day(which){ window._top3Day=which; hertekenNu(); }
 function buildTop3(){
-  var which=window._top3Day||'vandaag';
+  var which = 'dag';   // de dagkiezer bovenaan bepaalt de dag; geen aparte tabs meer
   var html='<div class="top3-card">'
     +'<div class="top3-hd">'+icon('target',14,'var(--acc)')+'<span>Mijn focus</span>'
-    +'<div class="top3-daytabs">'
-    +'<button class="top3-daytab'+(which==='vandaag'?' on':'')+'" onclick="setTop3Day(\'vandaag\')">Vandaag</button>'
-    +'<button class="top3-daytab'+(which==='morgen'?' on':'')+'" onclick="setTop3Day(\'morgen\')">Morgen</button>'
-    +'<button class="top3-daytab'+(which==='week'?' on':'')+'" onclick="setTop3Day(\'week\')">Deze week</button>'
-    +'</div>';
+    ;
   if(which==='week'){
     var wf=ensureWeekFocus();
     var wk=wf.week;
@@ -4457,7 +4620,7 @@ function buildTop3(){
   }
   if(open.length+done.length<slots){
     html+='<div class="top3-week-add">'
-      +'<input type="text" id="focusQuickInp" placeholder="Nieuwe taak voor '+(which==='morgen'?'morgen':'vandaag')+'\u2026" onkeydown="if(event.key===\'Enter\')addFocusTask()">'
+      +'<input type="text" id="focusQuickInp" placeholder="Nieuwe taak voor '+_top3DagLabel().toLowerCase()+'\u2026" onkeydown="if(event.key===\'Enter\')addFocusTask()">'
       +'<button onclick="addFocusTask()" title="Toevoegen">'+icon('plus',13,'var(--acc)')+'</button>'
       +'</div>';
   }
@@ -4514,8 +4677,6 @@ function addFocusTask(){
   var v=(typeof stripEmoji==='function'?stripEmoji(inp.value):inp.value).trim();
   if(!v){ inp.focus(); return; }
   var t=_top3Date();
-  var n=(S.tasks||[]).filter(function(x){return x.focusDate===t;}).length;
-  if(n>=3){ toast('Max 3 focus-taken \u2014 haal er eerst een weg'); return; }
   if(!S.tasks) S.tasks=[];
   S.tasks.push({id:'t'+Date.now(),title:v,proj:'',prio:'normaal',deadline:'',done:false,created:td(),focusDate:t});
   save();
@@ -4562,8 +4723,6 @@ function togFocusEl(btn){
   if(!task) return;
   if(task.focusDate===t){ task.focusDate=''; }
   else {
-    var n=(S.tasks||[]).filter(function(x){return x.focusDate===t;}).length;
-    if(n>=3){ toast('Max 3 focus-taken — haal er eerst een weg'); return; }
     task.focusDate=t;
   }
   save();
@@ -4573,7 +4732,7 @@ function togFocusEl(btn){
 function unsetFocusEl(btn){
   var id=btn.getAttribute('data-tid');
   var t=(S.tasks||[]).find(function(x){return x.id===id;});
-  if(t){ t.focusDate=''; save(); rDash(); if(typeof rVandaag==='function' && document.querySelector('[data-s=vandaag].on')) rVandaag(); }
+  if(t){ t.focusDate=''; save(); hertekenNu(); if(typeof rVandaag==='function' && document.querySelector('[data-s=vandaag].on')) rVandaag(); }
 }
 function openFocusPicker(target){
   window._fpTarget = (target==='week') ? 'week' : 'day';
@@ -4615,8 +4774,6 @@ function pickFocusEl(row){
     return;
   }
   var t=_top3Date();
-  var focusN=(S.tasks||[]).filter(function(x){return x.focusDate===t;}).length;
-  if(focusN>=3){ toast('Je hebt al 3 focus-taken \u2014 haal er eerst een weg'); return; }
   task.focusDate=t; save(); closeModal(); _rerenderFocus(); toast('Toegevoegd aan focus');
 }
 
@@ -4808,12 +4965,16 @@ function rVandaag() {
   }
 
   // Dag-navigatie als losse bouwsteen
+  window._focusDag = t;                       // de focus-kaart volgt deze dag
+  var isFuture = (t > today);                 // toekomstige dag = planmodus
   var navH = '<div class="ph"><div class="pt">Vandaag</div></div>'
     +'<div class="day-nav">'
     +'<button class="day-nav-btn" onclick="vandaagDayNav(-1)">'+icon('arrow',16)+'</button>'
     +'<button class="day-nav-lbl'+(isToday?'':' off')+'" onclick="vandaagDayToday()">'+dayLabel+'</button>'
     +'<button class="day-nav-btn" onclick="vandaagDayNav(1)">'+icon('arrow',16)+'</button>'
     +'</div>'
+    +(isToday ? '<button class="vd-morgen" onclick="vandaagDayNav(1)">Morgen klaarzetten'+icon('arrow',13)+'</button>' : '')
+    +(isFuture ? '<div class="vd-planmodus">'+icon('cal2',13,'var(--acc)')+'Planmodus \u2014 zet klaar wat er deze dag moet gebeuren</div>' : '')
     +'<div style="font-size:12px;color:var(--text3);margin:-4px 0 12px;text-align:center">'+dateStr+'</div>';
 
   // Dag afgesloten? Dan alleen de samenvatting.
@@ -4855,11 +5016,11 @@ function rVandaag() {
     + ochtendPrompt
     // 1. Focus
     + buildTop3()
-    // 2. Routine
-    + vdKaart('rout', 'Routine', 'list', cf.routAf, cf.routTot,
+    // 2. Routine \u2014 niet op een toekomstige dag
+    + (isFuture ? '' : vdKaart('rout', 'Routine', 'list', cf.routAf, cf.routTot,
         '<div id="vd-rout">'+buildDashRoutine(t)+'</div>',
         '<button class="dash-card-link" data-sec="rout" onclick="navToSecEl(this)">Beheer'+icon('arrow',11)+'</button>',
-        null, cf.routTot ? '\u2713 Alles afgevinkt' : '')
+        null, cf.routTot ? '\u2713 Alles afgevinkt' : ''))
     // 3. Dagplanning \u2014 blokken, taken erin, en wat nog een tijd nodig heeft
     + vdKaart('plan', (isToday?'Planning vandaag':'Planning ' + dayLabel.toLowerCase()), 'clock', cf.takAf, cf.takTot,
         evHTML
@@ -4867,16 +5028,16 @@ function rVandaag() {
         + '<button class="vd-blok-add" onclick="vdNieuwBlok()">'+icon('plus',14)+' Blok toevoegen</button>',
         '<button class="dash-card-link" data-sec="plan" onclick="navToSecEl(this)">Planner'+icon('arrow',11)+'</button>',
         'open', evSam)
-    // 5. Habits
-    + vdKaart('habits', 'Habits', 'check', cf.habAf, cf.habTot,
-        habH, '', null, cf.habTot ? '\u2713 Alles afgevinkt' : '')
-    // 6. Reflectie \u2014 overdag dicht, 's avonds vanzelf open
-    + vdKaart('refl', 'Sluit je dag af', 'moon', 0, 0,
+    // 5. Habits \u2014 niet op een toekomstige dag
+    + (isFuture ? '' : vdKaart('habits', 'Habits', 'check', cf.habAf, cf.habTot,
+        habH, '', null, cf.habTot ? '\u2713 Alles afgevinkt' : ''))
+    // 6. Reflectie \u2014 niet op een toekomstige dag
+    + (isFuture ? '' : vdKaart('refl', 'Sluit je dag af', 'moon', 0, 0,
         vdReflFormHTML(t)
         + (t<=today ? '<button class="vd-sluit" id="vd-sluit" onclick="sluitDag()">'+icon('check',15,'currentColor')+' Dag afsluiten</button>' : ''),
         '<button class="dash-card-link" data-sec="refl" onclick="navToSecEl(this)">Vragen aanpassen'+icon('arrow',11)+'</button>',
         (isToday && uur < 18) ? 'dicht' : 'open',
-        isToday ? 'Vanavond invullen \u2014 tik om nu te openen' : 'Tik om in te vullen');
+        isToday ? 'Vanavond invullen \u2014 tik om nu te openen' : 'Tik om in te vullen'));
 }
 function vandaagDayNav(dir){ var d=new Date(window._vandaagDay||td()); d.setDate(d.getDate()+dir); window._vandaagDay=dstr(d); rVandaag(); }
 function vandaagDayToday(){ window._vandaagDay=td(); rVandaag(); }
@@ -4988,6 +5149,7 @@ function rvMondayCardHTML(now){
     +'<div style="font-size:12px;color:var(--text2)">Nieuwe week \u2014 vijf minuten terugkijken maakt de rest bewuster.</div></div>';
 }
 function rDash() {
+  window._focusDag = td();
   var t=td();
   var h=S.habits[t]||{};
   var hc=Object.values(h).filter(Boolean).length;
@@ -5349,7 +5511,7 @@ function linkTaskDash(taskId,evId){
   if(ev.taskIds.indexOf(taskId)<0)ev.taskIds.push(taskId);
   save();
   document.querySelectorAll('.qat-drop').forEach(function(d){d.style.display='none';});
-  rDash();
+  hertekenNu();
 }
 
 function togDashTask(id,v){
@@ -5371,11 +5533,14 @@ function togDashTask(id,v){
 }
 
 function delDashTask(tid){
-  if(!confirm('Deze taak verwijderen?')) return;
+  var _t=(S.tasks||[]).find(function(x){return x.id===tid;});
+  vraagBevestiging('Taak verwijderen?', '\u201c'+(_t?_t.title:'Deze taak')+'\u201d wordt verwijderd. Je kunt dit meteen ongedaan maken.', 'Verwijderen', function(){ _delDashTask(tid); }, true);
+}
+function _delDashTask(tid){
   (S.events||[]).forEach(function(e){ if(e.taskIds) e.taskIds=e.taskIds.filter(function(x){return x!==tid;}); });
   S.tasks=(S.tasks||[]).filter(function(t){return t.id!==tid;});
-  save(); rDash();
-  toast('Taak verwijderd');
+  save(); hertekenNu();
+  toast('Taak verwijderd', function(){ undo(); });
 }
 
 function togEvTask(id,v){
@@ -6911,7 +7076,7 @@ function addRuleCat(){
 }
 function delRuleCat(cat){
   var realCat=cat.replace(/__amp__/g,'&');
-  if(!confirm('Categorie "'+realCat+'" verwijderen?'))return;
+  if(!window._bevestigd){ vraagBevestiging('Categorie verwijderen?','\u201c'+realCat+'\u201d wordt verwijderd.','Verwijderen',function(){ window._bevestigd=1; delRuleCat(cat); window._bevestigd=0; },true); return; }
   delete S.rules[realCat];save();rRules();
 }
 function addRule(catSafe){
@@ -7065,7 +7230,7 @@ function rGoals() {
     +'<div class="goal-ladder-cap">Per niveau: hoeveel doelen je al behaald hebt.</div>';
 
   var html = '<div class="ph"><div class="pt">Goals</div>'
-    +'<button class="undo-btn" onclick="undo()" title="Laatste wijziging ongedaan maken">'+icon('refresh',15,'var(--acc)')+'</button>'
+    
     +'</div>';
   html += ladder;
 
@@ -7337,7 +7502,7 @@ function rProj() {
     var catClosed=window._projCatOpen&&window._projCatOpen[cat]!==undefined?!window._projCatOpen[cat]:!catDefault;
     // categorie-voortgang: som van alle taken in deze categorie
     var catTasks=0, catDone=0;
-    catProjs.forEach(function(p){ var pt=S.tasks.filter(t=>t.proj===p.id); catTasks+=pt.length; catDone+=pt.filter(t=>t.done).length; });
+    catProjs.forEach(function(p){ var pt=S.tasks.filter(t=>t.proj===p.id && !t.parentId); catTasks+=pt.length; catDone+=pt.filter(t=>t.done).length; });
     var catPct=catTasks?Math.round(catDone/catTasks*100):0;
     html+=`<div class="pcat-head" onclick="togProjCat('${cat.replace(/'/g,"\\'")}')">
       <span class="pcat-chev${catClosed?'':' open'}">${icon('arrow',16,'var(--text3)')}</span>
@@ -7348,7 +7513,7 @@ function rProj() {
     html+=`<div class="pcat-body${catClosed?' closed':''}">`;
     catProjs.forEach(p=>{
       const pi=S.projects.indexOf(p);
-      const pt=S.tasks.filter(t=>t.proj===p.id);
+      const pt=S.tasks.filter(t=>t.proj===p.id && !t.parentId);
       const dc=pt.filter(t=>t.done).length,tc=pt.length;
       const pc=tc?Math.round(dc/tc*100):0;
       const op=oPs.has(p.id);
@@ -7365,14 +7530,20 @@ function rProj() {
           <span id="PC${p.id}" class="exp-chev${op?' open':''}">${icon('arrow',16)}</span>
         </div>
         <div class="pbdy${op?' op':''}" id="PB${p.id}">
-          <div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)"><div class="proj-status-sel">${['lopend','toekomstig','gedaan'].map(function(st){var lbls={lopend:'Lopend',toekomstig:'Toekomstig',gedaan:'Gedaan'};var cur=projStatus(p)===st;return '<button onclick="event.stopPropagation();setProjStatus(\''+p.id+'\',\''+st+'\')" class="proj-status-btn'+(cur?' on':'')+'">'+lbls[st]+'</button>';}).join('')}</div><button onclick="event.stopPropagation();vraagProjWeg('${p.id}')" style="background:none;border:1px solid #c44;color:#c44;border-radius:6px;font-size:11px;padding:3px 10px;cursor:pointer">Verwijderen</button></div>
+          <div class="proj-acties"><div class="proj-status-sel">${['lopend','toekomstig','gedaan'].map(function(st){var lbls={lopend:'Lopend',toekomstig:'Toekomstig',gedaan:'Gedaan'};var cur=projStatus(p)===st;return '<button onclick="event.stopPropagation();setProjStatus(\''+p.id+'\',\''+st+'\')" class="proj-status-btn'+(cur?' on':'')+'">'+lbls[st]+'</button>';}).join('')}</div><button class="proj-del" onclick="event.stopPropagation();vraagProjWeg('${p.id}')" title="Project verwijderen" aria-label="Project verwijderen">\u2715</button></div>
           ${(function(){
             var showDone=!!(window._projShowDone&&window._projShowDone[p.id]);
             var openT=pt.filter(function(x){return !x.done;});
             var doneT=pt.filter(function(x){return x.done;});
             var shown=showDone?pt:pt.filter(function(x){return !x.done||x.doneAt===td();});
-            var toggleBtn=doneT.length?'<button class="proj-done-toggle'+(showDone?' on':'')+'" data-pid="'+p.id+'" onclick="togProjShowDone(this)">'+(showDone?'Verberg afgerond ('+doneT.length+')':'Toon afgerond ('+doneT.length+')')+'</button>':'';
-            var rows=shown.map(t=>{ return taakRijRust(t); }).join('');
+            var eerder=doneT.filter(function(x){return x.doneAt!==td();});
+            var toggleBtn=eerder.length
+              ? '<button class="eerder-rij'+(showDone?' open':'')+'" data-pid="'+p.id+'" onclick="togProjShowDone(this)">'
+                + '<span class="eerder-chev">'+icon('arrow',12)+'</span>'
+                + '<span class="eerder-txt">'+(showDone?'Eerder afgerond verbergen':eerder.length+' eerder afgerond')+'</span>'
+                + '</button>'
+              : '';
+            var rows=shown.map(t=>{ return taakRijRust(t, false, true); }).join('');
             var empty=pt.length===0?'<div style="font-size:12px;color:var(--text3);padding:6px 0;font-style:italic">Nog geen taken — voeg er een toe</div>':(shown.length===0?'<div style="font-size:12px;color:var(--text3);padding:6px 0;font-style:italic">Alles afgerond! '+(doneT.length?'':'')+'</div>':'');
             return rows+empty+toggleBtn;
           })()}
@@ -7491,20 +7662,19 @@ function rTaken() {
   var projOpts = S.projects.map(function(p){ return '<option value="'+p.id+'">'+p.name+'</option>'; }).join('');
 
   M.innerHTML = '<div class="ph"><div class="pt">Taken</div>'
-    +'<div style="display:flex;align-items:center;gap:6px">'
-    +'<button class="undo-btn" onclick="undo()" title="Ongedaan maken">↩</button>'
     +'<button class="btn pri" onclick="openAddTaskModal()">+ Taak</button>'
-    +'</div></div>'
+    +'</div>'
     +'<div class="tbar" id="taken-tbar">'
     +'<button class="tb'+(window._takenTab==='los'?' on':'')+'" data-tab="los" onclick="setTakenTabEl(this)">Overig</button>'
     +'<button class="tb'+(window._takenTab==='projecten'?' on':'')+'" data-tab="projecten" onclick="setTakenTabEl(this)">Projecten</button>'
     +'<button class="tb'+(window._takenTab==='goals'?' on':'')+'" data-tab="goals" onclick="setTakenTabEl(this)">Goals</button>'
     +'<button class="tb'+(window._takenTab==='alle'?' on':'')+'" data-tab="alle" onclick="setTakenTabEl(this)">Alle</button>'
-    
+    +'<button class="tb-sort'+(takenFilterActief()?' aan':'')+'" id="taken-sortbtn" onclick="openTakenSort()" title="Sorteren en filteren" aria-label="Sorteren en filteren">'
+    +   '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M7 12h10M10 17h4"/></svg>'
+    + '</button>'
     +'</div>'
-    +'<div class="taken-quick"><input type="text" id="taken-quick-inp" placeholder="Snel een taak toevoegen..." onkeydown="if(event.keyCode===13)takenQuickAdd()" style="flex:1"><button class="btn pri" onclick="takenQuickAdd()" style="flex-shrink:0">'+icon('plus',14,'#fff')+'</button></div>'
-    +'<div style="margin:0 0 8px"><input type="text" id="taken-search" placeholder="Zoeken in taken\u2026" value="'+(window._takenQuery||'')+'" oninput="takenSearch(this.value)" style="width:100%"></div>'
-    +'<div id="taken-filters" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px"></div>'
+    +'<div style="margin:0 0 10px"><input type="text" id="taken-search" placeholder="Zoeken in taken\u2026" value="'+(window._takenQuery||'')+'" oninput="takenSearch(this.value)" style="width:100%"></div>'
+    +'<div id="taken-filters"></div>'
     +'<div id="taken-rows"></div>';
 
   renderTakenTab(window._takenTab);
@@ -7633,35 +7803,20 @@ function renderTakenTab(tab) {
     return '<option value="'+p.id+'"'+(sortProj===p.id?' selected':'')+'>'+p.name+'</option>';
   }).join('');
 
-  var filHtml = '';
-  // Sort buttons
-  filHtml += '<div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">'
-    +'<span style="font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.5px">Sorteren:</span>'
-    +'<button class="btn sm'+(sort==='prio'?' on':'')+'" data-sort="prio" onclick="setTakenSortEl(this)">Prioriteit</button>'
-    +'<button class="btn sm'+(sort==='datum'?' on':'')+'" data-sort="datum" onclick="setTakenSortEl(this)">Datum</button>'
-    +'<button class="btn sm'+(sort==='project'?' on':'')+'" data-sort="project" onclick="setTakenSortEl(this)">Project</button>'
-    +'<button class="btn sm'+(sort==='naam'?' on':'')+'" data-sort="naam" onclick="setTakenSortEl(this)">Naam</button>'
-    +'</div>';
-
-  // Filter dropdowns (hide project filter when on projecten tab)
-  filHtml += '<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px">';
-  if (tab !== 'goals') {
-    filHtml += '<select data-filter="proj" onchange="takenFilterEl(this)" style="font-size:12px">'+projOpts+'</select>';
+  // Actieve keuzes als chips \u2014 alleen zichtbaar als er iets afwijkt van de standaard
+  var chips = [];
+  if (sort !== 'prio') chips.push({l: 'Sorteer: ' + ({datum:'datum',project:'project',naam:'naam'}[sort]||sort), w:"setTakenSort('prio')"});
+  if (sortProj) {
+    var _p = (S.projects||[]).find(function(x){ return x.id===sortProj; });
+    chips.push({l: _p ? _p.name : 'Project', w:"takenFilter('proj','')"});
   }
-  filHtml += '<select data-filter="prio" onchange="takenFilterEl(this)" style="font-size:12px">'
-    +'<option value="">Alle prioriteiten</option>'
-    +'<option value="hoog"'+(sortPrio==='hoog'?' selected':'')+'>Dringend</option>'
-    +'<option value="normaal"'+(sortPrio==='normaal'?' selected':'')+'>Normaal</option>'
-    +'<option value="laag"'+(sortPrio==='laag'?' selected':'')+'>Laag</option>'
-    +'</select>';
-  filHtml += '<select data-filter="cat" onchange="takenFilterEl(this)" style="font-size:12px">'
-    +'<option value="">Alle categorieën</option>'
-    +'<option value="zakelijk"'+(sortCat==='zakelijk'?' selected':'')+'>Zakelijk</option>'
-    +'<option value="persoonlijk"'+(sortCat==='persoonlijk'?' selected':'')+'>Persoonlijk</option>'
-    +'</select>';
-  filHtml += '</div>';
-
-  fEl.innerHTML = filHtml;
+  if (sortPrio) chips.push({l: ({hoog:'Dringend',normaal:'Normaal',laag:'Laag'}[sortPrio]||sortPrio), w:"takenFilter('prio','')"});
+  if (sortCat) chips.push({l: sortCat.charAt(0).toUpperCase()+sortCat.slice(1), w:"takenFilter('cat','')"});
+  fEl.innerHTML = chips.length
+    ? '<div class="tk-chips">' + chips.map(function(c){
+        return '<button class="tk-chip" onclick="' + c.w + '">' + c.l + '<span class="tk-chip-x">\u2715</span></button>';
+      }).join('') + '<button class="tk-chip-clear" onclick="takenFilterReset()">Alles wissen</button></div>'
+    : '';
 
   // ── TASK ROWS ──
   var priIcons = {hoog:prioDot('hoog'),normaal:prioDot('normaal'),laag:prioDot('laag')};
@@ -7770,7 +7925,7 @@ function setRustLijst(on){
   if(typeof toast==='function') toast(on ? 'Rustige lijstweergave aan' : 'Rustige lijstweergave uit');
   if((window._sec||'')==='taken' || document.getElementById('taken-rows')) { try{ renderTakenTab(window._takenTab); }catch(e){} }
 }
-function taakRijRust(t, isSub) {
+function taakRijRust(t, isSub, verbergProject) {
   var p = proj(t);
   var prioCol = t.prio==='hoog' ? '#C5524A' : (t.prio==='laag' ? 'var(--text3)' : 'var(--acc)');
   var badgeTxt = '';
@@ -7781,7 +7936,7 @@ function taakRijRust(t, isSub) {
   } else if (t.focusDate===td()) { badgeTxt = 'vandaag'; }
   var subs = isSub ? [] : kinderenVan(t.id);
   var meta = [];
-  if (p && !isSub) meta.push('<span style="color:' + p.color + '">' + p.name + '</span>');
+  if (p && !isSub && !verbergProject) meta.push('<span style="color:' + p.color + '">' + p.name + '</span>');
   if (t.prio === 'hoog') meta.push('dringend');
   if (t.estimate && typeof estLabel==='function') meta.push(estLabel(t.estimate));
   var key = 'tk|' + t.id;
@@ -7806,7 +7961,7 @@ function taakRijRust(t, isSub) {
     + '</div>';
 
   if (!isSub && open && subs.length) {
-    h += '<div class="tkz-kinderen">' + subs.map(function(s){ return taakRijRust(s, true); }).join('') + '</div>';
+    h += '<div class="tkz-kinderen">' + subs.map(function(s){ return taakRijRust(s, true, verbergProject); }).join('') + '</div>';
   }
   return h;
 }
@@ -7840,6 +7995,28 @@ function togEerder(){
 // Wikkel: bewerken op basis van tab + id in plaats van een element
 function editRoutItem(tab, rid){
   editRoutItemEl({ getAttribute: function(k){ return k === 'data-rid' ? rid : tab; } });
+}
+// Bevestiging vragen zonder confirm() \u2014 dat werkt niet in een PWA op iOS
+var _bevestigActie = null;
+function vraagBevestiging(kop, tekst, knopLabel, actie, gevaar){
+  _bevestigActie = actie;
+  var body = '<div class="rv-kop">' + kop + '</div>'
+    + '<div style="font-size:13px;color:var(--text2);line-height:1.55;margin:6px 0 16px">' + tekst + '</div>'
+    + '<div style="display:flex;gap:6px">'
+    + '<button class="btn" onclick="closeModal()" style="flex:1">Annuleer</button>'
+    + '<button class="btn" onclick="doeBevestiging()" style="flex:1;'
+    +   (gevaar ? 'background:#C5524A;border-color:#C5524A;color:#fff' : 'background:var(--acc);border-color:var(--acc);color:#fff')
+    + '">' + (knopLabel || 'Doorgaan') + '</button></div>';
+  closeModal();
+  var m = document.createElement('div'); m.className = 'modal-bg';
+  m.innerHTML = '<div class="modal-box rv-box">' + body + '</div>';
+  document.body.appendChild(m);
+  m.addEventListener('click', function(e){ if(e.target===m) closeModal(); });
+}
+function doeBevestiging(){
+  var f = _bevestigActie; _bevestigActie = null;
+  closeModal();
+  if(typeof f === 'function'){ try{ f(); }catch(e){ console.warn(e); } }
 }
 function rijVenster(kop, metaHTML, acties){
   var body = '<div class="rv-kop">' + kop + '</div>'
@@ -7958,6 +8135,57 @@ function vensterHabDone(hid){
   S.habits[d][hid] = !S.habits[d][hid];
   save(); closeModal(); rHab();
 }
+// Staat er een filter of afwijkende sortering aan?
+function takenFilterActief(){
+  return (window._takenSort && window._takenSort !== 'prio')
+      || !!window._takenSortProj || !!window._takenSortPrio || !!window._takenSortCat;
+}
+function takenFilterReset(){
+  window._takenSort = 'prio';
+  window._takenSortProj = ''; window._takenSortPrio = ''; window._takenSortCat = '';
+  rTaken();
+}
+function setTakenSort(s){ window._takenSort = s; renderTakenTab(window._takenTab); vernieuwSortKnop(); }
+function takenFilter(soort, waarde){
+  if(soort==='proj') window._takenSortProj = waarde;
+  else if(soort==='prio') window._takenSortPrio = waarde;
+  else if(soort==='cat') window._takenSortCat = waarde;
+  renderTakenTab(window._takenTab);
+  vernieuwSortKnop();
+}
+function vernieuwSortKnop(){
+  var b = document.getElementById('taken-sortbtn');
+  if(b) b.classList.toggle('aan', takenFilterActief());
+}
+function openTakenSort(){
+  var sort = window._takenSort || 'prio';
+  var sp = window._takenSortProj || '', spr = window._takenSortPrio || '', sc = window._takenSortCat || '';
+  function rij(label, opties, huidig, fn){
+    return '<div class="ts-blok"><div class="ts-lbl">' + label + '</div><div class="ts-opts">'
+      + opties.map(function(o){
+          return '<button class="ts-opt' + (o[0]===huidig?' on':'') + '" onclick="' + fn + '(\'' + o[0] + '\')">' + o[1] + '</button>';
+        }).join('')
+      + '</div></div>';
+  }
+  var projOpts = [['','Alle projecten']].concat((S.projects||[]).map(function(p){ return [p.id, p.name]; }));
+  var body = '<div class="rv-kop">Sorteren en filteren</div>'
+    + rij('Sorteren op', [['prio','Prioriteit'],['datum','Datum'],['project','Project'],['naam','Naam']], sort, 'tsSort')
+    + rij('Project', projOpts, sp, 'tsProj')
+    + rij('Prioriteit', [['','Alle'],['hoog','Dringend'],['normaal','Normaal'],['laag','Laag']], spr, 'tsPrio')
+    + rij('Categorie', [['','Alle'],['zakelijk','Zakelijk'],['persoonlijk','Persoonlijk']], sc, 'tsCat')
+    + '<div style="display:flex;gap:6px;margin-top:16px">'
+    + (takenFilterActief() ? '<button class="btn" onclick="takenFilterReset();closeModal()" style="flex:1">Alles wissen</button>' : '')
+    + '<button class="btn pri" onclick="closeModal()" style="flex:1">Klaar</button></div>';
+  closeModal();
+  var m = document.createElement('div'); m.className = 'modal-bg';
+  m.innerHTML = '<div class="modal-box rv-box">' + body + '</div>';
+  document.body.appendChild(m);
+  m.addEventListener('click', function(e){ if(e.target===m) closeModal(); });
+}
+function tsSort(v){ setTakenSort(v); openTakenSort(); }
+function tsProj(v){ takenFilter('proj', v); openTakenSort(); }
+function tsPrio(v){ takenFilter('prio', v); openTakenSort(); }
+function tsCat(v){ takenFilter('cat', v); openTakenSort(); }
 function togRij(btn){
   var key = btn.getAttribute('data-key');
   if(!window._rijOpen) window._rijOpen = {};
@@ -8169,8 +8397,8 @@ function openAddTaskModal() {
     +'<option value="laag">Laag</option>'
     +'</select></div>'
     +'<div class="task-edit-row"><div class="task-edit-label">Datum</div>'
-    +'<input type="date" id="atm-d" value="'+td()+'" style="width:100%;font-size:16px">'
-    +'<div class="veld-hint">Op deze dag verschijnt de taak bij je focus. Leeg laten zet \'m in je backlog.</div></div>'
+    +'<input type="date" id="atm-d" style="width:100%;font-size:16px">'
+    +'<div class="veld-hint">Leeg laten zet \'m in je backlog. Vul een dag in en de taak verschijnt die dag bij je focus.</div></div>'
     +'</div>'
     +'<label class="vandaag-tog"><input type="checkbox" id="atm-dl">'
     +'<span class="vandaag-tog-txt"><b>Dit is een harde deadline</b>'
@@ -11066,7 +11294,7 @@ function delGerIng(btn){
 
 function delGerecht(btn){
   var gid=btn.getAttribute('data-gid');
-  if(!confirm('Dit gerecht verwijderen?')) return;
+  if(!window._bevestigd){ vraagBevestiging('Gerecht verwijderen?','Dit gerecht wordt uit je lijst gehaald.','Verwijderen',function(){ window._bevestigd=1; delGerecht(id); window._bevestigd=0; },true); return; }
   S.gerechten=S.gerechten.filter(function(x){return x.id!==gid;});
   save(); rGerecht(); toast('Gerecht verwijderd');
 }
@@ -11364,8 +11592,18 @@ function vdDagSamenvatting(t){
     + '</div>'
     + (refl ? '<div class="vds-chips">'+refl+'</div>' : '')
     + tekst
-    + '<button class="btn sm" onclick="heropenDag()" style="margin-top:18px">Dag heropenen</button>'
+    + '<div class="vds-knoppen">'
+    +   (t === td() ? '<button class="vds-morgen" onclick="zetMorgenKlaar()">'+icon('arrow',15,'currentColor')+' Zet morgen klaar</button>' : '')
+    +   '<button class="btn sm" onclick="heropenDag()">Dag heropenen</button>'
+    + '</div>'
     + '</div>';
+}
+function zetMorgenKlaar(){
+  var d = new Date(); d.setDate(d.getDate()+1);
+  window._vandaagDay = dstr(d);
+  window._top3Day = 'dag';
+  rVandaag();
+  try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){}
 }
 function sluitDag(){
   var t = window._vandaagDay || td();
@@ -11603,7 +11841,7 @@ function rNotes() {
 
   M.innerHTML = '<div class="ph"><div class="pt">Aantekeningen</div>'
     +'<div style="display:flex;gap:6px;align-items:center">'
-    +'<button class="undo-btn" onclick="undo()" title="Laatste wijziging ongedaan maken">'+icon('refresh',15,'var(--acc)')+'</button>'
+    
     +'<button class="btn pri" onclick="addNoteModal()">+ Aantekening</button>'
     +'</div></div>'
     +'<div class="tbar">'+catBtns+'</div>'
@@ -11841,7 +12079,7 @@ function rSettings() {
   </div>
   <div class="card"><div class="ct">Data wissen</div>
     <p style="font-size:12px;color:var(--text2);margin-bottom:10px">Verwijder alle opgeslagen data. Dit kan niet ongedaan worden gemaakt!</p>
-    <button class="btn red" onclick="if(confirm('Weet je het zeker? Alle data wordt gewist!'))clearData()">Alle data wissen</button>
+    <button class="btn red" onclick="vraagBevestiging('Alle gegevens wissen?','Dit verwijdert alles: taken, projecten, routines, habits en je hele geschiedenis. Dit kan niet ongedaan gemaakt worden.','Alles wissen',clearData,true)">Alle data wissen</button>
   </div>
   <div style="text-align:center;padding:18px 0 4px;font-size:11px;color:var(--text3);line-height:1.7">
     Pimmies OS &middot; versie ${PIM_VERSIE}<br>
@@ -12068,7 +12306,7 @@ function showSyncLoading(txt){
 function hideSyncLoading(){ var ov=el('sync-load'); if(ov) ov.remove(); }
 
 function doLogout(){
-  if(!confirm('Uitloggen? Je gegevens blijven veilig in de cloud staan.')) return;
+  if(!(window._bevestigd || (vraagBevestiging('Uitloggen?','Je gegevens blijven veilig in de cloud staan.','Uitloggen',function(){ window._bevestigd=1; doLogout(); window._bevestigd=0; }), false))) return;
   cloudSyncNow();
   setTimeout(function(){ window.PimFB.logout(); location.reload(); }, 400);
 }
@@ -12388,28 +12626,50 @@ function realInit() {
   if(!S.budgetCats)S.budgetCats=[];
   selDay=td();
   save();
-  // Herstel laatst bekeken pagina (zodat je niet terugvalt naar dashboard na app-wissel/herlaad)
-  var lastSec=null;
-  // Na een verse login start je op het dashboard; bij een herlaad kom je terug waar je was
-  if(window._versLoggedIn){ window._versLoggedIn=false; try{ if(_lsOk) localStorage.removeItem('pimmies_lastsec'); }catch(_){} }
-  else { try{ if(_lsOk) lastSec=localStorage.getItem('pimmies_lastsec'); }catch(_){} }
-  if(lastSec && RENDERS[lastSec]){
-    var ni=document.querySelector('[data-s='+lastSec+']');
-    if(ni){ qsa('.ni').forEach(x=>x.classList.remove('on')); ni.classList.add('on');
-      var lbl=ni.textContent.trim(); if(typeof setMobTitle==='function') setMobTitle(lbl);
-      try{ RENDERS[lastSec](); }catch(e){ console.warn('Pagina kon niet laden:', e); }
-    }
+  // ── Startpagina bepalen en meteen tonen ──
+  var startSec = 'dash';
+  if(window._versLoggedIn){
+    // Verse login: altijd op het dashboard beginnen
+    window._versLoggedIn = false;
+    try{ if(_lsOk) localStorage.removeItem('pimmies_lastsec'); }catch(_){}
+  } else {
+    try{
+      if(_lsOk){
+        var ls = localStorage.getItem('pimmies_lastsec');
+        if(ls && RENDERS[ls]) startSec = ls;
+      }
+    }catch(_){}
   }
-  // Vangnet: is er niets gerenderd, toon dan alsnog het dashboard
+
+  // Menu-markering zetten \u2014 meerdere functies leunen op '.ni.on'
   try{
-    var mEl = (typeof M !== 'undefined') ? M : document.getElementById('M');
-    if(!mEl || !mEl.innerHTML || mEl.innerHTML.length < 40){
-      qsa('.ni').forEach(function(x){ x.classList.remove('on'); });
+    qsa('.ni').forEach(function(x){ x.classList.remove('on'); });
+    var niEl = document.querySelector('[data-s=' + startSec + ']');
+    if(niEl){
+      niEl.classList.add('on');
+      if(typeof setMobTitle === 'function') setMobTitle(niEl.textContent.trim());
+    }
+    qsa('.bnav-item').forEach(function(x){
+      x.classList.toggle('on', x.getAttribute('data-bs') === startSec);
+    });
+  }catch(e){}
+
+  // Renderen
+  try{
+    (RENDERS[startSec] || rDash)();
+  }catch(e){
+    console.warn('Startpagina kon niet laden:', e);
+  }
+
+  // Vangnet: is er alsnog niets gerenderd, dan het dashboard
+  try{
+    if(!M || !M.innerHTML || M.innerHTML.length < 40){
       var dEl = document.querySelector('[data-s=dash]');
-      if(dEl) dEl.classList.add('on');
+      if(dEl){ qsa('.ni').forEach(function(x){ x.classList.remove('on'); }); dEl.classList.add('on'); }
       rDash();
     }
   }catch(e){ try{ rDash(); }catch(_){} }
+
   // Auto-update datum elke minuut
   setInterval(setDates, 60000);
   // Inklapbare menu-groepen
