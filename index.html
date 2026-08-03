@@ -2912,16 +2912,18 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
    MENU v2 — compacter, terracotta iconen, vlak zoekveld
    ══════════════════════════════════════════════════════════════ */
 .sb-zoek{
-  margin:0 0 4px;padding:0 18px;height:44px;border-radius:0;
-  background:var(--bg2);border:0;border-bottom:1px solid var(--border);
+  position:sticky;
+  top:calc(env(safe-area-inset-top, 0px) + 68px);
+  z-index:6;
+  margin:0 8px 4px;padding:0 11px;height:34px;border-radius:9px;
+  background:var(--bg3);border:0;gap:10px;
   box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;
-  gap:11px;
 }
-.sb-zoek:focus-within{border-bottom-color:var(--acc-line);box-shadow:none}
-.sb-zoek input{font-size:13.5px}
-.sb-zoek input::placeholder{color:var(--text3)}
+.sb-zoek:focus-within{box-shadow:inset 0 0 0 1px var(--acc-line)}
+.sb-zoek input{font-size:13px;font-weight:500}
+.sb-zoek input::placeholder{color:var(--text3);font-weight:400}
+.sb-zoek-ic svg{width:15px;height:15px}
 .sb-zoek-ic{color:var(--acc)}
-.sb-zoek:focus-within .sb-zoek-ic{color:var(--acc)}
 
 /* groepskop: minder lucht erboven */
 .sb .gl{
@@ -2989,6 +2991,153 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
     padding-right:max(24px, calc((100% - 980px) / 2));
   }
 }
+
+/* ══════════ Goals: zelfde taal als taken ══════════ */
+.gsec{margin-bottom:2px}
+.gsec-hd{display:flex;align-items:center;gap:10px;width:100%;padding:11px 4px;min-height:44px;
+  background:none;border:0;border-bottom:1px solid var(--border);cursor:pointer;
+  font-family:var(--font-ui);text-align:left;transition:background .14s}
+.gsec-hd:hover{background:var(--acc-softer)}
+.gsec-chev{display:inline-flex;color:var(--text3);transition:transform .22s;flex-shrink:0}
+.gsec.open .gsec-chev{transform:rotate(90deg)}
+.gsec-lbl{flex:1;font-size:13px;font-weight:600;color:var(--text);letter-spacing:.1px}
+.gsec-cnt{font-size:11.5px;font-weight:600;color:var(--text3);font-variant-numeric:tabular-nums}
+.gsec-cnt.vol{color:var(--acc)}
+.gsec-cnt.leeg{opacity:.4}
+.gsec-body{padding:2px 0 10px}
+.gsec-leeg{font-size:12.5px;color:var(--text3);padding:12px 4px;font-style:italic}
+.gsec-add{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;
+  min-height:38px;margin-top:8px;border-radius:10px;cursor:pointer;
+  font-family:var(--font-ui);font-size:12.5px;font-weight:600;
+  background:transparent;border:1px dashed var(--acc-line);color:var(--acc);
+  transition:background .15s}
+.gsec-add:hover{background:var(--acc-softer)}
+.gsec-add.klein{min-height:32px;font-size:11.5px;margin-top:6px}
+
+.goal-bar{height:4px;border-radius:3px;background:var(--bg3);overflow:hidden;margin:2px 0 10px}
+.goal-bar i{display:block;height:100%;border-radius:3px;transition:width .3s}
+.goal-veld{display:flex;align-items:flex-start;gap:9px;width:100%;padding:8px 2px;
+  background:none;border:0;border-bottom:1px solid var(--border);cursor:pointer;
+  font-family:var(--font-ui);font-size:12.5px;line-height:1.45;color:var(--text2);text-align:left;
+  transition:color .15s}
+.goal-veld:hover{color:var(--text)}
+.goal-veld svg{flex-shrink:0;margin-top:2px;color:var(--acc)}
+.goal-veld.leeg{color:var(--text3);font-style:italic}
+.goal-veld span{flex:1;min-width:0}
+
+/* ══════════════════════════════════════════════════════════════
+   BEWEGING — klein, functioneel, nooit in de weg
+   Alles onder 300ms en volledig uit bij prefers-reduced-motion.
+   ══════════════════════════════════════════════════════════════ */
+
+/* 1. Afvinken: het bolletje veert even in en de streep tekent zichzelf */
+.tkz-check::before{transition:background .2s,transform .18s cubic-bezier(.34,1.56,.44,1)}
+.tkz-check.on::before{animation:dotPop .34s cubic-bezier(.34,1.56,.44,1)}
+@keyframes dotPop{0%{transform:scale(1)}45%{transform:scale(1.55)}100%{transform:scale(1)}}
+
+.tkz-title{transition:color .22s}
+.tkz.done .tkz-title{animation:streepIn .3s ease-out}
+@keyframes streepIn{from{text-decoration-color:transparent}to{text-decoration-color:var(--text3)}}
+
+/* 2. Uitklappen: het paneel groeit open in plaats van te verschijnen */
+.tkz-kinderen,.tkz-panel{animation:vouwUit .24s cubic-bezier(.22,.61,.36,1)}
+@keyframes vouwUit{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+/* 3. Nieuwe pagina komt zacht omhoog */
+.main > .ph{animation:pgUp .3s cubic-bezier(.22,.61,.36,1)}
+@keyframes pgUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* 4. Secties en groepen ademen mee */
+.gsec-body,.pgrp-body,.rsec-body{animation:vouwUit .22s cubic-bezier(.22,.61,.36,1)}
+
+/* 5. Chips en tellers verschijnen zacht */
+.tk-chips,.eerder-rij{animation:vouwUit .22s cubic-bezier(.22,.61,.36,1)}
+
+/* 6. Voortgangsbalken lopen vloeiend mee */
+.fin-saldo-fil,.goal-bar i,.pgrp-bar i,.vds-bar i{transition:width .45s cubic-bezier(.22,.61,.36,1),background .3s}
+
+/* 7. Knoppen geven mee bij indrukken */
+.btn:active,.gsec-add:active,.vd-blok-add:active,.rv-act:active{transform:scale(.975)}
+.btn,.gsec-add,.vd-blok-add,.rv-act{transition:transform .1s,background .15s,border-color .15s,color .15s}
+
+/* 8. Rij die je aanraakt licht kort op */
+.tkz{transition:background .14s}
+
+/* Twee knoppen naast elkaar in een doel */
+.goal-acties{display:flex;gap:6px;margin-top:8px}
+.goal-acties .gsec-add{margin-top:0;flex:1}
+.gsec-add.zacht{border-style:solid;border-color:var(--border);color:var(--text3)}
+.gsec-add.zacht:hover{border-color:var(--acc-line);color:var(--acc);background:transparent}
+
+@media(prefers-reduced-motion:reduce){
+  .tkz-check.on::before,.tkz.done .tkz-title,.tkz-kinderen,.tkz-panel,
+  .main > .ph,.gsec-body,.pgrp-body,.rsec-body,.tk-chips,.eerder-rij{animation:none}
+  .fin-saldo-fil,.goal-bar i,.pgrp-bar i,.vds-bar i{transition:none}
+  .btn:active,.gsec-add:active,.vd-blok-add:active,.rv-act:active{transform:none}
+}
+
+/* ══════════ Zoekveld staat vast boven de scrollende lijst ══════════ */
+.sb{
+  display:flex;flex-direction:column;
+  overflow:hidden!important;                 /* het scrollen gebeurt binnenin */
+  padding-top:calc(env(safe-area-inset-top, 0px) + 68px)!important;
+  padding-bottom:0!important;
+}
+.sb-scroll{
+  flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  padding:7px 0 24px;
+  border-top:1px solid var(--border);
+  margin-top:7px;
+}
+.sb-zoek{
+  position:static!important;flex-shrink:0;
+  margin:0 8px!important;top:auto!important;
+}
+
+/* ══════════ Gedaan-overzicht ══════════ */
+.gd-kop{display:flex;gap:8px;margin-bottom:16px}
+.gd-cijfer{flex:1;text-align:center;padding:13px 6px;border-radius:13px;
+  background:var(--bg2);border:1px solid var(--border)}
+.gd-cijfer b{display:block;font-family:var(--font-display,inherit);font-size:22px;
+  font-weight:600;color:var(--acc);line-height:1.1}
+.gd-cijfer span{display:block;font-size:10.5px;color:var(--text3);margin-top:3px;
+  letter-spacing:.3px}
+.gd-dag{margin-bottom:14px}
+.gd-dag-hd{display:flex;align-items:center;gap:9px;padding:7px 4px 5px}
+.gd-dag-lbl{flex:1;font-size:10.5px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:var(--text3)}
+.gd-dag-cnt{font-size:11.5px;font-weight:600;color:var(--acc);font-variant-numeric:tabular-nums}
+.gd-dag .tkz{border-bottom-color:var(--border)}
+.gd-dag .tkz:last-child{border-bottom:0}
+
+/* ══════════ Menu-standen: geen vlakken, alleen tekstkleur ══════════ */
+.sb .ni,.dots-menu .ni{
+  background:none;
+  color:var(--text3);          /* alle pagina's grijs */
+}
+.sb .ni:hover,.dots-menu .ni:hover{
+  background:none;
+  color:var(--text);           /* bij aanraken wit */
+}
+/* balkje links verschijnt ook bij aanraken */
+.sb .ni:hover::before{
+  content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);
+  width:3px;height:16px;border-radius:0 2px 2px 0;background:var(--acc);
+}
+.sb .ni:active,.dots-menu .ni:active{background:none}
+.sb .ni.on,.dots-menu .ni.on{
+  background:none;
+  color:var(--text);           /* actieve pagina wit */
+  font-weight:600;
+  box-shadow:none;
+}
+/* het oranje balkje links blijft de markering */
+.sb .ni.on::before{
+  content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);
+  width:3px;height:16px;border-radius:0 2px 2px 0;background:var(--acc);
+}
+.dots-menu .ni.on::before{display:none}
 </style>
 <script type="module">
   // Firebase laden met foutafhandeling. Faalt het laden (offline, CDN-blokkade)?
@@ -3112,6 +3261,17 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   <div class="ni" data-s="plan"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Planner</div>
   <div class="ni" data-s="review"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Review</div>
   <div class="ni" data-s="refl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>Reflectie</div>
+  <div class="gl">Richting</div>
+  <div class="ni" data-s="goals"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Goals</div>
+  <div class="ni" data-s="visie"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Visie &amp; Frame</div>
+  <div class="ni" data-s="eig"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Eigenschappen</div>
+  <div class="ni" data-s="rules"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Rules to live by</div>
+<div class="gl">Bijhouden</div>
+  <div class="ni" data-s="fin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Financiën</div>
+  <div class="ni" data-s="werk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>Werk</div>
+  <div class="ni" data-s="fit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Fitness</div>
+  <div class="ni" data-s="oef"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><path d="M21 21l-1-1"/><path d="M3 3l1 1"/><path d="M18 22l4-4"/><path d="M2 6l4-4"/><path d="M3 10l7-7"/><path d="M14 21l7-7"/></svg>Oefeningen</div>
+  <div class="ni" data-s="supp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 0-2-2v-4m0 0h18"/></svg>Supplementen</div>
   <div class="gl">Verzamelen</div>
   <div class="ni" data-s="notes"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Aantekeningen</div>
   <div class="ni" data-s="gerecht"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2v8a3 3 0 0 1-2 2.83V22H7v-9.17A3 3 0 0 1 5 10V2h2v7h1V2h2v7h1V2h2Zm6 0c-1.7 0-3 2.2-3 5 0 2.4 1 4.3 2 4.8V22h2V2h-1Z"/></svg>Gerechten</div>
@@ -3120,18 +3280,7 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   <div class="ni" data-s="ctc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Contacten</div>
   <div class="ni" data-s="qt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Quotes</div>
   <div class="ni" data-s="ops"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Opgeslagen</div>
-  <div class="gl">Bijhouden</div>
-  <div class="ni" data-s="fin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Financiën</div>
-  <div class="ni" data-s="werk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>Werk</div>
-  <div class="ni" data-s="fit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>Fitness</div>
-  <div class="ni" data-s="oef"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><path d="M21 21l-1-1"/><path d="M3 3l1 1"/><path d="M18 22l4-4"/><path d="M2 6l4-4"/><path d="M3 10l7-7"/><path d="M14 21l7-7"/></svg>Oefeningen</div>
-  <div class="ni" data-s="supp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 0-2-2v-4m0 0h18"/></svg>Supplementen</div>
-  <div class="gl">Richting</div>
-  <div class="ni" data-s="goals"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Goals</div>
-  <div class="ni" data-s="visie"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Visie &amp; Frame</div>
-  <div class="ni" data-s="eig"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Eigenschappen</div>
-  <div class="ni" data-s="rules"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Rules to live by</div>
-</div>
+  </div>
 <!-- MAIN -->
 <div class="main" id="M"></div>
 </div>
@@ -3139,7 +3288,7 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
 <nav class="bnav" id="bnav" aria-label="Hoofdnavigatie">
   <button class="bnav-item on" data-bs="dash" onclick="navToSection('dash')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Home</span></button>
   <button class="bnav-item" data-bs="vandaag" onclick="navToSection('vandaag')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Vandaag</span></button>
-  <button class="bnav-plus" onclick="openQuickAdd()" aria-label="Snel toevoegen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+  <button class="bnav-plus" onclick="toggleQuickAdd()" aria-label="Snel toevoegen"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
   <button class="bnav-item" data-bs="taken" onclick="navToSection('taken')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Taken</span></button>
   <button class="bnav-item" data-bs="review" onclick="navToSection('review')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-5"/></svg><span>Review</span></button>
 </nav>
@@ -3157,7 +3306,7 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   </div>
 </div>
 
-<button class="fab" id="fab" onclick="openQuickAdd()" title="Snel toevoegen" aria-label="Snel toevoegen"></button>
+<button class="fab" id="fab" onclick="toggleQuickAdd()" title="Snel toevoegen" aria-label="Snel toevoegen"></button>
 
 <script>
 // Onderdruk generieke cross-origin "Script error." meldingen (geen bruikbare info,
@@ -3226,6 +3375,14 @@ document.addEventListener('keydown', function(e){
 function sbZoekBouw(){
   var sb = document.querySelector('.sb');
   if(!sb || document.getElementById('sb-zoek-in')) return;
+  // Alles wat scrollt in een eigen bak; het zoekveld blijft daarbuiten staan
+  var scroll = document.getElementById('sb-scroll');
+  if(!scroll){
+    scroll = document.createElement('div');
+    scroll.id = 'sb-scroll'; scroll.className = 'sb-scroll';
+    while(sb.firstChild) scroll.appendChild(sb.firstChild);
+    sb.appendChild(scroll);
+  }
   var box = document.createElement('div');
   box.className = 'sb-zoek';
   box.innerHTML = '<span class="sb-zoek-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.3-4.3"/></svg></span>'
@@ -3235,7 +3392,7 @@ function sbZoekBouw(){
   leeg.className = 'sb-leeg';
   leeg.id = 'sb-leeg';
   leeg.textContent = 'Niets gevonden';
-  sb.insertBefore(leeg, sb.firstChild);
+  scroll.insertBefore(leeg, scroll.firstChild);
   sb.insertBefore(box, sb.firstChild);
 }
 function sbZoekSloop(){
@@ -4779,8 +4936,9 @@ function pickFocusEl(row){
 
 function editHeroNaam(){
   var cur=(S.settings&&S.settings.naam)||'';
-  var v=prompt('Je naam:', cur);
-  if(v===null) return;
+  vraagTekst('Je naam','','Hoe heet je?',cur,function(x){ _zetHeroNaam(x); },'Opslaan');
+}
+function _zetHeroNaam(v){
   v=stripEmoji(v).trim();
   if(!S.settings) S.settings={};
   S.settings.naam=v||'';
@@ -5044,6 +5202,10 @@ function vandaagDayToday(){ window._vandaagDay=td(); rVandaag(); }
 function togVHEl(cb){ var id=cb.getAttribute('data-hid'); var t=td(); if(!S.habits[t])S.habits[t]={}; S.habits[t][id]=cb.checked; save(); rVandaag(); }
 function togVandaagTaakEl(cb){ var id=cb.getAttribute('data-tid'); var task=(S.tasks||[]).find(function(x){return x.id===id;}); if(task){ task.done=cb.checked; if(cb.checked){task.doneAt=td();}else{delete task.doneAt;} save(); rVandaag(); } }
 
+function toggleQuickAdd(){
+  var s = el('qaSheet');
+  if(s && s.classList.contains('open')) closeQuickAdd(); else openQuickAdd();
+}
 function openQuickAdd(){
   var o=el('qaOv'), s=el('qaSheet'); if(!o||!s) return;
   o.classList.add('open'); s.classList.add('open');
@@ -6529,7 +6691,9 @@ function rMorgenView(cal, morgenStr) {
 function quickAddEvMorgenEl(el7){quickAddEvMorgen(el7.getAttribute('data-date'),el7.getAttribute('data-start'),el7.getAttribute('data-end'));}
 
 function quickAddEvMorgen(date, start, end) {
-  var title = prompt('Event om '+start+':');
+  vraagTekst('Nieuw tijdsblok', start + ' \u2013 ' + end, 'Waar ga je aan werken?', '', function(t){ _quickAddEvMorgen(date,start,end,t); }, 'Toevoegen');
+}
+function _quickAddEvMorgen(date, start, end, title) {
   if (!title || !title.trim()) return;
   if (!S.events) S.events = [];
   S.events.push({ id:'ev'+Date.now(), title:title.trim(), date:date, st:start, et:end, color:'#D97757', rec:false, days:[], taskIds:[] });
@@ -7068,7 +7232,9 @@ function rRules() {
     +'<div class="rule-cats-wrap">'+catsHTML+'</div>';
 }
 function addRuleCat(){
-  var name=prompt('Naam van de categorie:');
+  vraagTekst('Nieuwe categorie','','Naam van de categorie','',function(n){ _addRuleCat(n); },'Toevoegen');
+}
+function _addRuleCat(name){
   if(!name)return;
   if(!S.rules)S.rules={};
   S.rules[name]=[];
@@ -7140,12 +7306,8 @@ function createGoalTask(goalId){
 
 function togGoalAcc(key){
   if(!window._goalAcc) window._goalAcc={};
-  var cur=window._goalAcc[key]!==undefined?window._goalAcc[key]:false;
-  window._goalAcc[key]=!cur;
-  var body=document.getElementById('gaccb-'+key);
-  var chev=document.getElementById('gacc-'+key);
-  if(body) body.style.display=window._goalAcc[key]?'':'none';
-  if(chev) chev.classList.toggle('open',window._goalAcc[key]);
+  window._goalAcc[key] = !window._goalAcc[key];
+  rGoals();
 }
 function scrollToGoal(gid){
   var card=document.getElementById('goal-'+gid);
@@ -7198,115 +7360,152 @@ function editGoalFieldEl(el2, field){
 }
 
 function rGoals() {
-  if(!S.goalsV2) {
-    S.goals = [];
-    S.goalsV2 = true;
-    save();
-  }
+  if(!S.goalsV2){ S.goals = []; S.goalsV2 = true; save(); }
   if(!S.goals) S.goals = [];
-  // Migratie oude horizonnen → 4 niveaus
-  var migMap={maandelijks:'kwartaal','2jaar':'35jaar','510jaar':'visie'};
-  S.goals.forEach(function(g){ if(migMap[g.horizon]) g.horizon=migMap[g.horizon]; });
+  var migMap = {maandelijks:'kwartaal','2jaar':'35jaar','510jaar':'visie'};
+  S.goals.forEach(function(g){ if(migMap[g.horizon]) g.horizon = migMap[g.horizon]; });
   if(!window._goalAcc) window._goalAcc = {};
-  if(window._goalAcc['kwartaal']===undefined) window._goalAcc['kwartaal']=true;
-  if(!window._goalDeep) window._goalDeep = {};
+  if(window._goalAcc['kwartaal'] === undefined) window._goalAcc['kwartaal'] = true;
 
   var horizons = [
-    ['kwartaal','Dit kwartaal','De concrete sprint — wat lever ik de komende maanden op'],
-    ['jaar','Dit jaar','De grote mijlpalen voor dit jaar'],
-    ['35jaar','3-5 jaar','Waar bouw ik naartoe op de middellange termijn'],
-    ['visie','Levensvisie','De richting van mijn leven — het waarom achter alles']
+    ['kwartaal','Dit kwartaal'],
+    ['jaar','Dit jaar'],
+    ['35jaar','3-5 jaar'],
+    ['visie','Levensvisie']
   ];
 
-  // ── Horizon-ringen (overzicht per niveau: % behaalde doelen) ──
-  var ladderRings=horizons.slice().reverse().map(function(hz){
-    var key=hz[0];
-    var hG=S.goals.filter(function(g){return g.horizon===key;});
-    var dn=hG.filter(function(g){return g.done;}).length;
-    var pct=hG.length?Math.round(dn/hG.length*100):0;
-    return pctRing(pct, hz[1], 'scrollToHz(\''+key+'\')', false);
-  }).join('');
-  var ladder='<div class="pct-ring-row goal-hz-rings">'+ladderRings+'</div>'
-    +'<div class="goal-ladder-cap">Per niveau: hoeveel doelen je al behaald hebt.</div>';
-
-  var html = '<div class="ph"><div class="pt">Goals</div>'
-    
-    +'</div>';
-  html += ladder;
+  var html = '<div class="ph"><div class="pt">Goals</div></div>';
 
   horizons.forEach(function(hz){
-    var key = hz[0], label = hz[1], sub = hz[2];
+    var key = hz[0], label = hz[1];
     var hGoals = S.goals.filter(function(g){ return g.horizon===key; });
-    var totalGoals = hGoals.length;
-    var doneGoals = hGoals.filter(function(g){ return g.done; }).length;
-    var hzPct = totalGoals ? Math.round(doneGoals/totalGoals*100) : 0;
-    var isOpen = window._goalAcc[key] !== undefined ? window._goalAcc[key] : false;
+    var af = hGoals.filter(function(g){ return g.done; }).length;
+    var open = !!window._goalAcc[key];
 
-    html += '<div class="card goal-hz-card" id="goalhz-'+key+'" style="margin-bottom:10px">';
-    html += '<div class="goal-hz-hd" onclick="togGoalAcc(\''+key+'\')">'
-      +'<div class="goal-hz-titles"><div class="goal-hz-label">'+label+'</div>'
-      +'<div class="goal-hz-sub">'+sub+'</div></div>'
-      +(totalGoals?'<span class="goal-hz-pct" style="color:'+cpc(hzPct)+'">'+doneGoals+'/'+totalGoals+'</span>':'')
-      +'<span class="exp-chev'+(isOpen?' open':'')+'" id="gacc-'+key+'">'+icon('arrow',16)+'</span>'
-      +'</div>';
-    html += '<div class="goal-hz-body" id="gaccb-'+key+'" style="'+(isOpen?'':'display:none')+'">';
+    html += '<div class="gsec' + (open?' open':'') + '">'
+      + '<button class="gsec-hd" onclick="togGoalAcc(\'' + key + '\')">'
+      +   '<span class="gsec-chev">' + icon('arrow',12) + '</span>'
+      +   '<span class="gsec-lbl">' + label + '</span>'
+      +   (hGoals.length ? '<span class="gsec-cnt' + (af===hGoals.length?' vol':'') + '">' + af + '/' + hGoals.length + '</span>' : '<span class="gsec-cnt leeg">\u2013</span>')
+      + '</button>';
 
-    if(!hGoals.length){
-      html += '<div class="goal-empty">Nog geen doel hier. Voeg er een toe ↓</div>';
+    if(open){
+      html += '<div class="gsec-body">';
+      html += hGoals.length
+        ? hGoals.map(function(g){ return goalRij(g); }).join('')
+        : '<div class="gsec-leeg">Nog geen doel op dit niveau</div>';
+      html += '<button class="gsec-add" onclick="addGoalToHz(\'' + key + '\')">' + icon('plus',13) + ' Nieuw doel</button>';
+      html += '</div>';
     }
-
-    hGoals.forEach(function(g){
-      var items = g.items||[];
-      var linkedTasks = (S.tasks||[]).filter(function(t){ return t.goalId===g.id; });
-      var taskDone = linkedTasks.filter(function(t){ return t.done; }).length;
-      var done = items.filter(function(it){ return it.done; }).length + taskDone;
-      var total = items.length + linkedTasks.length;
-      var pct = g.done ? 100 : (total>0 ? Math.round(done/total*100) : 0);
-      var deep = !!window._goalDeep[g.id];
-
-      html += '<div class="goal-card-v2'+(g.done?' done':'')+'" id="goal-'+g.id+'">';
-      html += '<div class="goal-v2-hd">'
-        +'<input type="checkbox"'+(g.done?' checked':'')+' title="Doel behaald" class="goal-v2-check" onchange="togGoalDone(\''+g.id+'\',this.checked)">'
-        +'<div class="goal-v2-title" data-gid="'+g.id+'" onclick="editGoalTitleEl(this)" title="Tik om te bewerken">'+g.title+'</div>'
-        +(total>0?'<span class="goal-v2-pct" style="color:'+cpc(pct)+'">'+pct+'%</span>':'')
-        +'<button class="goal-v2-more'+(deep?' open':'')+'" onclick="togGoalDeep(\''+g.id+'\')" title="'+(deep?'Details verbergen':'Details tonen')+'">'+icon('arrow',14)+'</button>'
-        +'</div>';
-      if(total>0||g.done){
-        html += '<div class="goal-v2-bar"><div class="goal-v2-fill" style="width:'+pct+'%;background:'+cpc(pct)+'"></div></div>';
-      }
-      html += '<div class="goal-v2-deep"'+(deep?'':' style="display:none"')+'>';
-      var why=g.why||'';
-      html += '<div class="goal-v2-why'+(why?'':' empty')+'" data-gid="'+g.id+'" onclick="editGoalFieldEl(this,\'why\')">'
-        +icon('flame',11,'var(--acc)')+'<span>'+(why||'Waarom is dit belangrijk voor jou?')+'</span></div>';
-      var na=g.nextAction||'';
-      html += '<div class="goal-v2-next'+(na?'':' empty')+'" data-gid="'+g.id+'" onclick="editGoalFieldEl(this,\'nextAction\')">'
-        +icon('target',11,'var(--acc)')+'<span>'+(na||'Wat is je eerstvolgende concrete stap?')+'</span></div>';
-      var wn=g.when||'';
-      html += '<div class="goal-v2-when'+(wn?'':' empty')+'" data-gid="'+g.id+'" onclick="editGoalFieldEl(this,\'when\')">'
-        +icon('clock',11,'var(--acc)')+'<span>'+(wn?'Wanneer: '+wn:'Wanneer/waar ga je hieraan werken?')+'</span></div>';
-      if(linkedTasks.length){
-        html += '<div class="goal-tasks">'+linkedTasks.map(function(t){
-          return '<div class="goal-task'+(t.done?' done':'')+'">'
-            +'<input type="checkbox"'+(t.done?' checked':'')+' data-tid="'+t.id+'" onchange="togGoalTaskEl(this)">'
-            +'<span class="goal-task-t">'+t.title+'</span>'
-            +'<button class="goal-task-unlink" data-tid="'+t.id+'" onclick="unlinkGoalTaskEl(this)" title="Loskoppelen">\u2715</button>'
-            +'</div>';
-        }).join('')+'</div>';
-      }
-      html += '<div class="goal-v2-foot">'
-        +'<button class="goal-link-btn" onclick="openGoalTaskPicker(\''+g.id+'\')">'+icon('plus',11,'var(--acc)')+'Taak koppelen</button>'
-        +'<button class="goal-v2-del" onclick="delGoal(\''+g.id+'\')">\u2715 Doel verwijderen</button>'
-        +'</div>';
-      html += '</div>';
-      html += '</div>';
-    });
-
-    // Nieuw doel toevoegen
-    html += '<button class="goal-add-btn" onclick="addGoalToHz(\''+key+'\')">'+icon('plus',13,'var(--acc)')+'Nieuw doel</button>';
-    html += '</div></div>';
+    html += '</div>';
   });
 
   M.innerHTML = html;
+}
+
+// Eén doel als rij, in dezelfde taal als taken
+function goalRij(g){
+  var items = g.items || [];
+  var taken = (S.tasks||[]).filter(function(t){ return t.goalId===g.id; });
+  var af = items.filter(function(it){ return it.done; }).length + taken.filter(function(t){ return t.done; }).length;
+  var tot = items.length + taken.length;
+  var pct = g.done ? 100 : (tot ? Math.round(af/tot*100) : 0);
+  var key = 'gl|' + g.id;
+  var open = !!(window._rijOpen && window._rijOpen[key]);
+
+  var meta = [];
+  if(g.nextAction) meta.push(icon('target',10) + ' ' + g.nextAction);
+  else if(g.why) meta.push(g.why);
+
+  var h = '<div class="tkz' + (g.done?' done':'') + (open?' open':'') + '" data-key="' + key + '">'
+    + '<button class="tkz-check' + (g.done?' on':'') + '" onclick="togGoalDone(\'' + g.id + '\',' + (g.done?'false':'true') + ')" title="Behaald" aria-label="Behaald"></button>'
+    + '<span class="tkz-titlewrap" onclick="openGoalVenster(\'' + g.id + '\')" title="Opties">'
+    +   '<span class="tkz-title">' + g.title + '</span>'
+    +   (meta.length ? '<span class="tkz-meta">' + meta.join(' \u00b7 ') + '</span>' : '')
+    + '</span>'
+    + (tot
+        ? '<button class="tkz-subwrap" data-key="' + key + '" onclick="togRij(this)" title="Details" aria-label="Details">'
+          + '<span class="tkz-subcount">' + af + '/' + tot + '</span>'
+          + '<span class="tkz-chev">' + icon('arrow',15) + '</span></button>'
+        : '<button class="tkz-subwrap" data-key="' + key + '" onclick="togRij(this)" title="Details" aria-label="Details">'
+          + '<span class="tkz-chev">' + icon('arrow',15) + '</span></button>')
+    + '</div>';
+
+  if(open){
+    h += '<div class="tkz-kinderen">';
+    if(tot) h += '<div class="goal-bar"><i style="width:' + pct + '%;background:' + cpc(pct) + '"></i></div>';
+    [['why','flame','Waarom is dit belangrijk?'],
+     ['nextAction','target','Wat is je eerstvolgende stap?'],
+     ['when','clock','Wanneer werk je hieraan?']].forEach(function(v){
+      var w = g[v[0]] || '';
+      h += '<button class="goal-veld' + (w?'':' leeg') + '" data-gid="' + g.id + '" onclick="editGoalFieldEl(this,\'' + v[0] + '\')">'
+        + icon(v[1],12) + '<span>' + (w || v[2]) + '</span></button>';
+    });
+    taken.forEach(function(t){
+      h += '<div class="tkz tkz-sub' + (t.done?' done':'') + '">'
+        + '<button class="tkz-check' + (t.done?' on':'') + '" data-tid="' + t.id + '" onclick="rustTitleDone(this)" title="Afvinken" aria-label="Afvinken"></button>'
+        + '<span class="tkz-titlewrap" onclick="openTaakVenster(\'' + t.id + '\')" title="Opties"><span class="tkz-title">' + t.title + '</span></span>'
+        + '</div>';
+    });
+    h += '<div class="goal-acties">'
+      + '<button class="gsec-add klein" onclick="nieuweGoalTaak(\'' + g.id + '\')">' + icon('plus',12) + ' Nieuwe taak</button>'
+      + '<button class="gsec-add klein zacht" onclick="openGoalTaskPicker(\'' + g.id + '\')">' + icon('list',12) + ' Bestaande koppelen</button>'
+      + '</div>';
+    h += '</div>';
+  }
+  return h;
+}
+
+function nieuweGoalTaak(gid){
+  var g = (S.goals||[]).find(function(x){ return x.id===gid; });
+  if(!g) return;
+  vraagTekst('Nieuwe taak', 'bij \u201c' + g.title + '\u201d', 'Wat moet er gebeuren?', '', function(titel){
+    S.tasks.push({
+      id:'tk'+Date.now()+Math.random().toString(36).slice(2,4),
+      title: stripEmoji(titel), proj:'', prio:'normaal', done:false,
+      goalId: gid, created: td()
+    });
+    if(!window._rijOpen) window._rijOpen = {};
+    window._rijOpen['gl|'+gid] = true;
+    save(); rGoals();
+    toast('Taak toegevoegd', function(){ undo(); });
+  }, 'Toevoegen');
+}
+function openGoalVenster(gid){
+  var g = (S.goals||[]).find(function(x){ return x.id===gid; });
+  if(!g) return;
+  var taken = (S.tasks||[]).filter(function(t){ return t.goalId===gid; });
+  var meta = [];
+  var lbl = {kwartaal:'Dit kwartaal',jaar:'Dit jaar','35jaar':'3-5 jaar',visie:'Levensvisie'}[g.horizon];
+  if(lbl) meta.push(lbl);
+  if(taken.length) meta.push(taken.filter(function(t){return t.done;}).length + '/' + taken.length + ' taken');
+  rijVenster(g.title, meta.join(' \u00b7 '), [
+    {l: g.done ? 'Weer openzetten' : 'Behaald', ic: icon('check',16), soort: g.done ? '' : 'pri',
+     klik: "closeModal();togGoalDone('"+gid+"'," + (g.done?'false':'true') + ")"},
+    {l: 'Naam aanpassen', ic: icon('edit',16), klik: "closeModal();editGoalTitle('"+gid+"')"},
+    {l: 'Nieuwe taak', ic: icon('plus',16), klik: "closeModal();nieuweGoalTaak('"+gid+"')"},
+    {l: 'Bestaande taak koppelen', ic: icon('list',16), klik: "closeModal();openGoalTaskPicker('"+gid+"')"},
+    {l: 'Verplaatsen', ic: icon('arrow',16), klik: "closeModal();openGoalHz('"+gid+"')"},
+    {l: 'Verwijderen', ic: '\u2715', soort: 'danger', klik: "closeModal();delGoal('"+gid+"')"}
+  ]);
+}
+function editGoalTitle(gid){
+  editGoalTitleEl({ getAttribute: function(){ return gid; } });
+}
+function openGoalHz(gid){
+  var g = (S.goals||[]).find(function(x){ return x.id===gid; });
+  if(!g) return;
+  rijVenster('Verplaatsen', 'Naar welk niveau hoort \u201c' + g.title + '\u201d?', [
+    {l:'Dit kwartaal', ic:icon('flag',16), klik:"zetGoalHz('"+gid+"','kwartaal')"},
+    {l:'Dit jaar',     ic:icon('flag',16), klik:"zetGoalHz('"+gid+"','jaar')"},
+    {l:'3-5 jaar',     ic:icon('flag',16), klik:"zetGoalHz('"+gid+"','35jaar')"},
+    {l:'Levensvisie',  ic:icon('flag',16), klik:"zetGoalHz('"+gid+"','visie')"}
+  ]);
+}
+function zetGoalHz(gid, hz){
+  var g = (S.goals||[]).find(function(x){ return x.id===gid; });
+  if(g){ g.horizon = hz; if(!window._goalAcc) window._goalAcc={}; window._goalAcc[hz] = true; save(); }
+  closeModal(); rGoals();
 }
 
 function togGoalDeep(id){
@@ -7326,11 +7525,18 @@ function toggleGoalHz(key) {
 }
 
 function addGoalToHz(horizon) {
-  var title = prompt('Nieuw doel:');
-  if(!title || !title.trim()) return;
-  if(!S.goals) S.goals = [];
-  S.goals.push({ id:'g'+Date.now(), title:title.trim(), horizon:horizon, done:false, items:[] });
-  save(); rGoals(); toast('Doel toegevoegd');
+  var lbl = {kwartaal:'dit kwartaal',jaar:'dit jaar','35jaar':'de komende 3-5 jaar',visie:'je levensvisie'}[horizon] || '';
+  vraagTekst('Nieuw doel', lbl ? 'Voor ' + lbl : '', 'Wat wil je bereiken?', '', function(title){
+    if(!S.goals) S.goals = [];
+    var g = { id:'g'+Date.now(), title:title, horizon:horizon, done:false, items:[] };
+    S.goals.push(g);
+    if(!window._goalAcc) window._goalAcc = {};
+    window._goalAcc[horizon] = true;
+    if(!window._rijOpen) window._rijOpen = {};
+    window._rijOpen['gl|'+g.id] = true;
+    save(); rGoals();
+    toast('Doel toegevoegd', function(){ undo(); });
+  }, 'Toevoegen');
 }
 function addGoal(){
   var body='<div style="font-size:14px;font-weight:700;margin-bottom:12px">Nieuw goal</div>'
@@ -7669,6 +7875,7 @@ function rTaken() {
     +'<button class="tb'+(window._takenTab==='projecten'?' on':'')+'" data-tab="projecten" onclick="setTakenTabEl(this)">Projecten</button>'
     +'<button class="tb'+(window._takenTab==='goals'?' on':'')+'" data-tab="goals" onclick="setTakenTabEl(this)">Goals</button>'
     +'<button class="tb'+(window._takenTab==='alle'?' on':'')+'" data-tab="alle" onclick="setTakenTabEl(this)">Alle</button>'
+    +'<button class="tb'+(window._takenTab==='gedaan'?' on':'')+'" data-tab="gedaan" onclick="setTakenTabEl(this)">Gedaan</button>'
     +'<button class="tb-sort'+(takenFilterActief()?' aan':'')+'" id="taken-sortbtn" onclick="openTakenSort()" title="Sorteren en filteren" aria-label="Sorteren en filteren">'
     +   '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M7 12h10M10 17h4"/></svg>'
     + '</button>'
@@ -7730,6 +7937,7 @@ function renderTakenTab(tab) {
 
   // Build task list based on tab
   migrateSubtaken();
+  if (tab === 'gedaan') { renderGedaan(rEl, fEl); return; }
   // Alleen hoofdtaken in de lijst; kinderen verschijnen onder hun ouder
   var tasks = S.tasks.filter(function(t){ return !t.parentId; });
   // Gedaan-toggle: standaard alleen open taken
@@ -7998,6 +8206,44 @@ function editRoutItem(tab, rid){
 }
 // Bevestiging vragen zonder confirm() \u2014 dat werkt niet in een PWA op iOS
 var _bevestigActie = null;
+// Tekst vragen zonder prompt() \u2014 dat werkt niet in een PWA op iOS
+var _tekstActie = null;
+function vraagTekst(kop, uitleg, placeholder, waarde, actie, knopLabel){
+  _tekstActie = actie;
+  var body = '<div class="rv-kop">' + kop + '</div>'
+    + (uitleg ? '<div class="rv-meta">' + uitleg + '</div>' : '')
+    + '<input type="text" id="vt-inp" placeholder="' + (placeholder||'') + '" value="' + String(waarde||'').replace(/"/g,'&quot;') + '" '
+    + 'style="width:100%;font-size:16px" onkeydown="if(event.key===&quot;Enter&quot;){event.preventDefault();doeTekst();}">'
+    + '<div style="display:flex;gap:6px;margin-top:14px">'
+    + '<button class="btn" onclick="closeModal()" style="flex:1">Annuleer</button>'
+    + '<button class="btn pri" onclick="doeTekst()" style="flex:1">' + (knopLabel||'Opslaan') + '</button></div>';
+  closeModal();
+  var m = document.createElement('div'); m.className = 'modal-bg';
+  m.innerHTML = '<div class="modal-box rv-box">' + body + '</div>';
+  document.body.appendChild(m);
+  m.addEventListener('click', function(e){ if(e.target===m) closeModal(); });
+  setTimeout(function(){ var i = document.getElementById('vt-inp'); if(i){ i.focus(); i.select(); } }, 70);
+}
+function oefNieuweCat(sel){
+  if(sel.value !== '__new') return;
+  sel.selectedIndex = 0;
+  vraagTekst('Nieuwe categorie','','Naam van de categorie','',function(v){
+    var s = document.getElementById('oef-cat');
+    if(!s) return;
+    var o = document.createElement('option');
+    o.value = v; o.text = v; o.selected = true;
+    s.insertBefore(o, s.lastElementChild);
+  },'Toevoegen');
+}
+function doeTekst(){
+  var i = document.getElementById('vt-inp');
+  if(!i) return;
+  var v = i.value;
+  if(!v || !v.trim()){ i.focus(); return; }
+  var f = _tekstActie; _tekstActie = null;
+  closeModal();
+  if(typeof f === 'function'){ try{ f(v.trim()); }catch(e){ console.warn(e); } }
+}
 function vraagBevestiging(kop, tekst, knopLabel, actie, gevaar){
   _bevestigActie = actie;
   var body = '<div class="rv-kop">' + kop + '</div>'
@@ -8186,6 +8432,67 @@ function tsSort(v){ setTakenSort(v); openTakenSort(); }
 function tsProj(v){ takenFilter('proj', v); openTakenSort(); }
 function tsPrio(v){ takenFilter('prio', v); openTakenSort(); }
 function tsCat(v){ takenFilter('cat', v); openTakenSort(); }
+// Overzicht van wat je hebt afgerond, gegroepeerd per dag
+function renderGedaan(rEl, fEl){
+  if(fEl) fEl.innerHTML = '';
+  var q = (window._takenQuery||'').toLowerCase().trim();
+  var af = (S.tasks||[]).filter(function(t){
+    if(!t.done) return false;
+    if(q && (t.title||'').toLowerCase().indexOf(q) < 0) return false;
+    return true;
+  });
+
+  if(!af.length){
+    rEl.innerHTML = em('check', q ? 'Niets gevonden' : 'Nog niets afgerond \u2014 vink je eerste taak af');
+    return;
+  }
+
+  // Tellingen voor de kop
+  var wkStart = habWeekStart(td());
+  var wk = 0, mnd = 0, maandPre = td().slice(0,7);
+  af.forEach(function(t){
+    if(!t.doneAt) return;
+    var d = new Date(t.doneAt+'T00:00');
+    if(d >= wkStart) wk++;
+    if(t.doneAt.slice(0,7) === maandPre) mnd++;
+  });
+
+  // Groeperen op dag
+  var groepen = {};
+  af.forEach(function(t){
+    var k = t.doneAt || '0000-00-00';
+    if(!groepen[k]) groepen[k] = [];
+    groepen[k].push(t);
+  });
+  var dagen = Object.keys(groepen).sort().reverse();
+
+  var kop = '<div class="gd-kop">'
+    + '<div class="gd-cijfer"><b>' + wk + '</b><span>deze week</span></div>'
+    + '<div class="gd-cijfer"><b>' + mnd + '</b><span>deze maand</span></div>'
+    + '<div class="gd-cijfer"><b>' + af.length + '</b><span>totaal</span></div>'
+    + '</div>';
+
+  var lijst = dagen.map(function(d){
+    var items = groepen[d];
+    return '<div class="gd-dag">'
+      + '<div class="gd-dag-hd"><span class="gd-dag-lbl">' + gedaanDagLabel(d) + '</span>'
+      +   '<span class="gd-dag-cnt">' + items.length + '</span></div>'
+      + items.map(function(t){ return taakRijRust(t); }).join('')
+      + '</div>';
+  }).join('');
+
+  rEl.innerHTML = kop + lijst;
+}
+function gedaanDagLabel(d){
+  if(d === '0000-00-00') return 'Eerder \u2014 datum onbekend';
+  if(d === td()) return 'Vandaag';
+  var g = new Date(); g.setDate(g.getDate()-1);
+  if(d === dstr(g)) return 'Gisteren';
+  var dt = new Date(d+'T00:00');
+  var verschil = Math.round((new Date(td()+'T00:00') - dt) / 86400000);
+  var tekst = dt.toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'short'});
+  return tekst.charAt(0).toUpperCase() + tekst.slice(1) + (verschil <= 7 ? '' : '');
+}
 function togRij(btn){
   var key = btn.getAttribute('data-key');
   if(!window._rijOpen) window._rijOpen = {};
@@ -9891,7 +10198,9 @@ function togFitDay(catId, d){
 }
 
 function addCustomExercise(catId){
-  var v=prompt('Naam van de nieuwe oefening:');
+  vraagTekst('Nieuwe oefening','','Naam van de oefening','',function(x){ _addCustomExercise(catId,x); },'Toevoegen');
+}
+function _addCustomExercise(catId, v){
   if(!v||!v.trim()){ rFitC(catId); return; }
   v=v.trim();
   if(!S.fitCustomEx) S.fitCustomEx={};
@@ -10043,7 +10352,7 @@ function openAddOef(){
   var catOpts=existing.map(function(c){return '<option>'+c+'</option>';}).join('')+'<option value="__new">+ Nieuwe categorie</option>';
   var body='<div style="font-size:15px;font-weight:700;margin-bottom:12px">Nieuwe oefening</div>'
     +'<div class="oef-form-row"><label>Naam</label><input type="text" id="oef-name" placeholder="Bijv. Diepe squat"></div>'
-    +'<div class="oef-form-row"><label>Categorie</label><select id="oef-cat" onchange="if(this.value===\'__new\'){var v=prompt(\'Nieuwe categorie:\');if(v){var o=document.createElement(\'option\');o.value=v;o.text=v;o.selected=true;this.insertBefore(o,this.lastElementChild);}else this.selectedIndex=0;}">'+catOpts+'</select></div>'
+    +'<div class="oef-form-row"><label>Categorie</label><select id="oef-cat" onchange="oefNieuweCat(this)">'+catOpts+'</select></div>'
     +'<div style="display:flex;gap:8px"><div class="oef-form-row" style="flex:1"><label>Tijd</label><input type="text" id="oef-time" placeholder="3 min"></div>'
     +'<div class="oef-form-row" style="flex:1"><label>Frequentie</label><input type="text" id="oef-freq" placeholder="Dagelijks"></div></div>'
     +'<div class="oef-form-row"><label>Wat is het</label><textarea id="oef-wat" rows="2"></textarea></div>'
