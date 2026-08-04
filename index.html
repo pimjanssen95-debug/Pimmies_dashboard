@@ -3138,6 +3138,44 @@ input:focus,textarea:focus,select:focus{transition:border-color .15s,box-shadow 
   width:3px;height:16px;border-radius:0 2px 2px 0;background:var(--acc);
 }
 .dots-menu .ni.on::before{display:none}
+
+/* ══════════ Slepen om te herordenen ══════════ */
+.tkz[data-drag]{
+  touch-action:auto;
+  -webkit-touch-callout:none;      /* geen iOS-menu bij vasthouden */
+  -webkit-user-select:none;user-select:none;
+}
+.tkz[data-drag] .tkz-title{-webkit-user-select:none;user-select:none}   /* preventDefault regelt het scrollen tijdens slepen */
+.tkz.sleep-actief{
+  background:var(--bg3);
+  box-shadow:0 12px 30px -10px rgba(0,0,0,.6);
+  border-radius:11px;border-bottom-color:transparent!important;
+  position:relative;z-index:20;
+  transition:box-shadow .16s,background .16s;
+  cursor:grabbing;
+}
+
+body.sleep-bezig{cursor:grabbing}
+body.sleep-bezig *{cursor:grabbing!important}
+body.sleep-bezig{user-select:none;-webkit-user-select:none}
+body.sleep-bezig .tkz:not(.sleep-actief){transition:transform .16s}
+@media(prefers-reduced-motion:reduce){
+  .tkz.sleep-actief{transform:none;transition:none}
+}
+
+/* Fijne greeplijntjes rechts, alleen op de pc bij hover */
+@media(hover:hover){
+  .tkz[data-drag]{position:relative}
+  .tkz[data-drag]::after{
+    content:'';position:absolute;right:9px;top:50%;transform:translateY(-50%);
+    width:10px;height:12px;opacity:0;pointer-events:none;
+    background-image:radial-gradient(circle,var(--text3) 1px,transparent 1px);
+    background-size:5px 4px;transition:opacity .15s;
+  }
+  .tkz[data-drag]:hover::after{opacity:.5}
+  .tkz.sleep-actief::after{opacity:.8!important}
+}
+.tkz.sleep-actief{cursor:grabbing}
 </style>
 <script type="module">
   // Firebase laden met foutafhandeling. Faalt het laden (offline, CDN-blokkade)?
@@ -5072,7 +5110,7 @@ function rVandaag() {
     var m2 = [];
     if(uren) m2.push(habUurLabel(habUrenWeek(x.id,t)) + ' / ' + x.freq + ' uur deze week');
     else if(typeof habDagelijks==='function' && !habDagelijks(x)) m2.push(habWeekTelling(x.id,t) + '/' + x.freq + ' deze week');
-    return '<div class="tkz'+(v?' done':'')+'">'
+    return '<div class="tkz'+(v?' done':'')+'" data-drag="'+x.id+'" onpointerdown="sleepAan(event,\'hab\')" ontouchstart="sleepTouch(event,\'hab\')">'
       + '<button class="tkz-check'+(v?' on':'')+'" data-hid="'+x.id+'" onclick="'+(uren?'openHabUren(\''+x.id+'\')':'vdHabDone(this)')+'" title="Afvinken" aria-label="Afvinken"></button>'
       + '<span class="tkz-titlewrap" onclick="openHabVenster(\''+x.id+'\')" title="Opties">'
       +   '<span class="tkz-title">'+x.l+'</span>'
@@ -7985,6 +8023,12 @@ function renderTakenTab(tab) {
   tasks.sort(function(a,b){
     // afgevinkt zakt altijd naar beneden
     if (!!a.done !== !!b.done) return a.done ? 1 : -1;
+    if (sort === 'hand') {
+      var oa = (a.ord !== undefined) ? a.ord : 9999;
+      var ob = (b.ord !== undefined) ? b.ord : 9999;
+      if (oa !== ob) return oa - ob;
+      return 0;
+    }
     if (sort === 'prio') {
       var po={hoog:0,normaal:1,laag:2};
       var pa = po[a.prio] !== undefined ? po[a.prio] : 1;
@@ -8013,7 +8057,7 @@ function renderTakenTab(tab) {
 
   // Actieve keuzes als chips \u2014 alleen zichtbaar als er iets afwijkt van de standaard
   var chips = [];
-  if (sort !== 'prio') chips.push({l: 'Sorteer: ' + ({datum:'datum',project:'project',naam:'naam'}[sort]||sort), w:"setTakenSort('prio')"});
+  if (sort !== 'prio') chips.push({l: 'Sorteer: ' + ({datum:'datum',project:'project',naam:'naam',hand:'eigen volgorde'}[sort]||sort), w:"setTakenSort('prio')"});
   if (sortProj) {
     var _p = (S.projects||[]).find(function(x){ return x.id===sortProj; });
     chips.push({l: _p ? _p.name : 'Project', w:"takenFilter('proj','')"});
@@ -8088,6 +8132,7 @@ function estMinutes(min){ return parseInt(min)||0; }
 function dayCapacityMin(){ return (S.settings && S.settings.dayCapacity ? S.settings.dayCapacity : 360); }
 
 function rustTitleDone(el){
+  if(netGesleept()) return;
   var tid = el.getAttribute('data-tid');
   var t = S.tasks.find(function(x){return x.id===tid;});
   if(!t) return;
@@ -8151,7 +8196,8 @@ function taakRijRust(t, isSub, verbergProject) {
   var open = !!(window._rijOpen && window._rijOpen[key]);
   var subDone = subs.filter(function(s){ return s.done; }).length;
 
-  var h = '<div class="tkz' + (t.done?' done':'') + (isSub?' tkz-sub':'') + (open?' open':'') + '" data-key="' + key + '">'
+  var h = '<div class="tkz' + (t.done?' done':'') + (isSub?' tkz-sub':'') + (open?' open':'') + '" data-key="' + key + '"'
+    + (isSub ? '' : ' data-drag="' + t.id + '" onpointerdown="sleepAan(event,\'taak\')" ontouchstart="sleepTouch(event,\'taak\')"') + '>'
     + '<button class="tkz-check' + (t.done?' on':'') + '" data-tid="' + t.id + '" onclick="rustTitleDone(this)"'
     +   ' title="Afvinken" aria-label="Afvinken">'
     +   (t.done ? icon('check',9,'#fff') : '') + '</button>'
@@ -8175,6 +8221,7 @@ function taakRijRust(t, isSub, verbergProject) {
 }
 // Eén paneel tegelijk open
 function habTitleDone(el){
+  if(netGesleept()) return;
   var hid = el.getAttribute('data-hid');
   var d = window._habDay || td();
   if(!S.habits) S.habits = {};
@@ -8286,6 +8333,7 @@ function rijVenster(kop, metaHTML, acties){
 
 // ── Taak ──
 function openTaakVenster(tid){
+  if(netGesleept()) return;
   var t = findTask(tid); if(!t) return;
   var p = proj(t);
   var subs = kinderenVan(t.id);
@@ -8358,6 +8406,7 @@ function vensterRoutDone(tab, rid){
 
 // ── Habit ──
 function openHabVenster(hid){
+  if(netGesleept()) return;
   var h = (S.habItems||[]).find(function(x){ return x.id===hid; });
   if(!h) return;
   var uren = habIsUren(h);
@@ -8415,7 +8464,7 @@ function openTakenSort(){
   }
   var projOpts = [['','Alle projecten']].concat((S.projects||[]).map(function(p){ return [p.id, p.name]; }));
   var body = '<div class="rv-kop">Sorteren en filteren</div>'
-    + rij('Sorteren op', [['prio','Prioriteit'],['datum','Datum'],['project','Project'],['naam','Naam']], sort, 'tsSort')
+    + rij('Sorteren op', [['prio','Prioriteit'],['datum','Datum'],['project','Project'],['naam','Naam'],['hand','Eigen volgorde']], sort, 'tsSort')
     + rij('Project', projOpts, sp, 'tsProj')
     + rij('Prioriteit', [['','Alle'],['hoog','Dringend'],['normaal','Normaal'],['laag','Laag']], spr, 'tsPrio')
     + rij('Categorie', [['','Alle'],['zakelijk','Zakelijk'],['persoonlijk','Persoonlijk']], sc, 'tsCat')
@@ -8492,6 +8541,185 @@ function gedaanDagLabel(d){
   var verschil = Math.round((new Date(td()+'T00:00') - dt) / 86400000);
   var tekst = dt.toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'short'});
   return tekst.charAt(0).toUpperCase() + tekst.slice(1) + (verschil <= 7 ? '' : '');
+}
+// ══════════ Slepen om te herordenen ══════════
+// Touch en muis apart: op touch is preventDefault() in een niet-passieve
+// touchmove de enige manier om het scrollen tegen te houden.
+var _sleep = null, _sleepTot = 0;
+function netGesleept(){ return (Date.now() - _sleepTot) < 350; }
+
+function _sleepPak(rij, soort, startY){
+  _sleep = { rij:rij, container:rij.parentNode, soort:soort, moved:false,
+             pointerStart: startY, verschuiving: 0 };
+  rij.classList.add('sleep-actief');
+  if(document.body.classList) document.body.classList.add('sleep-bezig');
+  try{ if(navigator.vibrate) navigator.vibrate(12); }catch(_){}
+}
+function _sleepSchuif(y){
+  var s = _sleep;
+  if(!s) return;
+  s.moved = true;
+  var c = s.container, d = s.rij;
+  var zussen = Array.prototype.slice.call(c.children).filter(function(x){
+    return x !== d && x.classList && x.classList.contains('tkz');
+  });
+
+  // waar zou de rij moeten staan?
+  var na = null;
+  for(var i=0;i<zussen.length;i++){
+    var r = zussen[i].getBoundingClientRect();
+    if(y < r.top + r.height/2){ na = zussen[i]; break; }
+  }
+
+  var huidigeVolgende = d.nextElementSibling;
+  if(na !== huidigeVolgende){
+    // posities vastleggen zodat de zussen straks kunnen glijden
+    var voor = zussen.map(function(z){ return z.getBoundingClientRect().top; });
+    var eigenVoor = d.getBoundingClientRect().top;
+
+    if(na) c.insertBefore(d, na); else c.appendChild(d);
+
+    // de gesleepte rij blijft onder je vinger
+    s.verschuiving += (d.getBoundingClientRect().top - eigenVoor);
+
+    // de anderen glijden naar hun nieuwe plek
+    zussen.forEach(function(z, n){
+      var dz = voor[n] - z.getBoundingClientRect().top;
+      if(!dz) return;
+      z.style.transition = 'none';
+      z.style.transform = 'translateY(' + dz + 'px)';
+      requestAnimationFrame(function(){
+        z.style.transition = 'transform .19s cubic-bezier(.22,.61,.36,1)';
+        z.style.transform = '';
+      });
+    });
+  }
+
+  d.style.transform = 'translateY(' + ((y - s.pointerStart) - s.verschuiving) + 'px)';
+
+  // scroll de bak waarin je daadwerkelijk scrollt, niet het venster
+  var bak = s.scrollBak;
+  if(bak === undefined){
+    bak = null;
+    var p = c;
+    while(p && p !== document.body){
+      var st = window.getComputedStyle ? window.getComputedStyle(p) : null;
+      if(st && /(auto|scroll)/.test(st.overflowY) && p.scrollHeight > p.clientHeight + 4){ bak = p; break; }
+      p = p.parentNode;
+    }
+    s.scrollBak = bak;
+  }
+  var boven = bak ? bak.getBoundingClientRect().top : 0;
+  var onder = bak ? bak.getBoundingClientRect().bottom : (window.innerHeight || 800);
+  if(y < boven + 90){ if(bak) bak.scrollTop -= 14; else window.scrollBy(0,-14); }
+  else if(y > onder - 90){ if(bak) bak.scrollTop += 14; else window.scrollBy(0,14); }
+}
+function _sleepLos(){
+  if(!_sleep) return;
+  var s = _sleep; _sleep = null;
+  s.rij.style.transition = 'transform .18s cubic-bezier(.22,.61,.36,1)';
+  s.rij.style.transform = '';
+  setTimeout(function(){
+    if(s.rij && s.rij.style){ s.rij.style.transition = ''; }
+  }, 200);
+  s.rij.classList.remove('sleep-actief');
+  if(document.body.classList) document.body.classList.remove('sleep-bezig');
+  _sleepTot = Date.now();
+  if(s.moved) sleepKlaar(s);
+}
+
+// ── Telefoon en tablet ──
+function sleepTouch(e, soort){
+  if(!e.touches || e.touches.length !== 1) return;
+  var rij = e.currentTarget;
+  var t0 = e.touches[0];
+  var startY = t0.clientY, startX = t0.clientX;
+  var timer = setTimeout(function(){ _sleepPak(rij, soort, startY); }, 380);
+
+  function beweeg(ev){
+    var t = ev.touches && ev.touches[0];
+    if(!t) return;
+    if(!_sleep){
+      if(Math.abs(t.clientY-startY) > 8 || Math.abs(t.clientX-startX) > 8) stop();
+      return;
+    }
+    ev.preventDefault();          // houdt het scrollen tegen
+    _sleepSchuif(t.clientY);
+  }
+  function eind(){ _sleepLos(); stop(); }
+  function stop(){
+    clearTimeout(timer);
+    rij.removeEventListener('touchmove', beweeg);
+    rij.removeEventListener('touchend', eind);
+    rij.removeEventListener('touchcancel', eind);
+  }
+  rij.addEventListener('touchmove', beweeg, {passive:false});
+  rij.addEventListener('touchend', eind);
+  rij.addEventListener('touchcancel', eind);
+}
+
+// ── Muis ──
+function sleepAan(e, soort){
+  if(e.pointerType && e.pointerType !== 'mouse') return;   // touch loopt via sleepTouch
+  if(e.button !== undefined && e.button !== 0) return;
+  var rij = e.currentTarget;
+  var startY = e.clientY, startX = e.clientX;
+  var timer = setTimeout(function(){ _sleepPak(rij, soort, startY); }, 250);
+
+  function beweeg(ev){
+    if(!_sleep){
+      if(Math.abs(ev.clientY-startY) > 8 || Math.abs(ev.clientX-startX) > 8) stop();
+      return;
+    }
+    ev.preventDefault();
+    _sleepSchuif(ev.clientY);
+  }
+  function eind(){ _sleepLos(); stop(); }
+  function stop(){
+    clearTimeout(timer);
+    document.removeEventListener('pointermove', beweeg);
+    document.removeEventListener('pointerup', eind);
+    document.removeEventListener('pointercancel', eind);
+  }
+  document.addEventListener('pointermove', beweeg);
+  document.addEventListener('pointerup', eind);
+  document.addEventListener('pointercancel', eind);
+}
+
+function sleepKlaar(s){
+  var ids = Array.prototype.slice.call(s.container.children)
+    .filter(function(x){ return x.classList && x.classList.contains('tkz'); })
+    .map(function(x){ return x.getAttribute('data-drag'); })
+    .filter(Boolean);
+  if(!ids.length) return;
+
+  if(s.soort && s.soort.indexOf('rout:') === 0){
+    var tab = s.soort.slice(5);
+    var lijst = (S.routineItems && S.routineItems[tab]) || [];
+    var nieuw = lijst.slice();
+    nieuw.sort(function(a,b){ return ids.indexOf(a.id) - ids.indexOf(b.id); });
+    S.routineItems[tab] = nieuw;
+    save(); hertekenNu();
+    toast('Volgorde aangepast', function(){ undo(); });
+    return;
+  }
+  if(s.soort === 'hab'){
+    var arr = (S.habItems || []).slice();
+    arr.sort(function(a,b){ return ids.indexOf(a.id) - ids.indexOf(b.id); });
+    S.habItems = arr;
+    save(); hertekenNu();
+    toast('Volgorde aangepast', function(){ undo(); });
+  } else if(s.soort === 'taak'){
+    ids.forEach(function(id, i){
+      var t = findTask(id);
+      if(t) t.ord = i;
+    });
+    var wasHand = (window._takenSort === 'hand');
+    window._takenSort = 'hand';
+    save();
+    renderTakenTab(window._takenTab);
+    toast(wasHand ? 'Volgorde aangepast' : 'Eigen volgorde aangezet', function(){ undo(); });
+  }
 }
 function togRij(btn){
   var key = btn.getAttribute('data-key');
@@ -8838,95 +9066,7 @@ function setRoutTab(tab) {
 }
 
 // ── Routine items slepen om te herordenen (touch + muis) ──
-var _routDrag = null;
-var _routHold = null;
-function editRoutItemEl(span){
-  if(_routDrag) return; // niet bewerken tijdens slepen
-  var rid=span.getAttribute('data-rid');
-  var tab=span.getAttribute('data-tab');
-  var item=(S.routineItems[tab]||[]).find(function(x){return x.id===rid;});
-  if(!item) return;
-  // vervang de tekst-span door een input
-  var txtEl=span.querySelector('.rout-lbl-txt');
-  if(!txtEl || span.querySelector('input')) return;
-  var cur=item.l;
-  txtEl.style.display='none';
-  var inp=document.createElement('input');
-  inp.type='text'; inp.className='rout-edit-inp'; inp.value=cur;
-  inp.setAttribute('data-rid',rid); inp.setAttribute('data-tab',tab);
-  inp.onclick=function(e){ e.stopPropagation(); };
-  inp.onkeydown=function(e){
-    if(e.key==='Enter'){ e.preventDefault(); inp.blur(); }
-    else if(e.key==='Escape'){ inp.value='__CANCEL__'; inp.blur(); }
-  };
-  inp.onblur=function(){ saveRoutItemEdit(inp); };
-  span.appendChild(inp);
-  inp.focus(); inp.select();
-}
-function saveRoutItemEdit(inp){
-  var rid=inp.getAttribute('data-rid');
-  var tab=inp.getAttribute('data-tab');
-  var val=inp.value;
-  var item=(S.routineItems[tab]||[]).find(function(x){return x.id===rid;});
-  if(item && val!=='__CANCEL__'){
-    var clean=stripEmoji(val).trim();
-    if(clean){ item.l=clean; save(); }
-  }
-  renderRoutTab(tab);
-}
 
-function moveRoutItem(tab, id, dir){
-  var arr=S.routineItems&&S.routineItems[tab];
-  if(!arr) return;
-  var idx=arr.findIndex(function(x){return x.id===id;});
-  if(idx<0) return;
-  var ni=idx+dir;
-  if(ni<0||ni>=arr.length) return;
-  var tmp=arr[idx]; arr[idx]=arr[ni]; arr[ni]=tmp;
-  save();
-  renderRoutTab(_routTab);
-}
-function routDragStart(){ /* vervangen door pijltjes (moveRoutItem) */ }
-
-function routDragMove(e){
-  if(!_routDrag) return;
-  e.preventDefault();
-  if(Math.abs(e.clientY-_routDrag.startY)>4) _routDrag.moved=true;
-  var container = _routDrag.container;
-  var dragged = _routDrag.item;
-  var siblings = Array.prototype.slice.call(container.querySelectorAll('.rout-item')).filter(function(s){return s!==dragged;});
-  var after = null;
-  for(var i=0;i<siblings.length;i++){
-    var rect = siblings[i].getBoundingClientRect();
-    if(e.clientY < rect.top + rect.height/2){ after = siblings[i]; break; }
-  }
-  if(after){ container.insertBefore(dragged, after); }
-  else { container.appendChild(dragged); }
-  // Auto-scroll bij schermranden (handig op mobiel bij lange lijsten)
-  var vh = window.innerHeight || document.documentElement.clientHeight;
-  if(e.clientY < 90) window.scrollBy(0, -10);
-  else if(e.clientY > vh - 90) window.scrollBy(0, 10);
-}
-
-
-function routDragEnd(e){
-  if(!_routDrag) return;
-  var handle = _routDrag.handle || e.target;
-  try{ handle.releasePointerCapture(e.pointerId); }catch(_){}
-  handle.removeEventListener('pointermove', routDragMove);
-  handle.removeEventListener('pointerup', routDragEnd);
-  handle.removeEventListener('pointercancel', routDragEnd);
-  var tab = _routDrag.tab;
-  _routDrag.item.classList.remove('rout-dragging');
-  var container = _routDrag.container;
-  var ids = Array.prototype.slice.call(container.querySelectorAll('.rout-item')).map(function(el){return el.getAttribute('data-rid');});
-  var arr = S.routineItems[tab] || [];
-  arr.sort(function(a,b){ return ids.indexOf(a.id) - ids.indexOf(b.id); });
-  S.routineItems[tab] = arr;
-  var moved = _routDrag.moved;
-  _routDrag = null;
-  if(moved){ save(); renderRoutTab(tab); }
-}
 
 
 // Routine reset-periode per tab-type: dagelijks=dag, wekelijks=ISO-week, maandelijks=maand, jaarlijks=jaar
@@ -8965,7 +9105,10 @@ function routRijRust(x, tab, v, ri, last, isWeekday) {
   var meta = [];
   if (isWeekday && x.time) meta.push(x.time + (x.dur ? ' \u00b7 ' + Math.round(x.dur/60*10)/10 + ' uur' : ''));
   if (typeof routIsBlok === 'function' && routIsBlok(x)) meta.push('blok');
-  return '<div class="tkz' + (v?' done':'') + '">'
+  var sleepbaar = !!(typeof _routTab !== 'undefined' && _routTab === tab && el('rout-body'));
+  return '<div class="tkz' + (v?' done':'') + '"'
+    + (sleepbaar ? ' data-drag="' + x.id + '" onpointerdown="sleepAan(event,\'rout:' + tab + '\')" ontouchstart="sleepTouch(event,\'rout:' + tab + '\')"' : '')
+    + '>'
     + '<button class="tkz-check' + (v?' on':'') + '" data-tab="' + tab + '" data-rid="' + x.id + '" onclick="routTitleDone(this)" title="Afvinken" aria-label="Afvinken">'
     +   (v ? icon('check',9,'#fff') : '') + '</button>'
     + '<span class="tkz-titlewrap" onclick="openRoutVenster(\'' + tab + '\',\'' + x.id + '\')" title="Opties">'
@@ -9251,7 +9394,7 @@ function rHab() {
     var af = uren ? (habUrenWeek(h.id,t) >= h.freq*60) : v;
     var meta = [];
     if(!dagelijks) meta.push('<span class="hab-freq-inline">' + h.freq + (uren ? ' uur/week' : '\u00d7 per week') + '</span>');
-    return '<div class="tkz' + (af?' done':'') + '">'
+    return '<div class="tkz' + (af?' done':'') + '" data-drag="' + h.id + '" onpointerdown="sleepAan(event,\'hab\')" ontouchstart="sleepTouch(event,\'hab\')">'
       + '<button class="tkz-check' + (af?' on':'') + '" data-hid="' + h.id + '" onclick="' + (uren ? 'openHabUren(\'' + h.id + '\')' : 'habTitleDone(this)') + '" title="' + (uren?'Tijd boeken':'Afvinken') + '" aria-label="Afvinken">'
       +   (af ? icon('check',9,'#fff') : (uren ? icon('clock',9,'var(--acc)') : '')) + '</button>'
       + '<span class="tkz-titlewrap" onclick="openHabVenster(\'' + h.id + '\')" title="Opties">'
