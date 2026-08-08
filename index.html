@@ -3176,6 +3176,86 @@ body.sleep-bezig .tkz:not(.sleep-actief){transition:transform .16s}
   .tkz.sleep-actief::after{opacity:.8!important}
 }
 .tkz.sleep-actief{cursor:grabbing}
+
+/* ══════════ Planner 2 ══════════ */
+.p2-proef{font-size:11px;color:var(--acc);background:var(--acc-softer);border:1px solid var(--acc-line);
+  border-radius:9px;padding:7px 12px;margin-bottom:12px;text-align:center}
+
+.p2-mallen{margin-bottom:18px}
+.p2-mal-kop{font-family:var(--font-display,inherit);font-size:17px;font-weight:600;margin-bottom:4px}
+.p2-mal-sub{font-size:12.5px;color:var(--text3);line-height:1.5;margin-bottom:12px}
+.p2-mal{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;
+  padding:13px 15px;margin-bottom:7px;border-radius:13px;cursor:pointer;text-align:left;
+  background:var(--bg2);border:1px solid var(--border);font-family:var(--font-ui);
+  transition:border-color .15s,transform .12s}
+.p2-mal:hover{border-color:var(--acc-line)}
+.p2-mal:active{transform:scale(.99)}
+.p2-mal.leeg{border-style:dashed;background:transparent}
+.p2-mal-naam{font-size:14px;font-weight:600;color:var(--text)}
+.p2-mal-uitleg{font-size:12px;color:var(--text3);line-height:1.45}
+.p2-mal-cnt{font-size:10.5px;font-weight:600;color:var(--acc);margin-top:4px}
+
+.p2-dag{margin-bottom:10px}
+.p2-dag-hd{display:flex;align-items:baseline;gap:9px;padding:7px 4px 6px;border-bottom:1px solid var(--border)}
+.p2-dag.nu .p2-dag-hd{border-bottom-color:var(--acc-line)}
+.p2-dag-naam{font-size:12.5px;font-weight:700;color:var(--text2);text-transform:capitalize}
+.p2-dag.nu .p2-dag-naam{color:var(--acc)}
+.p2-dag-nr{font-size:11px;color:var(--text3)}
+.p2-dag-cnt{margin-left:auto;font-size:11px;font-weight:600;color:var(--text3)}
+.p2-dag-body{padding:6px 0 2px}
+.p2-leeg{font-size:12px;color:var(--text3);font-style:italic;padding:6px 4px}
+
+.p2-blok{background:var(--bg2);border:1px solid var(--border);border-radius:11px;
+  padding:9px 11px;margin-bottom:6px}
+.p2-blok.open{border-style:dashed;border-color:var(--acc-line)}
+.p2-blok-hd{display:flex;align-items:baseline;gap:9px;cursor:pointer}
+.p2-tijd{font-size:12px;font-weight:600;color:var(--acc);font-variant-numeric:tabular-nums;flex-shrink:0}
+.p2-titel{flex:1;min-width:0;font-size:13.5px;color:var(--text);font-weight:500}
+.p2-uitz{color:var(--acc);margin-left:5px;font-size:16px;line-height:0}
+.p2-duur{font-size:11px;color:var(--text3);flex-shrink:0}
+.p2-chip{display:inline-flex;align-items:center;gap:5px;margin-top:7px;
+  font-size:11px;font-weight:600;border:1px solid;border-radius:99px;padding:4px 10px;
+  background:var(--bg3);cursor:pointer;font-family:var(--font-ui);transition:opacity .15s}
+.p2-chip:hover{opacity:.8}
+.p2-chip.vraag{color:var(--acc);border-color:var(--acc-line);border-style:dashed;background:transparent}
+.p2-taken{margin-top:6px;padding-left:2px}
+.p2-taken .tkz{padding-top:5px;padding-bottom:5px;border-bottom:0}
+.p2-add{width:100%;min-height:30px;border-radius:9px;cursor:pointer;
+  background:transparent;border:1px dashed var(--border);color:var(--text3);
+  display:flex;align-items:center;justify-content:center;transition:border-color .15s,color .15s}
+.p2-add:hover{border-color:var(--acc-line);color:var(--acc)}
+
+/* ══════════ Focus-kaart: zelfde taal als de rest ══════════ */
+.fc-lijst{margin:2px 0 10px}
+.fc-lijst .tkz:last-child{border-bottom:0}
+
+.fc-invoer{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+.fc-invoer input{
+  flex:1;min-width:0;min-height:38px;padding:0 12px;border-radius:10px;
+  background:var(--bg3);border:1px solid transparent;color:var(--text);
+  font-family:var(--font-ui);font-size:13.5px;outline:none;
+  transition:border-color .15s}
+.fc-invoer input::placeholder{color:var(--text3)}
+.fc-invoer input:focus{border-color:var(--acc-line)}
+.fc-invoer-btn{
+  width:38px;height:38px;flex-shrink:0;border-radius:10px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--acc);border:1px solid var(--acc);color:#fff;
+  transition:opacity .15s,transform .12s}
+.fc-invoer-btn:hover{opacity:.9}
+.fc-invoer-btn:active{transform:scale(.94)}
+.fc-invoer-btn svg{stroke:#fff}
+
+.fc-kies{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;
+  min-height:34px;border-radius:10px;cursor:pointer;
+  font-family:var(--font-ui);font-size:12px;font-weight:600;
+  background:transparent;border:1px dashed var(--border);color:var(--text3);
+  transition:border-color .15s,color .15s,background .15s}
+.fc-kies:hover{border-color:var(--acc-line);color:var(--acc);background:var(--acc-softer)}
+.fc-kies svg{stroke:currentColor}
+
+.top3-empty{font-size:12.5px;color:var(--text3);line-height:1.5;padding:8px 2px 12px;font-style:italic}
+@media(prefers-reduced-motion:reduce){.fc-invoer-btn,.fc-kies{transition:none}}
 </style>
 <script type="module">
   // Firebase laden met foutafhandeling. Faalt het laden (offline, CDN-blokkade)?
@@ -3297,6 +3377,7 @@ body.sleep-bezig .tkz:not(.sleep-actief){transition:transform .16s}
   <div class="ni" data-s="hab"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Habits</div>
   <div class="gl">Elke week</div>
   <div class="ni" data-s="plan"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Planner</div>
+  <div class="ni" data-s="plan2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/><path d="M8 15h3"/></svg>Planner 2</div>
   <div class="ni" data-s="review"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Review</div>
   <div class="ni" data-s="refl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>Reflectie</div>
   <div class="gl">Richting</div>
@@ -3680,8 +3761,38 @@ function deadlineFull(dl){
   return new Date(dl).toLocaleDateString('nl-NL',{day:'numeric',month:'short'});
 }
 
+// ── Eén losse keer van een blok aanpassen zonder de reeks te raken ──
+function evOverride(ds, evId){
+  return (S.evOverrides && S.evOverrides[ds] && S.evOverrides[ds][evId]) || null;
+}
+function zetEvOverride(ds, evId, patch){
+  if(!S.evOverrides) S.evOverrides = {};
+  if(!S.evOverrides[ds]) S.evOverrides[ds] = {};
+  var cur = S.evOverrides[ds][evId] || {};
+  Object.keys(patch).forEach(function(k){
+    if(patch[k] === null) delete cur[k]; else cur[k] = patch[k];
+  });
+  if(Object.keys(cur).length) S.evOverrides[ds][evId] = cur;
+  else delete S.evOverrides[ds][evId];
+  save();
+}
+// Blok zoals het op déze dag geldt
+function evVoorDag(ev, ds){
+  var o = evOverride(ds, ev.id);
+  if(!o) return ev;
+  var kopie = Object.assign({}, ev);
+  if(o.st) kopie.st = o.st;
+  if(o.et) kopie.et = o.et;
+  if(o.linkId !== undefined) kopie.linkId = o.linkId;
+  if(o.titel) kopie.title = o.titel;
+  kopie._override = true;
+  return kopie;
+}
+
 const evsFor = ds => {
-  var recAndOne=(S.events||[]).filter(ev=>ev.rec?ev.days&&ev.days.includes(new Date(ds).getDay()):ev.date===ds);
+  var recAndOne=(S.events||[]).filter(ev=>ev.rec?ev.days&&ev.days.includes(new Date(ds).getDay()):ev.date===ds)
+    .filter(function(ev){ var o = evOverride(ds, ev.id); return !(o && o.skip); })
+    .map(function(ev){ return evVoorDag(ev, ds); });
   // Add deadline tasks as virtual events (darker orange tint, opvallend)
   var deadlineTasks=(S.tasks||[]).filter(function(t){return !t.done&&t.deadline===ds;});
   var virtEvs=deadlineTasks.map(function(t){
@@ -4027,7 +4138,7 @@ function normalizeData(){
 // ─── NAVIGATION ──────────────────────────────────────────────────────────────
 const RENDERS = {
   dash:rDash, vandaag:rVandaag, plan:rPlan, review:rReview, visie:rVisie, eig:rEig, rules:rRules, goals:rGoals,
-  proj:rProj, taken:rTaken, hab:rHab, rout:rRout, refl:rRefl, fit:rFit, supp:rSupp, fin:rFin, werk:rWerk, oef:rOef,
+  plan2:rPlan2, proj:rProj, taken:rTaken, hab:rHab, rout:rRout, refl:rRefl, fit:rFit, supp:rSupp, fin:rFin, werk:rWerk, oef:rOef,
   shop:rShop, lees:rLees, ops:rOps, gerecht:rGerecht, ctc:rCtc, qt:rQt, notes:rNotes, settings:rSettings, help:rHelp
 };
 document.querySelectorAll('.ni').forEach(n => n.addEventListener('click', () => {
@@ -4798,28 +4909,17 @@ function buildTop3(){
   var focus=(S.tasks||[]).filter(function(x){return x.focusDate===t;});
   var open=focus.filter(function(x){return !x.done;});
   var done=focus.filter(function(x){return x.done;});
-  var slots=3;
   html+='<span class="top3-count">'+done.length+'/'+focus.length+'</span></div>';
   if(!focus.length){
-    html+='<div class="top3-empty">Kies je 1\u20133 belangrijkste taken voor '+(which==='morgen'?'morgen':'vandaag')+'.</div>';
+    html+='<div class="top3-empty">Wat wil je '+_top3DagLabel().toLowerCase()+' afmaken?</div>';
   } else {
-    html+='<div class="top3-list">'+focus.map(function(x){
-      var p=proj(x);
-      return '<div class="top3-item'+(x.done?' done':'')+'">'
-        +'<input type="checkbox"'+(x.done?' checked':'')+' data-tid="'+x.id+'" onchange="togTaakEl(this);_rerenderFocus()">'
-        +'<div class="top3-item-c"><div class="top3-item-t">'+x.title+'</div>'
-        +(p?'<span class="top3-item-p" style="color:'+p.color+'">'+p.name+'</span>':'')+'</div>'
-        +'<button class="top3-rm" data-tid="'+x.id+'" onclick="unsetFocusEl(this)" title="Uit focus halen">'+icon('arrow',11)+'</button>'
-        +'</div>';
-    }).join('')+'</div>';
+    html+='<div class="fc-lijst">'+focus.map(function(x){ return taakRijRust(x); }).join('')+'</div>';
   }
-  if(open.length+done.length<slots){
-    html+='<div class="top3-week-add">'
-      +'<input type="text" id="focusQuickInp" placeholder="Nieuwe taak voor '+_top3DagLabel().toLowerCase()+'\u2026" onkeydown="if(event.key===\'Enter\')addFocusTask()">'
-      +'<button onclick="addFocusTask()" title="Toevoegen">'+icon('plus',13,'var(--acc)')+'</button>'
-      +'</div>';
-  }
-  html+='<button class="top3-add" onclick="openFocusPicker()">'+icon('list',13,'var(--acc)')+'Taak kiezen'+(focus.length<slots?' ('+(slots-focus.length)+' vrij)':'')+'</button>';
+  html+='<div class="fc-invoer">'
+    +'<input type="text" id="focusQuickInp" placeholder="Taak toevoegen\u2026" onkeydown="if(event.key===\'Enter\')addFocusTask()">'
+    +'<button class="fc-invoer-btn" onclick="addFocusTask()" title="Toevoegen" aria-label="Toevoegen">'+icon('plus',14)+'</button>'
+    +'</div>'
+    +'<button class="fc-kies" onclick="openFocusPicker()">'+icon('list',12)+' Bestaande taak kiezen</button>';
   html+='</div>';
   return html;
 }
@@ -8351,6 +8451,7 @@ function openTaakVenster(tid){
     {l: isFocus ? 'Uit focus halen' : 'Focus vandaag', ic: icon('target',16),
      klik: "vensterTaakFocus('"+tid+"')"},
     {l: 'Aanpassen', ic: icon('edit',16), klik: "closeModal();openTaskEdit('"+tid+"')"},
+    {l: 'Inplannen in een blok', ic: icon('clock',16), klik: "closeModal();taakNaarBlok('"+tid+"')"},
     {l: 'Subtaak toevoegen', ic: icon('plus',16), uit: !!ouder, klik: "rustSub(null,{getAttribute:function(){return '"+tid+"';}})"},
     {l: 'Verwijderen', ic: '\u2715', soort: 'danger', klik: "vensterTaakDel('"+tid+"')"}
   ]);
@@ -8720,6 +8821,318 @@ function sleepKlaar(s){
     renderTakenTab(window._takenTab);
     toast(wasHand ? 'Volgorde aangepast' : 'Eigen volgorde aangezet', function(){ undo(); });
   }
+}
+// ══════════════════════════════════════════════════════════════
+//  PLANNER 2 — testpagina naast de bestaande planner
+//  Werkt op dezelfde S.events, S.tasks, S.projects en S.goals
+// ══════════════════════════════════════════════════════════════
+var P2_DAGEN = [['ma',1],['di',2],['wo',3],['do',4],['vr',5],['za',6],['zo',0]];
+
+function p2WeekStart(d){
+  var x = new Date((d || td()) + 'T00:00');
+  var dag = (x.getDay() + 6) % 7;
+  x.setDate(x.getDate() - dag);
+  return x;
+}
+function p2Dagen(){
+  if(!window._p2Week) window._p2Week = dstr(p2WeekStart(td()));
+  var start = new Date(window._p2Week + 'T00:00');
+  var uit = [];
+  for(var i=0;i<7;i++){
+    var d = new Date(start); d.setDate(d.getDate()+i);
+    uit.push(dstr(d));
+  }
+  return uit;
+}
+function p2WeekNav(stap){
+  var s = new Date((window._p2Week || dstr(p2WeekStart(td()))) + 'T00:00');
+  s.setDate(s.getDate() + stap*7);
+  window._p2Week = dstr(s);
+  rPlan2();
+}
+function p2NaarDezeWeek(){ window._p2Week = dstr(p2WeekStart(td())); rPlan2(); }
+
+// ── Startopzetten voor wie nog niets heeft ──
+var P2_MALLEN = [
+  { id:'loondienst', naam:'Vast werk', uitleg:'Vier dagen in loondienst, avonden voor jezelf',
+    blokken:[
+      {t:'Werk',        st:'08:00', et:'17:00', dagen:[1,2,3,4]},
+      {t:'Avondblok',   st:'20:00', et:'22:00', dagen:[1,2,3,4,0], open:true},
+      {t:'Sporten',     st:'18:00', et:'19:30', dagen:[2,4]}
+    ]},
+  { id:'eigenwerk', naam:'Eigen werk', uitleg:'Werkblokken van twee uur met pauzes ertussen',
+    blokken:[
+      {t:'Diep werk',   st:'09:00', et:'11:00', dagen:[1,2,3,4,5], open:true},
+      {t:'Pauze',       st:'11:00', et:'11:30', dagen:[1,2,3,4,5]},
+      {t:'Blok 2',      st:'11:30', et:'13:30', dagen:[1,2,3,4,5], open:true},
+      {t:'Blok 3',      st:'14:30', et:'16:30', dagen:[1,2,3,4],   open:true}
+    ]},
+  { id:'gemengd', naam:'Gemengd', uitleg:'Een aantal vaste dagen, de rest voor jezelf',
+    blokken:[
+      {t:'Werk',        st:'07:00', et:'16:00', dagen:[1,3,5]},
+      {t:'Werkblok 1',  st:'09:00', et:'11:00', dagen:[2,4], open:true},
+      {t:'Werkblok 2',  st:'11:30', et:'13:30', dagen:[2,4], open:true},
+      {t:'Sporten',     st:'18:00', et:'20:00', dagen:[1,3,5,6]},
+      {t:'Avondblok',   st:'20:00', et:'22:00', dagen:[1,2,3,4,5,6,0], open:true}
+    ]}
+];
+function p2ZetMal(id){
+  var mal = P2_MALLEN.find(function(m){ return m.id===id; });
+  if(!mal) return;
+  vraagBevestiging('Week neerzetten?',
+    'Er worden ' + mal.blokken.length + ' terugkerende blokken aangemaakt volgens \u201c' + mal.naam + '\u201d. Je kunt ze daarna aanpassen of weghalen, en dit is meteen ongedaan te maken.',
+    'Neerzetten', function(){
+      if(!S.events) S.events = [];
+      mal.blokken.forEach(function(b, i){
+        var ev = { id:'ev'+Date.now()+i, title:b.t, date:td(), st:b.st, et:b.et,
+                   color:'#D97757', rec:true, days:b.dagen.slice(), taskIds:[] };
+        if(b.open) ev.open = true;
+        S.events.push(ev);
+      });
+      save(); rPlan2();
+      toast('Je week staat klaar', function(){ undo(); });
+    });
+}
+
+// ── De pagina ──
+function rPlan2(){
+  var dagen = p2Dagen();
+  var vandaag = td();
+  var heeftBlokken = (S.events||[]).length > 0;
+
+  var start = new Date(dagen[0]+'T00:00'), eind = new Date(dagen[6]+'T00:00');
+  var weekLabel = start.toLocaleDateString('nl-NL',{day:'numeric',month:'short'})
+    + ' \u2013 ' + eind.toLocaleDateString('nl-NL',{day:'numeric',month:'short'});
+  var dezeWeek = (dstr(p2WeekStart(vandaag)) === window._p2Week);
+
+  var html = '<div class="ph"><div class="pt">Planner 2</div>'
+    + '<button class="btn sm pri" onclick="p2NieuwBlok()">+ Blok</button></div>'
+    + '<div class="p2-proef">Testversie \u2014 werkt op dezelfde gegevens als de gewone planner</div>'
+    + '<div class="day-nav">'
+    +   '<button class="day-nav-btn" onclick="p2WeekNav(-1)">'+icon('arrow',16)+'</button>'
+    +   '<button class="day-nav-lbl'+(dezeWeek?'':' off')+'" onclick="p2NaarDezeWeek()">'+(dezeWeek?'Deze week':weekLabel)+'</button>'
+    +   '<button class="day-nav-btn" onclick="p2WeekNav(1)">'+icon('arrow',16)+'</button>'
+    + '</div>';
+
+  if(!heeftBlokken){
+    html += '<div class="p2-mallen">'
+      + '<div class="p2-mal-kop">Zet je week in \u00e9\u00e9n keer neer</div>'
+      + '<div class="p2-mal-sub">Kies wat het dichtst bij je situatie ligt. Alles is daarna aan te passen.</div>'
+      + P2_MALLEN.map(function(m){
+          return '<button class="p2-mal" onclick="p2ZetMal(\'' + m.id + '\')">'
+            + '<span class="p2-mal-naam">' + m.naam + '</span>'
+            + '<span class="p2-mal-uitleg">' + m.uitleg + '</span>'
+            + '<span class="p2-mal-cnt">' + m.blokken.length + ' blokken</span>'
+            + '</button>';
+        }).join('')
+      + '<button class="p2-mal leeg" onclick="p2NieuwBlok()">'
+      + '<span class="p2-mal-naam">Zelf beginnen</span>'
+      + '<span class="p2-mal-uitleg">Maak je eerste blok handmatig</span></button>'
+      + '</div>';
+  }
+
+  html += dagen.map(function(d){ return p2Dag(d, vandaag); }).join('');
+  M.innerHTML = html;
+}
+
+function p2Dag(d, vandaag){
+  var dt = new Date(d+'T00:00');
+  var isVandaag = (d === vandaag);
+  var evs = evsFor(d).filter(function(e){ return !e.isDeadline; });
+  evs.sort(function(a,b){ return (a.st||'').localeCompare(b.st||''); });
+
+  var kop = '<div class="p2-dag-hd' + (isVandaag?' nu':'') + '">'
+    + '<span class="p2-dag-naam">' + dt.toLocaleDateString('nl-NL',{weekday:'long'}) + '</span>'
+    + '<span class="p2-dag-nr">' + dt.getDate() + ' ' + dt.toLocaleDateString('nl-NL',{month:'short'}) + '</span>'
+    + (evs.length ? '<span class="p2-dag-cnt">' + evs.length + '</span>' : '')
+    + '</div>';
+
+  var body = evs.length
+    ? evs.map(function(ev){ return p2Blok(ev, d); }).join('')
+    : '<div class="p2-leeg">Vrij</div>';
+
+  return '<div class="p2-dag' + (isVandaag?' nu':'') + '">' + kop
+    + '<div class="p2-dag-body">' + body
+    + '<button class="p2-add" onclick="p2NieuwBlok(\'' + d + '\')">' + icon('plus',12) + '</button>'
+    + '</div></div>';
+}
+
+function p2Blok(ev, d){
+  var basis = (S.events||[]).find(function(x){ return x.id===ev.id; });
+  var open = !!(basis && basis.open);
+  var lnk = (typeof evLinkInfo === 'function') ? evLinkInfo(ev) : null;
+  var taken = lnk ? evLinkTaken(ev) : [];
+  var gekoppeld = (ev.taskIds||[]).map(function(id){ return findTask(id); }).filter(Boolean);
+
+  var h = '<div class="p2-blok' + (open && !lnk ? ' open' : '') + '">'
+    + '<div class="p2-blok-hd" onclick="p2BlokVenster(\'' + ev.id + '\',\'' + d + '\')">'
+    +   '<span class="p2-tijd">' + (ev.st||'') + '</span>'
+    +   '<span class="p2-titel">' + ev.title + (ev._override ? '<span class="p2-uitz" title="Aangepast voor deze dag">\u2022</span>' : '') + '</span>'
+    +   '<span class="p2-duur">' + p2Duur(ev) + '</span>'
+    + '</div>';
+
+  if(lnk){
+    h += '<button class="p2-chip" style="color:' + lnk.kleur + ';border-color:' + lnk.kleur + '55" onclick="p2KiesDoel(\'' + ev.id + '\',\'' + d + '\')">'
+      + (lnk.soort==='project' ? icon('list',10) : icon('target',10)) + lnk.naam + '</button>';
+  } else if(open){
+    h += '<button class="p2-chip vraag" onclick="p2KiesDoel(\'' + ev.id + '\',\'' + d + '\')">'
+      + icon('target',10) + 'Waar werk je aan?</button>';
+  }
+
+  var lijst = gekoppeld.concat(taken.filter(function(t){
+    return gekoppeld.indexOf(t) < 0;
+  }).slice(0, 4));
+  if(lijst.length){
+    h += '<div class="p2-taken">' + lijst.map(function(t){
+      return '<div class="tkz tkz-sub' + (t.done?' done':'') + '">'
+        + '<button class="tkz-check' + (t.done?' on':'') + '" data-tid="' + t.id + '" onclick="rustTitleDone(this)" aria-label="Afvinken"></button>'
+        + '<span class="tkz-titlewrap" onclick="openTaakVenster(\'' + t.id + '\')"><span class="tkz-title">' + t.title + '</span></span>'
+        + '</div>';
+    }).join('') + '</div>';
+  }
+  return h + '</div>';
+}
+function p2Duur(ev){
+  if(!ev.st || !ev.et) return '';
+  var a = ev.st.split(':'), b = ev.et.split(':');
+  var m = (parseInt(b[0],10)*60+parseInt(b[1],10)) - (parseInt(a[0],10)*60+parseInt(a[1],10));
+  if(m <= 0) return '';
+  var u = Math.floor(m/60), r = m%60;
+  return u ? (u + (r ? ',' + Math.round(r/60*10) : '') + 'u') : (r + 'm');
+}
+
+// ── Waar werk je aan? (alleen voor deze dag) ──
+function p2KiesDoel(evId, d){
+  var acties = [];
+  (S.projects||[]).forEach(function(p){
+    acties.push({l:p.name, ic:icon('list',16), klik:"p2ZetDoel('"+evId+"','"+d+"','p:"+p.id+"')"});
+  });
+  (S.goals||[]).filter(function(g){ return !g.done; }).forEach(function(g){
+    acties.push({l:(g.title||'Doel'), ic:icon('target',16), klik:"p2ZetDoel('"+evId+"','"+d+"','g:"+g.id+"')"});
+  });
+  acties.push({l:'Leeg laten', ic:'\u2715', klik:"p2ZetDoel('"+evId+"','"+d+"','')"});
+  var dt = new Date(d+'T00:00').toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'short'});
+  rijVenster('Waar werk je aan?', dt + ' \u00b7 alleen deze dag', acties);
+}
+function p2ZetDoel(evId, d, linkId){
+  zetEvOverride(d, evId, { linkId: linkId || null });
+  closeModal();
+  if(typeof rPlan2==='function' && document.querySelector('[data-s=plan2].on')) rPlan2();
+  else hertekenNu();
+}
+
+// ── Blok-venster: hele reeks of alleen deze dag ──
+function p2BlokVenster(evId, d){
+  var basis = (S.events||[]).find(function(x){ return x.id===evId; });
+  if(!basis){ return; }
+  var ev = evVoorDag(basis, d);
+  var herhaalt = !!basis.rec;
+  var dt = new Date(d+'T00:00').toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'short'});
+  var acties = [
+    {l:'Waar werk je aan?', ic:icon('target',16), klik:"closeModal();p2KiesDoel('"+evId+"','"+d+"')"},
+    {l:'Taak koppelen', ic:icon('plus',16), klik:"closeModal();openEvTaskPicker('"+evId+"')"},
+    {l: basis.open ? 'Vaste koppeling gebruiken' : 'Per keer invullen', ic:icon('repeat',16),
+     klik:"p2TogOpen('"+evId+"')"},
+    {l:'Deze dag overslaan', ic:'\u2715', uit:!herhaalt, klik:"p2Overslaan('"+evId+"','"+d+"')"},
+    {l:'Reeks aanpassen', ic:icon('edit',16), klik:"closeModal();openEvEditor('"+evId+"')"},
+    {l:'Hele reeks verwijderen', ic:'\u2715', soort:'danger', klik:"closeModal();p2VerwijderReeks('"+evId+"')"}
+  ];
+  rijVenster(ev.title, dt + (herhaalt ? ' \u00b7 herhalend blok' : ''), acties);
+}
+function p2TogOpen(evId){
+  var ev = (S.events||[]).find(function(x){ return x.id===evId; });
+  if(ev){ if(ev.open) delete ev.open; else ev.open = true; save(); }
+  closeModal(); rPlan2();
+}
+function p2Overslaan(evId, d){
+  zetEvOverride(d, evId, { skip: true });
+  closeModal(); rPlan2();
+  toast('Deze dag overgeslagen', function(){ undo(); });
+}
+function p2VerwijderReeks(evId){
+  var ev = (S.events||[]).find(function(x){ return x.id===evId; });
+  var naam = ev ? ev.title : 'Blok';
+  vraagBevestiging('Reeks verwijderen?', '\u201c' + naam + '\u201d verdwijnt van alle dagen.', 'Verwijderen', function(){
+    S.events = (S.events||[]).filter(function(x){ return x.id!==evId; });
+    save(); rPlan2();
+    toast(naam + ' verwijderd', function(){ undo(); });
+  }, true);
+}
+// Vanuit een taak een blok kiezen (de omgekeerde richting)
+function taakNaarBlok(tid){
+  var t = findTask(tid);
+  if(!t) return;
+  var dagen = [];
+  var start = new Date(td()+'T00:00');
+  for(var i=0;i<7;i++){
+    var d = new Date(start); d.setDate(d.getDate()+i);
+    dagen.push(dstr(d));
+  }
+  var acties = [];
+  dagen.forEach(function(d){
+    var lbl = (d===td()) ? 'Vandaag'
+      : new Date(d+'T00:00').toLocaleDateString('nl-NL',{weekday:'short',day:'numeric',month:'short'});
+    evsFor(d).filter(function(e){ return !e.isDeadline && !e.isRoutine; }).forEach(function(ev){
+      if((ev.taskIds||[]).indexOf(tid) >= 0) return;
+      acties.push({ l: lbl + ' \u00b7 ' + ev.st + ' ' + ev.title, ic: icon('clock',16),
+                    klik: "closeModal();planTaakIn('"+tid+"','"+ev.id+"','"+d+"')" });
+    });
+  });
+  if(!acties.length){
+    rijVenster('Inplannen', 'Er staan deze week nog geen blokken', [
+      {l:'Blok maken', ic:icon('plus',16), klik:"closeModal();p2NieuwBlok()"}
+    ]);
+    return;
+  }
+  rijVenster('Inplannen in een blok', t.title, acties.slice(0, 16));
+}
+function planTaakIn(tid, evId, d){
+  var ev = (S.events||[]).find(function(x){ return x.id===evId; });
+  if(!ev) return;
+  if(!ev.taskIds) ev.taskIds = [];
+  if(ev.taskIds.indexOf(tid) < 0) ev.taskIds.push(tid);
+  var t = findTask(tid);
+  if(t) t.focusDate = d;
+  save(); hertekenNu();
+  var lbl = (d===td()) ? 'vandaag' : new Date(d+'T00:00').toLocaleDateString('nl-NL',{weekday:'long'});
+  toast('Ingepland op ' + lbl + ' om ' + ev.st, function(){ undo(); });
+}
+function openEvTaskPicker(evId){
+  var ev = (S.events||[]).find(function(x){ return x.id===evId; });
+  if(!ev) return;
+  var al = ev.taskIds || [];
+  var kand = (S.tasks||[]).filter(function(t){ return !t.done && al.indexOf(t.id) < 0; });
+  if(!kand.length){
+    rijVenster('Taak koppelen', 'Geen openstaande taken meer', [{l:'Nieuwe taak maken', ic:icon('plus',16), klik:"closeModal();p2NieuweBlokTaak('"+evId+"')"}]);
+    return;
+  }
+  var acties = kand.slice(0, 14).map(function(t){
+    var p = proj(t);
+    return {l: t.title + (p ? ' \u00b7 ' + p.name : ''), ic: icon('check',16),
+            klik: "closeModal();linkTaskDash('"+t.id+"','"+evId+"')"};
+  });
+  acties.push({l:'Nieuwe taak maken', ic:icon('plus',16), klik:"closeModal();p2NieuweBlokTaak('"+evId+"')"});
+  rijVenster('Taak koppelen', 'aan \u201c' + ev.title + '\u201d', acties);
+}
+function p2NieuweBlokTaak(evId){
+  var ev = (S.events||[]).find(function(x){ return x.id===evId; });
+  if(!ev) return;
+  vraagTekst('Nieuwe taak', 'in \u201c' + ev.title + '\u201d', 'Wat moet er gebeuren?', '', function(titel){
+    var lnk = evLinkInfo(ev);
+    var t = { id:'tk'+Date.now()+Math.random().toString(36).slice(2,4), title:stripEmoji(titel),
+              proj:'', prio:'normaal', done:false, created:td() };
+    if(lnk && lnk.soort==='project') t.proj = lnk.id;
+    if(lnk && lnk.soort==='goal') t.goalId = lnk.id;
+    S.tasks.push(t);
+    if(!ev.taskIds) ev.taskIds = [];
+    ev.taskIds.push(t.id);
+    save(); hertekenNu();
+    toast('Taak toegevoegd', function(){ undo(); });
+  }, 'Toevoegen');
+}
+function p2NieuwBlok(d){
+  window._vdPlanTaak = null;
+  openEvEditor(null, d || td());
 }
 function togRij(btn){
   var key = btn.getAttribute('data-key');
